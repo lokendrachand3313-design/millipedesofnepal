@@ -306,7 +306,7 @@
     <section>
         <h2>Map of Nepal</h2>
         <div id="map"></div>
-        <p class="map-note">🗺️ Official boundary of Nepal - Zoom and pan to see different regions</p>
+        <p class="map-note">🗺️ Explore Nepal's geography - Zoom and pan to see different regions</p>
     </section>
 </main>
 
@@ -319,16 +319,16 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-    // Nepal boundary coordinates (accurate international boundary)
+    // Nepal boundary coordinates for map restriction (invisible)
     var nepalBounds = [
-        [26.347, 80.058], // Southwest corner (lower left) - accurate border
-        [30.447, 88.201]  // Northeast corner (upper right) - accurate border
+        [26.347, 80.058], // Southwest corner
+        [30.447, 88.201]  // Northeast corner
     ];
 
     // Initialize the map centered on Nepal with boundary restrictions
     var map = L.map('map', {
-        maxBounds: nepalBounds,        // Restrict map to Nepal boundaries
-        maxBoundsViscosity: 1.0,       // Make boundary restriction solid (can't pan outside)
+        maxBounds: nepalBounds,        // Restrict map to Nepal boundaries (invisible)
+        maxBoundsViscosity: 1.0,       // Make boundary restriction solid
         minZoom: 6.5,                   // Minimum zoom level
         maxZoom: 10                     // Maximum zoom level
     }).setView([28.3949, 84.1240], 7);
@@ -348,57 +348,18 @@
     // Add a scale bar
     L.control.scale().addTo(map);
 
-    // Load and display the actual Nepal boundary from GeoJSON
-    // This is a simplified polygon of Nepal's international boundary
-    var nepalBoundary = L.polygon([
-        [30.447, 80.088], // Northwest - China border
-        [30.447, 88.201], // Northeast - China/India border
-        [26.747, 88.151], // Southeast - India border
-        [26.347, 87.901], // East - India border
-        [26.347, 86.401], // Southeast - India border
-        [26.447, 85.001], // South - India border
-        [26.347, 83.001], // South - India border
-        [26.447, 81.001], // South - India border
-        [26.847, 80.558], // Southwest - India border
-        [28.147, 80.058], // West - India border
-        [29.447, 80.358], // Northwest - India border
-        [30.447, 80.088]  // Back to start
-    ], {
-        color: "#2d5a27",
-        weight: 3,
-        opacity: 1,
-        fill: true,
-        fillColor: "transparent",
-        dashArray: null,
-        lineJoin: 'round'
-    }).addTo(map);
-
-    // Add a dashed border for visual effect
-    var nepalBorder = L.polygon([
-        [26.347, 80.058], // Southwest
-        [30.447, 80.088], // Northwest
-        [30.447, 88.201], // Northeast
-        [26.747, 88.151], // East
-        [26.347, 87.901], // Southeast
-        [26.347, 80.058]  // Back to start
-    ], {
-        color: "#ffd700",
-        weight: 2,
-        opacity: 0.6,
-        fill: false,
-        dashArray: '8, 8'
-    }).addTo(map);
-
     // Add major cities of Nepal with markers
     var cities = [
-        { name: "Kathmandu", coords: [27.7172, 85.3240], population: "Capital" },
-        { name: "Pokhara", coords: [28.2096, 83.9856], population: "Tourist City" },
-        { name: "Lumbini", coords: [27.4833, 83.2767], population: "Birthplace of Buddha" },
-        { name: "Dang", coords: [28.0333, 82.2333], population: "Millipede Location" },
-        { name: "Biratnagar", coords: [26.4545, 87.2798], population: "Major City" },
-        { name: "Janakpur", coords: [26.7288, 85.9249], population: "Historical City" },
-        { name: "Dhangadhi", coords: [28.7083, 80.5694], population: "Far West" },
-        { name: "Mt. Everest", coords: [27.9881, 86.9250], population: "Highest Peak" }
+        { name: "Kathmandu", coords: [27.7172, 85.3240], info: "Capital City" },
+        { name: "Pokhara", coords: [28.2096, 83.9856], info: "Tourist City" },
+        { name: "Lumbini", coords: [27.4833, 83.2767], info: "Birthplace of Buddha" },
+        { name: "Dang", coords: [28.0333, 82.2333], info: "Millipede Location" },
+        { name: "Biratnagar", coords: [26.4545, 87.2798], info: "Major City" },
+        { name: "Janakpur", coords: [26.7288, 85.9249], info: "Historical City" },
+        { name: "Dhangadhi", coords: [28.7083, 80.5694], info: "Far West" },
+        { name: "Mt. Everest", coords: [27.9881, 86.9250], info: "Highest Peak (8,848m)" },
+        { name: "Chitwan", coords: [27.5291, 84.3542], info: "National Park" },
+        { name: "Mustang", coords: [28.9987, 83.7696], info: "Himalayan Region" }
     ];
 
     // Add city markers
@@ -411,7 +372,7 @@
             })
         })
         .addTo(map)
-        .bindPopup("<b>" + city.name + "</b><br>" + city.population);
+        .bindPopup("<b>" + city.name + "</b><br>" + city.info);
     });
 
     // Add a label for Nepal
