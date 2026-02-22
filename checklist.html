@@ -30,7 +30,6 @@
             color: var(--primary-green);
             text-align: center;
             margin-bottom: 30px;
-            font-size: 2.2rem;
         }
 
         .search-container {
@@ -39,16 +38,13 @@
             flex-wrap: wrap;
             justify-content: center;
             margin-bottom: 20px;
-            background: var(--light-bg);
-            padding: 20px;
-            border-radius: 10px;
         }
 
         .filter-select {
             padding: 10px;
             border-radius: 8px;
             border: 2px solid var(--primary-green);
-            min-width: 180px;
+            min-width: 150px;
             cursor: pointer;
             background: white;
             font-size: 14px;
@@ -83,10 +79,6 @@
             margin-bottom: 20px;
             font-weight: bold;
             color: var(--primary-green);
-            font-size: 1.1rem;
-            padding: 10px;
-            background: #e8f5e9;
-            border-radius: 30px;
         }
 
         .map-controls {
@@ -103,7 +95,7 @@
         }
 
         .map-toggle-btn {
-            padding: 6px 12px;
+            padding: 5px 10px;
             border: 2px solid var(--primary-green);
             background: white;
             color: var(--primary-green);
@@ -129,7 +121,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-top: 20px;
-            position: relative;
         }
 
         .map-container {
@@ -137,34 +128,20 @@
         }
 
         #map {
-            height: 650px;
+            height: 750px;
             width: 100%;
             border-radius: 8px;
             box-shadow: var(--card-shadow);
-            border: 3px solid var(--primary-green);
+            border: 2px solid var(--primary-green);
             position: sticky;
             top: 20px;
             z-index: 1;
         }
 
         .results-container {
-            max-height: 650px;
+            max-height: 600px;
             overflow-y: auto;
             padding-right: 10px;
-        }
-
-        .results-container::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .results-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .results-container::-webkit-scrollbar-thumb {
-            background: var(--primary-green);
-            border-radius: 10px;
         }
 
         .species-card {
@@ -255,46 +232,34 @@
                 grid-template-columns: 1fr;
             }
             
-            .map-container {
-                order: -1;
-            }
-            
             #map {
                 height: 400px;
                 position: relative;
                 top: 0;
             }
-            
-            .filter-select {
-                min-width: 100%;
-            }
-            
-            .clear-filters-btn {
-                width: 100%;
-            }
         }
     </style>
 </head>
 <body>
-    <h1>🇳🇵 Nepalese Millipede Species Checklist</h1>
+    <h1> Nepalese Millipede Species Checklist</h1>
     
     <div class="search-container">
         <select id="orderFilter" class="filter-select">
-            <option value="all">📋 Select Order</option>
+            <option value="all">Select Order</option>
         </select>
         <select id="familyFilter" class="filter-select">
-            <option value="all">👪 Select Family</option>
+            <option value="all">Select Family</option>
         </select>
         <select id="genusFilter" class="filter-select">
-            <option value="all">🔬 Select Genus</option>
+            <option value="all">Select Genus</option>
         </select>
         <select id="speciesFilter" class="filter-select">
-            <option value="all">🐛 Select Species</option>
+            <option value="all">Select Species</option>
         </select>
-        <button class="clear-filters-btn" onclick="clearAllFilters()">🗑️ Clear Filters</button>
+        <button class="clear-filters-btn" onclick="clearAllFilters()">Clear Filters</button>
     </div>
 
-    <div id="resultsCount">⏳ Loading species data...</div>
+    <div id="resultsCount">Loading species data...</div>
     
     <div class="main-content">
         <div class="results-container" id="checklistResults">
@@ -303,13 +268,16 @@
         
         <div class="map-container">
             <div class="map-controls">
-                <button id="streetBtn" class="map-toggle-btn active" onclick="toggleMapLayer('street')">🗺️ Street</button>
-                <button id="satelliteBtn" class="map-toggle-btn" onclick="toggleMapLayer('satellite')">🛰️ Satellite</button>
+                <button id="streetBtn" class="map-toggle-btn active" onclick="toggleMapLayer('street')">Street</button>
+                <button id="satelliteBtn" class="map-toggle-btn" onclick="toggleMapLayer('satellite')">Satellite</button>
             </div>
             <div id="map"></div>
         </div>
     </div>
 
+    <!-- Include your GPS data -->
+    <script src="data.js"></script>
+    
     <script>
     // Full species data from checklist.json
     let speciesData = [];
@@ -317,612 +285,357 @@
     let markers = [];
     let currentActiveCard = null;
     
-    // GPS coordinates for millipede species in Nepal
-    // Extracted from type localities and distribution data
-    let millipedePoints = [
-        // Glomeridae
-        {
-            order: "Glomerida",
-            family: "Glomeridae",
-            genus: "Hyleoglomeris",
-            species: "crassipes",
-            lat: 27.1667,
-            lon: 87.5333,
-            location: "Tinjure Danda near Chauki, Tehrathum District"
-        },
-        {
-            order: "Glomerida",
-            family: "Glomeridae",
-            genus: "Hyleoglomeris",
-            species: "gorkhalis",
-            lat: 28.0000,
-            lon: 84.6333,
-            location: "Between Nayasanghu and Gorkha, Gorkha District"
-        },
-        {
-            order: "Glomerida",
-            family: "Glomeridae",
-            genus: "Hyleoglomeris",
-            species: "khumbua",
-            lat: 27.9000,
-            lon: 86.7167,
-            location: "Confluence of Phungi and Imja Drangka, Mt. Everest region"
-        },
-        {
-            order: "Glomerida",
-            family: "Glomeridae",
-            genus: "Hyleoglomeris",
-            species: "nagarjunga",
-            lat: 27.7333,
-            lon: 85.2833,
-            location: "Nagarjun, Mt. Jamacho, Kathmandu Valley"
-        },
-        {
-            order: "Glomerida",
-            family: "Glomeridae",
-            genus: "Hyleoglomeris",
-            species: "tinjurana",
-            lat: 27.1667,
-            lon: 87.5333,
-            location: "Tinjure Danda near Chauki, Terhathum District"
-        },
+    // Map layers
+    let streetLayer = null;
+    let satelliteLayer = null;
+    let currentLayer = 'street';
+
+    // Initialize map with both street and satellite layers
+    function initMap() {
+        map = L.map('map').setView([28.3949, 84.1240], 7); // Center on Nepal
         
-        // Sphaerotheriida
-        {
-            order: "Sphaerotheriida",
-            family: "Zephroniidae",
-            genus: "Kophosphaera",
-            species: "excavata",
-            lat: 27.5833,
-            lon: 85.1667,
-            location: "Chitlang, Makawanpur District"
-        },
-        {
-            order: "Sphaerotheriida",
-            family: "Zephroniidae",
-            genus: "Kophosphaera",
-            species: "martensi",
-            lat: 28.2167,
-            lon: 83.8000,
-            location: "Above Dhampus, Kaski District"
-        },
-        {
-            order: "Sphaerotheriida",
-            family: "Zephroniidae",
-            genus: "Kophosphaera",
-            species: "politissima",
-            lat: 27.5000,
-            lon: 87.8000,
-            location: "Lower Ghunsa Khola to Lungthung, Taplejung District"
-        },
-        {
-            order: "Sphaerotheriida",
-            family: "Zephroniidae",
-            genus: "Kophosphaera",
-            species: "shivapuri",
-            lat: 27.8000,
-            lon: 85.3667,
-            location: "Shivapuri Hill, Kathmandu District"
-        },
-        {
-            order: "Sphaerotheriida",
-            family: "Zephroniidae",
-            genus: "Zephronia",
-            species: "nepalensis",
-            lat: 26.9167,
-            lon: 87.9333,
-            location: "Mai Pokhari, Ilam District"
-        },
+        // Street layer (OpenStreetMap)
+        streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        });
         
-        // Polyzoniida
-        {
-            order: "Polyzoniida",
-            family: "Hirudisomatidae",
-            genus: "Nepalozonium",
-            species: "trimaculatum",
-            lat: 28.1167,
-            lon: 85.5833,
-            location: "Yangri Ridge, Sindhupalchok District"
-        },
+        // Satellite layer (Esri World Imagery)
+        satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+            maxZoom: 18
+        });
         
-        // Siphonocryptida
-        {
-            order: "Siphonocryptida",
-            family: "Siphonocryptidae",
-            genus: "Hirudicryptus",
-            species: "quintumelementum",
-            lat: 27.8000,
-            lon: 85.3667,
-            location: "Shivapuri Hill, Kathmandu District"
-        },
+        // Start with street view
+        streetLayer.addTo(map);
+    }
+
+    // Toggle between street and satellite view
+    function toggleMapLayer(layer) {
+        if (layer === currentLayer) return;
         
-        // Julida
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Anaulaciulus",
-            species: "bilineatus",
-            lat: 29.0000,
-            lon: 82.8333,
-            location: "Ringmo on Lake Shey Phoksundo, Dolpa District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Anaulaciulus",
-            species: "nepalensis",
-            lat: 28.7333,
-            lon: 83.6167,
-            location: "Thasang above Tukuche, Mustang District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Anaulaciulus",
-            species: "niger",
-            lat: 27.5833,
-            lon: 87.8000,
-            location: "Pass Anda Deurali, Taplejung District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "deharvengi",
-            lat: 28.6167,
-            lon: 84.1667,
-            location: "Pisang, Manang District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "dhaulagiri",
-            lat: 28.7167,
-            lon: 83.4500,
-            location: "Thakur, north of Dhorpatan, Myagdi District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "generalis",
-            lat: 28.7333,
-            lon: 83.6167,
-            location: "Thasang above Tukuche, Mustang District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "humlaensis",
-            lat: 29.9667,
-            lon: 81.8167,
-            location: "34.5 km SE of Simikot, Humla District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "hyalilobus",
-            lat: 29.0000,
-            lon: 82.8333,
-            location: "Ringmo on Phoksundo Lake, Dolpa District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "ivanloebli",
-            lat: 28.1167,
-            lon: 85.3833,
-            location: "Yangri ridge near Gosaikund, Sindhupalchok District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "juxtapositus",
-            lat: 28.4167,
-            lon: 83.7667,
-            location: "Between Chitre and Ghandruk, Parbat/Kaski Districts"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "karnaliensis",
-            lat: 29.9333,
-            lon: 81.8333,
-            location: "Ghatte, Yanchu Khola to Simikot, Humla District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "martensi",
-            lat: 27.9000,
-            lon: 86.7167,
-            location: "Confluence of Phunki and Imja Drangka, Solukhumbu District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "maurièsi",
-            lat: 28.3000,
-            lon: 84.9167,
-            location: "Chumling Khola Valley, Gorkha District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "pineti",
-            lat: 28.6833,
-            lon: 83.6500,
-            location: "Taglung, Mustang District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "smetanai",
-            lat: 27.7333,
-            lon: 85.2833,
-            location: "Nagarjun ridge, Jamacho Hill, Kathmandu District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "sympatricus",
-            lat: 28.5000,
-            lon: 83.3000,
-            location: "Dhorpatan, Myagdi District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "uncus",
-            lat: 26.9167,
-            lon: 87.9333,
-            location: "Gitang Khola Valley, Ilam District"
-        },
-        {
-            order: "Julida",
-            family: "Julidae",
-            genus: "Nepalmatoiulus",
-            species: "zachonoides",
-            lat: 28.6167,
-            lon: 83.6000,
-            location: "South of Lete, Mustang District"
-        },
+        // Remove current layer
+        if (currentLayer === 'street') {
+            map.removeLayer(streetLayer);
+        } else {
+            map.removeLayer(satelliteLayer);
+        }
         
-        // Chordeumatida
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "ausobskyi",
-            lat: 28.4167,
-            lon: 83.7667,
-            location: "Between Chitre and Ghandruk, Parbat District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "bobanga",
-            lat: 28.3000,
-            lon: 83.3000,
-            location: "Bobang, south of Dhorpatan, Baglung District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "daamsae",
-            lat: 27.6333,
-            lon: 87.9000,
-            location: "South of Ghunsa, Taplejung District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "gitanga",
-            lat: 26.9167,
-            lon: 87.9333,
-            location: "Gitang Khola, Ilam District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "jaljalensis",
-            lat: 27.3500,
-            lon: 87.2833,
-            location: "Jaljale Himal, Sankhuwasabha District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "katmandua",
-            lat: 27.5833,
-            lon: 85.3667,
-            location: "South of Godawari, Lalitpur District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "lughla",
-            lat: 27.6833,
-            lon: 86.7333,
-            location: "Lukla, Solukhumbu District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "mananga",
-            lat: 28.6167,
-            lon: 84.4167,
-            location: "Timang, above Bagarchhap, Manang District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "mangsingma",
-            lat: 27.3667,
-            lon: 87.3000,
-            location: "South of Mangsima, Sankhuwasabha District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "martensi",
-            lat: 28.7333,
-            lon: 83.6167,
-            location: "Chadziou Khola Valley, Mustang District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Entomobielziidae",
-            genus: "Tianella",
-            species: "smetanai",
-            lat: 28.0500,
-            lon: 85.3333,
-            location: "Between Ghopte and Tharepati, Nuwakot District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Kashmireumatidae",
-            genus: "Kashmireuma",
-            species: "nepalensis",
-            lat: 28.2167,
-            lon: 85.5667,
-            location: "Kyanjin Gompa forest, Langtang Khola Valley, Rasuwa District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Kashmireumatidae",
-            genus: "Kashmireuma",
-            species: "schawalleri",
-            lat: 28.3000,
-            lon: 84.9167,
-            location: "Daraudi Khola to above Barpak, Gorkha District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Lankasomatidae",
-            genus: "Nepalella",
-            species: "deharvengi",
-            lat: 27.5500,
-            lon: 86.5333,
-            location: "Sete, Solukhumbu District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Lankasomatidae",
-            genus: "Nepalella",
-            species: "gairiensis",
-            lat: 27.5833,
-            lon: 86.5500,
-            location: "Gairi, Solukhumbu District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Lankasomatidae",
-            genus: "Nepalella",
-            species: "gunsa",
-            lat: 27.6333,
-            lon: 87.9000,
-            location: "South of Ghunsa, Taplejung District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Lankasomatidae",
-            genus: "Nepalella",
-            species: "jaljalae",
-            lat: 27.3500,
-            lon: 87.2833,
-            location: "Jaljale Himal, Sankhuwasabha District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Lankasomatidae",
-            genus: "Nepalella",
-            species: "khumbua",
-            lat: 27.9000,
-            lon: 86.7167,
-            location: "Confluence of Phunki and Imja Drangka, Solukhumbu District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Lankasomatidae",
-            genus: "Nepalella",
-            species: "phulcokia",
-            lat: 27.5833,
-            lon: 85.3667,
-            location: "Phulchowki, Lalitpur District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Lankasomatidae",
-            genus: "Nepalella",
-            species: "ringmoensis",
-            lat: 27.6000,
-            lon: 86.5833,
-            location: "Gonda, before Ringmo, Solukhumbu District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Lankasomatidae",
-            genus: "Nepalella",
-            species: "taplejunga",
-            lat: 27.5833,
-            lon: 87.8000,
-            location: "Ridge Lasse Dhara and Lassetham, Taplejung District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Lankasomatidae",
-            genus: "Nepalella",
-            species: "thodunga",
-            lat: 27.5167,
-            lon: 86.3667,
-            location: "Thodung near Jiri, Ramechhap District"
-        },
-        {
-            order: "Chordeumatida",
-            family: "Lankasomatidae",
-            genus: "Nepalella",
-            species: "tragsindola",
-            lat: 27.5333,
-            lon: 86.6000,
-            location: "East of Taksindu La, Solukhumbu District"
-        },
+        // Update button states
+        document.getElementById('streetBtn').classList.remove('active');
+        document.getElementById('satelliteBtn').classList.remove('active');
         
-        // Polydesmida
-        {
-            order: "Polydesmida",
-            family: "Haplodesmidae",
-            genus: "Koponenius",
-            species: "biramus",
-            lat: 27.5833,
-            lon: 85.3667,
-            location: "Godawari, foot of Phulchowki, Lalitpur District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Haplodesmidae",
-            genus: "Koponenius",
-            species: "schawalleri",
-            lat: 27.5667,
-            lon: 84.5000,
-            location: "Chitwan NP near Sauraha, Chitwan District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Opisotretidae",
-            genus: "Martensodesmus",
-            species: "himalayensis",
-            lat: 28.1167,
-            lon: 84.9667,
-            location: "Dobhan to Jagat, Buri Gandaki, Gorkha District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Opisotretidae",
-            genus: "Martensodesmus",
-            species: "nagarjungicus",
-            lat: 27.7333,
-            lon: 85.2833,
-            location: "Nagarjun, Mt. Jamacho, Kathmandu District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Opisotretidae",
-            genus: "Martensodesmus",
-            species: "sherpa",
-            lat: 28.0000,
-            lon: 84.6333,
-            location: "Between Nayasanghu and Gorkha, Gorkha District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Paradoxosomatidae",
-            genus: "Anoplodesmus",
-            species: "affinis",
-            lat: 27.5833,
-            lon: 85.3667,
-            location: "Mt. Phulchowki, Lalitpur District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Paradoxosomatidae",
-            genus: "Anoplodesmus",
-            species: "cylindricus",
-            lat: 27.5833,
-            lon: 85.3667,
-            location: "Mt. Phulchowki, Lalitpur District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Paradoxosomatidae",
-            genus: "Anoplodesmus",
-            species: "magnus",
-            lat: 27.3667,
-            lon: 87.8333,
-            location: "Dhorpar Kharka, Panchthar District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Paradoxosomatidae",
-            genus: "Anoplodesmus",
-            species: "martensi",
-            lat: 28.1500,
-            lon: 85.2833,
-            location: "Sing Gompa, Rasuwa District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Paradoxosomatidae",
-            genus: "Anoplodesmus",
-            species: "schawalleri",
-            lat: 27.6167,
-            lon: 87.2667,
-            location: "Between Mudhe and Hururu, Sankhuwasabha District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Paradoxosomatidae",
-            genus: "Anoplodesmus",
-            species: "similis",
-            lat: 27.9667,
-            lon: 86.0333,
-            location: "Ascent to Pass Ting Sang La, Sindhupalchok District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Paradoxosomatidae",
-            genus: "Anoplodesmus",
-            species: "spinosus",
-            lat: 27.6833,
-            lon: 86.7333,
-            location: "Below Pangom, Solukhumbu District"
-        },
-        {
-            order: "Polydesmida",
-            family: "Paradoxosomatidae",
-            genus: "Beronodesmoides",
-            species: "anteriporus",
-            lat: 27.5667,
-            lon: 87.2833,
-            location: "Above Pawakhola, Sankhuwasabha District
+        // Add new layer
+        if (layer === 'street') {
+            streetLayer.addTo(map);
+            document.getElementById('streetBtn').classList.add('active');
+            currentLayer = 'street';
+        } else {
+            satelliteLayer.addTo(map);
+            document.getElementById('satelliteBtn').classList.add('active');
+            currentLayer = 'satellite';
+        }
+        
+        // Re-add markers if any exist
+        if (markers.length > 0) {
+            markers.forEach(marker => marker.addTo(map));
+        }
+    }
+
+    // Clear all markers from map
+    function clearMarkers() {
+        if (markers.length > 0) {
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+        }
+    }
+
+    // Add markers for selected species
+    function addMarkersForSpecies(order, family, genus, species) {
+        clearMarkers();
+        
+        // Check if millipedePoints is available (from data.js)
+        if (typeof millipedePoints === 'undefined') {
+            console.error('millipedePoints not found. Make sure data.js is loaded correctly.');
+            return;
+        }
+        
+        const filteredPoints = millipedePoints.filter(point => 
+            (order === 'all' || point.order === order) &&
+            (family === 'all' || point.family === family) &&
+            (genus === 'all' || point.genus === genus) &&
+            (species === 'all' || point.species === species)
+        );
+
+        console.log('Filtered points:', filteredPoints.length); // Debug log
+
+        if (filteredPoints.length === 0) {
+            return;
+        }
+
+        // Create bounds to fit all markers
+        const bounds = [];
+        
+        filteredPoints.forEach(point => {
+            if (point.lat && point.lon) {
+                const marker = L.marker([point.lat, point.lon]).addTo(map);
+                
+                // Create popup with species info
+                const popupContent = `
+                    <strong>${point.genus} ${point.species}</strong><br>
+                    <em>${point.family}</em><br>
+                    <small>Lat: ${point.lat.toFixed(4)}<br>Lon: ${point.lon.toFixed(4)}</small>
+                `;
+                
+                marker.bindPopup(popupContent);
+                
+                marker.on('click', () => {
+                    // Highlight corresponding card if it exists
+                    const cardId = `${point.genus}_${point.species}`.replace(/\s+/g, '-').toLowerCase();
+                    const card = document.getElementById(cardId);
+                    if (card) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        if (currentActiveCard) {
+                            currentActiveCard.classList.remove('active');
+                        }
+                        card.classList.add('active');
+                        currentActiveCard = card;
+                    }
+                });
+                
+                markers.push(marker);
+                bounds.push([point.lat, point.lon]);
+            }
+        });
+
+        // Fit map to show all markers
+        if (bounds.length > 0) {
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
+    }
+
+    // Load Data
+    fetch('checklist.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load checklist.json');
+            }
+            return response.json();
+        })
+        .then(data => {
+            speciesData = data;
+            console.log('Species data loaded:', speciesData.length); // Debug log
+            initFilters();
+            initMap();
+            document.getElementById('resultsCount').innerText = `Total: ${speciesData.length} species`;
+            displayResults(speciesData); // Show all initially
+        })
+        .catch(error => {
+            console.error('Error loading data:', error);
+            document.getElementById('checklistResults').innerHTML = 
+                '<div class="no-data">Error loading species data. Please try again.</div>';
+            initMap(); // Still initialize map
+        });
+
+    function initFilters() {
+        populateDropdown('orderFilter', 'order');
+        setupListeners();
+    }
+
+    function populateDropdown(id, key, filterKey = null, filterValue = null) {
+        const select = document.getElementById(id);
+        const currentValue = select.value;
+        
+        let filtered = speciesData;
+        if (filterKey && filterValue && filterValue !== 'all') {
+            filtered = speciesData.filter(item => item[filterKey] === filterValue);
+        }
+
+        const uniqueVals = [...new Set(filtered.map(item => item[key]))]
+            .filter(val => val && val !== 'null' && val !== 'undefined')
+            .sort();
+
+        select.innerHTML = `<option value="all">Select ${key.charAt(0).toUpperCase() + key.slice(1)}</option>`;
+        
+        uniqueVals.forEach(val => {
+            const opt = document.createElement('option');
+            opt.value = val;
+            opt.textContent = val;
+            select.appendChild(opt);
+        });
+
+        // Restore previous selection if it exists in new options
+        if (currentValue && currentValue !== 'all' && uniqueVals.includes(currentValue)) {
+            select.value = currentValue;
+        }
+    }
+
+    function setupListeners() {
+        const orderSel = document.getElementById('orderFilter');
+        const familySel = document.getElementById('familyFilter');
+        const genusSel = document.getElementById('genusFilter');
+        const speciesSel = document.getElementById('speciesFilter');
+
+        orderSel.onchange = () => {
+            familySel.innerHTML = '<option value="all">Select Family</option>';
+            genusSel.innerHTML = '<option value="all">Select Genus</option>';
+            speciesSel.innerHTML = '<option value="all">Select Species</option>';
+            
+            if (orderSel.value !== 'all') {
+                populateDropdown('familyFilter', 'family', 'order', orderSel.value);
+            }
+            updateResults();
+        };
+
+        familySel.onchange = () => {
+            genusSel.innerHTML = '<option value="all">Select Genus</option>';
+            speciesSel.innerHTML = '<option value="all">Select Species</option>';
+            
+            if (familySel.value !== 'all') {
+                populateDropdown('genusFilter', 'genus', 'family', familySel.value);
+            }
+            updateResults();
+        };
+
+        genusSel.onchange = () => {
+            speciesSel.innerHTML = '<option value="all">Select Species</option>';
+            
+            if (genusSel.value !== 'all') {
+                populateDropdown('speciesFilter', 'species', 'genus', genusSel.value);
+            }
+            updateResults();
+        };
+
+        speciesSel.onchange = updateResults;
+    }
+
+    function updateResults() {
+        const order = document.getElementById('orderFilter').value;
+        const family = document.getElementById('familyFilter').value;
+        const genus = document.getElementById('genusFilter').value;
+        const species = document.getElementById('speciesFilter').value;
+
+        const filtered = speciesData.filter(item => 
+            (order === 'all' || item.order === order) &&
+            (family === 'all' || item.family === family) &&
+            (genus === 'all' || item.genus === genus) &&
+            (species === 'all' || item.species === species)
+        );
+
+        displayResults(filtered);
+        
+        // Update map with filtered species points
+        addMarkersForSpecies(order, family, genus, species);
+        
+        // Update filter status text
+        const filterStatus = [];
+        if (order !== 'all') filterStatus.push(order);
+        if (family !== 'all') filterStatus.push(family);
+        if (genus !== 'all') filterStatus.push(genus);
+        if (species !== 'all') filterStatus.push(species);
+        
+        const statusText = filterStatus.length > 0 
+            ? `Showing ${filtered.length} species matching: ${filterStatus.join(' > ')}`
+            : `Showing all ${filtered.length} species`;
+            
+        document.getElementById('resultsCount').innerText = statusText;
+    }
+
+    function displayResults(results) {
+        const container = document.getElementById('checklistResults');
+        container.innerHTML = '';
+
+        if (results.length === 0) {
+            container.innerHTML = '<div class="no-data">No species found matching those criteria.</div>';
+            return;
+        }
+
+        results.forEach(item => {
+            // Find GPS points for this species from millipedePoints
+            let speciesPoints = [];
+            if (typeof millipedePoints !== 'undefined') {
+                speciesPoints = millipedePoints.filter(p => 
+                    p.order === item.order && 
+                    p.family === item.family && 
+                    p.genus === item.genus && 
+                    p.species === item.species
+                ).filter(p => p.lat && p.lon);
+            }
+
+            const hasCoordinates = speciesPoints.length > 0;
+            const cardId = `${item.genus}_${item.species}`.replace(/\s+/g, '-').toLowerCase();
+
+            const card = document.createElement('div');
+            card.className = 'species-card';
+            card.id = cardId;
+            
+            // Create coordinates display
+            let coordsHtml = '';
+            if (hasCoordinates) {
+                coordsHtml = `<div class="coordinates-badge">📍 ${speciesPoints.length} location${speciesPoints.length > 1 ? 's' : ''} on map</div>`;
+            }
+
+            card.innerHTML = `
+                <div class="taxa-path">${item.order || 'N/A'} > ${item.family || 'N/A'}</div>
+                <div class="species-name"><i>${item.genus || '?'} ${item.species || '?'}</i> ${item.author || ''}</div>
+                <div class="detail-row"><span class="detail-label">Type Locality:</span> ${item.type_locality || 'N/A'}</div>
+                <div class="detail-row"><span class="detail-label">Global Distribution:</span> ${item.global_dist || 'N/A'}</div>
+                <div class="detail-row"><span class="detail-label">Nepal Distribution:</span> ${item.nepal_dist || 'N/A'}</div>
+                ${coordsHtml}
+            `;
+
+            // Add click handler to show on map
+            card.onclick = () => {
+                if (hasCoordinates && typeof millipedePoints !== 'undefined') {
+                    // Clear previous active state
+                    if (currentActiveCard) {
+                        currentActiveCard.classList.remove('active');
+                    }
+                    card.classList.add('active');
+                    currentActiveCard = card;
+                    
+                    // Show these points on map
+                    clearMarkers();
+                    
+                    speciesPoints.forEach(point => {
+                        const marker = L.marker([point.lat, point.lon]).addTo(map);
+                        marker.bindPopup(`
+                            <strong>${point.genus} ${point.species}</strong><br>
+                            <em>${point.family}</em><br>
+                            <small>Lat: ${point.lat.toFixed(4)}<br>Lon: ${point.lon.toFixed(4)}</small>
+                        `);
+                        markers.push(marker);
+                    });
+                    
+                    // Fit map to show all points for this species
+                    if (speciesPoints.length > 0) {
+                        const bounds = speciesPoints.map(p => [p.lat, p.lon]);
+                        map.fitBounds(bounds, { padding: [50, 50] });
+                    }
+                }
+            };
+
+            container.appendChild(card);
+        });
+    }
+
+    function clearAllFilters() {
+        document.getElementById('orderFilter').value = 'all';
+        document.getElementById('familyFilter').innerHTML = '<option value="all">Select Family</option>';
+        document.getElementById('genusFilter').innerHTML = '<option value="all">Select Genus</option>';
+        document.getElementById('speciesFilter').innerHTML = '<option value="all">Select Species</option>';
+        
+        // Repopulate family based on 'all' orders
+        if (speciesData.length > 0) {
+            populateDropdown('familyFilter', 'family');
+        }
+        
+        updateResults();
+    }
+
+    // Make clearAllFilters available globally
+    window.clearAllFilters = clearAllFilters;
+    window.toggleMapLayer = toggleMapLayer;
+    </script>
+</body>
+</html>
