@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millipedes of Nepal</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        .nepali-names {
+            background: #fdfaf5;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.8;
+            border-left: 4px solid #2d5a27;
+            font-size: 1.1rem;
+        }
+        .featured-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        #map {
+            height: 450px;
+            width: 100%;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            margin-top: 15px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Millipedes of Nepal</h1>
+    <p>Record and Description of Nepalese Millipedes</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="history.html">History</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="distribution.html">Distribution</a>
+    <a href="articles.html">Articles</a>
+    <a href="findings.html">Our Findings</a>
+    <a href="team.html">Team</a>
+    <a href="upload.html">Upload</a>
+    <a href="faq.html">FAQ</a>
+</nav>
+
+<main>
+    <section>
+        <h2>Our Mission</h2>
+        <p>Our mission is to gather millipedes from various geographical locations and accurately identify their species. This involves field collection, specimen documentation, and detailed analysis to enhance the understanding of millipede biodiversity.</p>
+    </section>
+
+    <section class="featured">
+        <h3>Featured Species</h3>
+        <img src="gonoplectus.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img">
+        <p><strong>Gonoplectus sp.</strong>, Spirostreptida, Harpagophoridae<br>
+        <strong>Location:</strong> Dang Valley, Nepal</p>
+    </section>
+
+    <section>
+        <h2>Why am I working on Millipedes?</h2>
+        <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, I found that the whole western and southern parts are unexplored. There are also many millipedes waiting for their names in the already explored parts.</p>
+    </section>
+
+    <section>
+        <h2>Common Nepali Names (नेपाली नामहरु)</h2>
+        <div class="nepali-names">
+            ओरिगाँठे, ग्याल्डुङ, Angalbeddi, Phalle, Bahukhuttey kira, Hajarkhutte kira, अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल
+        </div>
+    </section>
+
+    <section>
+        <h2>Distribution Map</h2>
+        <div id="map"></div>
+    </section>
+</main>
+
+<footer>
+    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>&copy; 2026 Lokendra Chand | +977-9869959934</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    // Initialize the map centered on Nepal (Zoomed to show the country overview)
+    var map = L.map('map').setView([28.3949, 84.1240], 7);
+
+    // Set the map style (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Markers have been removed as requested.
+</script>
+
+</body>
+</html>
