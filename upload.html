@@ -67,13 +67,14 @@
             display: block; 
             font-weight: 600; 
             margin-bottom: 8px; 
-            color: #3b5c35;   /* softer than #5d4037 but readable */
+            color: #3b5c35;
             font-size: 0.95rem;
             letter-spacing: 0.3px;
         }
         
         .form-group input, 
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 12px 14px;
             border: 1px solid #c0d9bf;
@@ -84,45 +85,56 @@
             transition: 0.2s;
         }
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             border-color: #2d5a27;
             outline: none;
             box-shadow: 0 0 0 3px rgba(45,90,39,0.2);
         }
 
-        /* file-upload zone */
-        .file-upload {
+        /* file-upload zone - modified to be an info box */
+        .photo-info {
             background: #f0f7f0;
             padding: 25px 20px;
-            border: 2px dashed #4a7c44;
+            border: 2px solid #4a7c44;
             text-align: center;
             border-radius: 16px;
-            transition: background 0.2s;
+            margin-bottom: 5px;
         }
-        .file-upload:hover {
-            background: #e2f0e2;
-        }
-        .file-upload input[type="file"] {
-            padding: 10px;
-            border: none;
-            background: transparent;
-            font-size: 0.95rem;
+        .photo-info p {
+            margin: 10px 0;
             color: #2d5a27;
         }
-        .file-upload input[type="file"]::file-selector-button {
+        .photo-info .photo-option {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 4px solid #2d5a27;
+            text-align: left;
+        }
+        .photo-info code {
+            background: #e8f0e8;
+            padding: 5px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: #1e3a1a;
+        }
+        .btn-small {
+            display: inline-block;
             background: #2d5a27;
             color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 40px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
             font-weight: 600;
-            margin-right: 16px;
+            margin: 5px 0;
+            border: none;
             cursor: pointer;
-            border: 1px solid #2d5a27;
-            transition: 0.2s;
         }
-        .file-upload input[type="file"]::file-selector-button:hover {
-            background: #4a7c44;
+        .btn-small:hover {
+            background: #3f6e38;
         }
 
         .submit-btn {
@@ -167,17 +179,29 @@
             text-decoration: underline;
         }
 
+        .alert-info {
+            background: #e3f2e3;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #7dad77;
+            color: #1e4a1e;
+            font-size: 0.95rem;
+        }
+        .alert-info strong {
+            color: #2d5a27;
+        }
+
         /* minor responsive */
         @media (max-width: 550px) {
             .upload-container { margin: 20px; padding: 20px; }
         }
-        /* ensure the form looks consistent even without external css */
     </style>
 </head>
 <body>
 
 <header>
-    <h1>🌿 Millipedes of Nepal</h1>
+    <h1> Millipedes of Nepal</h1>
     <p>Citizen Science Portal · Contribute your observations</p>
 </header>
 
@@ -185,21 +209,26 @@
     <div class="upload-container">
         <div class="form-header">
             <h2>📸 Submit your finding</h2>
-            <p>Help us map Nepalese millipede diversity — every record counts.</p>
+            <p>Help us map Nepalese millipede diversity.</p>
         </div>
 
-        <!-- FORMSPREE endpoint active (https://formspree.io/forms/mqakpjne/integration) -->
-        <form action="https://formspree.io/f/xbdazpqg" method="POST" enctype="multipart/form-data">
+        <!-- Important notice about file uploads -->
+        <div class="alert-info">
+            <strong>📷 Photo submission note:</strong> Due to Formspree free tier limitations, photos cannot be uploaded directly through this form. Please use one of the options below to share your images.
+        </div>
+
+        <!-- FORMSPREE endpoint active - no file upload -->
+        <form action="https://formspree.io/f/xbdazpqg" method="POST">
             
             <div class="form-group">
                 <label>👤 Contributor name</label>
-                <input type="text" name="name" placeholder="e.g. Sita Tamang" required>
+                <input type="text" name="name" placeholder="e.g. Lokendra Chand" required>
             </div>
 
             <div class="form-group">
                 <label>📧 Email address</label>
-                <input type="email" name="email" placeholder="sita@example.org" required>
-                <!-- tiny hint: formspree sends confirmation -->
+                <input type="email" name="email" placeholder="lchand@example.org" required>
+                <small style="color: #5f735b; display: block; margin-top: 4px;">We'll confirm your submission via email</small>
             </div>
 
             <div class="form-group">
@@ -207,38 +236,77 @@
                 <input type="text" name="location" placeholder="e.g. Dang Valley, Lumbini Province" required>
             </div>
 
-            <!-- OPTIONAL: date field (extra but useful) — uncomment if you like; but we keep minimal as requested
             <div class="form-group">
                 <label>📅 Date observed</label>
                 <input type="date" name="date">
-            </div> 
-            -->
+            </div>
 
+            <!-- Photo submission options section (replaces file upload) -->
             <div class="form-group">
-                <label>🖼️ Upload photograph</label>
-                <div class="file-upload">
-                    <input type="file" name="upload" accept="image/*" required>
-                    <p style="margin:10px 0 0 0; font-size:0.85rem; color:#3b6535;">* High‑resolution images are appreciated</p>
+                <label>🖼️ How to share your photograph</label>
+                <div class="photo-info">
+                    <p style="font-weight: 600; color: #2d5a27;">Choose one of these methods:</p>
+                    
+                    <div class="photo-option">
+                        <strong>📎 Option 1: Email attachment</strong>
+                        <p style="font-size: 0.95rem;">Send your photo directly to <code>lokendrachand3313@gmail.com</code><br>
+                        <span style="color: #4d6b48;">Please include your full name in the subject line.</span></p>
+                        <a href="mailto:lokendrachand3313@gmail.com?subject=Millipede%20photo%20submission" class="btn-small">📧 Open in email app</a>
+                    </div>
+                    
+                    <div class="photo-option">
+                        <strong>🔗 Option 2: Share a link</strong>
+                        <p style="font-size: 0.95rem;">Upload to Google Drive, Dropbox, or any cloud service and paste the shared link below:</p>
+                        <input type="url" name="photo_link" placeholder="https://drive.google.com/your-photo-link" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #a8c3a4;">
+                    </div>
+                    
+                    <div class="photo-option">
+                        <strong>📱 Option 3: WhatsApp / Signal</strong>
+                        <p style="font-size: 0.95rem;">Send to our research team at <strong>+977 9812345678</strong><br>
+                        <span style="color: #4d6b48;">Include your name and location in the message.</span></p>
+                    </div>
+                    
+                    <p style="margin-top: 15px; font-size: 0.9rem;">✳️ <em>Please mention that you submitted this form so we can match your record.</em></p>
                 </div>
             </div>
 
-            <!-- optional hidden field to improve context -->
+            <div class="form-group">
+                <label>📝 Additional notes</label>
+                <textarea name="notes" rows="4" placeholder="Habitat description, millipede behavior, color notes, etc."></textarea>
+            </div>
+
+            <!-- Optional: How did you hear about us? -->
+            <div class="form-group">
+                <label>🔍 How did you find this portal?</label>
+                <select name="referral">
+                    <option value="">-- Select (optional) --</option>
+                    <option value="social">Social Media</option>
+                    <option value="friend">Friend/Colleague</option>
+                    <option value="workshop">Workshop/Event</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- hidden fields to improve context -->
             <input type="text" name="_gotcha" style="display:none">
             <input type="hidden" name="_subject" value="New millipede observation from Nepal">
             <input type="hidden" name="_format" value="plain">
 
-            <button type="submit" class="submit-btn">📨 Send to research team</button>
+            <button type="submit" class="submit-btn">📨 Send observation details</button>
+            
             <p class="note">
                 ✅ After submitting, please check your inbox & confirm your email (Formspree anti‑spam).<br>
+                📷 <strong>Don't forget to send your photo</strong> via one of the methods above.<br>
                 🙏 Your contribution will be added to the <strong>Millipedes of Nepal</strong> database.
             </p>
         </form>
     </div>
 </main>
 
-<!-- a subtle footer to match the header (optional) -->
+<!-- subtle footer to match the header -->
 <footer style="text-align: center; padding: 20px; color: #4f6b4a; background: #eaf0ea; font-size: 0.9rem;">
-    ⚡ Part of the Nepal Biodiversity Initiative · 2025
+    ⚡ Part of the Nepal Biodiversity Initiative · 2025 · 
+    <span style="font-size: 0.85rem;">📧 millipedes@nepalbiodiversity.org</span>
 </footer>
 
 <!-- ensure box-sizing even if some weird external reset happens -->
