@@ -435,56 +435,8 @@
         `);
     });
 
-    // Add millipede collection sites with GPS coordinates
-    var collectionSites = [
-        { name: "Dang Valley", coords: [28.0333, 82.2333], species: "Gonoplectus malayus", date: "2024", info: "Type locality of Gonoplectus malayus" },
-        { name: "Kathmandu Valley", coords: [27.7000, 85.3500], species: "Multiple species", date: "2023-2024", info: "Urban millipede diversity" },
-        { name: "Chitwan National Park", coords: [27.5000, 84.3333], species: "Spirostreptida sp.", date: "2024", info: "Terai region collection" },
-        { name: "Pokhara", coords: [28.2333, 83.9833], species: "Harpagophoridae sp.", date: "2023", info: "Hills region" },
-        { name: "Ilam", coords: [26.9098, 87.9339], species: "Spirobolida sp.", date: "2024", info: "Eastern Nepal" },
-        { name: "Jumla", coords: [29.2753, 82.1833], species: "Polydesmida sp.", date: "2023", info: "Western highlands" },
-        { name: "Dolpa", coords: [29.0097, 82.7931], species: "New species discovered", date: "2024", info: "Remote western region" }
-    ];
 
-    // Add millipede collection site markers
-    collectionSites.forEach(function(site) {
-        // Create custom marker for collection sites
-        var marker = L.marker(site.coords, {
-            icon: L.divIcon({
-                className: 'millipede-marker',
-                html: `<div style="background-color: #8B4513; color: white; padding: 5px 10px; border-radius: 20px; border: 2px solid #ffd700; white-space: nowrap; font-size: 12px; font-weight: bold;">🐛 ${site.name}</div>`,
-                iconSize: [120, 30]
-            })
-        }).addTo(map);
-        
-        // Add popup with GPS coordinates and collection info
-        marker.bindPopup(`
-            <b>🐛 Millipede Collection Site</b><br>
-            <b>Location:</b> ${site.name}<br>
-            <b>GPS:</b> ${site.coords[0].toFixed(4)}°N, ${site.coords[1].toFixed(4)}°E<br>
-            <b>Species:</b> <i>${site.species}</i><br>
-            <b>Collection Date:</b> ${site.date}<br>
-            <b>Notes:</b> ${site.info}<br>
-            <hr>
-            <small>Click for more details</small>
-        `);
-    });
-
-    // Add a label for Nepal with GPS center
-    L.marker([28.3949, 84.1240], {
-        icon: L.divIcon({
-            className: 'nepal-label',
-            html: '<div style="background-color: #2d5a27; color: white; padding: 8px 18px; border-radius: 20px; font-weight: bold; border: 3px solid #ffd700; font-size: 16px;">🇳🇵 NEPAL (28.39°N, 84.12°E)</div>',
-            iconSize: [200, 40]
-        })
     }).addTo(map);
-
-    // Add GPS coordinates display on map click
-    map.on('click', function(e) {
-        var lat = e.latlng.lat.toFixed(4);
-        var lng = e.latlng.lng.toFixed(4);
-        alert(`GPS Coordinates: ${lat}°N, ${lng}°E`);
-    });
 
     // Add a legend for the map
     var legend = L.control({position: 'bottomright'});
@@ -498,10 +450,7 @@
         div.innerHTML = `
             <b>Map Legend</b><br>
             <hr>
-            <span style="color: #2d5a27;">■</span> Nepal Boundary<br>
             <span style="color: #2d5a27;">📍</span> Major Cities<br>
-            <span style="color: #8B4513;">🐛</span> Millipede Collection Sites<br>
-            <hr>
             <small>Click on map for GPS coordinates</small>
         `;
         return div;
