@@ -7,39 +7,215 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        #map { 
-            height: 70vh; 
-            width: 100%; 
-            border-radius: 12px; 
-            border: 4px solid var(--primary-green);
-            z-index: 1;
+        /* Reset margins and padding for full-width layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 80px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        header p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        nav {
+            background-color: #3a6b34;
+            padding: 15px 80px;
+            text-align: center;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        nav a:hover {
+            background-color: #4f8a47;
+        }
+        
+        main {
+            flex: 1;
+            padding: 40px 80px;
+            max-width: 100%;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .map-view-buttons { 
+            margin-bottom: 20px; 
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-view {
+            padding: 12px 25px;
+            background: #2d5a27;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .btn-view:hover { 
+            background: #1e3f1a; 
+        }
+        
         .filter-section {
             background: #fdfaf5;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid var(--leaf-green);
+            margin-bottom: 25px;
+            border: 2px solid #2d5a27;
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
             align-items: flex-end;
         }
-        .filter-group { display: flex; flex-direction: column; flex: 1; min-width: 150px; }
-        .filter-group label { font-weight: bold; margin-bottom: 5px; color: var(--earth-brown); font-size: 0.9rem; }
-        .filter-group select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
         
-        .map-view-buttons { margin-bottom: 15px; }
-        .btn-view {
-            padding: 8px 15px;
-            background: var(--leaf-green);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 5px;
+        .filter-group { 
+            display: flex; 
+            flex-direction: column; 
+            flex: 1; 
+            min-width: 180px; 
         }
-        .btn-view:hover { background: var(--primary-green); }
+        
+        .filter-group label { 
+            font-weight: bold; 
+            margin-bottom: 8px; 
+            color: #2d5a27; 
+            font-size: 1rem; 
+        }
+        
+        .filter-group select { 
+            padding: 12px; 
+            border-radius: 5px; 
+            border: 2px solid #ccc;
+            font-size: 1rem;
+            background: white;
+        }
+        
+        .filter-group select:focus {
+            outline: none;
+            border-color: #2d5a27;
+        }
+        
+        #map { 
+            height: 70vh; 
+            min-height: 600px;
+            width: 100%; 
+            border-radius: 12px; 
+            border: 4px solid #2d5a27;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background-color: #2d5a27;
+            color: white;
+            text-align: center;
+            padding: 30px 80px;
+            width: 100%;
+            margin-top: auto;
+        }
+        
+        footer p {
+            font-size: 1.1rem;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 20px;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.2rem;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            nav a {
+                display: inline-block;
+                padding: 8px 12px;
+                margin: 3px;
+                font-size: 0.9rem;
+            }
+            
+            main {
+                padding: 30px 20px;
+            }
+            
+            .filter-section {
+                padding: 15px;
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+            
+            .map-view-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-view {
+                width: 100%;
+            }
+            
+            #map {
+                min-height: 450px;
+            }
+            
+            footer {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -85,13 +261,16 @@
 </main>
 
 <footer>
-    <p>&copy; Lokendra Chand </p>
+    <p>&copy; <span id="currentYear"></span> Lokendra Chand</p>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="data.js"></script>
 
 <script>
+    // Auto-update copyright year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
     // Initialize Map
     const map = L.map('map').setView([28.3949, 84.1240], 7);
     const markersLayer = L.layerGroup().addTo(map);
@@ -154,11 +333,12 @@
                 const marker = L.marker([p.lat, p.lon]);
                 marker.bindPopup(`
                     <div style="font-family: sans-serif;">
-                        <h3 style="margin:0; color:var(--primary-green)"><i>${p.genus} ${p.species}</i></h3>
+                        <h3 style="margin:0; color:#2d5a27"><i>${p.genus} ${p.species}</i></h3>
                         <hr>
                         <b>Order:</b> ${p.order}<br>
                         <b>Family:</b> ${p.family}<br>
-                        <b>Locality:</b> ${p.lat}, ${p.lon}
+                        <b>Location:</b> ${p.location || 'Nepal'}<br>
+                        <b>Coordinates:</b> ${p.lat.toFixed(4)}°N, ${p.lon.toFixed(4)}°E
                     </div>
                 `);
                 markersLayer.addLayer(marker);
