@@ -4,72 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Finding - Millipedes of Nepal</title>
-    <!-- link to optional external style.css is kept, but full inline fallback guarantees appearance -->
-    <link rel="stylesheet" href="style.css">
     
     <style>
-        /* ----- SAFE FALLBACK STYLES (also used as primary) ----- */
-        /* Ensures layout even if style.css is missing */
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
+        
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #f4f7f4; 
-            margin: 0; 
-            padding: 0; 
+            background: linear-gradient(135deg, #667a66 0%, #f4f7f4 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         header { 
             background: #2d5a27; 
             color: white; 
-            padding: 20px; 
+            padding: 30px 20px; 
             text-align: center; 
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
+        
         header h1 {
             margin: 0 0 8px 0;
             font-weight: 600;
             letter-spacing: 1px;
+            font-size: 2.2rem;
         }
+        
         header p {
             margin: 0;
             opacity: 0.9;
             font-style: italic;
+            font-size: 1.1rem;
         }
 
-        .upload-container {
-            max-width: 700px;
-            margin: 40px auto;
-            background: #fff;
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-top: 5px solid #2d5a27;
+            background: #f0f7f0;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
-        .form-header h2 { 
-            color: #2d5a27; 
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-weight: 600;
+        .option-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(45,90,39,0.15);
+            transition: transform 0.3s ease;
+            border: 1px solid #c0d9bf;
         }
-        .form-header p {
-            color: #2d3e2a;
-            margin-bottom: 30px;
-            font-size: 1rem;
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(45,90,39,0.25);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #2d5a27 0%, #3f6e38 100%);
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: #e8f0e8;
+            color: #2d5a27;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .form-group { 
+            margin-bottom: 20px; 
         }
         
-        .form-group { 
-            margin-bottom: 24px; 
-            text-align: left; 
-        }
         .form-group label { 
             display: block; 
             font-weight: 600; 
             margin-bottom: 8px; 
             color: #3b5c35;
             font-size: 0.95rem;
-            letter-spacing: 0.3px;
         }
         
         .form-group input, 
@@ -77,238 +111,380 @@
         .form-group select {
             width: 100%;
             padding: 12px 14px;
-            border: 1px solid #c0d9bf;
+            border: 2px solid #e0e0e0;
             border-radius: 10px;
-            box-sizing: border-box;
             font-size: 1rem;
-            background-color: #fefefe;
-            transition: 0.2s;
+            transition: all 0.3s;
         }
+        
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             border-color: #2d5a27;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(45,90,39,0.2);
+            box-shadow: 0 0 0 3px rgba(45,90,39,0.1);
         }
 
-        /* file-upload zone - modified to be an info box */
-        .photo-info {
-            background: #f0f7f0;
-            padding: 25px 20px;
-            border: 2px solid #4a7c44;
+        /* File upload styling */
+        .file-upload {
+            background: #f8fbf8;
+            padding: 20px;
+            border: 2px dashed #4a7c44;
             text-align: center;
-            border-radius: 16px;
-            margin-bottom: 5px;
-        }
-        .photo-info p {
-            margin: 10px 0;
-            color: #2d5a27;
-        }
-        .photo-info .photo-option {
-            background: white;
-            padding: 15px;
             border-radius: 12px;
-            margin: 15px 0;
-            border-left: 4px solid #2d5a27;
-            text-align: left;
-        }
-        .photo-info code {
-            background: #e8f0e8;
-            padding: 5px 8px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            color: #1e3a1a;
-        }
-        .btn-small {
-            display: inline-block;
-            background: #2d5a27;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 5px 0;
-            border: none;
             cursor: pointer;
+            transition: all 0.3s;
         }
-        .btn-small:hover {
-            background: #3f6e38;
+        
+        .file-upload:hover {
+            background: #e2f0e2;
+            border-color: #2d5a27;
+        }
+        
+        .file-upload input[type="file"] {
+            width: 100%;
+            padding: 10px;
         }
 
         .submit-btn {
-            background: #2d5a27;
+            background: linear-gradient(135deg, #2d5a27 0%, #3f6e38 100%);
             color: white;
-            padding: 16px 20px;
+            padding: 15px 25px;
             border: none;
             border-radius: 50px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            transition: 0.2s;
-            letter-spacing: 0.5px;
-            margin-top: 10px;
-            box-shadow: 0 4px 6px rgba(0,40,0,0.2);
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(45,90,39,0.3);
         }
 
         .submit-btn:hover { 
-            background: #3f6e38; 
-            transform: scale(1.02);
-            box-shadow: 0 6px 12px rgba(45,90,39,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(45,90,39,0.4);
         }
-        .submit-btn:active {
-            transform: scale(0.98);
+
+        .note {
+            font-size: 0.9rem;
+            color: #4d5f4a;
+            margin-top: 15px;
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
         }
-        
-        .note { 
-            font-size: 0.9rem; 
-            color: #4d5f4a; 
-            margin-top: 22px; 
-            text-align: center; 
-            border-top: 1px dashed #c0d9bf;
-            padding-top: 18px;
+
+        .success-message {
+            background: #4caf50;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
         }
-        .note a {
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #4f6b4a;
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
             color: #2d5a27;
-            font-weight: 600;
             text-decoration: none;
+            font-weight: 600;
         }
-        .note a:hover {
+
+        .back-link:hover {
             text-decoration: underline;
         }
 
-        .alert-info {
-            background: #e3f2e3;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #7dad77;
-            color: #1e4a1e;
-            font-size: 0.95rem;
-        }
-        .alert-info strong {
-            color: #2d5a27;
+        .endpoint-note {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin: 10px 0;
         }
 
-        /* minor responsive */
-        @media (max-width: 550px) {
-            .upload-container { margin: 20px; padding: 20px; }
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1> Millipedes of Nepal</h1>
-    <p>Citizen Science Portal · Contribute your observations</p>
-</header>
+<div class="container">
+    <header>
+        <h1>🌿 Millipedes of Nepal</h1>
+        <p>Citizen Science Portal · Choose your preferred submission method</p>
+    </header>
 
-<main>
-    <div class="upload-container">
-        <div class="form-header">
-            <h2>📸 Submit your finding</h2>
-            <p>Help us map Nepalese millipede diversity.</p>
+    <div class="options-grid">
+        <!-- OPTION 1: Proforms (Recommended - Easiest) -->
+        <div class="option-card">
+            <div class="card-header">
+                📋 OPTION 1: Proforms
+                <span style="float: right; font-size: 0.8rem;">👍 Recommended</span>
+            </div>
+            <div class="card-body">
+                <div class="feature-badge">✅ Free • 250 submissions/month • File uploads included</div>
+                <p style="color: #4d6b48; margin-bottom: 20px;">Simply change your form action to Proforms endpoint. No coding required!</p>
+                
+                <form action="https://proforms.top/your-endpoint-here" method="POST" enctype="multipart/form-data" target="_blank">
+                    <div class="form-group">
+                        <label>👤 Contributor name</label>
+                        <input type="text" name="name" placeholder="e.g. Sita Tamang" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📧 Email address</label>
+                        <input type="email" name="email" placeholder="sita@example.org" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📍 Observation location</label>
+                        <input type="text" name="location" placeholder="e.g. Dang Valley" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>🖼️ Upload photograph</label>
+                        <div class="file-upload">
+                            <input type="file" name="photo" accept="image/*" required>
+                            <p style="margin-top: 10px; color: #3b6535;">📸 Click to select or drag & drop</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📝 Additional notes</label>
+                        <textarea name="notes" rows="3" placeholder="Any details about the observation..."></textarea>
+                    </div>
+
+                    <div class="endpoint-note">
+                        <strong>⚠️ Important:</strong> Replace this action URL with your actual Proforms endpoint. 
+                        <a href="#" style="color: #2d5a27;">Get it at proforms.top</a>
+                    </div>
+
+                    <button type="submit" class="submit-btn">📨 Submit to Proforms</button>
+                </form>
+                <p class="note">✅ Just change the action URL and it works instantly!</p>
+            </div>
         </div>
 
-        <!-- Important notice about file uploads -->
-        <div class="alert-info">
-            <strong>📷 Photo submission note:</strong> Due to Formspree free tier limitations, photos cannot be uploaded directly through this form. Please use one of the options below to share your images.
-        </div>
-
-        <!-- FORMSPREE endpoint active - no file upload -->
-        <form action="https://formspree.io/f/xbdazpqg" method="POST">
-            
-            <div class="form-group">
-                <label>👤 Contributor name</label>
-                <input type="text" name="name" placeholder="e.g. Lokendra Chand" required>
+        <!-- OPTION 2: OpnForm (Cloud or Self-hosted) -->
+        <div class="option-card">
+            <div class="card-header">
+                🚀 OPTION 2: OpnForm
             </div>
+            <div class="card-body">
+                <div class="feature-badge">✅ Open source • Free • Self-host or cloud</div>
+                <p style="color: #4d6b48; margin-bottom: 20px;">Beautiful forms with file uploads. Use their cloud service or host yourself.</p>
+                
+                <!-- Embedded OpnForm example (replace with your form ID) -->
+                <iframe 
+                    src="https://app.opnform.com/forms/example-form-id" 
+                    width="100%" 
+                    height="500px" 
+                    frameborder="0" 
+                    style="border-radius: 12px; border: 2px solid #c0d9bf;"
+                >
+                </iframe>
 
-            <div class="form-group">
-                <label>📧 Email address</label>
-                <input type="email" name="email" placeholder="lchand@example.org" required>
-                <small style="color: #5f735b; display: block; margin-top: 4px;">We'll confirm your submission via email</small>
-            </div>
+                <div style="margin-top: 20px;">
+                    <h4 style="color: #2d5a27; margin-bottom: 10px;">Quick Start:</h4>
+                    <ol style="color: #4d6b48; padding-left: 20px;">
+                        <li>Go to <a href="https://opnform.com" target="_blank" style="color: #2d5a27;">opnform.com</a></li>
+                        <li>Sign up free (no credit card)</li>
+                        <li>Create form with file upload field</li>
+                        <li>Copy embed code or iframe URL</li>
+                        <li>Replace the iframe src above</li>
+                    </ol>
+                </div>
 
-            <div class="form-group">
-                <label>📍 Observation location</label>
-                <input type="text" name="location" placeholder="e.g. Dang Valley, Lumbini Province" required>
-            </div>
-
-            <div class="form-group">
-                <label>📅 Date observed</label>
-                <input type="date" name="date">
-            </div>
-
-            <!-- Photo submission options section (replaces file upload) -->
-            <div class="form-group">
-                <label>🖼️ How to share your photograph</label>
-                <div class="photo-info">
-                    <p style="font-weight: 600; color: #2d5a27;">Choose one of these methods:</p>
-                    
-                    <div class="photo-option">
-                        <strong>📎 Option 1: Email attachment</strong>
-                        <p style="font-size: 0.95rem;">Send your photo directly to <code>lokendrachand3313@gmail.com</code><br>
-                        <span style="color: #4d6b48;">Please include your full name in the subject line.</span></p>
-                        <a href="mailto:lokendrachand3313@gmail.com?subject=Millipede%20photo%20submission" class="btn-small">📧 Open in email app</a>
-                    </div>
-                    
-                    <div class="photo-option">
-                        <strong>🔗 Option 2: Share a link</strong>
-                        <p style="font-size: 0.95rem;">Upload to Google Drive, Dropbox, or any cloud service and paste the shared link below:</p>
-                        <input type="url" name="photo_link" placeholder="https://drive.google.com/your-photo-link" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #a8c3a4;">
-                    </div>
-                    
-                    <div class="photo-option">
-                        <strong>📱 Option 3: WhatsApp / Signal</strong>
-                        <p style="font-size: 0.95rem;">Send to our research team at <strong>+977 9812345678</strong><br>
-                        <span style="color: #4d6b48;">Include your name and location in the message.</span></p>
-                    </div>
-                    
-                    <p style="margin-top: 15px; font-size: 0.9rem;">✳️ <em>Please mention that you submitted this form so we can match your record.</em></p>
+                <!-- Self-hosted option -->
+                <div style="background: #e8f0e8; padding: 15px; border-radius: 10px; margin-top: 20px;">
+                    <strong>🐳 Self-host with Docker:</strong>
+                    <pre style="background: #1e2e1e; color: #c0d9bf; padding: 10px; border-radius: 8px; margin-top: 10px; overflow-x: auto;">docker run --name opnform \
+  -v $PWD/opnform-data:/persist \
+  -p 80:80 \
+  jhumanj/opnform</pre>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label>📝 Additional notes</label>
-                <textarea name="notes" rows="4" placeholder="Habitat description, millipede behavior, color notes, etc."></textarea>
+        <!-- OPTION 3: FormBackend (Affordable Paid Option) -->
+        <div class="option-card">
+            <div class="card-header">
+                💼 OPTION 3: FormBackend
             </div>
+            <div class="card-body">
+                <div class="feature-badge">✅ $5/month • 1000 submissions • File uploads</div>
+                <p style="color: #4d6b48; margin-bottom: 20px;">Professional solution with more features at a fraction of Formspree's price.</p>
+                
+                <form action="https://www.formbackend.com/forms/contact-form-igm3xb" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>👤 Contributor name</label>
+                        <input type="text" name="name" placeholder="e.g. Sita Tamang" required>
+                    </div>
 
-            <!-- Optional: How did you hear about us? -->
-            <div class="form-group">
-                <label>🔍 How did you find this portal?</label>
-                <select name="referral">
-                    <option value="">-- Select (optional) --</option>
-                    <option value="social">Social Media</option>
-                    <option value="friend">Friend/Colleague</option>
-                    <option value="workshop">Workshop/Event</option>
-                    <option value="other">Other</option>
-                </select>
+                    <div class="form-group">
+                        <label>📧 Email address</label>
+                        <input type="email" name="email" placeholder="sita@example.org" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📍 Observation location</label>
+                        <input type="text" name="location" placeholder="e.g. Dang Valley" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📷 Photograph (max 10MB)</label>
+                        <div class="file-upload">
+                            <input type="file" name="file" accept="image/*" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📝 Notes</label>
+                        <textarea name="notes" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>🔒 Spam protection</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" name="math" placeholder="3 + 4 = ?" required style="width: 120px;">
+                            <span style="color: #4d6b48;">(Simple math)</span>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-note">
+                        <strong>📌 Replace with your actual FormBackend ID at <a href="https://formbackend.com" target="_blank" style="color: #2d5a27;">formbackend.com</a></strong>
+                    </div>
+
+                    <button type="submit" class="submit-btn">📨 Submit to FormBackend</button>
+                </form>
+                <p class="note">5x more submissions than Formspree at 1/3 the cost!</p>
             </div>
-
-            <!-- hidden fields to improve context -->
-            <input type="text" name="_gotcha" style="display:none">
-            <input type="hidden" name="_subject" value="New millipede observation from Nepal">
-            <input type="hidden" name="_format" value="plain">
-
-            <button type="submit" class="submit-btn">📨 Send observation details</button>
-            
-            <p class="note">
-                ✅ After submitting, please check your inbox & confirm your email (Formspree anti‑spam).<br>
-                📷 <strong>Don't forget to send your photo</strong> via one of the methods above.<br>
-                🙏 Your contribution will be added to the <strong>Millipedes of Nepal</strong> database.
-            </p>
-        </form>
+        </div>
     </div>
-</main>
 
-<!-- subtle footer to match the header -->
-<footer style="text-align: center; padding: 20px; color: #4f6b4a; background: #eaf0ea; font-size: 0.9rem;">
-    ⚡ Part of the Nepal Biodiversity Initiative · 2025 · 
-    <span style="font-size: 0.85rem;">📧 millipedes@nepalbiodiversity.org</span>
-</footer>
+    <!-- Quick Setup Instructions -->
+    <div style="background: white; border-radius: 15px; padding: 30px; margin-top: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h2 style="color: #2d5a27; margin-bottom: 20px;">🚀 Quick Setup Guide</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div style="border-left: 4px solid #2d5a27; padding-left: 15px;">
+                <h3 style="color: #2d5a27;">Option 1: Proforms</h3>
+                <p style="color: #4d6b48;">1. Go to <a href="https://proforms.top" target="_blank">proforms.top</a><br>
+                2. Sign up free<br>
+                3. Create form → Get endpoint URL<br>
+                4. Replace in form action</p>
+                <div style="background: #f0f7f0; padding: 8px; border-radius: 5px; font-family: monospace;">action="https://proforms.top/your-id"</div>
+            </div>
+            
+            <div style="border-left: 4px solid #2d5a27; padding-left: 15px;">
+                <h3 style="color: #2d5a27;">Option 2: OpnForm</h3>
+                <p style="color: #4d6b48;">1. Visit <a href="https://opnform.com" target="_blank">opnform.com</a><br>
+                2. Create free account<br>
+                3. Build form with file upload<br>
+                4. Copy embed code or use iframe</p>
+                <div style="background: #f0f7f0; padding: 8px; border-radius: 5px;">&lt;iframe src="your-opnform-url"&gt;</div>
+            </div>
+            
+            <div style="border-left: 4px solid #2d5a27; padding-left: 15px;">
+                <h3 style="color: #2d5a27;">Option 3: FormBackend</h3>
+                <p style="color: #4d6b48;">1. Sign up at <a href="https://formbackend.com" target="_blank">formbackend.com</a><br>
+                2. Create form → Get endpoint<br>
+                3. Add enctype="multipart/form-data"<br>
+                4. Start receiving uploads</p>
+                <div style="background: #f0f7f0; padding: 8px; border-radius: 5px;">$5/month for 1000 submissions</div>
+            </div>
+        </div>
+    </div>
 
-<!-- ensure box-sizing even if some weird external reset happens -->
+    <!-- Comparison Table -->
+    <div style="background: white; border-radius: 15px; padding: 30px; margin-top: 30px;">
+        <h2 style="color: #2d5a27; margin-bottom: 20px;">📊 Quick Comparison</h2>
+        
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background: #2d5a27; color: white;">
+                <th style="padding: 12px; text-align: left;">Service</th>
+                <th style="padding: 12px; text-align: left;">Free Tier</th>
+                <th style="padding: 12px; text-align: left;">File Uploads</th>
+                <th style="padding: 12px; text-align: left;">Paid Plan</th>
+                <th style="padding: 12px; text-align: left;">Ease of Setup</th>
+            </tr>
+            <tr style="border-bottom: 1px solid #c0d9bf;">
+                <td style="padding: 12px;"><strong>Proforms</strong> 👍</td>
+                <td style="padding: 12px;">250/month</td>
+                <td style="padding: 12px;">✅ Yes (free)</td>
+                <td style="padding: 12px;">$3 for 1500</td>
+                <td style="padding: 12px;">⭐ Very easy</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #c0d9bf;">
+                <td style="padding: 12px;"><strong>OpnForm</strong></td>
+                <td style="padding: 12px;">Unlimited*</td>
+                <td style="padding: 12px;">✅ Yes (free)</td>
+                <td style="padding: 12px;">$0 (self-host)</td>
+                <td style="padding: 12px;">⭐⭐ Medium</td>
+            </tr>
+            <tr>
+                <td style="padding: 12px;"><strong>FormBackend</strong></td>
+                <td style="padding: 12px;">50/month</td>
+                <td style="padding: 12px;">✅ Yes ($5 plan)</td>
+                <td style="padding: 12px;">$5 for 1000</td>
+                <td style="padding: 12px;">⭐ Very easy</td>
+            </tr>
+        </table>
+    </div>
+
+    <footer class="footer">
+        ⚡ Part of the Nepal Biodiversity Initiative · 2025<br>
+        <a href="#" class="back-link">← Back to main site</a>
+    </footer>
+</div>
+
+<!-- Simple JavaScript for form handling -->
+<script>
+    // Add loading states to forms
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const btn = this.querySelector('.submit-btn');
+            if (btn) {
+                btn.innerHTML = '<span class="spinner"></span> Submitting...';
+                btn.disabled = true;
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
