@@ -4,33 +4,201 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Millipedes of Nepal</title>
-    <link rel="stylesheet" href="style.css">
-    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <style>
-        .nepali-names {
-            background: #fdfaf5;
-            padding: 15px;
-            border-radius: 8px;
-            line-height: 1.8;
-            border-left: 4px solid #2d5a27;
+        /* Reset margins and padding for full-width layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: url('home.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        /* Add overlay to make text readable over background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+        
+        header {
+            background-color: #2d5a27;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        nav {
+            background-color: #3a6b34;
+            padding: 15px 40px;
+            text-align: center;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
             font-size: 1.1rem;
         }
+        
+        nav a:hover {
+            background-color: #4f8a47;
+        }
+        
+        main {
+            flex: 1;
+            padding: 30px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        section {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        h2 {
+            color: #2d5a27;
+            border-bottom: 2px solid #2d5a27;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        h3 {
+            color: #2d5a27;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Style for Nepali text with Preeti font */
+        .nepali-names {
+            font-family: 'Preeti', 'Times New Roman', serif;
+            background: #fdfaf5;
+            padding: 20px;
+            border-radius: 8px;
+            line-height: 2;
+            border-left: 4px solid #2d5a27;
+            font-size: 1.3rem;
+            word-spacing: 5px;
+        }
+        
+        /* Style for scientific names in italic */
+        .scientific-name {
+            font-style: italic;
+            font-weight: 600;
+        }
+        
         .featured-img {
             max-width: 100%;
             height: auto;
             border-radius: 10px;
             margin: 15px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: 3px solid #fff;
         }
+        
         #map {
-            height: 450px;
+            height: 500px;
             width: 100%;
             border-radius: 10px;
             border: 2px solid #ddd;
             margin-top: 15px;
             z-index: 1;
+        }
+        
+        footer {
+            background-color: #2d5a27;
+            color: white;
+            text-align: center;
+            padding: 20px 40px;
+            width: 100%;
+            margin-top: auto;
+        }
+        
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Style for location text */
+        .location {
+            font-weight: 500;
+            color: #555;
+        }
+        
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav a {
+                display: inline-block;
+                padding: 8px 10px;
+                margin: 3px;
+                font-size: 0.9rem;
+            }
+            
+            main {
+                padding: 20px 15px;
+            }
+            
+            section {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            .nepali-names {
+                font-size: 1.1rem;
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -56,25 +224,25 @@
 <main>
     <section>
         <h2>Our Mission</h2>
-        <p>Our mission is to gather millipedes from various geographical locations of Nepal and accurately identify them  to species level. This involves field collection, disection and identification, morphological and molecular analysis, specimen preservation, specimen documentation, and detailed analysis to enhance the understanding of millipede biodiversity in Nepal.</p>
+        <p>Our mission is to gather millipedes from various geographical locations of Nepal and accurately identify them to species level. This involves field collection, dissection and identification, morphological and molecular analysis, specimen preservation, specimen documentation, and detailed analysis to enhance the understanding of millipede biodiversity in Nepal.</p>
     </section>
 
     <section class="featured">
         <h3>Beautiful Millipede from Nepal</h3>
         <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img">
-        <p><strong>Gonoplectus malayus</strong>, Spirostreptida, Harpagophoridae<br>
-        <strong>Location:</strong> Dang Valley, Nepal</p>
+        <p><span class="scientific-name">Gonoplectus malayus</span>, Spirostreptida, Harpagophoridae<br>
+        <span class="location">📍 Location: Dang Valley, Nepal</span></p>
     </section>
 
     <section>
-        <h2>Why am We working on Millipedes?</h2>
-        <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, We found that the whole western and southern parts are unexplored. All the species identified on tha basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts.</p>
+        <h2>Why are we working on Millipedes?</h2>
+        <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts.</p>
     </section>
 
     <section>
         <h2>Common Nepali Names (नेपाली नामहरु)</h2>
         <div class="nepali-names">
-            ओरिगाँठे, ग्याल्डुङ,  अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल,Angalbeddi, Phalle, Bahukhuttey kira, Hajarkhutte kira
+            ओरिगाँठे, ग्याल्डुङ, अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल, Angalbeddi, Phalle, Bahukhuttey kira, Hajarkhutte kira
         </div>
     </section>
 
@@ -86,8 +254,13 @@
 
 <footer>
     <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>&copy; 2026 Lokendra Chand | +977-9809733313/+817090238470</p>
+    <p>&copy; 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
+
+<!-- Add Leaflet JavaScript library -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
     // Initialize the map centered on Nepal
     var map = L.map('map').setView([28.3949, 84.1240], 7);
 
