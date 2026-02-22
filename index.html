@@ -38,7 +38,7 @@
 
 <header>
     <h1>Millipedes of Nepal</h1>
-    <p>Record and Description of Nepalese Millipedes</p>
+    <p>All about Nepalese Millipedes</p>
 </header>
 
 <nav>
@@ -91,13 +91,22 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // Initialize the map centered on Nepal (Zoomed to show the country overview)
-    var map = L.map('map').setView([28.3949, 84.1240], 7);
+    (function() {
+        // ----- CENTER: NEPAL (exactly as original, but markers removed) -----
+        var map = L.map('map', {
+            center: [28.3949, 84.1240],    // geographic center of Nepal
+            zoom: 7,
+            zoomControl: true,
+            fadeAnimation: true,
+            attributionControl: true
+        });
 
-    // Set the map style (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+        // base map: clean, detailed OpenStreetMap (no markers, only tiles)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors, base map CC BY-SA',
+            maxZoom: 18,
+            minZoom: 6
+        }).addTo(map);
 
     // Markers have been removed as requested.
 </script>
