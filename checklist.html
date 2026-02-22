@@ -20,7 +20,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
             background: #fff;
@@ -30,7 +30,7 @@
             color: var(--primary-green);
             text-align: center;
             margin-bottom: 30px;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
         }
 
         .search-container {
@@ -45,10 +45,10 @@
         }
 
         .filter-select {
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
             border: 2px solid var(--primary-green);
-            min-width: 200px;
+            min-width: 180px;
             cursor: pointer;
             background: white;
             font-size: 14px;
@@ -64,7 +64,7 @@
         }
 
         .clear-filters-btn {
-            padding: 12px 25px;
+            padding: 10px 20px;
             border-radius: 8px;
             border: none;
             background: var(--primary-green);
@@ -72,7 +72,6 @@
             font-weight: bold;
             cursor: pointer;
             transition: background 0.2s;
-            font-size: 14px;
         }
 
         .clear-filters-btn:hover {
@@ -84,8 +83,8 @@
             margin-bottom: 20px;
             font-weight: bold;
             color: var(--primary-green);
-            font-size: 1.2rem;
-            padding: 12px;
+            font-size: 1.1rem;
+            padding: 10px;
             background: #e8f5e9;
             border-radius: 30px;
         }
@@ -104,7 +103,7 @@
         }
 
         .map-toggle-btn {
-            padding: 8px 15px;
+            padding: 6px 12px;
             border: 2px solid var(--primary-green);
             background: white;
             color: var(--primary-green);
@@ -112,7 +111,7 @@
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .map-toggle-btn.active {
@@ -127,8 +126,8 @@
 
         .main-content {
             display: grid;
-            grid-template-columns: 1.2fr 1.8fr; /* Map gets more space */
-            gap: 25px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
             margin-top: 20px;
             position: relative;
         }
@@ -138,9 +137,9 @@
         }
 
         #map {
-            height: 750px; /* Increased from 650px */
+            height: 650px;
             width: 100%;
-            border-radius: 10px;
+            border-radius: 8px;
             box-shadow: var(--card-shadow);
             border: 3px solid var(--primary-green);
             position: sticky;
@@ -149,13 +148,13 @@
         }
 
         .results-container {
-            max-height: 750px; /* Increased to match map */
+            max-height: 650px;
             overflow-y: auto;
-            padding-right: 15px;
+            padding-right: 10px;
         }
 
         .results-container::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
 
         .results-container::-webkit-scrollbar-track {
@@ -166,10 +165,6 @@
         .results-container::-webkit-scrollbar-thumb {
             background: var(--primary-green);
             border-radius: 10px;
-        }
-
-        .results-container::-webkit-scrollbar-thumb:hover {
-            background: #1b5e20;
         }
 
         .species-card {
@@ -196,7 +191,7 @@
         }
 
         .taxa-path {
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: #666;
             margin-bottom: 8px;
             text-transform: uppercase;
@@ -204,7 +199,7 @@
         }
 
         .species-name {
-            font-size: 1.4em;
+            font-size: 1.3em;
             font-weight: bold;
             margin-bottom: 15px;
             color: #1b5e20;
@@ -220,56 +215,42 @@
             font-weight: bold;
             color: var(--primary-green);
             display: inline-block;
-            min-width: 130px;
-            font-size: 0.95rem;
+            min-width: 120px;
         }
 
         .detail-row {
             margin: 8px 0;
-            line-height: 1.5;
-            font-size: 0.95rem;
+            line-height: 1.4;
         }
 
         .coordinates-badge {
             background: #fff;
             border: 1px solid var(--primary-green);
             border-radius: 20px;
-            padding: 5px 15px;
-            font-size: 0.9em;
+            padding: 5px 12px;
+            font-size: 0.85em;
             color: var(--primary-green);
             display: inline-block;
-            margin-top: 12px;
-            font-weight: 600;
+            margin-top: 10px;
         }
 
         .no-data {
             text-align: center;
             color: #666;
-            padding: 50px;
+            padding: 40px;
             font-style: italic;
-            font-size: 1.1rem;
         }
 
         .leaflet-popup-content {
             font-family: inherit;
-            min-width: 250px;
-            font-size: 0.95rem;
+            min-width: 200px;
         }
 
         .leaflet-popup-content strong {
             color: var(--primary-green);
-            font-size: 1.1rem;
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
             .main-content {
                 grid-template-columns: 1fr;
             }
@@ -279,7 +260,7 @@
             }
             
             #map {
-                height: 500px;
+                height: 400px;
                 position: relative;
                 top: 0;
             }
@@ -290,10 +271,6 @@
             
             .clear-filters-btn {
                 width: 100%;
-            }
-            
-            .results-container {
-                max-height: 500px;
             }
         }
     </style>
@@ -339,11 +316,6 @@
     let map = null;
     let markers = [];
     let currentActiveCard = null;
-    
-    // Map layers
-    let streetLayer = null;
-    let satelliteLayer = null;
-    let currentLayer = 'street';
     
     // GPS coordinates for millipede species in Nepal
     // Extracted from type localities and distribution data
@@ -918,140 +890,39 @@
             lat: 28.1500,
             lon: 85.2833,
             location: "Sing Gompa, Rasuwa District"
-        }
-    ];
-
-    // Initialize map with both street and satellite layers
-    function initMap() {
-        map = L.map('map').setView([28.3949, 84.1240], 7); // Center on Nepal
-        
-        // Street layer (OpenStreetMap)
-        streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 19
-        });
-        
-        // Satellite layer (Esri World Imagery)
-        satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-            maxZoom: 18
-        });
-        
-        // Start with street view
-        streetLayer.addTo(map);
-    }
-
-    // Toggle between street and satellite view
-    function toggleMapLayer(layer) {
-        if (layer === currentLayer) return;
-        
-        // Remove current layer
-        if (currentLayer === 'street') {
-            map.removeLayer(streetLayer);
-        } else {
-            map.removeLayer(satelliteLayer);
-        }
-        
-        // Update button states
-        document.getElementById('streetBtn').classList.remove('active');
-        document.getElementById('satelliteBtn').classList.remove('active');
-        
-        // Add new layer
-        if (layer === 'street') {
-            streetLayer.addTo(map);
-            document.getElementById('streetBtn').classList.add('active');
-            currentLayer = 'street';
-        } else {
-            satelliteLayer.addTo(map);
-            document.getElementById('satelliteBtn').classList.add('active');
-            currentLayer = 'satellite';
-        }
-        
-        // Re-add markers if any exist
-        if (markers.length > 0) {
-            markers.forEach(marker => marker.addTo(map));
-        }
-    }
-
-    // Clear all markers from map
-    function clearMarkers() {
-        if (markers.length > 0) {
-            markers.forEach(marker => map.removeLayer(marker));
-            markers = [];
-        }
-    }
-
-    // Add markers for selected species
-    function addMarkersForSpecies(order, family, genus, species) {
-        clearMarkers();
-        
-        const filteredPoints = millipedePoints.filter(point => 
-            (order === 'all' || point.order === order) &&
-            (family === 'all' || point.family === family) &&
-            (genus === 'all' || point.genus === genus) &&
-            (species === 'all' || point.species === species)
-        );
-
-        if (filteredPoints.length === 0) {
-            return;
-        }
-
-        // Create bounds to fit all markers
-        const bounds = [];
-        
-        filteredPoints.forEach(point => {
-            if (point.lat && point.lon) {
-                const marker = L.marker([point.lat, point.lon]).addTo(map);
-                
-                // Create popup with species info
-                const popupContent = `
-                    <strong>${point.genus} ${point.species}</strong><br>
-                    <em>${point.family}</em><br>
-                    <b>Location:</b> ${point.location}<br>
-                    <small>📍 ${point.lat.toFixed(4)}°N, ${point.lon.toFixed(4)}°E</small>
-                `;
-                
-                marker.bindPopup(popupContent);
-                
-                marker.on('click', () => {
-                    // Highlight corresponding card if it exists
-                    const cardId = `${point.genus}_${point.species}`.replace(/\s+/g, '-').toLowerCase();
-                    const card = document.getElementById(cardId);
-                    if (card) {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        if (currentActiveCard) {
-                            currentActiveCard.classList.remove('active');
-                        }
-                        card.classList.add('active');
-                        currentActiveCard = card;
-                    }
-                });
-                
-                markers.push(marker);
-                bounds.push([point.lat, point.lon]);
-            }
-        });
-
-        // Fit map to show all markers
-        if (bounds.length > 0) {
-            map.fitBounds(bounds, { padding: [50, 50] });
-        }
-    }
-
-    // Load Data from the embedded JSON
-    // Since we have the complete checklist.json, I'll embed it here
-    // In production, you would fetch this from a file
-    speciesData = [
-  {
-    "order": "Glomerida",
-    "family": "Glomeridae",
-    "genus": "Hyleoglomeris",
-    "species": "crassipes",
-    "author": "Golovatch, 1987",
-    "type_locality": "Tehrathum District, Tinjure Danda near Chauki",
-    "global_dist": "Endemic to Nepal",
-    "nepal_dist": "Tehrathum District, Tinjure Danda near Chauki (2450–2720 m)"
-  },
-  {
-    "order": "Glomerida",
-    "family": "Glomeridae
+        },
+        {
+            order: "Polydesmida",
+            family: "Paradoxosomatidae",
+            genus: "Anoplodesmus",
+            species: "schawalleri",
+            lat: 27.6167,
+            lon: 87.2667,
+            location: "Between Mudhe and Hururu, Sankhuwasabha District"
+        },
+        {
+            order: "Polydesmida",
+            family: "Paradoxosomatidae",
+            genus: "Anoplodesmus",
+            species: "similis",
+            lat: 27.9667,
+            lon: 86.0333,
+            location: "Ascent to Pass Ting Sang La, Sindhupalchok District"
+        },
+        {
+            order: "Polydesmida",
+            family: "Paradoxosomatidae",
+            genus: "Anoplodesmus",
+            species: "spinosus",
+            lat: 27.6833,
+            lon: 86.7333,
+            location: "Below Pangom, Solukhumbu District"
+        },
+        {
+            order: "Polydesmida",
+            family: "Paradoxosomatidae",
+            genus: "Beronodesmoides",
+            species: "anteriporus",
+            lat: 27.5667,
+            lon: 87.2833,
+            location: "Above Pawakhola, Sankhuwasabha District
