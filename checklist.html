@@ -250,16 +250,16 @@
     
     <div class="search-container">
         <select id="orderFilter" class="filter-select">
-            <option value="all">📋 Select Order</option>
+            <option value="all"> Select Order</option>
         </select>
         <select id="familyFilter" class="filter-select">
-            <option value="all">👪 Select Family</option>
+            <option value="all"> Select Family</option>
         </select>
         <select id="genusFilter" class="filter-select">
-            <option value="all">🔬 Select Genus</option>
+            <option value="all"> Select Genus</option>
         </select>
         <select id="speciesFilter" class="filter-select">
-            <option value="all">🐛 Select Species</option>
+            <option value="all"> Select Species</option>
         </select>
         <button class="clear-filters-btn" onclick="clearAllFilters()">🗑️ Clear Filters</button>
     </div>
@@ -462,10 +462,10 @@
 
         // Get placeholder text
         let placeholder = 'Select';
-        if (key === 'order') placeholder = '📋 Select Order';
-        else if (key === 'family') placeholder = '👪 Select Family';
-        else if (key === 'genus') placeholder = '🔬 Select Genus';
-        else if (key === 'species') placeholder = '🐛 Select Species';
+        if (key === 'order') placeholder = ' Select Order';
+        else if (key === 'family') placeholder = ' Select Family';
+        else if (key === 'genus') placeholder = ' Select Genus';
+        else if (key === 'species') placeholder = ' Select Species';
 
         select.innerHTML = `<option value="all">${placeholder}</option>`;
         
@@ -489,9 +489,9 @@
         const speciesSel = document.getElementById('speciesFilter');
 
         orderSel.onchange = () => {
-            familySel.innerHTML = '<option value="all">👪 Select Family</option>';
-            genusSel.innerHTML = '<option value="all">🔬 Select Genus</option>';
-            speciesSel.innerHTML = '<option value="all">🐛 Select Species</option>';
+            familySel.innerHTML = '<option value="all"> Select Family</option>';
+            genusSel.innerHTML = '<option value="all"> Select Genus</option>';
+            speciesSel.innerHTML = '<option value="all"> Select Species</option>';
             
             if (orderSel.value !== 'all') {
                 populateDropdown('familyFilter', 'family', 'order', orderSel.value);
@@ -633,9 +633,9 @@
 
     function clearAllFilters() {
         document.getElementById('orderFilter').value = 'all';
-        document.getElementById('familyFilter').innerHTML = '<option value="all">👪 Select Family</option>';
-        document.getElementById('genusFilter').innerHTML = '<option value="all">🔬 Select Genus</option>';
-        document.getElementById('speciesFilter').innerHTML = '<option value="all">🐛 Select Species</option>';
+        document.getElementById('familyFilter').innerHTML = '<option value="all"> Select Family</option>';
+        document.getElementById('genusFilter').innerHTML = '<option value="all"> Select Genus</option>';
+        document.getElementById('speciesFilter').innerHTML = '<option value="all"> Select Species</option>';
         
         // Repopulate family based on 'all' orders
         if (speciesData.length > 0) {
