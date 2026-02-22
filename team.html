@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team - Millipedes of Nepal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .team-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+        .team-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+            padding: 30px;
+            border-top: 5px solid var(--primary-green);
+            transition: transform 0.3s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #f0f7f0;
+            margin-bottom: 20px;
+            background-color: #eee; /* Placeholder color */
+        }
+        .member-name {
+            color: var(--primary-green);
+            margin: 10px 0 5px 0;
+            font-size: 1.4rem;
+        }
+        .member-title {
+            color: #666;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        .member-bio {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #444;
+        }
+        .leadership-badge {
+            display: inline-block;
+            background: var(--earth-brown);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Our Research Team</h1>
+    <p>The scientists behind the Nepal Millipede Project</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="distribution.html">Map</a>
+    <a href="team.html">Team</a>
+</nav>
+
+<main class="team-container">
+
+    <div class="team-card">
+        <span class="leadership-badge">Leadership</span>
+        <img src="lokendra.jpg" alt="Lokendra Chand" class="profile-img">
+        <h2 class="member-name">Lokendra Chand</h2>
+        <p class="member-title">M.Sc. Zoology</p>
+        <p class="member-bio">
+            Specializing in the taxonomy and distribution of Himalayan Diplopoda. 
+            Leading the field surveys and database management for the project.
+        </p>
+    </div>
+
+    <div class="team-card">
+        <img src="ayub.jpg" alt="Ayub Senchury" class="profile-img">
+        <h2 class="member-name">Ayub Senchury</h2>
+        <p class="member-title">M.Sc. Zoology</p>
+        <p class="member-bio">
+            Co-investigator focusing on specimen collection, preservation, 
+            and morphological analysis of Nepalese millipede species.
+        </p>
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Millipedes of Nepal | Research Team</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1872 @@
+[
+  {
+    "order": "Glomerida",
+    "family": "Glomeridae",
+    "genus": "Hyleoglomeris",
+    "species": "crassipes",
+    "author": "Golovatch, 1987",
+    "type_locality": "Tehrathum District, Tinjure Danda near Chauki",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Tehrathum District, Tinjure Danda near Chauki (2450–2720 m)"
+  },
+  {
+    "order": "Glomerida",
+    "family": "Glomeridae",
+    "genus": "Hyleoglomeris",
+    "species": "gorkhalis",
+    "author": "Golovatch, 1987",
+    "type_locality": "Gorkha District, between Nayasanghu and Gorkha",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, between Nayasanghu and Gorkha (1200 m)"
+  },
+  {
+    "order": "Glomerida",
+    "family": "Glomeridae",
+    "genus": "Hyleoglomeris",
+    "species": "khumbua",
+    "author": "Golovatch, 1987",
+    "type_locality": "Solukhumbu District, Khumbu, Mt. Everest region, confluence of Phungi and Imja Drangka",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, Khumbu, Mt. Everest region, confluence of Phungi and Imja Drangka (3250–3300 m)"
+  },
+  {
+    "order": "Glomerida",
+    "family": "Glomeridae",
+    "genus": "Hyleoglomeris",
+    "species": "nagarjunga",
+    "author": "Golovatch, 1987",
+    "type_locality": "Kathmandu District, Kathmandu Valley, Nagarjun, Mt. Jamacho",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kathmandu District, Kathmandu Valley, Nagarjun, Mt. Jamacho (1900–2100 m)"
+  },
+  {
+    "order": "Glomerida",
+    "family": "Glomeridae",
+    "genus": "Hyleoglomeris",
+    "species": "tinjurana",
+    "author": "Golovatch, 1987",
+    "type_locality": "Terhathum District, Tinjure Danda near Chauki",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Terhathum District, Tinjure Danda near Chauki (2450 m)"
+  },
+  {
+    "order": "Sphaerotheriida",
+    "family": "Zephroniidae",
+    "genus": "Kophosphaera",
+    "species": "excavata",
+    "author": "(Butler, 1874)",
+    "type_locality": "Sikkim (India)",
+    "global_dist": "India (Assam and Sikkim), Nepal",
+    "nepal_dist": "Makawanpur District, Chitlang"
+  },
+  {
+    "order": "Sphaerotheriida",
+    "family": "Zephroniidae",
+    "genus": "Kophosphaera",
+    "species": "martensi",
+    "author": "Wesener, 2015",
+    "type_locality": "Kaski District, above Dhampus",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, above Dhampus (2100 m)"
+  },
+  {
+    "order": "Sphaerotheriida",
+    "family": "Zephroniidae",
+    "genus": "Kophosphaera",
+    "species": "politissima",
+    "author": "Attems, 1936",
+    "type_locality": "Dobie Jhora, Kurseong; Sureil (5000 ft.), Darjeeling district, Eastern Himalayas",
+    "global_dist": "India and Nepal",
+    "nepal_dist": "Taplejung District, lower Ghunsa Khola to Lungthung (1650–1870 m)"
+  },
+  {
+    "order": "Sphaerotheriida",
+    "family": "Zephroniidae",
+    "genus": "Kophosphaera",
+    "species": "shivapuri",
+    "author": "Wesener, 2015",
+    "type_locality": "Kathmandu District, Shivapuri Hill",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kathmandu District, Shivapuri Hill (1700–2100 m)"
+  },
+  {
+    "order": "Sphaerotheriida",
+    "family": "Zephroniidae",
+    "genus": "Zephronia",
+    "species": "nepalensis",
+    "author": "Wesener, 2015",
+    "type_locality": "Ilam District, Mai Pokhari",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Ilam District, Mai Pokhari (2150–2250 m); Panchthar District, between Deurali, Puspati and Sheldoti (2500–2600 m); Taplejung District, Kabeli Khola Valley, above Yamphudin (1700–2000 m)"
+  },
+  {
+    "order": "Polyzoniida",
+    "family": "Hirudisomatidae",
+    "genus": "Nepalozonium",
+    "species": "trimaculatum",
+    "author": "Shelley, 1996",
+    "type_locality": "Sindhupalchok District, along Yangri Ridge",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sindhupalchok District, along Yangri Ridge (4700–4800 m), east of the Melamchi River and extending north from Yangri Mountain to the east-west ridge connecting Mts. Ganja La (5846 m); Rasuwa District, Ponggen Dopku (5930 m)"
+  },
+  {
+    "order": "Siphonocryptida",
+    "family": "Siphonocryptidae",
+    "genus": "Hirudicryptus",
+    "species": "quintumelementum",
+    "author": "Korsòs, Geoffroy & Mauriès, 2009",
+    "type_locality": "Kathmandu District, Shivapuri Hill, 15 km from Kathmandu",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kathmandu District, Shivapuri Hill, 15 km from Kathmandu"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Anaulaciulus",
+    "species": "bilineatus",
+    "author": "Korsós, 2001",
+    "type_locality": "Dolpa District, Northern Dhaulagiri Himal, Ringmo on Lake Shey Phoksundo",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Dolpa District, N Dhaulagiri Himal, Ringmo on Lake Shey Phoksundo (3600–4100 m); Gompa (=Gumba) near Tarakot (3300–3400 m); ascent to Baga La Pass from Ringmo via Manduwa (4300 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Anaulaciulus",
+    "species": "nepalensis",
+    "author": "Korsós, 2001",
+    "type_locality": "Mustang District, Thasang above Tukuche",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Thasang above Tukuche (3150–3400 m), on the way from Tukuche to Thasang (2650–2950 m), ascent to Thasang (2700–2900 m); Myagdi District, Western Dhaulagiri Himal, Thakur (3350 m); Sankhuwasabha District, above Pawakhola (2600–2800 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Anaulaciulus",
+    "species": "niger",
+    "author": "Korsós, 2001",
+    "type_locality": "Taplejung District, Pass Anda Deurali, between Simbuwa and Ghunsa Khola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, Pass Anda Deurali, between Simbuwa and Ghunsa Khola (4250–4500 m), S Ghunsa (4270 m); Gorkha District, Chumling Khola (3000–3400 m), SW Rupina La, Tabruk Kharka (4000 m); Sankhuwasabha District, above Pawakhola (2600–2800 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "deharvengi",
+    "author": "(Mauriès, 1983)",
+    "type_locality": "Manang District, Pisang",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Manang District, Pisang (3000–3180 m), north of Annapurna, between Pisang and Manang (3350 m), Marsyandi, Bagarchap (2550 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "dhaulagiri",
+    "author": "Enghoff, 1987",
+    "type_locality": "Myagdi District, Western Dhaulagiri Himal, Thakur, north of Dhorpatan",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Myagdi District, Western Dhaulagiri Himal, Thakur, north of Dhorpatan (3350 m); S Dhaulagiri Himal, Dhorpatan (3000 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "generalis",
+    "author": "Enghoff, 1987",
+    "type_locality": "Mustang District, Thasang above Tukuche",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Thasang (3150–3400 m), Chadziou Khola Valley (2700–2900 m), Thakkhola, Kali Gandaki Valley between Annapurna and Dhaulagiri (2530–2600 m); Terhathum District, Tinjure Danda (2450–2750 m); Rasuwa District, Kyanjin Gompa (=Gumba) forest (3800–4100 m), Langtang Valley; Kaski District, Machhapuchhre base camp to Hinku (3400–3800 m), Annapurna region; Parbat District, New Dovan Lodge to Hinku (2500–3000 m), Annapurna region, Annapurna trek from Hinku to Tadapani (2500–3000 m), Annapurna Base Camp (3800–4300 m); Myagdi District, Mudi (2300 m), S Dhaulagiri"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "humlaensis",
+    "author": "Mikhaljova, 2025",
+    "type_locality": "Humla District, Western Nepal, 34.5 km SE to 41 km E of Simikot (1655–2625 m)",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Western Nepal, 34.5 km SE to 41 km E of Simikot (1655–2625 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "hyalilobus",
+    "author": "Enghoff, 1987",
+    "type_locality": "Dolpa District, N Dhaulagiri Himal, Ringmo on Phoksundo Lake",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Dolpa District, Northern Dhaulagiri Himal, Ringmo on Phoksundo Lake (3600–4100 m); Suligad Valley (2800–3300 m); Gompa (=Gumba) near Tarakot (3300–3400 m); Myagdi District, Southern Dhaulagiri Himal, Dhorpatan (3000 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "ivanloebli",
+    "author": "(Mauriès, 1983)",
+    "type_locality": "Sindhupalchok District, 40 km north of Kathmandu, near Gosaikund, Yangri ridge",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sindhupalchok District, 40 km north of Kathmandu, near Gosaikund, Yangri ridge (4700–4800 m); near Mere Danda (3000 m); north face of Mere Danda (3100–3300 m); above Tharepati (3300 m); Tarkeyghyang (2200 m); Rasuwa District, Trisuli Valley, Gosaikund, Sing Gompa (3200 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "juxtapositus",
+    "author": "Enghoff, 1987",
+    "type_locality": "Parbat and Kaski Districts, between Chitre and Ghandruk, Chitre-side of the Pass",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Parbat and Kaski Districts, between Chitre and Ghandruk, Chitre-side of the Pass (2950–3050 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "karnaliensis",
+    "author": "Mikhaljova, 2025",
+    "type_locality": "Western Nepal, Karnali Province, Humla District, 12–13.5 km SE of Simikot, Ghatte, Yanchu Khola to Simikot",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Western Nepal, Karnali Province, Humla District, 12–13.5 km SE of Simikot, Ghatte, Yanchu Khola to Simikot (2920–3490 m); Humla District, ca. 12–13 km SE of Simikot (2990–3310 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "martensi",
+    "author": "Enghoff, 1987",
+    "type_locality": "Solukhumbu District, Mt. Everest region, confluence of Phunki and Imja Drangka",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, Mt. Everest region, confluence of Phunki and Imja Drangka (3250–3350 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "maurièsi",
+    "author": "Enghoff, 1987",
+    "type_locality": "Gorkha District, Chumling Khola Valley, south of Kalo Pokhari",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Chumling Khola Valley, south of Kalo Pokhari (3600 m); Meme Kharka (3300–3400 m); Djinshi Kharka (3400 m); Chumling Khola (2800 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "pineti",
+    "author": "Enghoff, 1987",
+    "type_locality": "Mustang District, Taglung",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Taglung (2900 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "smetanai",
+    "author": "(Mauriès, 1983)",
+    "type_locality": "Sindhupalchok District, Ghumthang-Bahrabise region",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sindhupalchok District, 50 km ENE of Kathmandu (road from Kathmandu to Tibet), Ghumthang-Bahrabise region, NE ridge of Barahbise above Pokhara (2700 m); Lalitpur District, Phulchowki, south of Kathmandu (2500 m); Kavre District, Mahabharat (20 km WSW of Kathmandu) (2350 m); Kathmandu District, Kathmandu Valley, Nagarjun ridge, Jamacho Hill (1900–2100 m), Mt. Phulchowki (2600–2650 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "sympatricus",
+    "author": "Enghoff, 1987",
+    "type_locality": "Myagdi District, S Dhaulagiri Himal, Dhorpatan",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Myagdi District, S Dhaulagiri Himal, Dhorpatan (3000 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "uncus",
+    "author": "Enghoff, 1987",
+    "type_locality": "Ilam District, Gitang Khola Valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Ilam District, Gitang Khola Valley (2550 m), Mai Pokhari (2100–2250 m); Panchthar District, upper reach of Maimajhuwa Khola, Dhorpar Kharka (2700 m), between Deurali, Pasupati and Sheldoti (2500 m)"
+  },
+  {
+    "order": "Julida",
+    "family": "Julidae",
+    "genus": "Nepalmatoiulus",
+    "species": "zachonoides",
+    "author": "Enghoff, 1987",
+    "type_locality": "Mustang District, south of Lete",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, south of Lete (2450–2600 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "ausobskyi",
+    "author": "Shear, 1987",
+    "type_locality": "Parbat District, between Chitre and Ghandruk, Chitre side of the Pass",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Parbat District, between Chitre and Ghandruk, Chitre side of the Pass (2950–3050 m); Kaski District, Hinku, Annapurna region (2500–3000 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "bobanga",
+    "author": "Shear, 1979",
+    "type_locality": "Baglung District, Southern Dhaulagiri Himal, Bobang, south of Dhorpatan",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Baglung District, Southern Dhaulagiri Himal, Bobang, south of Dhorpatan (2500 m); Parbat District, south of Dhaulagiri Himal, between Ghodepani Pass and Ulleri (2460 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "daamsae",
+    "author": "Shear, 1987",
+    "type_locality": "Taplejung District, south of Ghunsa",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, south of Ghunsa (3600–3900 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "gitanga",
+    "author": "Shear, 1987",
+    "type_locality": "Ilam District, Gitang Khola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Ilam District, Gitang Khola (2550 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "jaljalensis",
+    "author": "Mauriès, 1988",
+    "type_locality": "Sankhuwasabha District, Jaljale Himal, northeast of Kuwapani",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, Jaljale Himal, northeast of Kuwapani (2250–2400 m), ridge above Mangmaya (2800 m), Induwa Khola Valley (2000–2150 m), and northeast of Kuwapani (2400 m); Solukhumbu District, trails from Tamakoshi to Namche Bazar, Taksindu La (2700–3000 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "katmandua",
+    "author": "Mauriès, 1988",
+    "type_locality": "Lalitpur District, 2 km south of Godawari",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Lalitpur District, 2 km south of Godawari (1700 m); Phulchowki forest (2550–2700 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "lughla",
+    "author": "Shear, 1979",
+    "type_locality": "Solukhumbu District, Khumbu, Everest region, Lukla",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, Khumbu, Everest region, Lukla (2950 m) and the confluence of Phunki and Imja Drangka, north of Khumjung"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "mananga",
+    "author": "Shear, 1987",
+    "type_locality": "Manang District, Marsyangdi, Timang, above Bagarchhap",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Manang District, Marsyangdi, Timang, above Bagarchhap (2550 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "mangsingma",
+    "author": "Mauriès, 1988",
+    "type_locality": "Sankhuwasabha District, Kali Gandaki Valley, south of Mangsima",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, south of Mangsima (2250–2800 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "martensi",
+    "author": "Shear, 1979",
+    "type_locality": "Mustang District, Thakkhola, Kali Gandaki valley, between Annapurna and Dhaulagiri Himal, Chadziou Khola Valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Thakkhola, Kali Gandaki valley, between Annapurna and Dhaulagiri Himal, Chadziou Khola Valley (2530–2900 m), Thakkhola, Thasang above Tukuche (3100–3400 m), Dhampus Khola Valley, near Tukuche (2800–2900 m), Naurikot (2700 m), Lete (2600–2750 m), south of Lete (2450–2600 m), Thasang (3400 m), Kali Gandaki Valley, 2 km north of Kalopani (1550 m); Manang District, south of Annapurna Himal, Pass Ghodepani (2700–2900 m), Ghodepani forest (2750 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "smetanai",
+    "author": "Mauriès, 1988",
+    "type_locality": "Nuwakot District, between Ghopte and Tharepati",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Nuwakot District, between Ghopte and Tharepati (3220–3250 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Kashmireumatidae",
+    "genus": "Kashmireuma",
+    "species": "nepalensis",
+    "author": "Mauriès, 1988",
+    "type_locality": "Rasuwa District, Langtang Khola Valley, Kyanjin Gompa (=Gumba) forest",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Rasuwa District, Langtang Khola Valley, Kyanjin Gompa (=Gumba) forest (3800–4100 m), north side of Syaphru (3600–3800 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Kashmireumatidae",
+    "genus": "Kashmireuma",
+    "species": "schawalleri",
+    "author": "Shear, 1987",
+    "type_locality": "Gorkha District, Daraudi Khola to above Barpak",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Daraudi Khola to above Barpak (3450–3600 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "deharvengi",
+    "author": "Mauriès, 1988",
+    "type_locality": "Solukhumbu District, trails from Tamakoshi to Namche Bazar: Sete",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, trails from Tamakoshi to Namche Bazar: Sete (2900–3500 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "gairiensis",
+    "author": "Mauriès, 1988",
+    "type_locality": "Solukhumbu District, trails from Tamakoshi to Namche Bazar: Gairi",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, trails from Tamakoshi to Namche Bazar: Gairi"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "gunsa",
+    "author": "Shear, 1987",
+    "type_locality": "Taplejung District, south of Ghunsa",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, south of Ghunsa (3600–3800 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "jaljalae",
+    "author": "Mauriès, 1988",
+    "type_locality": "Sankhuwasabha District, Jaljale Himal",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, Jaljale Himal, south of Mangsima (2200 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "khumbua",
+    "author": "Shear, 1979",
+    "type_locality": "Solukhumbu District, Khumbu, Mt. Everest region, confluence of Phunki and Imja Drangka, northeast of Khumjung",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, Khumbu, Mt. Everest region, confluence of Phunki and Imja Drangka northeast of Khumjung (3250–3300 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "phulcokia",
+    "author": "Mauriès, 1988",
+    "type_locality": "Lalitpur District, Phulchowki",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Lalitpur District, Phulchowki (2250–2650 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "ringmoensis",
+    "author": "Mauriès, 1988",
+    "type_locality": "Solukhumbu District, trails from Tamakoshi to Namche Bazar: Gonda, before Ringmo",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, trails from Tamakoshi to Namche Bazar: Gonda, before Ringmo (2750–3000 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "taplejunga",
+    "author": "Shear, 1987",
+    "type_locality": "Taplejung District, ridge Lasse Dhara and pasture Lassetham",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, ridge Lasse Dhara and pasture Lassetham (3000–3300 m), Yalung (3450 m), Simbuwa Khola (3450 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "thodunga",
+    "author": "Shear, 1979",
+    "type_locality": "Ramechhap District, Thodung near Jiri and Those",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Ramechhap District, Thodung near Jiri and Those (3200 m)"
+  },
+  {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "tragsindola",
+    "author": "Mauriès, 1988",
+    "type_locality": "Solukhumbu District, trails from Tamakoshi to Namche Bazar: east of Taksindu La",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, trails from Tamakoshi to Namche Bazaar: east of Taksindu La (2450–3000 m), Taksindu La (2900–3000 m)"
+  },
+  {
+    "order": "Platydesmida",
+    "family": "Andrognathidae",
+    "genus": "Pseudodesmus",
+    "species": "sp.",
+    "author": null,
+    "type_locality": null,
+    "global_dist": "Nepal <2000m",
+    "nepal_dist": "Nepal"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Haplodesmidae",
+    "genus": "Koponenius",
+    "species": "biramus",
+    "author": "Golovatch & VandenSpiegel, 2014",
+    "type_locality": "Lalitpur District, Godawari, the foot of Phulchowki",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Lalitpur District, Godawari, the foot of Phulchowki (1750 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Haplodesmidae",
+    "genus": "Koponenius",
+    "species": "schawalleri",
+    "author": "Golovatch & VandenSpiegel, 2016",
+    "type_locality": "Chitwan District, Chitwan NP near Sauraha",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Chitwan District, Chitwan NP, near Sauraha (150 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Opisotretidae",
+    "genus": "Martensodesmus",
+    "species": "himalayensis",
+    "author": "Golovatch, 1987",
+    "type_locality": "Gorkha District, Buri Gandaki, Dobhan to Jagat",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Buri Gandaki, Dobhan to Jagat (1100–1300 m), Jagat to Opposite Pangshing (1650–1750 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Opisotretidae",
+    "genus": "Martensodesmus",
+    "species": "nagarjungicus",
+    "author": "Golovatch, 1987",
+    "type_locality": "Kathmandu District, Nagarjun, Mt. Jamacho",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kathmandu District, Nagarjun, Mt. Jamacho (1900–2100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Opisotretidae",
+    "genus": "Martensodesmus",
+    "species": "sherpa",
+    "author": "Golovatch, 1987",
+    "type_locality": "Gorkha District, Daraudi Khola, between Nayasanghu and Gorkha",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Daraudi Khola, between Nayasanghu and Gorkha (1200 m), Daraudi Khola, between Dhodeni and Mahatar (750–900 m), Daraudi Khola, between Barpak and Dhodeni (900–1100 m); Dhading District, Ankhu Sanghu (650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Anoplodesmus",
+    "species": "affinis",
+    "author": "(Golovatch, 1990)",
+    "type_locality": "Lalitpur District, Kathmandu Valley, Mt. Phulchowki",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Lalitpur District, Kathmandu Valley, Mt. Phulchowki (2475–2700 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Anoplodesmus",
+    "species": "cylindricus",
+    "author": "(Carl, 1935)",
+    "type_locality": "Darjeeling (Sikkim)",
+    "global_dist": "Nepal and India",
+    "nepal_dist": "Sankhuwasabha District, Moyam (1870–2430 m), above Pawakhola (2600–2800 m); Arun Valley, between Mudhe and Hururu (2050–2150 m); Lalitpur District, Kathmandu Valley, Mt. Phulchowki (2600–2650 m), Godawari at foot of Mt. Phulchowki (1770 m); Kathmandu District, Shivapuri Hill (2100–2300 m); Ilam District, Gitang Khola (2550 m), Maipokhari (2100–2250 m), between Maipokhari and Gitang Khola Valley (1750–2100 m); Panchthar District, upper reaches of Maimajuwa Khola (2250–2500 m), between Deurali Pass, Puspati and Sheldoti (2300–2850 m), Grat (Ridge) between Sheldoti and Paniparuwa (2200–2450 m), Paniparuwa (2300 m), Dhorpar Kharka (2700 m); Taplejung District, from southeast of Yamphudin to Yamphudin (1650–2000 m), Yamphudin (1650–1800 m), above Yamphudin, left bank of Kabeli Khola (1800–2000 m), path to Omje Kharka in Omje Khola Valley, northwest of Yamphudin (2400–2500 m), Omje Kharka northwest of Yamphudin (2300–2500 m), descent from Pass Deurali to Hellok (2000–2600 m), Hellok in Tamur Valley (2000 m), Lungthung waterfall to bamboo bridge (1800–2150 m); Ramechhap District, Mahabir Khola, east of Shivalaya (2500–2600 m); Khotang District, valley of northwest of Phedi (1900 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Anoplodesmus",
+    "species": "magnus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Panchthar District, upper reaches of Maimajuwa Khola, Dhorpar Kharka",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Panchthar District, upper reaches of Mai Majuwa Khola, Dhorpar Kharka (2700 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Anoplodesmus",
+    "species": "martensi",
+    "author": "(Golovatch, 1990)",
+    "type_locality": "Rasuwa District, Trisuli Valley, Gosaikund, Sing Gompa",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Rasuwa District, Trisuli Valley, Gosaikund, Sing Gompa (3200 m), Gosaikund (2700–3000 m), Chandanbari and Lauribina, Danje Guard Post (3100 m); Gorkha District, Chumling Khola (3000–3400 m), Djingshi Kharka (3050–3400 m), south of Kalo Pokhari (3600 m), northwest of Pass Rupina La, between Kalo Pokhari and Tabruk, Chumling Khola (3700 m); Manang District, Marsyangdi, between Thanchok and Chame (2550 m), above Bagarchhap (2250 m); Solukhumbu District, Junbesi (2700 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Anoplodesmus",
+    "species": "schawalleri",
+    "author": "(Golovatch, 1990)",
+    "type_locality": "Sankhuwasabha District, Arun Valley, between Mudhe and Hururu",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, Arun Valley, between Mudhe and Hururu (2050–2150 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Anoplodesmus",
+    "species": "similis",
+    "author": "(Golovatch, 1990)",
+    "type_locality": "Sindhupalchok District, ascent to Pass Ting Sang La from Bikuti",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sindhupalchok District, ascent to Pass Ting Sang La from Bikuti (2300–3000 m); Dolakha District, Jiri (2600–2900 m), Mt. Cherdung near Jiri (2900 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Anoplodesmus",
+    "species": "spinosus",
+    "author": "Golovatch, 2016",
+    "type_locality": "Solukhumbu District, below Pangom",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, below Pangom (2500 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Anoplodesmus",
+    "species": "subcylindricus",
+    "author": "(Carl, 1935)",
+    "type_locality": "Palnis (Palni Hills), South India",
+    "global_dist": "South India and Nepal (uncertain)",
+    "nepal_dist": "Reported from Nepal but evidence uncertain"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmoides",
+    "species": "anteriporus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Sankhuwasabha District, above Pawakhola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, above Pawakhola (2100–2300 m); Taplejung District, upper Simbuwa Khola Valley (3250–3350 m), southeast of Yamphudin to Yamphudin (1650–2000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmoides",
+    "species": "bifidus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Dolakha District, Dadar Mt. Range, southwest of Kalinchok",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Dolakha District, Dadar Mt. Range, southwest of Kalinchok (3100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmoides",
+    "species": "lobatus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Sankhuwasabha District, from Thudam to Gabri Khola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, from Thudam to Gabri Khola (4000–4250 m), descent from Meropapa La to Yumutanga River (4600 m), Kongla Khola, east of Thudam (4100–4200 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmoides",
+    "species": "longifemoratus",
+    "author": "Golovatch, 2016",
+    "type_locality": "Solukhumbu District, Sanam",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, Sanam (2700–2800 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmoides",
+    "species": "martensi",
+    "author": "Golovatch, 2016",
+    "type_locality": "Panchthar District, above Maimajhuwa Khola, Dhorpar Kharka",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Panchthar District, above Maimajhuwa Khola, Dhorpar Kharka (2700 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmoides",
+    "species": "montigena",
+    "author": "Golovatch, 2016",
+    "type_locality": "Solukhumbu District, southwest Mt. Everest region: Pare",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, southwest Mt. Everest region: Pare (3550 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmoides",
+    "species": "typicus",
+    "author": "Golovatch, 2016",
+    "type_locality": "Gorkha District, Chumling Khola, Djinshi Kharka",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Chumling Khola, Djinshi Kharka (3400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "curtispinus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Dolpa District, Northern Dhaulagiri Himal, ascent to Pass Baga La",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Dolpa District, Northern Dhaulagiri Himal, ascent to Baga La Pass (4500 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "distospinosus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Taplejung District, Yamphudin, ascent to Pass Deurali",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, Yamphudin, ascent to Pass Deurali (2700–3080 m), Omje Kharka in Omje Valley (2300–2500 m) northwest of Yamphudin, southeast of Yamphudin to Yamphudin (1650–2000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "gorkhalis",
+    "author": "Golovatch, 2015",
+    "type_locality": "Gorkha District, Chumling Khola, Djingshi Kharka",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Chumling Khola, Djingshi Kharka (3050–3400 m), Meme Kharka (3300–3450 m), Chumling Khola and Deurali Khola to above Barpak (3450–3600 m); Dolpa District, Northern Dhaulagiri Himal; Gompa (=Gumba) near Tarakot (3300–3400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "latispinosus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Taplejung District, Lassetham Kharka, northwest of Yamphudin",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, Lassetham Kharka, northwest of Yamphudin, upper Simbuwa Khola (3300–3500 m), ascent to Lassetham Kharka (3000–3150 m); Myagdi District, Southern Dhaulagiri Himal, Dhorpatan (3000 m); Sankhuwasabha District, Arun Valley, Chichila (1900–2000 m), between Mudhe and Hururu (2050–2150 m); Solukhumbu District, Hinku Drangka Khola bridge (2000 m); Ilam District, Mai Pokhari (2100–2200 m); Panchthar District, above Maimajuwa Khola, Dhorpar Kharka (2700 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "longispinus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Taplejung District, above Olangchung Gola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, above Olangchung Gola (3600–3800 m), south of Ghunsa (3900 m), Lassetham Kharka, northwest of Yamphudin (3300–3500 m), south of Ghunsa (4270 m); Myagdi District, southern Dhaulagiri Himal, Dhorpatan (3000 m); Sankhuwasabha District, above Pawakhola (2600–2800 m); Terhathum District, Tinjure Danda, Chauki to Basantpur (2550–2650 m); Gorkha District, Daraudi Khola to above Barpak (3000–3300 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "martensi",
+    "author": "Golovatch, VandenSpiegel & Semenyuk, 2016",
+    "type_locality": "Mustang District, Thakkhola, Kali Gandaki Valley, between Annapurna and Dhaulagiri Himal, Chadziuo Khola Valley near Lete and Ghasa",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Thakkhola, Kali Gandaki Valley, between Annapurna and Dhaulagiri Himal, Chadziuo Khola Valley near Lete and Ghasa (2650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "minutus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Taplejung District, Lassetham Kharka, northwest of Yamphudin",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, Lassetham Kharka, northwest of Yamphudin (3300–3500 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "pallidus",
+    "author": "Golovatch, 2014",
+    "type_locality": "Rasuwa District, Langtang Valley, Kyanjin Gompa Forest",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Rasuwa District, Langtang Valley, Kyanjin Gompa Forest (3800–4100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "serratus",
+    "author": "Golovatch, VandenSpiegel & Semenyuk, 2016",
+    "type_locality": "Taplejung District, pasture Lassetham northwest of Yamphudin",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, pasture Lassetham northwest of Yamphudin (3300–3500 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "simplex",
+    "author": "Golovatch, 2016",
+    "type_locality": "Kaski District, above Dhampus",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, above Dhampus (2100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Beronodesmus",
+    "species": "sinuatospinus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Ilam District, Mai Pokhari",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Ilam District, Mai Pokhari (2150–2250 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Chondromorpha",
+    "species": "greke",
+    "author": "Golovatch, 2022",
+    "type_locality": "Lumbini Province, Banke District, 15 km SSE of Khaskusma, 30 km NW of Lamahi, Kali Khola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Lumbini Province, Banke District, 15 km SSE of Khaskusma, 30 km NW of Lamahi, Kali Khola (235 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "aberrans",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Sindhupalchok/Dolakha District, between Pass Thingsang La and Thodung, path from ridge above Jiri to Shivalaya",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sindhupalchok/Dolakha District, between Pass Thingsang La and Thodung path from ridge above Jiri to Shivalaya (2500–2600 m), near Skhetrapa (1000 m); Ramechhap District, Mahabir Khola, east of Shivalaya (2500–2600 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "affinis",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Kaski District, Southern Annapurna Himal, slopes below Naudanda to Suikheth Valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, Southern Annapurna Himal, slopes below Naudanda to Suikheth Valley (1400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "alatum",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Sankhuwasabha District, Arun Valley, south of Mudhe",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, Arun Valley, south of Mudhe (1900–2100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "andreevi",
+    "author": "Golovatch, 2014",
+    "type_locality": "Kaski District, Pokhara, Annapurna Trek, above Bhichok (=Bhichuk)",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, Pokhara, Annapurna Trek, above Bhichok (=Bhichuk) (1800 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "arunense",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Sankhuwasabha District, Arun Valley, between Mudhe and Hururu",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, Arun Valley, between Mudhe and Hururu (2050–2150 m), between Chichila and Bhotebas (1850–2100 m), Chichila (1900–2100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "beroni",
+    "author": "Golovatch, 2014",
+    "type_locality": "Kaski District, Pokhara",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, Pokhara (900 m); Palpa District, Tansen; Nuwakot District, Betrawati (600–1000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "bifidum",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Terhathum/Dhankuta District, Tinjure Danda, Chauki to Basantpur",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Terhathum/Dhankuta District, Tinjure Danda, Chauki to Basantpur (2250–2650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "chulingensis",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Gorkha District, Chumling Khola Valley, Meme Kharka",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Chumling Khola Valley, Meme Kharka (3300–3400 m), Chumling Khola Valley (3000–3400 m), northwest of Rupina La between Kalo Pokhari and Tabruk Kharka (3400–3700 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "communicans",
+    "author": "(Golovatch, 1992)",
+    "type_locality": "Mustang District, Kali Gandaki Valley, Thakkhola, Chadziou Khola Valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Kali Gandaki Valley, Thakkhola, Chadziou Khola Valley (2650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "curtisoma",
+    "author": "Golovatch, 2015",
+    "type_locality": "Sankhuwasabha District, Arun Valley, between Mudhe and Hururu",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, Arun Valley, between Mudhe and Hururu (2050–2150 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "curtum",
+    "author": "Golovatch, 2014",
+    "type_locality": "Nuwakot District, Betrawati",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Nuwakot District, Betrawati (600–1000 m); Rasuwa District, Langtang Valley"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "densesetosum",
+    "author": "Golovatch, 2015",
+    "type_locality": "Myagdi District, Myagdi Khola, Darwang",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Myagdi District, Myagdi Khola, Darwang (2400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "elegans",
+    "author": "(Golovatch, 1992)",
+    "type_locality": "Kathmandu District, Kathmandu City and surrounding hills",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kathmandu District, Kathmandu City and surrounding hills (1350 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "extremum",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Taplejung District, upper Tamur Valley, rest-house and side valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, upper Tamur Valley, rest-house and side valley (2450 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "facile",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Taplejung District, upper Tamur Valley, from Bamboo Bridge to the rest-house and side valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, upper Tamur Valley, from Bamboo Bridge to the rest-house and side valley (2200–2400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "fechteri",
+    "author": "(Golovatch, 1990)",
+    "type_locality": "Mustang District, Kali Gandaki Valley, Annapurna and Dhaulagiri Himal; Thasang above Tukuche",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Kali Gandaki Valley, Annapurna and Dhaulagiri Himal; Thasang above Tukuche (3150 m), Chadziou Khola Valley (2330–2600 m), ascent to Thasang (2600–2900 m), and Purano Marpha (3100–3200 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "foveatum",
+    "author": "(Golovatch, 1992)",
+    "type_locality": "Rasuwa District, Trisuli Valley, between Ramche and Dhunche",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Rasuwa District, Trisuli Valley, between Ramche and Dhunche (1800–2000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "furcatum",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Lalitpur District, Kathmandu and surrounding hills, Mt. Phulchowki",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Lalitpur District, Kathmandu and surrounding hills, Mt. Phulchowki (2000 m); Rasuwa District, Langtang Valley, Syaphrubesi (1600 m); Nuwakot District, Betrawati (600–1000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "gracile",
+    "author": "Golovatch, 2015",
+    "type_locality": "Lalitpur District, Godawari, foot of Mt. Phulchowki",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Lalitpur District, Godawari, foot of Mt. Phulchowki (1750 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "granulosum",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Sankhuwasabha District, Arun Valley, between Hururu and Chichila",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, Arun Valley, between Hururu and Chichila (2000 m), bottom of Arun Valley, between Hedangna and Num (950–1000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "heterotergale",
+    "author": "Golovatch, 2014",
+    "type_locality": "Nuwakot District, Betrawati",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Nuwakot District, Betrawati (600–1000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "hirsutum",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Mustang District, Thakkhola, Kali Gandaki Valley, ascent to Dapa-Col above Tukuche",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Thakkhola, Kali Gandaki Valley, ascent to Dapa-Col above Tukuche (3900–4100 m); Myagdi District, Myagdi Khola, Darwang (2400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "intermedium",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Gorkha District, Khorlabesi to Dobhan",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Khorlabesi to Dobhan (1000–1100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "invocatum",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Taplejung District, descent from Pass Deurali to Hellok",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, descent from Pass Deurali to Hellok (2600–2800 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "kuznetsovi",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Myagdi District, southwest of Dhaulagiri, Dhorpatan",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Myagdi District, southwest of Dhaulagiri, Dhorpatan (3000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "longisetum",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Kathmandu District, Kathmandu Valley, Nagarjun Mt. Ridge",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kathmandu District, Kathmandu Valley, Nagarjun Mt. Ridge (1400–1600 m); Dhading District, below Samari Bhanjyang (1000–1300 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "longispinum",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Ilam District, Mai Pokhari",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Ilam District, Mai Pokhari (2150–2250 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "modestum",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Sankhuwasabha District, between Pomari La and Pawakhola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, between Pomari La and Pawakhola (3450–3600 m), above Pawakhola (2600–2800 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "nyakensis",
+    "author": "(Golovatch, 1992)",
+    "type_locality": "Gorkha District, Buri Gandaki Valley, Nyak",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Buri Gandaki Valley, Nyak (2270–2450 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "philosophicum",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Gorkha/Dhading District, Buri Gandaki Valley, Nyak, Jagat to opposite Panshing",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha/Dhading District, Buri Gandaki Valley, Nyak, Jagat to opposite Panshing (1650 m), Nyak (2270–2450 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "planifemur",
+    "author": "Golovatch, 2015",
+    "type_locality": "Kaski District, above Pothana",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, above Pothana (2000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "prolixum",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Terhathum/Dhankuta District, Tinjure Danda, from Chauki to Basantapur",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Terhathum/Dhankuta District, Tinjure Danda, from Chauki to Basantapur (2250–2650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "quadridentatum",
+    "author": "Golovatch, 2016",
+    "type_locality": "Myagdi District, ascent to Pass Jaljala",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Myagdi District, ascent to Pass Jaljala (3000–3200 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "schawalleri",
+    "author": "(Golovatch, 1992)",
+    "type_locality": "Taplejung District, upper Tamur Valley, from Lungthung waterfalls to Bamboo Bridge",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, upper Tamur Valley, from Lungthung waterfalls to Bamboo Bridge (1800–2150 m), confluence of Kabeli Khola and Tada Khola (1000 m); Sankhuwasabha District, Arun Valley, between Hururu and Chichila"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "setosum",
+    "author": "Golovatch, 2014",
+    "type_locality": "Palpa District, Tansen",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Palpa District, Tansen"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "silvestre",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Rasuwa District, Trisuli Valley, Gosaikund",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Rasuwa District, Trisuli Valley, Gosaikund (2400–2600 m), near Dhunche (2000–2100 m); Solukhumbu District, above Bung (2200–2500 m), Hinku Drangka Khola bridge (2000 m), Junbesi to Ringmo (2700–3000 m), above Nunthala (2300–2500 m), Sibuje (2300–2700 m), Salpa Pass (3400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "similis",
+    "author": "(Golovatch, 1992)",
+    "type_locality": "Myagdi District, between Sikha and Pass Ghodepani",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Myagdi District, between Sikha and Pass Ghodepani (2300–2700 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "simplex",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Gorkha District, Buri Gandaki, from Jagat to Opposite Pangshing",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Buri Gandaki, from Jagat to Opposite Pangshing (1650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "simulans",
+    "author": "(Carl, 1935)",
+    "type_locality": "Solukhumbu District, Rongshar Valley",
+    "global_dist": "China (Tibet), Nepal",
+    "nepal_dist": "Solukhumbu District, Rongshar Valley (2896–3353 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "spectabile",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Mustang District, Thakkhola, Kali Gandaki Valley, between Annapurna and Dhaulagiri Himal, Chadziou Khola Valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Thakkhola, Kali Gandaki Valley, between Annapurna and Dhaulagiri Himal, Chadziou Khola Valley (2650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "spinigerum",
+    "author": "(Golovatch, 1992)",
+    "type_locality": "Gorkha District, from Arughat to Soti",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, from Arughat to Soti (600–700 m), between Dhodeni and Mahatar (750–900 m) Daraudi Khola; Dhading District, between Tharpu and Kotunje (1300–1400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "splendens",
+    "author": "(Golovatch, 1992)",
+    "type_locality": "Taplejung District, from southeast of Yamphudin to Yamphudin",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, from southeast of Yamphudin to Yamphudin (1650–2000 m); Sankhuwasabha District, Arun Valley, between Mudhe and Hururu (2050–2150 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "subalatum",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Sankhuwasabha District, above Pawakhola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, above Pawakhola (2600–2800 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "subsimulans",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Taplejung District, between Lassetham pasture and Simbuwa Khola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, between Lassetham pasture and Simbuwa Khola (3100–3300 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "telnovi",
+    "author": "Golovatch, 2023",
+    "type_locality": "Karnali Province, Humla District, ca. 12–13 km SE of Simikot",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Karnali Province, Humla District, ca. 12–13 km SE of Simikot, Ghatte, Yanchu Khola to Simikot (2920–3490 m), 13.5–13.9 km SE of Simikot (3445–3880 m), 34.5 km SE–41 km E of Simikot (1655–3525 m); Mugu District, Rara National Park, 30–31 km NNW of Jumla (3290–2940 m); Jumla District, 14 km NE–9 km NNW of Jumla (2990–3110 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "tenuitergale",
+    "author": "Golovatch, 2014",
+    "type_locality": "Rasuwa District, Langtang National Park, Chandanbari",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Rasuwa District, Langtang National Park, Chandanbari (3250 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "tergalis",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Mustang District, Thakkhola, Kali Gandaki Valley, between Annapurna and Dhaulagiri Himal, Chadziuo Khola Valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Thakkhola, Kali Gandaki Valley, between Annapurna and Dhaulagiri Himal, Chadziuo Khola Valley (2650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "tuberculatum",
+    "author": "(Golovatch, 1994)",
+    "type_locality": "Gorkha District, Daraudi Khola above Barpak",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Daraudi Khola above Barpak (3000–3300 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "typicum",
+    "author": "Golovatch, 2014",
+    "type_locality": "Rasuwa District, Langtang National Park, Danje Checkpost",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Rasuwa District, Langtang National Park, Danje Checkpost (3100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Delarthrum",
+    "species": "uncum",
+    "author": "(Golovatch, 1996)",
+    "type_locality": "Taplejung District, Yamphudin, ascent to Deurali Pass",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, Yamphudin, ascent to Deurali Pass (2700–3420 m), above Yamphudin, left bank of Kabeli Khola (1800–2000 m), Omja Kharka (2300–2500 m) northwest of Yamphudin, ascent to Lassetham pasture from Omja Khola (2400–3150 m); Panchthar District, Paniparuwa (2300 m); Ilam District, Mai Pokhari (2100–2200 m), Gitang Khola (2599 m); Terhathum/Dhankuta District, Tinjure Danda, Chauki to Basantapur (2550–2650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Hirtodrepanum",
+    "species": "latigonopum",
+    "author": "Golovatch, 1994",
+    "type_locality": "Mustang District, south of Lete",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, south of Lete (2450–2600 m), Thakkhola, Kali Gandaki Valley between Annapurna and Dhaulagiri Himal, Chadziou Khola Valley (2530–2600 m), banks of Lete Khola near Lete (2400 m); Manang District, Marsyandi, above Bagarchap (2200 m); Kaski and Parbat District, above Dhampus (2100 m), between Chitre and Ghandruk, Ghandruk side of pass (2300–2700 m), between Ghodepani Pass and Ulleri (2460 m); Ilam District, Gitang Khola (2550 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Kronopolites",
+    "species": "coriaceus",
+    "author": "Golovatch, 2015",
+    "type_locality": "Kaski District, above Pothana",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, above Pothana (2000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Orthomorpha",
+    "species": "coarctata",
+    "author": "(Saussure, 1860)",
+    "type_locality": "French Guiana",
+    "global_dist": "Brazil, Indonesia, Papua New Guinea, Samoa, Sao Tome and Principe, Vietnam",
+    "nepal_dist": "Nuwakot District, Trisuli (600–650 m); Dhading District, Ankhu Sangu to Salyantar (530–750 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Oxidus",
+    "species": "gracilis",
+    "author": "(Koch C. L., 1847)",
+    "type_locality": "Vaterland. Puloloz (locality in former Czechoslovakia or in Ostindien)",
+    "global_dist": "Worldwide, primarily in warm temperate regions",
+    "nepal_dist": "Kathmandu District, Kathmandu City, Ganabahal (1350 m); Kaski District, Pokhara town (900 m), between Hemja, Cave Mahendra and Pokhara (1000–1200 m); Rasuwa District, Trisuli Village (570 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Pocockina",
+    "species": "schawalleri",
+    "author": "Golovatch, 2016",
+    "type_locality": "Chitwan District, Chitwan National Park, Sauraha",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Chitwan District, Chitwan National Park, Sauraha (150 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Substrongylosoma",
+    "species": "bifurcatum",
+    "author": "Golovatch, 2016",
+    "type_locality": "Solukhumbu District, Hinku Drangka Khola Bridge",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, Hinku Drangka Khola Bridge (2000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Substrongylosoma",
+    "species": "exiguum",
+    "author": "Golovatch, 2016",
+    "type_locality": "Bhojpur District, valley northwest of Phedi",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Khotang/Bhojpur District, valley northwest of Phedi (1900 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Substrongylosoma",
+    "species": "schawalleri",
+    "author": "Golovatch, 1993",
+    "type_locality": "Taplejung District, between Hellok and lower Ghunsa Khola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, between Hellok and lower Ghunsa Khola (1620–2000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Touranella",
+    "species": "himalayaensis",
+    "author": "Golovatch, 1994",
+    "type_locality": "Panchthar District, Paniparuwa",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Panchthar District, Paniparuwa (2300 m), Dhorpar Kharka (2700 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Touranella",
+    "species": "pilosa",
+    "author": "Golovatch, 2016",
+    "type_locality": "Sankhuwasabha District, above Pawakhola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, above Pawakhola (2600–2800 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Epanerchodus",
+    "species": "anachoretus",
+    "author": "(Golovatch, 1986)",
+    "type_locality": "Ramechhap District, Thodung near Jiri",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Ramechhap District, Thodung near Jiri (3100–3200 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Epanerchodus",
+    "species": "buddhis",
+    "author": "(Golovatch, 1986)",
+    "type_locality": "Dolpa District, N Dhaulagiri Himal, Gompa (=Gumba) near Tarakot",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Dolpa District, N Dhaulagiri Himal, Gompa (=Gumba) near Tarakot (3300–3400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Epanerchodus",
+    "species": "occultus",
+    "author": "(Golovatch, 1986)",
+    "type_locality": "Mustang District, Kali Gandaki Valley, Chadziou Khola Valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Kali Gandaki Valley, Chadziou Khola Valley (2700–2800 m); Parbat District, between Chitre and Ghandruk on Chitre side of the Pass (2800–2900 m), Ghandruk side of the Pass (2700–3100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Epanerchodus",
+    "species": "sacer",
+    "author": "(Golovatch, 1987)",
+    "type_locality": "Gorkha District, Chumling Khola, Meme Kharka",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Chumling Khola, Meme Kharka (3300–3400 m), Djingshi Kharka (3050–3400 m), south of Kalo Pokhari (3600 m), northwest of Rupina La–Tabruk Kharka (4000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Epanerchodus",
+    "species": "telnovi",
+    "author": "Golovatch, 2022",
+    "type_locality": "Humla District, 12–13 km SE of Simikot",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Humla District, 12–13 km SE of Simikot (1990–3110 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Epanerchodus",
+    "species": "theocraticus",
+    "author": "(Golovatch, 1990)",
+    "type_locality": "Taplejung District, descent from Pass Deurali to Hellok",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, descent from Pass Deurali to Hellok (2600–2800 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Epanerchodus",
+    "species": "theosophicus",
+    "author": "(Golovatch, 1986)",
+    "type_locality": "Rasuwa District, Trisuli Valley, Gosaikund, Sing Gompa",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Rasuwa District, Trisuli Valley, Gosaikund, Sing Gompa (3200 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Glenniea",
+    "species": "martensi",
+    "author": "(Golovatch, 1987)",
+    "type_locality": "Gorkha District, between Nayasanghu and Gorkha",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, between Nayasanghu and Gorkha (1200 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Himalodesmus",
+    "species": "audax",
+    "author": "Golovatch, 1986",
+    "type_locality": "Lalitpur District, Kathmandu Valley, Godawari, Mt. Phulchowki",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Lalitpur District, Kathmandu Valley, Godawari, Mt. Phulchowki (2600–2650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Himalodesmus",
+    "species": "benefactor",
+    "author": "Golovatch, 1987",
+    "type_locality": "Taplejung District, ridge Lasse Dhara and pasture Lassetham",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, ridge Lasse Dhara and pasture Lassetham (3000–3300 m), descent from Deurali Pass to Hellok (2600–2800 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Himalodesmus",
+    "species": "faustus",
+    "author": "Golovatch, 1987",
+    "type_locality": "Gorkha District, Buri Gandaki, Jagat to opposite Pangshing",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, Buri Gandaki, Jagat to opposite Pangshing (1650–1750 m), opposite Pangshing (1750 m), Khorlabesi to Dobhan (1000–1100 m), Arughat to Soti (600–700 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Himalodesmus",
+    "species": "parvus",
+    "author": "Golovatch, 1987",
+    "type_locality": "Panchthar District, ridge between Sheldoti and Paniparuwa",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Panchthar District, ridge between Sheldoti and Paniparuwa (2000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Himalodesmus",
+    "species": "prosperus",
+    "author": "Golovatch, 1990",
+    "type_locality": "Sankhuwasabha District, above Pawakhola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, above Pawakhola (2600–2800 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Himalodesmus",
+    "species": "pulcher",
+    "author": "Golovatch, 1987",
+    "type_locality": "Terhathum District, Tinjure Danda",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Terhathum District, Tinjure Danda (2450–2720 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Himalodesmus",
+    "species": "pygmaeus",
+    "author": "Golovatch, 1986",
+    "type_locality": "Dolpa District, N Dhaulagiri Himal, Gompa (=Gumba) near Tarakot",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Dolpa District, N Dhaulagiri Himal, Gompa (=Gumba) near Tarakot (3300–3400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Himalodesmus",
+    "species": "vigens",
+    "author": "Golovatch, 1987",
+    "type_locality": "Ilam District, Mai Pokhari",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Ilam District, Mai Pokhari (2150–2250 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Pyrgodesmidae",
+    "genus": "Cryptocorypha",
+    "species": "sp.",
+    "author": null,
+    "type_locality": null,
+    "global_dist": "Two species from Nepal",
+    "nepal_dist": "Nepal"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Hingstonia",
+    "species": "beatae",
+    "author": "Golovatch, 1990",
+    "type_locality": "Taplejung District, Yamphudin, ascent to Pass Deurali",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, Yamphudin, ascent to Pass Deurali (2700–3420 m), pasture Lassetham, northwest of Yamphudin (3300–3500 m), upper Tamur Valley below Olangchung Gola (2400–2700 m), Olangchung Gola (3000–3200 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Hingstonia",
+    "species": "eremita",
+    "author": "Carl, 1935",
+    "type_locality": "Solukhumbu District, Rongshar Valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Solukhumbu District, Rongshar Valley (2896–3353 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Hingstonia",
+    "species": "falcata",
+    "author": "Golovatch, 1986",
+    "type_locality": "Mustang District, Thakkhola, Kali Gandaki Valley, Chadziou Khola Valley",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Thakkhola, Kali Gandaki Valley, Chadziou Khola Valley (2650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Hingstonia",
+    "species": "fittkaui",
+    "author": "Golovatch, 1990",
+    "type_locality": "Sankhuwasabha District, Thudam",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, Thudam (3350–3650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Hingstonia",
+    "species": "pahakholana",
+    "author": "Golovatch, 1990",
+    "type_locality": "Sankhuwasabha District, above Pawakhola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, above Pawakhola (2600–2800 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Hingstonia",
+    "species": "perarmata",
+    "author": "Golovatch, 1986",
+    "type_locality": "Mustang District, Thakkhola, Kali Gandaki Valley, Thasang above Tukuche",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Mustang District, Thakkhola, Kali Gandaki Valley, Thasang above Tukuche (3150 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Hingstonia",
+    "species": "serrata",
+    "author": "Golovatch, 1987",
+    "type_locality": "Gorkha District, south of Kalo Pokhari",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Gorkha District, south of Kalo Pokhari (3600 m), Chumling Khola, Djinshi Kharka (3400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Hingstonia",
+    "species": "sympatrica",
+    "author": "Golovatch, 1990",
+    "type_locality": "Sankhuwasabha District, Thudam",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, Thudam (3350–3650 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Hingstonia",
+    "species": "variata",
+    "author": "Golovatch, 1987",
+    "type_locality": "Taplejung District, Pass Anda Deurali, between Simbuwa Khola and Ghunsa Khola",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, Pass Anda Deurali, between Simbuwa Khola and Ghunsa Khola (4250–4500 m), between Lassetham pasture and Simbuwa Khola (3100–3300 m), Yalung (3450 m), south of Ghunsa (3600–3900 m), Ghunsa (3200–3400 m), ridge Lasse Dhara and pasture Lassetham (3000–3300 m), descent from Pass Deurali to Hellok (3000–3400 m), upper Simbuwa Khola Valley, near Tseram (3250–3350 m), ascent to pasture Lassetham (3000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Sholaphilus",
+    "species": "asceticus",
+    "author": "Golovatch, 1986",
+    "type_locality": "Kaski District, south Annapurna Himal, between Lumle and Khare",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, south Annapurna Himal, between Lumle and Khare (1650 m), slope below Naudhara to Suikheth Valley (1300–1400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Sholaphilus",
+    "species": "dalai",
+    "author": "Golovatch, 1986",
+    "type_locality": "Parbat District, Chitre",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Parbat District, Chitre (2400 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Sholaphilus",
+    "species": "gompa",
+    "author": "Golovatch, 1990",
+    "type_locality": "Taplejung District, Yamphudin",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Taplejung District, Yamphudin (2000–2100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Sholaphilus",
+    "species": "lama",
+    "author": "Golovatch, 1986",
+    "type_locality": "Rasuwa District, Trisuli Valley, between Ramche and Dhunche",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Rasuwa District, Trisuli Valley, between Ramche and Dhunche (1800–2000 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Sholaphilus",
+    "species": "martensi",
+    "author": "Golovatch, 1986",
+    "type_locality": "Lamjung District, Marsyandi Valley, Syange to Jagat",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Lamjung District, Marsyandi Valley, Syange to Jagat (1100–1250 m), between Tal and Dharapani (1580–1850 m); Manang District, Marsyandi Valley, below Bagarchhap (2100 m)"
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Sholaphilus",
+    "species": "monachus",
+    "author": "Golovatch, 1990",
+    "type_locality": "Sankhuwasabha District, Arun Valley, between Mudhe and Hururu",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Sankhuwasabha District, Arun Valley, between Mudhe and Hururu (2050–2150 m)"
+  },
+  {
+    "order": "Spirostreptida",
+    "family": "Cambalopsidae",
+    "genus": "Podoglyphiulus",
+    "species": "elegans nepalensis",
+    "author": "Mauriès, 1983",
+    "type_locality": "Satara District, Konya Valley, and Nechal, Western Ghats",
+    "global_dist": "India, Nepal",
+    "nepal_dist": "Kathmandu District, 5 km SW of the city, Twang Reng Gupha"
+  },
+  {
+    "order": "Spirostreptida",
+    "family": "Cambalopsidae",
+    "genus": "Trachyjulus",
+    "species": "wilsonae",
+    "author": "(Mauriès, 1983)",
+    "type_locality": "Kaski District, Pokhara, Oderibunan Gupha",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, Pokhara Oderibunan Gupha, Mahendra Gupha, and Bagmati Zone: near Kathmandu, Twang Reng Gupha, and Bagmati Cave"
+  },
+  {
+    "order": "Spirostreptida",
+    "family": "Harpagophoridae",
+    "genus": "Gonoplectus",
+    "species": "broelemanni",
+    "author": "Demange, 1961",
+    "type_locality": "Kaski District, Bakhri Kharda",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, Bakhri Kharda (1676 m), Ulleri (1819–2134 m), Sikles (7000 ft)"
+  },
+  {
+    "order": "Spirostreptida",
+    "family": "Harpagophoridae",
+    "genus": "Gonoplectus",
+    "species": "hyatti",
+    "author": "Demange, 1961",
+    "type_locality": "Kaski District, Tilhar",
+    "global_dist": "Endemic to Nepal",
+    "nepal_dist": "Kaski District, on ground at Tilhar (1067 m), Naudanda and Takun"
+  },
+  {
+    "order": "Spirostreptida",
+    "family": "Harpagophoridae",
+    "genus": "Gonoplectus",
+    "species": "malayus",
+    "author": "(Carl, 1909)",
+    "type_locality": "Java (Indonesia)",
+    "global_dist": "Indonesia (Java), Bhutan, India, Nepal",
+    "nepal_dist": "Chitwan District, Kataoli, Narayani Valley, 30 km west-southwest of Narayangarh (200–250 m), near Narayangarh (200–250 m)"
+  },
+  {
+    "order": "Spirostreptida",
+    "family": "Harpagophoridae",
+    "genus": "Gonoplectus",
+    "species": "lindbergi",
+    "author": "Demange, 1961",
+    "type_locality": "Gayaganga, Darjeeling",
+    "global_dist": "India and Nepal",
+    "nepal_dist": "Jhapa District, Birtamode Municipality, Butabari (26.646674, 88.027101), 147 m"
+  },
+  {
+    "order": "Spirobolida",
+    "family": "Pachybolidae",
+    "genus": "Trigoniulus",
+    "species": "corralinus",
+    "author": "(Eydoux and Souleyet, 1842)",
+    "type_locality": "St. Bartholomew (England, United Kingdom)",
+    "global_dist": "Pantropical",
+    "nepal_dist": "Ranibari Community Forest (27.730833, 85.320833), Kathmandu, Bagmati, Nepal"
+  },
+  {
+    "order": "Polyxenida",
+    "family": "Polyxenidae",
+    "genus": "Monographis",
+    "species": "mirus",
+    "author": "(Turk, 1947)",
+    "type_locality": "India",
+    "global_dist": "India, Nepal",
+    "nepal_dist": "Unknown"
+  },
+  {
+    "order": "Polyxenida",
+    "family": "Polyxenidae",
+    "genus": "Unixenus",
+    "species": "sp.",
+    "author": null,
+    "type_locality": null,
+    "global_dist": "Nepal",
+    "nepal_dist": "Nepal"
+  }
+]

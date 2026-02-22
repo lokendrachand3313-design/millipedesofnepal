@@ -1,0 +1,128 @@
+/* Color Palette: Earthy & Nature-Inspired */
+:root {
+    --primary-green: #2d5a27;
+    --leaf-green: #4f772d;
+    --earth-brown: #583101;
+    --background-cream: #fdfaf5;
+    --text-dark: #333;
+    --accent-yellow: #fec89a;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    background-color: var(--background-cream);
+    color: var(--text-dark);
+}
+
+/* Header & Navigation */
+header {
+    /* Updated to match your filename 'home.jpg' */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+    
+    /* Makes the image fill the top area beautifully */
+    background-size: cover;
+    background-position: center;
+    
+    /* Adjusting padding to make the header taller so we see the photo */
+    padding: 120px 20px; 
+    color: white;
+    text-align: center;
+    border-bottom: 8px solid var(--earth-brown);
+}
+
+header h1 {
+    font-size: 3.5rem;
+    margin: 0;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8); /* Makes title pop against the photo */
+}
+
+header p {
+    font-size: 1.4rem;
+    color: var(--accent-yellow);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+nav {
+    background-color: var(--leaf-green);
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background-color: var(--accent-yellow);
+    color: var(--earth-brown);
+}
+
+/* Main Content Area */
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+h2 {
+    color: var(--primary-green);
+    border-left: 5px solid var(--leaf-green);
+    padding-left: 15px;
+    margin-top: 30px;
+}
+
+/* Nepali Names Section (Color Box) */
+.nepali-names {
+    background-color: #e9edc9;
+    padding: 20px;
+    border-radius: 8px;
+    font-style: italic;
+    border: 1px dashed var(--earth-brown);
+}
+
+/* Featured Box */
+.featured {
+    background-color: #fefae0;
+    border: 1px solid var(--accent-yellow);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Footer */
+footer {
+    background-color: var(--earth-brown);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+footer a {
+    color: var(--accent-yellow);
+}
+
+/* Style for the Featured Species Photo */
+.featured-img {
+    width: 100%;           /* Makes it fit the width of the box */
+    max-width: 500px;      /* Prevents it from getting too huge on big screens */
+    height: auto;          /* Keeps the photo from looking stretched */
+    border-radius: 8px;    /* Gives it soft rounded corners */
+    display: block;
+    margin: 15px 0;        /* Adds space above and below the photo */
+    border: 3px solid var(--leaf-green); /* Adds a nice border */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}

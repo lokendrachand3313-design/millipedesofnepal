@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribution - Millipedes of Nepal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map { 
+            height: 70vh; 
+            width: 100%; 
+            border-radius: 12px; 
+            border: 4px solid var(--primary-green);
+            z-index: 1;
+        }
+        .filter-section {
+            background: #fdfaf5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid var(--leaf-green);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        .filter-group { display: flex; flex-direction: column; flex: 1; min-width: 150px; }
+        .filter-group label { font-weight: bold; margin-bottom: 5px; color: var(--earth-brown); font-size: 0.9rem; }
+        .filter-group select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        
+        .map-view-buttons { margin-bottom: 15px; }
+        .btn-view {
+            padding: 8px 15px;
+            background: var(--leaf-green);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .btn-view:hover { background: var(--primary-green); }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Distribution Records</h1>
+    <p>Mapping 194 Species Across Nepal and the Globe</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="history.html">History</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="distribution.html">Map</a>
+</nav>
+
+<main>
+    <div class="map-view-buttons">
+        <button class="btn-view" onclick="zoomToNepal()">Zoom to Nepal</button>
+        <button class="btn-view" onclick="zoomToGlobal()">Global View</button>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-group">
+            <label>Order</label>
+            <select id="orderFilter" onchange="updateFilters('order')"></select>
+        </div>
+        <div class="filter-group">
+            <label>Family</label>
+            <select id="familyFilter" onchange="updateFilters('family')"></select>
+        </div>
+        <div class="filter-group">
+            <label>Genus</label>
+            <select id="genusFilter" onchange="updateFilters('genus')"></select>
+        </div>
+        <div class="filter-group">
+            <label>Species</label>
+            <select id="speciesFilter" onchange="renderMarkers()"></select>
+        </div>
+    </div>
+
+    <div id="map"></div>
+</main>
+
+<footer>
+    <p>&copy; Lokendra Chand | Research on Nepalese Diplopoda</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data.js"></script>
+
+<script>
+    // Initialize Map
+    const map = L.map('map').setView([28.3949, 84.1240], 7);
+    const markersLayer = L.layerGroup().addTo(map);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Initial Dropdown Setup
+    function populate(id, key, filterKey, filterVal) {
+        const select = document.getElementById(id);
+        let data = millipedePoints;
+        
+        if (filterVal && filterVal !== 'all') {
+            data = millipedePoints.filter(p => p[filterKey] === filterVal);
+        }
+
+        const uniqueVals = [...new Set(data.map(p => p[key]))].sort();
+        select.innerHTML = `<option value="all">All ${key.charAt(0).toUpperCase() + key.slice(1)}s</option>`;
+        
+        uniqueVals.forEach(val => {
+            let opt = document.createElement('option');
+            opt.value = val;
+            opt.textContent = val;
+            select.appendChild(opt);
+        });
+    }
+
+    function updateFilters(level) {
+        const order = document.getElementById('orderFilter').value;
+        const family = document.getElementById('familyFilter').value;
+        const genus = document.getElementById('genusFilter').value;
+
+        if(level === 'order') {
+            populate('familyFilter', 'family', 'order', order);
+            populate('genusFilter', 'genus', 'order', order);
+            populate('speciesFilter', 'species', 'order', order);
+        } else if (level === 'family') {
+            populate('genusFilter', 'genus', 'family', family);
+            populate('speciesFilter', 'species', 'family', family);
+        } else if (level === 'genus') {
+            populate('speciesFilter', 'species', 'genus', genus);
+        }
+        renderMarkers();
+    }
+
+    function renderMarkers() {
+        markersLayer.clearLayers();
+        const fOrder = document.getElementById('orderFilter').value;
+        const fFamily = document.getElementById('familyFilter').value;
+        const fGenus = document.getElementById('genusFilter').value;
+        const fSpecies = document.getElementById('speciesFilter').value;
+
+        millipedePoints.forEach(p => {
+            if ((fOrder === 'all' || p.order === fOrder) &&
+                (fFamily === 'all' || p.family === fFamily) &&
+                (fGenus === 'all' || p.genus === fGenus) &&
+                (fSpecies === 'all' || p.species === fSpecies)) {
+                
+                const marker = L.marker([p.lat, p.lon]);
+                marker.bindPopup(`
+                    <div style="font-family: sans-serif;">
+                        <h3 style="margin:0; color:var(--primary-green)"><i>${p.genus} ${p.species}</i></h3>
+                        <hr>
+                        <b>Order:</b> ${p.order}<br>
+                        <b>Family:</b> ${p.family}<br>
+                        <b>Locality:</b> ${p.lat}, ${p.lon}
+                    </div>
+                `);
+                markersLayer.addLayer(marker);
+            }
+        });
+    }
+
+    function zoomToNepal() { map.setView([28.3949, 84.1240], 7); }
+    function zoomToGlobal() { map.setView([20, 0], 2); }
+
+    // On start
+    populate('orderFilter', 'order');
+    updateFilters('order');
+</script>
+</body>
+</html>
