@@ -246,15 +246,15 @@
     <div class="filter-section">
         <div class="filter-group">
             <label>Order</label>
-            <select id="orderFilter" onchange="updateFilters('order')"></select>
+            <select id="orderFilter" onchange="handleOrderChange()"></select>
         </div>
         <div class="filter-group">
             <label>Family</label>
-            <select id="familyFilter" onchange="updateFilters('family')"></select>
+            <select id="familyFilter" onchange="handleFamilyChange()"></select>
         </div>
         <div class="filter-group">
             <label>Genus</label>
-            <select id="genusFilter" onchange="updateFilters('genus')"></select>
+            <select id="genusFilter" onchange="handleGenusChange()"></select>
         </div>
         <div class="filter-group">
             <label>Species</label>
@@ -285,83 +285,93 @@
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Function to populate dropdowns
-    function populate(id, key, filterKey = null, filterVal = null) {
-        const select = document.getElementById(id);
-        let data = millipedePoints;
+    // Function to populate a dropdown with unique values
+    function populateDropdown(dropdownId, dataArray, key, filterObj = null) {
+        const select = document.getElementById(dropdownId);
+        let filteredData = dataArray;
         
-        // Apply filter if provided
-        if (filterKey && filterVal && filterVal !== 'all') {
-            data = millipedePoints.filter(p => p[filterKey] === filterVal);
+        // Apply filters if provided
+        if (filterObj) {
+            filteredData = dataArray.filter(item => {
+                for (let filterKey in filterObj) {
+                    if (filterObj[filterKey] !== 'all' && item[filterKey] !== filterObj[filterKey]) {
+                        return false;
+                    }
+                }
+                return true;
+            });
         }
-
-        // Get unique values and sort them
-        const uniqueVals = [...new Set(data.map(p => p[key]))].filter(v => v).sort();
         
-        // Create options
+        // Get unique values
+        const uniqueValues = [...new Set(filteredData.map(item => item[key]))]
+            .filter(val => val && val !== 'null' && val !== 'undefined')
+            .sort();
+        
+        // Clear and populate
         select.innerHTML = `<option value="all">All ${key.charAt(0).toUpperCase() + key.slice(1)}s</option>`;
         
-        uniqueVals.forEach(val => {
-            let opt = document.createElement('option');
-            opt.value = val;
-            opt.textContent = val;
-            select.appendChild(opt);
+        uniqueValues.forEach(val => {
+            const option = document.createElement('option');
+            option.value = val;
+            option.textContent = val;
+            select.appendChild(option);
         });
     }
 
-    // Update filters based on selection
-    function updateFilters(level) {
-        const order = document.getElementById('orderFilter').value;
-        const family = document.getElementById('familyFilter').value;
-        const genus = document.getElementById('genusFilter').value;
-
-        if(level === 'order') {
-            // When order changes, update family, genus, and species based on selected order
-            if (order === 'all') {
-                // If 'all' selected, populate with all data
-                populate('familyFilter', 'family');
-                populate('genusFilter', 'genus');
-                populate('speciesFilter', 'species');
-            } else {
-                // Otherwise filter by selected order
-                populate('familyFilter', 'family', 'order', order);
-                populate('genusFilter', 'genus', 'order', order);
-                populate('speciesFilter', 'species', 'order', order);
-            }
-        } else if (level === 'family') {
-            // When family changes, update genus and species
-            if (family === 'all') {
-                // If 'all' selected, use current order filter
-                if (order === 'all') {
-                    populate('genusFilter', 'genus');
-                    populate('speciesFilter', 'species');
-                } else {
-                    populate('genusFilter', 'genus', 'order', order);
-                    populate('speciesFilter', 'species', 'order', order);
-                }
-            } else {
-                populate('genusFilter', 'genus', 'family', family);
-                populate('speciesFilter', 'species', 'family', family);
-            }
-        } else if (level === 'genus') {
-            // When genus changes, update species
-            if (genus === 'all') {
-                // If 'all' selected, use current family filter
-                if (family === 'all') {
-                    if (order === 'all') {
-                        populate('speciesFilter', 'species');
-                    } else {
-                        populate('speciesFilter', 'species', 'order', order);
-                    }
-                } else {
-                    populate('speciesFilter', 'species', 'family', family);
-                }
-            } else {
-                populate('speciesFilter', 'species', 'genus', genus);
-            }
-        }
+    // Handle Order change
+    function handleOrderChange() {
+        const selectedOrder = document.getElementById('orderFilter').value;
         
-        // Always render markers after updating filters
+        // Create filter object based on selected order
+        const filter = selectedOrder === 'all' ? {} : { order: selectedOrder };
+        
+        // Repopulate Family dropdown based on selected Order
+        populateDropdown('familyFilter', millipedePoints, 'family', filter);
+        
+        // Reset Genus and Species dropdowns
+        document.getElementById('genusFilter').innerHTML = '<option value="all">All Genuses</option>';
+        document.getElementById('speciesFilter').innerHTML = '<option value="all">All Species</option>';
+        
+        // Render markers
+        renderMarkers();
+    }
+
+    // Handle Family change
+    function handleFamilyChange() {
+        const selectedOrder = document.getElementById('orderFilter').value;
+        const selectedFamily = document.getElementById('familyFilter').value;
+        
+        // Create filter object
+        const filter = {};
+        if (selectedOrder !== 'all') filter.order = selectedOrder;
+        if (selectedFamily !== 'all') filter.family = selectedFamily;
+        
+        // Repopulate Genus dropdown
+        populateDropdown('genusFilter', millipedePoints, 'genus', filter);
+        
+        // Reset Species dropdown
+        document.getElementById('speciesFilter').innerHTML = '<option value="all">All Species</option>';
+        
+        // Render markers
+        renderMarkers();
+    }
+
+    // Handle Genus change
+    function handleGenusChange() {
+        const selectedOrder = document.getElementById('orderFilter').value;
+        const selectedFamily = document.getElementById('familyFilter').value;
+        const selectedGenus = document.getElementById('genusFilter').value;
+        
+        // Create filter object
+        const filter = {};
+        if (selectedOrder !== 'all') filter.order = selectedOrder;
+        if (selectedFamily !== 'all') filter.family = selectedFamily;
+        if (selectedGenus !== 'all') filter.genus = selectedGenus;
+        
+        // Repopulate Species dropdown
+        populateDropdown('speciesFilter', millipedePoints, 'species', filter);
+        
+        // Render markers
         renderMarkers();
     }
 
@@ -369,45 +379,65 @@
     function renderMarkers() {
         markersLayer.clearLayers();
         
-        const fOrder = document.getElementById('orderFilter').value;
-        const fFamily = document.getElementById('familyFilter').value;
-        const fGenus = document.getElementById('genusFilter').value;
-        const fSpecies = document.getElementById('speciesFilter').value;
+        const selectedOrder = document.getElementById('orderFilter').value;
+        const selectedFamily = document.getElementById('familyFilter').value;
+        const selectedGenus = document.getElementById('genusFilter').value;
+        const selectedSpecies = document.getElementById('speciesFilter').value;
 
-        console.log('Filters:', {fOrder, fFamily, fGenus, fSpecies}); // Debug log
+        console.log('Selected filters:', {
+            order: selectedOrder,
+            family: selectedFamily,
+            genus: selectedGenus,
+            species: selectedSpecies
+        });
 
         let visibleCount = 0;
+        const bounds = [];
         
-        millipedePoints.forEach(p => {
-            // Check if point matches all filters
-            const matchOrder = fOrder === 'all' || p.order === fOrder;
-            const matchFamily = fFamily === 'all' || p.family === fFamily;
-            const matchGenus = fGenus === 'all' || p.genus === fGenus;
-            const matchSpecies = fSpecies === 'all' || p.species === fSpecies;
+        millipedePoints.forEach(point => {
+            // Check if point matches all selected filters
+            const matchOrder = selectedOrder === 'all' || point.order === selectedOrder;
+            const matchFamily = selectedFamily === 'all' || point.family === selectedFamily;
+            const matchGenus = selectedGenus === 'all' || point.genus === selectedGenus;
+            const matchSpecies = selectedSpecies === 'all' || point.species === selectedSpecies;
             
             if (matchOrder && matchFamily && matchGenus && matchSpecies) {
                 visibleCount++;
                 
-                const marker = L.marker([p.lat, p.lon]);
+                const marker = L.marker([point.lat, point.lon]);
                 marker.bindPopup(`
                     <div style="font-family: sans-serif;">
-                        <h3 style="margin:0; color:#2d5a27"><i>${p.genus} ${p.species}</i></h3>
+                        <h3 style="margin:0; color:#2d5a27"><i>${point.genus} ${point.species}</i></h3>
                         <hr>
-                        <b>Order:</b> ${p.order}<br>
-                        <b>Family:</b> ${p.family}<br>
-                        <b>Location:</b> ${p.location || 'Nepal'}<br>
-                        <b>Coordinates:</b> ${p.lat.toFixed(4)}°N, ${p.lon.toFixed(4)}°E
+                        <b>Order:</b> ${point.order}<br>
+                        <b>Family:</b> ${point.family}<br>
+                        <b>Location:</b> ${point.location || 'Nepal'}<br>
+                        <b>Coordinates:</b> ${point.lat.toFixed(4)}°N, ${point.lon.toFixed(4)}°E
                     </div>
                 `);
                 markersLayer.addLayer(marker);
+                
+                // Add to bounds
+                bounds.push([point.lat, point.lon]);
             }
         });
         
         console.log(`Visible markers: ${visibleCount} out of ${millipedePoints.length}`);
         
-        // If no markers visible, show a message
+        // Update results count in console
+        document.title = `Distribution - ${visibleCount} points visible`;
+        
+        // Fit bounds if there are visible markers
+        if (bounds.length > 0) {
+            map.fitBounds(bounds, { padding: [50, 50] });
+        } else {
+            // If no markers, zoom to Nepal
+            map.setView([28.3949, 84.1240], 7);
+        }
+        
+        // Show message if no markers
         if (visibleCount === 0) {
-            console.log('No markers match the current filters');
+            alert('No markers match the selected filters');
         }
     }
 
@@ -422,16 +452,26 @@
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
         // Check if millipedePoints is loaded
-        if (typeof millipedePoints !== 'undefined') {
+        if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
             console.log('Millipede points loaded:', millipedePoints.length);
             
-            // Populate order filter with all data
-            populate('orderFilter', 'order');
+            // Populate Order dropdown with all orders
+            populateDropdown('orderFilter', millipedePoints, 'order');
             
-            // Trigger initial update
-            updateFilters('order');
+            // Populate Family dropdown based on all orders (initially)
+            populateDropdown('familyFilter', millipedePoints, 'family');
+            
+            // Populate Genus dropdown based on all filters
+            populateDropdown('genusFilter', millipedePoints, 'genus');
+            
+            // Populate Species dropdown based on all filters
+            populateDropdown('speciesFilter', millipedePoints, 'species');
+            
+            // Render all markers initially
+            renderMarkers();
         } else {
-            console.error('millipedePoints not found! Make sure data.js is loaded.');
+            console.error('millipedePoints not found or empty! Make sure data.js is loaded correctly.');
+            alert('Error: GPS data not loaded. Please check data.js file.');
         }
     });
 </script>
