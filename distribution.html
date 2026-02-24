@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribution - Millipedes of Nepal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        /* Reset margins and padding for full-width layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 80px;  /* Consistent header size */
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        header p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            animation: slideInRight 1s ease-out;
+        }
+        
+        nav {
+            background-color: #3a6b34;
+            padding: 15px 80px;
+            text-align: center;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav a:hover {
+            background-color: #4f8a47;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold, #ffd700);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        nav a:hover::after {
+            width: 80%;
+        }
+        
+        main {
+            flex: 1;
+            padding: 40px 80px;
+            max-width: 100%;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .map-view-buttons { 
+            margin-bottom: 20px; 
+            display: flex;
+            gap: 10px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .btn-view {
+            padding: 12px 25px;
+            background: #2d5a27;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .btn-view:hover { 
+            background: #1e3f1a; 
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .btn-view:active {
+            transform: translateY(-1px);
+        }
+        
+        .filter-section {
+            background: #fdfaf5;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 2px solid #2d5a27;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: flex-end;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .filter-section:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-color: var(--gold, #ffd700);
+        }
+        
+        .filter-group { 
+            display: flex; 
+            flex-direction: column; 
+            flex: 1; 
+            min-width: 180px; 
+        }
+        
+        .filter-group label { 
+            font-weight: bold; 
+            margin-bottom: 8px; 
+            color: #2d5a27; 
+            font-size: 1.1rem; 
+            font-family: 'Times New Roman', Times, serif;
+            transition: color 0.3s ease;
+        }
+        
+        .filter-group:hover label {
+            color: #1e3f1a;
+        }
+        
+        .filter-group select { 
+            padding: 12px; 
+            border-radius: 5px; 
+            border: 2px solid #ccc;
+            font-size: 1rem;
+            background: white;
+            font-family: 'Times New Roman', Times, serif;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .filter-group select:hover {
+            border-color: #2d5a27;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .filter-group select:focus {
+            outline: none;
+            border-color: #2d5a27;
+            box-shadow: 0 0 0 3px rgba(45, 90, 39, 0.2);
+        }
+        
+        #map { 
+            height: 70vh; 
+            min-height: 600px;
+            width: 100%; 
+            border-radius: 12px; 
+            border: 4px solid #2d5a27;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        
+        #map:hover {
+            border-color: var(--gold, #ffd700);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        footer {
+            background-color: #2d5a27;
+            color: white;
+            text-align: center;
+            padding: 40px 80px;
+            width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold, #ffd700);
+        }
+        
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+        
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+        
+        /* Style for Nepali text if any appears in future */
+        .nepali-text {
+            font-family: 'Preeti', 'Times New Roman', Times, serif;
+            font-size: 1.3rem;
+            line-height: 2;
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Style for map popup */
+        .leaflet-popup-content {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+        }
+        
+        .leaflet-popup-content h3 {
+            color: #2d5a27;
+            margin: 0 0 5px 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .leaflet-popup-content hr {
+            margin: 8px 0;
+            border: 0;
+            border-top: 1px solid #2d5a27;
+        }
+        
+        @media (max-width: 1024px) {
+            header {
+                padding: 60px 40px;
+            }
+            
+            main {
+                padding: 30px 40px;
+            }
+            
+            nav {
+                padding: 15px 40px;
+            }
+            
+            footer {
+                padding: 30px 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 50px 20px;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.4rem;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            nav a {
+                display: inline-block;
+                padding: 8px 12px;
+                margin: 3px;
+                font-size: 0.9rem;
+            }
+            
+            main {
+                padding: 30px 20px;
+            }
+            
+            .filter-section {
+                padding: 15px;
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+            
+            .map-view-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-view {
+                width: 100%;
+            }
+            
+            #map {
+                min-height: 450px;
+            }
+            
+            footer {
+                padding: 30px 20px;
+            }
+            
+            footer p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1.2rem;
+            }
+            
+            .filter-group select {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Distribution Records</h1>
+    <p>Mapping Millipedes Species Across Nepal</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="history.html">History</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="distribution.html">Distribution</a>
+    <a href="articles.html">Articles</a>
+    <a href="team.html">Team</a>
+    <a href="gallery.html">Gallery</a> 
+    <a href="upload.html">Upload</a>
+    <a href="faq.html">FAQ</a>
+</nav>
+
+<main>
+    <div class="map-view-buttons">
+        <button class="btn-view" onclick="zoomToNepal()">Zoom to Nepal</button>
+        <button class="btn-view" onclick="zoomToGlobal()">Global View</button>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-group">
+            <label>Order</label>
+            <select id="orderFilter" onchange="handleOrderChange()"></select>
+        </div>
+        <div class="filter-group">
+            <label>Family</label>
+            <select id="familyFilter" onchange="handleFamilyChange()"></select>
+        </div>
+        <div class="filter-group">
+            <label>Genus</label>
+            <select id="genusFilter" onchange="handleGenusChange()"></select>
+        </div>
+        <div class="filter-group">
+            <label>Species</label>
+            <select id="speciesFilter" onchange="renderMarkers()"></select>
+        </div>
+    </div>
+
+    <div id="map"></div>
+</main>
+
+<footer>
+    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data.js"></script>
+
+<script>
+    // Initialize Map
+    const map = L.map('map').setView([28.3949, 84.1240], 7);
+    const markersLayer = L.layerGroup().addTo(map);
+
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Function to populate a dropdown with unique values
+    function populateDropdown(dropdownId, dataArray, key, filterObj = null) {
+        const select = document.getElementById(dropdownId);
+        let filteredData = dataArray;
+        
+        // Apply filters if provided
+        if (filterObj) {
+            filteredData = dataArray.filter(item => {
+                for (let filterKey in filterObj) {
+                    if (filterObj[filterKey] !== 'all' && item[filterKey] !== filterObj[filterKey]) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
+        
+        // Get unique values
+        const uniqueValues = [...new Set(filteredData.map(item => item[key]))]
+            .filter(val => val && val !== 'null' && val !== 'undefined')
+            .sort();
+        
+        // Clear and populate
+        select.innerHTML = `<option value="all">All ${key.charAt(0).toUpperCase() + key.slice(1)}s</option>`;
+        
+        uniqueValues.forEach(val => {
+            const option = document.createElement('option');
+            option.value = val;
+            option.textContent = val;
+            select.appendChild(option);
+        });
+    }
+
+    // Handle Order change
+    function handleOrderChange() {
+        const selectedOrder = document.getElementById('orderFilter').value;
+        
+        // Create filter object based on selected order
+        const filter = selectedOrder === 'all' ? {} : { order: selectedOrder };
+        
+        // Repopulate Family dropdown based on selected Order
+        populateDropdown('familyFilter', millipedePoints, 'family', filter);
+        
+        // Reset Genus and Species dropdowns
+        document.getElementById('genusFilter').innerHTML = '<option value="all">All Genuses</option>';
+        document.getElementById('speciesFilter').innerHTML = '<option value="all">All Species</option>';
+        
+        // Render markers
+        renderMarkers();
+    }
+
+    // Handle Family change
+    function handleFamilyChange() {
+        const selectedOrder = document.getElementById('orderFilter').value;
+        const selectedFamily = document.getElementById('familyFilter').value;
+        
+        // Create filter object
+        const filter = {};
+        if (selectedOrder !== 'all') filter.order = selectedOrder;
+        if (selectedFamily !== 'all') filter.family = selectedFamily;
+        
+        // Repopulate Genus dropdown
+        populateDropdown('genusFilter', millipedePoints, 'genus', filter);
+        
+        // Reset Species dropdown
+        document.getElementById('speciesFilter').innerHTML = '<option value="all">All Species</option>';
+        
+        // Render markers
+        renderMarkers();
+    }
+
+    // Handle Genus change
+    function handleGenusChange() {
+        const selectedOrder = document.getElementById('orderFilter').value;
+        const selectedFamily = document.getElementById('familyFilter').value;
+        const selectedGenus = document.getElementById('genusFilter').value;
+        
+        // Create filter object
+        const filter = {};
+        if (selectedOrder !== 'all') filter.order = selectedOrder;
+        if (selectedFamily !== 'all') filter.family = selectedFamily;
+        if (selectedGenus !== 'all') filter.genus = selectedGenus;
+        
+        // Repopulate Species dropdown
+        populateDropdown('speciesFilter', millipedePoints, 'species', filter);
+        
+        // Render markers
+        renderMarkers();
+    }
+
+    // Render markers based on selected filters
+    function renderMarkers() {
+        markersLayer.clearLayers();
+        
+        const selectedOrder = document.getElementById('orderFilter').value;
+        const selectedFamily = document.getElementById('familyFilter').value;
+        const selectedGenus = document.getElementById('genusFilter').value;
+        const selectedSpecies = document.getElementById('speciesFilter').value;
+
+        console.log('Selected filters:', {
+            order: selectedOrder,
+            family: selectedFamily,
+            genus: selectedGenus,
+            species: selectedSpecies
+        });
+
+        let visibleCount = 0;
+        const bounds = [];
+        
+        millipedePoints.forEach(point => {
+            // Check if point matches all selected filters
+            const matchOrder = selectedOrder === 'all' || point.order === selectedOrder;
+            const matchFamily = selectedFamily === 'all' || point.family === selectedFamily;
+            const matchGenus = selectedGenus === 'all' || point.genus === selectedGenus;
+            const matchSpecies = selectedSpecies === 'all' || point.species === selectedSpecies;
+            
+            if (matchOrder && matchFamily && matchGenus && matchSpecies) {
+                visibleCount++;
+                
+                const marker = L.marker([point.lat, point.lon]);
+                marker.bindPopup(`
+                    <div style="font-family: 'Times New Roman', Times, serif;">
+                        <h3 style="margin:0; color:#2d5a27; font-family: 'Times New Roman', Times, serif;"><i>${point.genus} ${point.species}</i></h3>
+                        <hr style="margin:8px 0; border:0; border-top:1px solid #2d5a27;">
+                        <b>Order:</b> ${point.order}<br>
+                        <b>Family:</b> ${point.family}<br>
+                        <b>Location:</b> ${point.location || 'Nepal'}<br>
+                        <b>Coordinates:</b> ${point.lat.toFixed(4)}°N, ${point.lon.toFixed(4)}°E
+                    </div>
+                `);
+                markersLayer.addLayer(marker);
+                
+                // Add to bounds
+                bounds.push([point.lat, point.lon]);
+            }
+        });
+        
+        console.log(`Visible markers: ${visibleCount} out of ${millipedePoints.length}`);
+        
+        // Update results count in console
+        document.title = `Distribution - ${visibleCount} points visible`;
+        
+        // Fit bounds if there are visible markers
+        if (bounds.length > 0) {
+            map.fitBounds(bounds, { padding: [50, 50] });
+        } else {
+            // If no markers, zoom to Nepal
+            map.setView([28.3949, 84.1240], 7);
+        }
+        
+        // Show message if no markers
+        if (visibleCount === 0) {
+            alert('No markers match the selected filters');
+        }
+    }
+
+    function zoomToNepal() { 
+        map.setView([28.3949, 84.1240], 7); 
+    }
+    
+    function zoomToGlobal() { 
+        map.setView([20, 0], 2); 
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if millipedePoints is loaded
+        if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
+            console.log('Millipede points loaded:', millipedePoints.length);
+            
+            // Populate Order dropdown with all orders
+            populateDropdown('orderFilter', millipedePoints, 'order');
+            
+            // Populate Family dropdown based on all orders (initially)
+            populateDropdown('familyFilter', millipedePoints, 'family');
+            
+            // Populate Genus dropdown based on all filters
+            populateDropdown('genusFilter', millipedePoints, 'genus');
+            
+            // Populate Species dropdown based on all filters
+            populateDropdown('speciesFilter', millipedePoints, 'species');
+            
+            // Render all markers initially
+            renderMarkers();
+        } else {
+            console.error('millipedePoints not found or empty! Make sure data.js is loaded correctly.');
+            alert('Error: GPS data not loaded. Please check data.js file.');
+        }
+    });
+</script>
+</body>
+</html>

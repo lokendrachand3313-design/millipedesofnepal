@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millipedes of Nepal</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        /* Reset margins and padding for full-width layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+        
+        /* Consistent header styling for all pages */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 80px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        header p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            animation: slideInRight 1s ease-out;
+        }
+        
+        nav {
+            background-color: #3a6b34;
+            padding: 15px 80px;
+            text-align: center;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav a:hover {
+            background-color: #4f8a47;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #ffd700;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        nav a:hover::after {
+            width: 80%;
+        }
+        
+        main {
+            flex: 1;
+            padding: 40px 80px;
+            max-width: 100%;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        h2 {
+            color: #2d5a27;
+            border-bottom: 3px solid #2d5a27;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            font-family: 'Times New Roman', Times, serif;
+            transition: color 0.3s ease;
+        }
+        
+        h2:hover {
+            color: #1e3d1a;
+        }
+        
+        h3 {
+            color: #2d5a27;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            transition: color 0.3s ease;
+        }
+        
+        h3:hover {
+            color: #1e3d1a;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', Times, serif;
+            transition: color 0.3s ease;
+        }
+        
+        /* Style for Nepali text with Preeti font */
+        .nepali-names {
+            font-family: 'Preeti', 'Times New Roman', Times, serif;
+            background: #fdfaf5;
+            padding: 30px;
+            border-radius: 8px;
+            line-height: 2.2;
+            border-left: 6px solid #2d5a27;
+            font-size: 1.5rem;
+            word-spacing: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nepali-names:hover {
+            background: #fff9f0;
+            border-left-width: 8px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        /* Style for scientific names in italic */
+        .scientific-name {
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.3rem;
+            transition: color 0.3s ease;
+        }
+        
+        .scientific-name:hover {
+            color: #1e3d1a;
+        }
+        
+        /* Make featured image larger */
+        .featured-img {
+            max-width: 900px;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 25px auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 4px solid #fff;
+            display: block;
+            transition: all 0.5s ease;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .featured-img:hover {
+            transform: scale(1.03) rotate(0.5deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-color: #ffd700;
+        }
+        
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            margin-top: 20px;
+            z-index: 1;
+            transition: all 0.3s ease;
+            animation: fadeIn 1.8s ease-out;
+        }
+        
+        #map:hover {
+            border-color: #2d5a27;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background-color: #2d5a27;
+            color: white;
+            text-align: center;
+            padding: 40px 80px;
+            width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid #ffd700;
+        }
+        
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+        
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+            color: #fff;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+        
+        /* Style for location text */
+        .location {
+            font-weight: 500;
+            color: #555;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .location:hover {
+            color: #2d5a27;
+        }
+        
+        /* Featured section special styling */
+        .featured {
+            text-align: center;
+        }
+        
+        .featured p {
+            font-size: 1.3rem;
+        }
+        
+        /* Map note styling */
+        .map-note {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+            font-style: italic;
+            transition: color 0.3s ease;
+        }
+        
+        .map-note:hover {
+            color: #2d5a27;
+        }
+        
+        /* Image caption styling */
+        .image-caption {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-size: 1rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .image-caption:hover {
+            background-color: #e8e8e8;
+            color: #333;
+        }
+        
+        /* Custom marker styles */
+        .custom-marker {
+            background-color: #2d5a27;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 2px solid #ffd700;
+            white-space: nowrap;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-marker:hover {
+            transform: scale(1.1);
+            background-color: #1e3d1a;
+        }
+        
+        .millipede-marker {
+            background-color: #8B4513;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 2px solid #ffd700;
+            white-space: nowrap;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .millipede-marker:hover {
+            transform: scale(1.1);
+            background-color: #5a2e0c;
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            header {
+                padding: 50px 20px;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.4rem;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            nav a {
+                display: inline-block;
+                padding: 8px 12px;
+                margin: 3px;
+                font-size: 0.9rem;
+            }
+            
+            main {
+                padding: 30px 20px;
+            }
+            
+            section {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            h3 {
+                font-size: 1.6rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+            }
+            
+            .nepali-names {
+                font-size: 1.2rem;
+                padding: 20px;
+                line-height: 1.8;
+            }
+            
+            .scientific-name {
+                font-size: 1.2rem;
+            }
+            
+            .featured-img {
+                max-width: 100%;
+                margin: 15px auto;
+            }
+            
+            footer {
+                padding: 30px 20px;
+            }
+            
+            footer p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Millipedes of Nepal</h1>
+    <p>All about Nepalese Millipedes</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="history.html">History</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="distribution.html">Distribution</a>
+    <a href="articles.html">Articles</a>
+    <a href="team.html">Team</a>
+    <a href="gallery.html">Gallery</a> 
+    <a href="upload.html">Upload</a>
+    <a href="faq.html">FAQ</a>
+</nav>
+
+<main>
+    <section>
+        <h2>Our Mission</h2>
+        <p>Our mission is to gather millipedes from various geographical locations of Nepal and accurately identify them to species level. This involves field collection, dissection and identification, morphological and molecular analysis, specimen preservation, specimen documentation, and detailed analysis to enhance the understanding of millipede biodiversity in Nepal.</p>
+    </section>
+
+    <section class="featured">
+        <h3>Beautiful Millipedes from Nepal</h3>
+        <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img">
+        <p><span class="scientific-name">Gonoplectus malayus</span>, Spirostreptida, Harpagophoridae<br>
+        <span class="location">📍 Location: Dang Valley, Nepal</span></p>
+        <img src="gono3.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img">
+        <p><span class="scientific-name">Gonoplectus</span>, Spirostreptida, Harpagophoridae<br>
+        <span class="location">📍 Location: Dang Valley, Nepal</span></p>
+    </section>
+    
+    <section>
+        <h2>Why are we working on Millipedes?</h2>
+        <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts.</p>
+    </section>
+
+    <section>
+        <h2>Common Nepali Names (नेपाली नामहरु)</h2>
+        <div class="nepali-names">
+            ओरिगाँठे, ग्याल्डुङ, अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल, Angalbeddi, Phalle, Bahukhuttey kira, Hajarkhutte kira
+        </div>
+    </section>
+
+    <section>
+        <h2>Nepal in World Map</h2>
+        <div id="map"></div>
+        <p class="map-note">Major cities</p>
+    </section>
+</main>
+
+<footer>
+    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+</footer>
+
+<!-- Add Leaflet JavaScript library -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    // Nepal boundary coordinates for map restriction (invisible)
+    var nepalBounds = [
+        [26.347, 80.058], // Southwest corner
+        [30.447, 88.201]  // Northeast corner
+    ];
+
+    // Initialize the map centered on Nepal with boundary restrictions
+    var map = L.map('map', {
+        maxBounds: nepalBounds,        // Restrict map to Nepal boundaries (invisible)
+        maxBoundsViscosity: 1.0,       // Make boundary restriction solid
+        minZoom: 6.5,                   // Minimum zoom level
+        maxZoom: 10                     // Maximum zoom level
+    }).setView([28.3949, 84.1240], 7);
+
+    // 1. Satellite Imagery Layer (Esri World Imagery)
+    var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EBP, and the GIS User Community'
+    }).addTo(map);
+
+    // 2. Labels Layer (Light only labels - transparent)
+    var labels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+    }).addTo(map);
+
+    // Add a scale bar
+    L.control.scale().addTo(map);
+
+    // Draw a rectangle showing Nepal's approximate boundary
+    var nepalRectangle = L.rectangle(nepalBounds, {
+        color: "#2d5a27",
+        weight: 3,
+        opacity: 0.8,
+        fill: false,
+        dashArray: "5, 5"
+    }).addTo(map);
+    
+    // Add label for the rectangle
+    nepalRectangle.bindTooltip("Nepal Boundary", {
+        permanent: false,
+        direction: "center"
+    });
+
+    // Add major cities of Nepal with GPS coordinates and labels
+    var cities = [
+        { name: "Kathmandu", coords: [27.7172, 85.3240], info: "Capital City (27.7172°N, 85.3240°E)" },
+        { name: "Pokhara", coords: [28.2096, 83.9856], info: "Tourist City (28.2096°N, 83.9856°E)" },
+        { name: "Lumbini", coords: [27.4833, 83.2767], info: "Birthplace of Buddha (27.4833°N, 83.2767°E)" },
+        { name: "Biratnagar", coords: [26.4545, 87.2798], info: "Major City (26.4545°N, 87.2798°E)" },
+        { name: "Janakpur", coords: [26.7288, 85.9249], info: "Historical City (26.7288°N, 85.9249°E)" },
+        { name: "Dhangadhi", coords: [28.7083, 80.5694], info: "Far West (28.7083°N, 80.5694°E)" },
+        { name: "Chitwan", coords: [27.5291, 84.3542], info: "National Park (27.5291°N, 84.3542°E)" },
+        { name: "Mustang", coords: [28.9987, 83.7696], info: "Himalayan Region (28.9987°N, 83.7696°E)" },
+        { name: "Mt. Everest", coords: [27.9881, 86.9250], info: "Highest Peak (27.9881°N, 86.9250°E)" }
+    ];
+
+    // Add city markers with custom labels showing GPS
+    cities.forEach(function(city) {
+        // Create custom marker with label
+        var marker = L.marker(city.coords, {
+            icon: L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="background-color: #2d5a27; color: white; padding: 5px 10px; border-radius: 20px; border: 2px solid #ffd700; white-space: nowrap; font-size: 12px; font-weight: bold;">📍 ${city.name}</div>`,
+                iconSize: [100, 30]
+            })
+        }).addTo(map);
+        
+        // Add popup with GPS coordinates
+        marker.bindPopup(`
+            <b>${city.name}</b><br>
+            ${city.info}<br>
+            <small>Click for more information</small>
+        `);
+    });
+
+    // Add a legend for the map
+    var legend = L.control({position: 'bottomright'});
+    
+    legend.onAdd = function(map) {
+        var div = L.DomUtil.create('div', 'info legend');
+        div.style.backgroundColor = 'white';
+        div.style.padding = '10px';
+        div.style.borderRadius = '5px';
+        div.style.border = '2px solid #2d5a27';
+        div.innerHTML = `
+            <b>Map Legend</b><br>
+            <hr>
+            <span style="color: #2d5a27;">📍</span> Major Cities<br>
+            <small>Click on map for GPS coordinates</small>
+        `;
+        return div;
+    };
+    
+    legend.addTo(map);
+</script>
+
+</body>
+</html>

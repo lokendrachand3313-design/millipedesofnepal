@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Millipedes of Nepal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reset margins and padding for full-width layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+        
+        :root {
+            --primary-green: #2d5a27;
+            --leaf-green: #4a7c44;
+            --earth-brown: #583101;
+            --gold: #ffd700;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 80px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Times New Roman', Times, serif;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        header p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            font-family: 'Times New Roman', Times, serif;
+            animation: slideInRight 1s ease-out;
+        }
+        
+        nav {
+            background-color: #3a6b34;
+            padding: 15px 80px;
+            text-align: center;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav a:hover {
+            background-color: #4f8a47;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        nav a:hover::after {
+            width: 80%;
+        }
+        
+        nav a.active {
+            background-color: #4f8a47;
+            font-weight: bold;
+        }
+        
+        main {
+            flex: 1;
+            padding: 40px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .faq-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .faq-header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(46, 125, 50, 0.15);
+        }
+        
+        .faq-header-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-green);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-header:hover .faq-header-img {
+            transform: rotate(5deg) scale(1.05);
+            border-color: var(--gold);
+        }
+        
+        .faq-header-text {
+            flex: 1;
+        }
+        
+        .faq-header-text h2 {
+            color: var(--primary-green);
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .faq-header-text p {
+            font-size: 1.2rem;
+            color: #555;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .jump-to {
+            background: #fdfaf5;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 2px solid var(--primary-green);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .jump-to:hover {
+            border-color: var(--gold);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .jump-to h3 { 
+            margin-top: 0; 
+            color: var(--primary-green); 
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-green);
+            padding-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .jump-to ul { 
+            list-style: none; 
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        .jump-to li { 
+            margin-bottom: 8px; 
+        }
+        
+        .jump-to a { 
+            text-decoration: none; 
+            color: var(--primary-green); 
+            font-weight: 500;
+            display: block;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .jump-to a:hover { 
+            background: var(--primary-green);
+            color: white;
+            transform: translateY(-3px) translateX(5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            border-color: var(--gold);
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .faq-item {
+            margin-bottom: 0;
+            padding: 25px;
+            border-bottom: none;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            border-left: 6px solid var(--primary-green);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .faq-item:hover {
+            transform: translateX(10px) translateY(-3px);
+            box-shadow: 0 15px 30px rgba(46, 125, 50, 0.15);
+            border-left-color: var(--gold);
+            border-left-width: 8px;
+        }
+        
+        .faq-question {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .faq-question::before {
+            content: "❓";
+            font-weight: bold;
+            margin-right: 15px;
+            color: var(--earth-brown);
+            font-size: 1.8rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item:hover .faq-question::before {
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .faq-answer {
+            line-height: 1.7;
+            color: #333;
+            padding-left: 45px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .faq-answer-content {
+            flex: 1;
+        }
+        
+        .faq-answer-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid var(--primary-green);
+            transition: all 0.4s ease;
+        }
+        
+        .faq-item:hover .faq-answer-img {
+            transform: scale(1.1) rotate(2deg);
+            border-color: var(--gold);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .faq-answer::before {
+            content: "💬";
+            margin-right: 15px;
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            opacity: 0.7;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item:hover .faq-answer::before {
+            transform: scale(1.1);
+            color: var(--gold);
+        }
+        
+        .footer-note {
+            background: #fdfaf5;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            text-align: center;
+            border: 2px dashed var(--primary-green);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        
+        .footer-note:hover {
+            border-color: var(--gold);
+            border-style: solid;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .footer-note h3 {
+            color: var(--primary-green);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .footer-note p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .contact-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .contact-btn:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .contact-btn:hover {
+            background: #1e3f1a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        /* Style for Nepali text if any appears in future */
+        .nepali-text {
+            font-family: 'Preeti', 'Times New Roman', Times, serif;
+            font-size: 1.3rem;
+            line-height: 2;
+        }
+        
+        footer {
+            background-color: var(--primary-green);
+            color: white;
+            text-align: center;
+            padding: 40px 80px;
+            width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+        
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+        
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            header {
+                padding: 60px 40px;
+            }
+            
+            main {
+                padding: 30px 40px;
+            }
+            
+            nav {
+                padding: 15px 40px;
+            }
+            
+            footer {
+                padding: 30px 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 50px 20px;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.4rem;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            nav a {
+                display: inline-block;
+                padding: 8px 12px;
+                margin: 3px;
+                font-size: 0.9rem;
+            }
+            
+            main {
+                padding: 30px 20px;
+            }
+            
+            .faq-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .faq-header-img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .jump-to ul {
+                grid-template-columns: 1fr;
+            }
+            
+            .jump-to {
+                padding: 20px;
+            }
+            
+            .faq-answer {
+                flex-direction: column;
+                padding-left: 25px;
+            }
+            
+            .faq-answer-img {
+                width: 100%;
+                height: auto;
+                max-height: 150px;
+                margin-top: 10px;
+            }
+            
+            .faq-question {
+                font-size: 1.3rem;
+            }
+            
+            .footer-note {
+                padding: 20px;
+            }
+            
+            footer {
+                padding: 30px 20px;
+            }
+            
+            footer p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .faq-question {
+                font-size: 1.2rem;
+            }
+            
+            .faq-answer {
+                font-size: 1rem;
+            }
+            
+            .footer-note h3 {
+                font-size: 1.5rem;
+            }
+            
+            .footer-note p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Frequently Asked Questions</h1>
+    <p>Common inquiries about millipedes and their biology</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="history.html">History</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="distribution.html">Distribution</a>
+    <a href="articles.html">Articles</a>
+    <a href="team.html">Team</a>
+    <a href="gallery.html">Gallery</a> 
+    <a href="upload.html">Upload</a>
+    <a href="faq.html" class="active">FAQ</a>
+</nav>
+
+<main>
+    <div class="faq-header">
+        <img src="images/home.jpg" alt="Colorful millipede" class="faq-header-img" onerror="this.src='https://via.placeholder.com/200x200?text=🪲+Millipede'">
+        <div class="faq-header-text">
+            <h2>Everything You Need to Know About Millipedes</h2>
+            <p>Discover fascinating facts about these many-legged decomposers that play a vital role in Nepal's ecosystems.</p>
+        </div>
+    </div>
+    
+    <section class="jump-to">
+        <h3>📋 Jump to a question:</h3>
+        <ul>
+            <li><a href="#q1">❓ What are millipedes?</a></li>
+            <li><a href="#q2">🦶 How many legs do millipedes have?</a></li>
+            <li><a href="#q3">🍂 What do millipedes eat?</a></li>
+            <li><a href="#q4">🏞️ Where do millipedes live?</a></li>
+            <li><a href="#q5">⚠️ Are millipedes harmful to humans?</a></li>
+            <li><a href="#q6">🛡️ How do millipedes defend themselves?</a></li>
+            <li><a href="#q7">🥚 How do millipedes reproduce?</a></li>
+            <li><a href="#q8">🏠 Why do I find millipedes in my house?</a></li>
+            <li><a href="#q9">🌱 Do millipedes play a role in the ecosystem?</a></li>
+            <li><a href="#q10">🏡 Can millipedes be kept as pets?</a></li>
+        </ul>
+    </section>
+
+    <div class="faq-list">
+        <div class="faq-item" id="q1">
+            <h2 class="faq-question">What are millipedes?</h2>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Millipedes are arthropods belonging to the class Diplopoda. They are characterized by having two pairs of jointed legs on most body segments. With over 12,000 species worldwide, they are one of the most diverse groups of organisms on Earth.</p>
+                </div>
+                <img src="images/millipede-anatomy.jpg" alt="Millipede anatomy" class="faq-answer-img" onerror="this.src='https://via.placeholder.com/100x100?text=🪲'">
+            </div>
+        </div>
+
+        <div class="faq-item" id="q2">
+            <h2 class="faq-question">How many legs do millipedes have?</h2>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>The number of legs millipedes have can vary significantly, ranging from 30 to over 750 legs depending on the species. Despite their name meaning "thousand feet," no millipede species actually has 1,000 legs - the record holder is <i>Illacme plenipes</i> with up to 750 legs.</p>
+                </div>
+                <img src="images/millipede-legs.jpg" alt="Millipede legs close-up" class="faq-answer-img" onerror="this.src='https://via.placeholder.com/100x100?text=🦶'">
+            </div>
+        </div>
+
+        <div class="faq-item" id="q3">
+            <h2 class="faq-question">What do millipedes eat?</h2>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Millipedes are detritivores, meaning they primarily feed on decomposing plant material, dead leaves, and other organic matter. Some may also consume fungi and other plant-based materials. They play a crucial role in breaking down leaf litter and recycling nutrients in forest ecosystems.</p>
+                </div>
+                <img src="images/millipede-eating.jpg" alt="Millipede feeding on leaf" class="faq-answer-img" onerror="this.src='https://via.placeholder.com/100x100?text=🍂'">
+            </div>
+        </div>
+
+        <div class="faq-item" id="q4">
+            <h2 class="faq-question">Where do millipedes live?</h2>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Millipedes are typically found in moist environments such as forest floors, leaf litter, under rocks, and decaying logs. They prefer dark, humid conditions. In Nepal, they can be found from the lowland Terai forests up to high Himalayan regions.</p>
+                </div>
+                <img src="images/forest-floor.jpg" alt="Forest floor habitat" class="faq-answer-img" onerror="this.src='https://via.placeholder.com/100x100?text=🌲'">
+            </div>
+        </div>
+
+        <div class="faq-item" id="q5">
+            <h2 class="faq-question">Are millipedes harmful to humans?</h2>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Millipedes are generally harmless to humans. They do not bite or sting, but some species can release a defensive chemical that may cause mild skin irritation or allergic reactions in some people. It's always best to wash your hands after handling them.</p>
+                </div>
+                <img src="images/millipede-hand.jpg" alt="Millipede on hand" class="faq-answer-img" onerror="this.src='https://via.placeholder.com/100x100?text=✋'">
+            </div>
+        </div>
+
+        <div class="faq-item" id="q6">
+            <h2 class="faq-question">How do millipedes defend themselves?</h2>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Millipedes can curl into a tight coil to protect their soft underbelly. Many species also secrete toxic or foul-smelling chemicals (including hydrogen cyanide) from their bodies to deter predators. This is why they sometimes smell bad when handled.</p>
+                </div>
+                <img src="images/millipede-coiled.jpg" alt="Millipede coiled for defense" class="faq-answer-img" onerror="this.src='https://via.placeholder.com/100x100?text=🌀'">
+            </div>
+        </div>
+
+        <div class="faq-item" id="q7">
+            <h2 class="faq-question">How do millipedes reproduce?</h2>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Millipedes reproduce by laying eggs. Males transfer sperm to females using specialized limbs called gonopods. Females lay eggs in the soil or other concealed, moist environments. Some species even build nests and guard their eggs until they hatch.</p>
+                </div>
+                <img src="images/millipede-eggs.jpg" alt="Millipede eggs" class="faq-answer-img" onerror="this.src='https://via.placeholder.com/100x100?text=🥚'">
+            </div>
+        </div>
+
+        <div class="faq-item" id="q8">
+            <h2 class="faq-question">Why do I find millipedes in my house?</h2>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Millipedes may enter homes seeking moisture and shelter, especially during dry weather or heavy rain. They are usually found in basements, bathrooms, and other damp areas. Sealing cracks and reducing moisture around your home can help prevent them.</p>
+                </div>
+                <img src="images/millipede-house.jpg" alt="Millipede in house" class="faq-answer-img" onerror="this.src='https://via.placeholder.com/100x100?text=🏠'">
+            </div>
+        </div>
+
+        <div class="faq-item" id="q9">
+            <h2 class="faq-question">Do millipedes play a role in the ecosystem?</h2>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Yes, millipedes play a crucial role in the ecosystem by breaking down decaying plant material and recycling nutrients back into the soil, aiding in soil formation and fertility. They are essential decomposers in forest ecosystems and help create rich topsoil.</p>
+                </div>
+                <img src="images/millipede-ecosystem.jpg" alt="Millipede in ecosystem" class="faq-answer-img" onerror="this.src='https://via.placeholder.com/100x100?text=🌍'">
+            </div>
+        </div>
+
+        <div class="faq-item" id="q10">
+            <h2 class="faq-question">Can millipedes be kept as pets?</h2>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Yes, some species of millipedes are kept as pets. They require a habitat with high humidity, appropriate substrate (like coconut fiber or leaf litter), and a diet of decaying plant matter, fruits, and vegetables. Giant African millipedes are popular pet species.</p>
+                </div>
+                <img src="images/millipede-pet.jpg" alt="Millipede as pet" class="faq-answer-img" onerror="this.src='https://via.placeholder.com/100x100?text=🐾'">
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-note">
+        <h3>❓ Still have questions?</h3>
+        <p>If you couldn't find the answer you were looking for, feel free to reach out to our research team.</p>
+        <a href="mailto:lokendrachand56@gmail.com" class="contact-btn">📧 Contact Us</a>
+    </div>
+</main>
+
+<footer>
+    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+</footer>
+
+<!-- No script needed for year as we're using fixed 2026 -->
+
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Finding - Millipedes of Nepal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .upload-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--primary-green);
+        }
+        .form-header { text-align: center; margin-bottom: 30px; }
+        .form-header h2 { color: var(--primary-green); margin-bottom: 10px; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--earth-brown); }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .file-upload {
+            background: #f0f7f0;
+            padding: 20px;
+            border: 2px dashed var(--leaf-green);
+            text-align: center;
+            border-radius: 8px;
+        }
+        .submit-btn {
+            background: var(--primary-green);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        .submit-btn:hover { background: var(--leaf-green); }
+        .note { font-size: 0.85rem; color: #666; margin-top: 15px; text-align: center; }
+        
+        /* QR Code Styles */
+        .qr-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 30px 0;
+            justify-content: center;
+        }
+        
+        .qr-card {
+            flex: 1;
+            min-width: 250px;
+            background: #f8fbf8;
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            border: 2px solid var(--leaf-green);
+            transition: transform 0.3s ease;
+        }
+        
+        .qr-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(45,90,39,0.2);
+        }
+        
+        .qr-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .qr-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+        
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            margin: 15px auto;
+            padding: 10px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qr-code svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .qr-detail {
+            margin: 15px 0;
+            word-break: break-all;
+            font-size: 0.9rem;
+            color: #3b5c35;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #c0d9bf;
+        }
+        
+        .qr-button {
+            display: inline-block;
+            background: var(--primary-green);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        
+        .qr-button:hover {
+            background: var(--leaf-green);
+        }
+        
+        .qr-button.whatsapp {
+            background: #25D366;
+        }
+        
+        .qr-button.whatsapp:hover {
+            background: #128C7E;
+        }
+        
+        .qr-button.email {
+            background: #D44638;
+        }
+        
+        .qr-button.email:hover {
+            background: #B33A2C;
+        }
+        
+        .instruction-box {
+            background: #e8f0e8;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border-left: 5px solid var(--primary-green);
+        }
+        
+        .instruction-box h3 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+        
+        .two-option-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .option-col {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        @media (max-width: 600px) {
+            .upload-container { padding: 20px; }
+            .qr-card { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Citizen Science Portal</h1>
+    <p>Contribute your observations to our database</p>
+</header>
+
+<nav>
+     <a href="index.html">Home</a>
+    <a href="history.html">History</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="distribution.html">Distribution</a>
+    <a href="articles.html">Articles</a>
+    <a href="team.html">Team</a>
+    <a href="gallery.html">Gallery</a> 
+    <a href="upload.html">Upload</a>
+    <a href="faq.html">FAQ</a>
+</nav>
+
+<main>
+    <div class="upload-container">
+        <div class="form-header">
+            <h2>Submit a New Observation</h2>
+            <p>Your contribution helps us map the biodiversity of Nepal.</p>
+        </div>
+
+        <!-- Important Notice -->
+        <div class="instruction-box">
+            <h3>📸 Photo Submission Instructions</h3>
+            <p style="margin-top: 10px; font-weight: bold;">⬇️ Scan the QR code or click the button below ⬇️</p>
+        </div>
+
+        <!-- QR Codes Section -->
+        <div class="qr-section">
+            <!-- WhatsApp QR Card -->
+            <div class="qr-card">
+                <div class="qr-icon">📱</div>
+                <div class="qr-title">Submit via WhatsApp</div>
+                <div class="qr-code" id="whatsapp-qr"></div>
+                <div class="qr-detail">+977 9809733313</div>
+                <a href="https://wa.me/9779809733313?text=Hello%20Millipedes%20of%20Nepal%20team%2C%20I%20would%20like%20to%20submit%20a%20millipede%20observation%20with%20photo." 
+                   target="_blank" 
+                   class="qr-button whatsapp">
+                    📲 Open WhatsApp
+                </a>
+                <p style="font-size: 0.8rem; margin-top: 10px; color: #666;">Scan QR or click button to send photos</p>
+            </div>
+
+            <!-- Gmail QR Card -->
+            <div class="qr-card">
+                <div class="qr-icon">📧</div>
+                <div class="qr-title">Submit via Email</div>
+                <div class="qr-code" id="email-qr"></div>
+                <div class="qr-detail">lokendrachand56@gmail.com</div>
+                <a href="mailto:lokendrachand56@gmail.com?subject=Millipede%20Observation%20with%20Photo&body=Hello%2C%0A%0AI%20would%20like%20to%20submit%20a%20millipede%20observation.%20Please%20find%20the%20details%20and%20photo%20attached.%0A%0AName%3A%0ALocation%3A%0ADate%3A%0ANotes%3A" 
+                   class="qr-button email">
+                    ✉️ Open Email
+                </a>
+                <p style="font-size: 0.8rem; margin-top: 10px; color: #666;">Scan QR or click button to send email with photo</p>
+            </div>
+        </div>
+
+        <!-- Simple Text Form (for text-only submissions) -->
+        <div style="margin: 30px 0; text-align: center;">
+            <h3 style="color: var(--primary-green); margin-bottom: 15px;">📝 Or fill this text form (photos via QR above)</h3>
+        </div>
+
+        <form action="https://formspree.io/f/xbdazpqg" method="POST">
+            
+            <div class="form-group">
+                <label>Contributor Name</label>
+                <input type="text" name="name" placeholder="Full Name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="Your email for confirmation" required>
+            </div>
+
+            <div class="form-group">
+                <label>Observation Location</label>
+                <input type="text" name="location" placeholder="e.g. Shivapuri Forest, Kathmandu" required>
+            </div>
+
+            <div class="form-group">
+                <label>Date of Observation</label>
+                <input type="date" name="date">
+            </div>
+
+            <div class="form-group">
+                <label>Notes / Description</label>
+                <textarea name="notes" rows="4" placeholder="Mention size, color, or habitat (under log, leaf litter, etc.)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>📷 Photo Submission</label>
+                <div class="file-upload" style="background: #fff3cd; border-color: #ffc107;">
+                    <p style="font-weight: bold; color: #856404;">Please send photos via:</p>
+                    <div style="display: flex; gap: 10px; justify-content: center; margin: 10px 0;">
+                        <a href="https://wa.me/9779809733313" target="_blank" style="background: #25D366; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none;">WhatsApp</a>
+                        <a href="mailto:lokendrachand56@gmail.com" style="background: #D44638; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none;">Email</a>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #666;">Use QR codes above or click buttons</p>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Observation Details</button>
+            
+            <p class="note">After submitting this form, please send your photo via WhatsApp or Email using the QR codes above.</p>
+            <p class="note" style="margin-top: 5px;">📸 <strong>Don't forget to include your name in the message so we can match it to this form!</strong></p>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Millipedes of Nepal | Lokendra Chand & Ayub Senchury</p>
+</footer>
+
+<!-- QR Code Generation Library -->
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+    // Generate QR codes when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // WhatsApp QR
+        new QRCode(document.getElementById("whatsapp-qr"), {
+            text: "https://wa.me/9779809733313?text=Hello%20Millipedes%20of%20Nepal%20team%2C%20I%20would%20like%20to%20submit%20a%20millipede%20observation%20with%20photo.",
+            width: 180,
+            height: 180,
+            colorDark: "#2d5a27",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+        
+        // Email QR
+        new QRCode(document.getElementById("email-qr"), {
+            text: "mailto:lokendrachand56@gmail.com?subject=Millipede%20Observation%20with%20Photo&body=Hello%2C%0A%0AI%20would%20like%20to%20submit%20a%20millipede%20observation.%20Please%20find%20the%20details%20and%20photo%20attached.%0A%0AName%3A%0ALocation%3A%0ADate%3A%0ANotes%3A",
+            width: 180,
+            height: 180,
+            colorDark: "#D44638",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    });
+</script>
+
+</body>
+</html>

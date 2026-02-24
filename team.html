@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team - Millipedes of Nepal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reset margins and padding for full-width layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+        
+        :root {
+            --primary-green: #2d5a27;
+            --earth-brown: #583101;
+            --gold: #ffd700;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 80px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Times New Roman', Times, serif;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        header p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            font-family: 'Times New Roman', Times, serif;
+            animation: slideInRight 1s ease-out;
+        }
+        
+        nav {
+            background-color: #3a6b34;
+            padding: 15px 80px;
+            text-align: center;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav a:hover {
+            background-color: #4f8a47;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        nav a:hover::after {
+            width: 80%;
+        }
+        
+        nav a.active {
+            background-color: #4f8a47;
+            font-weight: bold;
+        }
+        
+        main {
+            flex: 1;
+            padding: 40px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            min-height: 60vh;
+        }
+        
+        .team-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 350px;
+            text-align: center;
+            padding: 40px 30px;
+            border-top: 5px solid var(--primary-green);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-green), var(--gold), var(--primary-green));
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .team-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 45px rgba(46, 125, 50, 0.2);
+        }
+        
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #f0f7f0;
+            margin-bottom: 25px;
+            background-color: #eee;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .team-card:hover .profile-img {
+            border-color: var(--gold);
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .member-name {
+            color: var(--primary-green);
+            margin: 15px 0 5px 0;
+            font-size: 1.8rem;
+            font-family: 'Times New Roman', Times, serif;
+            transition: color 0.3s ease;
+        }
+        
+        .team-card:hover .member-name {
+            color: #1e3f1a;
+        }
+        
+        .member-title {
+            color: #666;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .member-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+        
+        .team-card:hover .member-title::after {
+            width: 80px;
+        }
+        
+        .member-bio {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+            font-family: 'Times New Roman', Times, serif;
+            padding: 0 10px;
+        }
+        
+        .leadership-badge {
+            display: inline-block;
+            background: var(--earth-brown);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .team-card:hover .leadership-badge {
+            background: #4a2e0e;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Style for Nepali text if any appears in future */
+        .nepali-text {
+            font-family: 'Preeti', 'Times New Roman', Times, serif;
+            font-size: 1.3rem;
+            line-height: 2;
+        }
+        
+        footer {
+            background-color: var(--primary-green);
+            color: white;
+            text-align: center;
+            padding: 40px 80px;
+            width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+        
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+        
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            header {
+                padding: 60px 40px;
+            }
+            
+            main {
+                padding: 30px 40px;
+            }
+            
+            nav {
+                padding: 15px 40px;
+            }
+            
+            footer {
+                padding: 30px 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 50px 20px;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.4rem;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            nav a {
+                display: inline-block;
+                padding: 8px 12px;
+                margin: 3px;
+                font-size: 0.9rem;
+            }
+            
+            main {
+                padding: 30px 20px;
+            }
+            
+            .team-container {
+                gap: 30px;
+                padding: 10px;
+            }
+            
+            .team-card {
+                width: 100%;
+                max-width: 350px;
+                padding: 30px 20px;
+            }
+            
+            .profile-img {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .member-name {
+                font-size: 1.5rem;
+            }
+            
+            footer {
+                padding: 30px 20px;
+            }
+            
+            footer p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .team-card {
+                padding: 25px 15px;
+            }
+            
+            .profile-img {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .member-name {
+                font-size: 1.3rem;
+            }
+            
+            .member-title {
+                font-size: 1rem;
+            }
+            
+            .member-bio {
+                font-size: 0.95rem;
+            }
+            
+            .leadership-badge {
+                font-size: 0.8rem;
+                padding: 6px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Our Research Team</h1>
+    <p>The Taxonomists behind this project</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="history.html">History</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="distribution.html">Distribution</a>
+    <a href="articles.html">Articles</a>
+    <a href="team.html" class="active">Team</a>
+    <a href="gallery.html">Gallery</a> 
+    <a href="upload.html">Upload</a>
+    <a href="faq.html">FAQ</a>
+</nav>
+
+<main>
+    <div class="team-container">
+        <div class="team-card">
+            <span class="leadership-badge">Leadership</span>
+            <img src="lokendra.jpg" alt="Lokendra Chand" class="profile-img" onerror="this.src='https://via.placeholder.com/200x200?text=L.+Chand'">
+            <h2 class="member-name">Lokendra Chand</h2>
+            <p class="member-title">M.Sc. Zoology</p>
+            <p class="member-bio">
+                Specializing in the taxonomy and distribution of Nepalese Millipedes. 
+                Leading the field surveys and database management for the project.
+            </p>
+        </div>
+
+        <div class="team-card">
+            <img src="ayub.jpg" alt="Ayub Senchury" class="profile-img" onerror="this.src='https://via.placeholder.com/200x200?text=A.+Senchury'">
+            <h2 class="member-name">Ayub Senchury</h2>
+            <p class="member-title">M.Sc. Zoology</p>
+            <p class="member-bio">
+                Co-investigator focusing on specimen collection, preservation, 
+                and morphological analysis of Nepalese millipede species.
+            </p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+</footer>
+
+</body>
+</html>
