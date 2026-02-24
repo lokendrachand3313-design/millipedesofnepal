@@ -6,17 +6,156 @@
     <title>History of Millipedes Species Description of Nepal</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Additional page-specific styles that complement style.css */
+        /* Reset margins and padding for full-width layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
-        /* This ensures species names look scientific */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+        
+        /* Consistent header styling matching index.html */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 80px !important;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Times New Roman', Times, serif;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        header p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            font-family: 'Times New Roman', Times, serif;
+            animation: slideInRight 1s ease-out;
+        }
+        
+        nav {
+            background-color: #3a6b34;
+            padding: 15px 80px;
+            text-align: center;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav a:hover {
+            background-color: #4f8a47;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #ffd700;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        nav a:hover::after {
+            width: 80%;
+        }
+        
+        nav a.active {
+            background-color: #4f8a47;
+            font-weight: bold;
+        }
+        
+        main {
+            flex: 1;
+            padding: 40px 80px;
+            max-width: 100%;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        h2 {
+            color: #2d5a27;
+            border-bottom: 3px solid #2d5a27;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            font-family: 'Times New Roman', Times, serif;
+            transition: color 0.3s ease;
+        }
+        
+        h2:hover {
+            color: #1e3d1a;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        /* Style for scientific names */
         .scientific-text i {
-            color: var(--earth-brown);
+            color: #583101;
             font-weight: 500;
             transition: color 0.3s ease;
         }
         
         .scientific-text i:hover {
-            color: var(--primary-green);
+            color: #2d5a27;
         }
         
         .full-history-text {
@@ -49,13 +188,13 @@
         .history-img:hover {
             transform: scale(1.03) rotate(0.5deg);
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-            border-color: var(--gold);
+            border-color: #ffd700;
         }
         
         /* Style for the horizontal rule */
         hr {
             border: 0;
-            border-top: 3px solid var(--primary-green);
+            border-top: 3px solid #2d5a27;
             margin: 50px 0;
             opacity: 0.5;
             animation: fadeIn 1.5s ease-out;
@@ -66,7 +205,7 @@
             background-color: #f9f9f9;
             padding: 35px;
             border-radius: 10px;
-            border-left: 6px solid var(--primary-green);
+            border-left: 6px solid #2d5a27;
             transition: all 0.3s ease;
             animation: fadeInUp 0.8s ease-out;
         }
@@ -74,11 +213,12 @@
         .brief-history:hover {
             background-color: #f5f5f5;
             border-left-width: 8px;
+            border-left-color: #ffd700;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         
         .brief-history h2 {
-            color: var(--primary-green);
+            color: #2d5a27;
             margin-bottom: 20px;
             border-left: none;
             padding-left: 0;
@@ -90,15 +230,153 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Style for Nepali text if any appears in future */
+        /* Style for Nepali text if any appears */
         .nepali-text {
             font-family: 'Preeti', 'Times New Roman', Times, serif;
             font-size: 1.3rem;
             line-height: 2;
         }
         
-        /* Responsive adjustments */
+        footer {
+            background-color: #2d5a27;
+            color: white;
+            text-align: center;
+            padding: 40px 80px;
+            width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid #ffd700;
+        }
+        
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+        
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+        
+        /* Animation keyframes matching index.html */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Responsive design matching index.html */
+        @media (max-width: 1024px) {
+            header {
+                padding: 60px 40px !important;
+            }
+            
+            nav {
+                padding: 15px 40px;
+            }
+            
+            main {
+                padding: 30px 40px;
+            }
+            
+            footer {
+                padding: 30px 40px;
+            }
+        }
+        
         @media (max-width: 768px) {
+            header {
+                padding: 50px 20px !important;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.4rem;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            nav a {
+                display: inline-block;
+                padding: 8px 12px;
+                margin: 3px;
+                font-size: 0.9rem;
+            }
+            
+            main {
+                padding: 30px 20px;
+            }
+            
+            section {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+            }
+            
             .full-history-text {
                 font-size: 1.1rem;
             }
@@ -108,7 +386,30 @@
             }
             
             .history-img {
+                max-width: 100%;
                 margin: 20px auto;
+            }
+            
+            footer {
+                padding: 30px 20px;
+            }
+            
+            footer p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1.2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -122,7 +423,7 @@
 
 <nav>
     <a href="index.html">Home</a>
-    <a href="history.html">History</a>
+    <a href="history.html" class="active">History</a>
     <a href="checklist.html">Checklist</a>
     <a href="distribution.html">Distribution</a>
     <a href="articles.html">Articles</a>
@@ -154,7 +455,7 @@
     <hr>
 
     <section class="brief-history">
-        <img src="history.png" alt="Fieldwork and Research" class="history-img">
+        <img src="history.png" alt="Fieldwork and Research" class="history-img" onerror="this.src='https://via.placeholder.com/1000x600?text=History+of+Millipede+Research'">
         
         <h2>A Brief History of Working on Millipedes</h2>
         <p>For my master's thesis, I aimed to explore a novel subject within the context of Nepal. Under the guidance of my professor and supervisor, I focused on the Diplopoda (millipedes). I conducted a comprehensive study of millipedes in urban forest patches within the Kathmandu Valley. My research primarily involved the taxonomic description of millipedes, emphasizing the identification based on <b>gonopod structures</b>. The discovery of high levels of endemism in these millipedes sparked a deeper interest in the Diplopoda of Nepal, highlighting the unique biodiversity of the region.</p>
@@ -165,8 +466,6 @@
     <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
     <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
-
-<!-- No script needed for year as we're using fixed 2026 -->
 
 </body>
 </html>
