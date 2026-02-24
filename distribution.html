@@ -280,20 +280,25 @@
     const map = L.map('map').setView([28.3949, 84.1240], 7);
     const markersLayer = L.layerGroup().addTo(map);
 
+    // Add tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Initial Dropdown Setup
-    function populate(id, key, filterKey, filterVal) {
+    // Function to populate dropdowns
+    function populate(id, key, filterKey = null, filterVal = null) {
         const select = document.getElementById(id);
         let data = millipedePoints;
         
-        if (filterVal && filterVal !== 'all') {
+        // Apply filter if provided
+        if (filterKey && filterVal && filterVal !== 'all') {
             data = millipedePoints.filter(p => p[filterKey] === filterVal);
         }
 
-        const uniqueVals = [...new Set(data.map(p => p[key]))].sort();
+        // Get unique values and sort them
+        const uniqueVals = [...new Set(data.map(p => p[key]))].filter(v => v).sort();
+        
+        // Create options
         select.innerHTML = `<option value="all">All ${key.charAt(0).toUpperCase() + key.slice(1)}s</option>`;
         
         uniqueVals.forEach(val => {
@@ -304,36 +309,84 @@
         });
     }
 
+    // Update filters based on selection
     function updateFilters(level) {
         const order = document.getElementById('orderFilter').value;
         const family = document.getElementById('familyFilter').value;
         const genus = document.getElementById('genusFilter').value;
 
         if(level === 'order') {
-            populate('familyFilter', 'family', 'order', order);
-            populate('genusFilter', 'genus', 'order', order);
-            populate('speciesFilter', 'species', 'order', order);
+            // When order changes, update family, genus, and species based on selected order
+            if (order === 'all') {
+                // If 'all' selected, populate with all data
+                populate('familyFilter', 'family');
+                populate('genusFilter', 'genus');
+                populate('speciesFilter', 'species');
+            } else {
+                // Otherwise filter by selected order
+                populate('familyFilter', 'family', 'order', order);
+                populate('genusFilter', 'genus', 'order', order);
+                populate('speciesFilter', 'species', 'order', order);
+            }
         } else if (level === 'family') {
-            populate('genusFilter', 'genus', 'family', family);
-            populate('speciesFilter', 'species', 'family', family);
+            // When family changes, update genus and species
+            if (family === 'all') {
+                // If 'all' selected, use current order filter
+                if (order === 'all') {
+                    populate('genusFilter', 'genus');
+                    populate('speciesFilter', 'species');
+                } else {
+                    populate('genusFilter', 'genus', 'order', order);
+                    populate('speciesFilter', 'species', 'order', order);
+                }
+            } else {
+                populate('genusFilter', 'genus', 'family', family);
+                populate('speciesFilter', 'species', 'family', family);
+            }
         } else if (level === 'genus') {
-            populate('speciesFilter', 'species', 'genus', genus);
+            // When genus changes, update species
+            if (genus === 'all') {
+                // If 'all' selected, use current family filter
+                if (family === 'all') {
+                    if (order === 'all') {
+                        populate('speciesFilter', 'species');
+                    } else {
+                        populate('speciesFilter', 'species', 'order', order);
+                    }
+                } else {
+                    populate('speciesFilter', 'species', 'family', family);
+                }
+            } else {
+                populate('speciesFilter', 'species', 'genus', genus);
+            }
         }
+        
+        // Always render markers after updating filters
         renderMarkers();
     }
 
+    // Render markers based on selected filters
     function renderMarkers() {
         markersLayer.clearLayers();
+        
         const fOrder = document.getElementById('orderFilter').value;
         const fFamily = document.getElementById('familyFilter').value;
         const fGenus = document.getElementById('genusFilter').value;
         const fSpecies = document.getElementById('speciesFilter').value;
 
+        console.log('Filters:', {fOrder, fFamily, fGenus, fSpecies}); // Debug log
+
+        let visibleCount = 0;
+        
         millipedePoints.forEach(p => {
-            if ((fOrder === 'all' || p.order === fOrder) &&
-                (fFamily === 'all' || p.family === fFamily) &&
-                (fGenus === 'all' || p.genus === fGenus) &&
-                (fSpecies === 'all' || p.species === fSpecies)) {
+            // Check if point matches all filters
+            const matchOrder = fOrder === 'all' || p.order === fOrder;
+            const matchFamily = fFamily === 'all' || p.family === fFamily;
+            const matchGenus = fGenus === 'all' || p.genus === fGenus;
+            const matchSpecies = fSpecies === 'all' || p.species === fSpecies;
+            
+            if (matchOrder && matchFamily && matchGenus && matchSpecies) {
+                visibleCount++;
                 
                 const marker = L.marker([p.lat, p.lon]);
                 marker.bindPopup(`
@@ -349,14 +402,38 @@
                 markersLayer.addLayer(marker);
             }
         });
+        
+        console.log(`Visible markers: ${visibleCount} out of ${millipedePoints.length}`);
+        
+        // If no markers visible, show a message
+        if (visibleCount === 0) {
+            console.log('No markers match the current filters');
+        }
     }
 
-    function zoomToNepal() { map.setView([28.3949, 84.1240], 7); }
-    function zoomToGlobal() { map.setView([20, 0], 2); }
+    function zoomToNepal() { 
+        map.setView([28.3949, 84.1240], 7); 
+    }
+    
+    function zoomToGlobal() { 
+        map.setView([20, 0], 2); 
+    }
 
-    // On start
-    populate('orderFilter', 'order');
-    updateFilters('order');
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if millipedePoints is loaded
+        if (typeof millipedePoints !== 'undefined') {
+            console.log('Millipede points loaded:', millipedePoints.length);
+            
+            // Populate order filter with all data
+            populate('orderFilter', 'order');
+            
+            // Trigger initial update
+            updateFilters('order');
+        } else {
+            console.error('millipedePoints not found! Make sure data.js is loaded.');
+        }
+    });
 </script>
 </body>
 </html>
