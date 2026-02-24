@@ -119,6 +119,65 @@
             text-align: center;
         }
         
+        /* Full Photo Section */
+        .full-photo-section {
+            margin-bottom: 60px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .full-photo-container {
+            position: relative;
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+        }
+        
+        .full-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .full-photo:hover {
+            transform: scale(1.02);
+        }
+        
+        .full-photo-caption {
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+            padding: 30px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        
+        .full-photo-caption h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+        
+        .full-photo-caption p {
+            font-size: 1.2rem;
+            max-width: 800px;
+        }
+        
+        .full-photo-caption i {
+            color: #ffd700;
+        }
+        
+        .photo-credit {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
         .articles-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -312,6 +371,79 @@
             background: #1e3f1a;
         }
         
+        /* Future Articles Section */
+        .future-articles {
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .future-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .future-header h3 {
+            color: #2d5a27;
+            font-size: 1.8rem;
+        }
+        
+        .future-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, #2d5a27, transparent);
+        }
+        
+        .placeholder-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .placeholder-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            border: 2px dashed #2d5a27;
+            opacity: 0.8;
+            transition: all 0.3s;
+        }
+        
+        .placeholder-card:hover {
+            opacity: 1;
+            background: #f0f7f0;
+            transform: translateY(-3px);
+        }
+        
+        .placeholder-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .placeholder-card h4 {
+            color: #2d5a27;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .placeholder-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .coming-soon {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #2d5a27;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
         .sidebar {
             background: white;
             padding: 25px;
@@ -372,11 +504,6 @@
             background: #e0e0e0;
         }
         
-        .external-link img {
-            width: 24px;
-            height: 24px;
-        }
-        
         .main-with-sidebar {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -422,6 +549,14 @@
             .main-with-sidebar {
                 grid-template-columns: 1fr;
             }
+            
+            .full-photo-caption h3 {
+                font-size: 1.5rem;
+            }
+            
+            .full-photo-caption p {
+                font-size: 1rem;
+            }
         }
         
         @media (max-width: 768px) {
@@ -454,6 +589,14 @@
             
             .page-header h2 {
                 font-size: 2rem;
+            }
+            
+            .full-photo-caption {
+                padding: 20px;
+            }
+            
+            .full-photo-caption h3 {
+                font-size: 1.3rem;
             }
             
             footer {
@@ -490,12 +633,24 @@
         <p>🔬 This page combines our published research articles with photographic evidence of the specimens. Each paper includes the original description, taxonomic classification, and location data with specimen photos.</p>
     </div>
     
+    <!-- Full Photo Section -->
+    <div class="full-photo-section">
+        <div class="full-photo-container">
+            <img src="field_team.jpg" alt="Millipede Research Team in Field" class="full-photo" onerror="this.src='https://via.placeholder.com/1400x600?text=Fieldwork+Photo'">
+            <div class="full-photo-caption">
+                <h3>🔍 Fieldwork in Dang Valley, Western Nepal</h3>
+                <p>Research team collecting millipede specimens during the 2024 expedition. <i>Gonoplectus malayus</i> and other species were discovered in this region.</p>
+                <div class="photo-credit">📸 Photo: Lokendra Chand | November 2024</div>
+            </div>
+        </div>
+    </div>
+    
     <div class="main-with-sidebar">
         <div class="articles-container">
             <!-- Article 1: Trigoniulus corallinus -->
             <div class="article-card" id="article1">
                 <div class="article-image">
-                    <img src="sp1.png" alt="Trigoniulus corallinus specimen" class="specimen-photo" onerror="this.src='https://via.placeholder.com/400x300?text=Specimen+Photo'">
+                    <img src="sp1.png" alt="Trigoniulus corallinus specimen" class="specimen-photo" onerror="this.src='https://via.placeholder.com/400x300?text=Trigoniulus+corallinus'">
                     <div class="photo-caption">
                         <i>Trigoniulus corallinus</i> - Live specimen in natural habitat
                     </div>
@@ -531,7 +686,7 @@
             <!-- Article 2: Gonoplectus lindbergi -->
             <div class="article-card" id="article2">
                 <div class="article-image">
-                    <img src="sp2.png" alt="Gonoplectus lindbergi specimen" class="specimen-photo" onerror="this.src='https://via.placeholder.com/400x300?text=Specimen+Photo'">
+                    <img src="sp2.png" alt="Gonoplectus lindbergi specimen" class="specimen-photo" onerror="this.src='https://via.placeholder.com/400x300?text=Gonoplectus+lindbergi'">
                     <div class="photo-caption">
                         <i>Gonoplectus lindbergi</i> - Preserved specimen in lab
                     </div>
@@ -573,10 +728,11 @@
             <br>
             <h3>📊 Statistics</h3>
             <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                <p><strong>Total Articles:</strong> 2</p>
+                <p><strong>Current Articles:</strong> 2</p>
                 <p><strong>Specimens:</strong> 2</p>
                 <p><strong>New Records:</strong> 2</p>
                 <p><strong>In Prep:</strong> 2</p>
+                <p><strong>Field Expeditions:</strong> 2022-2024</p>
             </div>
             
             <h3>🔗 External Links</h3>
@@ -589,13 +745,61 @@
                 </a>
             </div>
             
-            <h3>📷 Specimens</h3>
+            <h3>📷 Recent Photos</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-                <img src="sp1.png" alt="Trigoniulus" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; border: 2px solid #2d5a27;" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen'">
-                <img src="sp2.png" alt="Gonoplectus" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; border: 2px solid #2d5a27;" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen'">
+                <img src="sp1.png" alt="Trigoniulus" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; border: 2px solid #2d5a27;" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen1'">
+                <img src="sp2.png" alt="Gonoplectus" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; border: 2px solid #2d5a27;" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen2'">
+                <img src="field_team.jpg" alt="Fieldwork" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; border: 2px solid #2d5a27;" onerror="this.src='https://via.placeholder.com/100x80?text=Fieldwork'">
+                <img src="lab_work.jpg" alt="Lab work" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; border: 2px solid #2d5a27;" onerror="this.src='https://via.placeholder.com/100x80?text=Lab'">
             </div>
-            <p style="text-align: center; margin-top: 10px; font-size: 0.9rem; color: #666;">Click on cards above for details</p>
         </aside>
+    </div>
+    
+    <!-- Future Articles Section - Ready for when papers are published -->
+    <div class="future-articles">
+        <div class="future-header">
+            <h3>📄 Forthcoming Publications</h3>
+            <div class="future-line"></div>
+        </div>
+        
+        <div class="placeholder-cards">
+            <!-- Placeholder 1 - Replace with actual article when published -->
+            <div class="placeholder-card" id="future-placeholder-1">
+                <div class="placeholder-icon">📝</div>
+                <h4>Gonoplectus malayus</h4>
+                <p>Detailed morphological analysis and distribution notes from Western Nepal</p>
+                <span class="coming-soon">Coming Soon</span>
+            </div>
+            
+            <!-- Placeholder 2 - Replace with actual article when published -->
+            <div class="placeholder-card" id="future-placeholder-2">
+                <div class="placeholder-icon">🔬</div>
+                <h4>Siphonorhinus sp. nov.</h4>
+                <p>Potential new species discovery from Dang Valley</p>
+                <span class="coming-soon">Coming Soon</span>
+            </div>
+            
+            <!-- Placeholder 3 - Replace with actual article when published -->
+            <div class="placeholder-card" id="future-placeholder-3">
+                <div class="placeholder-icon">🗺️</div>
+                <h4>Distribution Atlas</h4>
+                <p>Comprehensive mapping of Nepalese millipede species</p>
+                <span class="coming-soon">In Progress</span>
+            </div>
+            
+            <!-- Placeholder 4 - Empty slot for future addition -->
+            <div class="placeholder-card" id="future-placeholder-4">
+                <div class="placeholder-icon">✨</div>
+                <h4>Your Next Discovery</h4>
+                <p>Space reserved for upcoming research findings</p>
+                <span class="coming-soon">Open for Research</span>
+            </div>
+        </div>
+        
+        <!-- Instructions for adding new articles (hidden in production) -->
+        <div style="background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 0.9rem;">
+            <p style="margin-bottom: 5px;"><strong>📌 For Editors:</strong> To add a new published article, copy the <code>.article-card</code> structure from above and insert it before the "Forthcoming Publications" section. Update the image, title, author, abstract, and replace <span class="badge">In Prep</span> with <span class="badge" style="background: #28a745;">Published 2025</span>.</p>
+        </div>
     </div>
 </main>
 
