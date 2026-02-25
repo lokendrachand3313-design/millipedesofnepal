@@ -132,7 +132,7 @@
             background: #fff;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 350px;
+            width: 380px;
             text-align: center;
             padding: 40px 30px;
             border-top: 5px solid var(--primary-green);
@@ -164,12 +164,12 @@
         }
         
         .profile-img {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid #f0f7f0;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             background-color: #eee;
             transition: all 0.5s ease;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
@@ -183,7 +183,7 @@
         
         .member-name {
             color: var(--primary-green);
-            margin: 15px 0 5px 0;
+            margin: 10px 0 5px 0;
             font-size: 1.8rem;
             font-family: 'Times New Roman', Times, serif;
             transition: color 0.3s ease;
@@ -197,7 +197,7 @@
             color: #666;
             font-weight: bold;
             font-size: 1.1rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-family: 'Times New Roman', Times, serif;
             position: relative;
             display: inline-block;
@@ -224,17 +224,18 @@
             line-height: 1.6;
             color: #444;
             font-family: 'Times New Roman', Times, serif;
-            padding: 0 10px;
+            padding: 0 5px;
+            margin-bottom: 15px;
         }
         
         .leadership-badge {
             display: inline-block;
             background: var(--earth-brown);
             color: white;
-            padding: 8px 20px;
+            padding: 6px 18px;
             border-radius: 30px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: bold;
@@ -247,6 +248,49 @@
             background: #4a2e0e;
             transform: scale(1.05);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Contact info styling */
+        .member-contact {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        
+        .member-contact p {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .contact-link {
+            color: var(--primary-green);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            word-break: break-word;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .contact-link:hover {
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+        
+        .facebook-link:hover {
+            color: #1877f2;
+        }
+        
+        .phone-numbers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
         }
         
         /* Style for Nepali text if any appears in future */
@@ -396,12 +440,23 @@
             }
             
             .profile-img {
-                width: 160px;
-                height: 160px;
+                width: 150px;
+                height: 150px;
             }
             
             .member-name {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
+            }
+            
+            .member-contact p {
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+            }
+            
+            .phone-numbers {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
             }
             
             footer {
@@ -419,12 +474,12 @@
             }
             
             .profile-img {
-                width: 140px;
-                height: 140px;
+                width: 130px;
+                height: 130px;
             }
             
             .member-name {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
             
             .member-title {
@@ -432,12 +487,20 @@
             }
             
             .member-bio {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
             }
             
             .leadership-badge {
-                font-size: 0.8rem;
-                padding: 6px 15px;
+                font-size: 0.75rem;
+                padding: 5px 12px;
+            }
+            
+            .member-contact {
+                font-size: 0.85rem;
+            }
+            
+            .member-contact p {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -463,6 +526,7 @@
 
 <main>
     <div class="team-container">
+        <!-- Lokendra Chand Card -->
         <div class="team-card">
             <span class="leadership-badge">Leadership</span>
             <img src="lokendra.jpg" alt="Lokendra Chand" class="profile-img" onerror="this.src='https://via.placeholder.com/200x200?text=L.+Chand'">
@@ -472,8 +536,29 @@
                 Specializing in the taxonomy and distribution of Nepalese Millipedes. 
                 Leading the field surveys and database management for the project.
             </p>
+            
+            <!-- Contact Information -->
+            <div class="member-contact">
+                <p>
+                    <span>📧</span>
+                    <a href="mailto:lokendrachand56@gmail.com" class="contact-link">lokendrachand56@gmail.com</a>
+                </p>
+                <p>
+                    <span>📞</span>
+                    <span class="phone-numbers">
+                        <a href="tel:+977-9809733313" class="contact-link">+977-9809733313</a>
+                        <span>/</span>
+                        <a href="tel:+817090238470" class="contact-link">+817090238470</a>
+                    </span>
+                </p>
+                <p>
+                    <span>📘</span>
+                    <a href="https://www.facebook.com/lokendrachand3313" target="_blank" class="contact-link facebook-link">Facebook Profile</a>
+                </p>
+            </div>
         </div>
 
+        <!-- Ayub Senchury Card -->
         <div class="team-card">
             <img src="ayub.jpg" alt="Ayub Senchury" class="profile-img" onerror="this.src='https://via.placeholder.com/200x200?text=A.+Senchury'">
             <h2 class="member-name">Ayub Senchury</h2>
@@ -482,6 +567,18 @@
                 Co-investigator focusing on specimen collection, preservation, 
                 and morphological analysis of Nepalese millipede species.
             </p>
+            
+            <!-- Contact Information -->
+            <div class="member-contact">
+                <p>
+                    <span>📧</span>
+                    <a href="mailto:asnabin70@gmail.com" class="contact-link">asnabin70@gmail.com</a>
+                </p>
+                <p>
+                    <span>📘</span>
+                    <a href="https://www.facebook.com/aspirant.zoology" target="_blank" class="contact-link facebook-link">Facebook Profile</a>
+                </p>
+            </div>
         </div>
     </div>
 </main>
