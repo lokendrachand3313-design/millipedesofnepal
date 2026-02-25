@@ -240,7 +240,18 @@ p {
     box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     border-color: var(--gold);
 }
+/* Two-column layout for featured images */
+.featured .featured-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 4/3; /* Optional: maintains consistent height */
+}
 
+/* Ensure text below images is centered */
+.featured div p {
+    text-align: center;
+}
 /* Map Container */
 #map {
     height: 600px;
