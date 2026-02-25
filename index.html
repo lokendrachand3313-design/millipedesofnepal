@@ -185,24 +185,42 @@
             color: #1e3d1a;
         }
         
-        /* Make featured image larger */
-        .featured-img {
-            max-width: 900px;
+        /* Featured images styling - two in a row */
+        .featured .featured-img {
+            max-width: 100%;
             width: 100%;
             height: auto;
             border-radius: 15px;
-            margin: 25px auto;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             border: 4px solid #fff;
-            display: block;
             transition: all 0.5s ease;
             animation: fadeIn 1.5s ease-out;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            margin: 0;
         }
         
-        .featured-img:hover {
+        .featured .featured-img:hover {
             transform: scale(1.03) rotate(0.5deg);
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
             border-color: #ffd700;
+        }
+        
+        .featured div p {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .image-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .image-col {
+            flex: 1;
+            min-width: 300px;
         }
         
         #map {
@@ -448,9 +466,8 @@
                 font-size: 1.2rem;
             }
             
-            .featured-img {
-                max-width: 100%;
-                margin: 15px auto;
+            .image-col {
+                min-width: 100%;
             }
             
             footer {
@@ -490,12 +507,20 @@
 
     <section class="featured">
         <h3>Beautiful Millipedes from Nepal</h3>
-        <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img">
-        <p><span class="scientific-name">Gonoplectus malayus</span>, Spirostreptida, Harpagophoridae<br>
-        <span class="location">📍 Location: Dang Valley, Nepal</span></p>
-        <img src="gono7.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img">
-        <p><span class="scientific-name">Gonoplectus</span> sp., Spirostreptida, Harpagophoridae<br>
-        <span class="location">📍 Location: Dang Valley, Nepal</span></p>
+        
+        <!-- Two photos in one row -->
+        <div class="image-row">
+            <div class="image-col">
+                <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img">
+                <p><span class="scientific-name">Gonoplectus malayus</span>, Spirostreptida, Harpagophoridae<br>
+                <span class="location">📍 Location: Dang Valley, Nepal</span></p>
+            </div>
+            <div class="image-col">
+                <img src="gono7.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img">
+                <p><span class="scientific-name">Gonoplectus</span> sp., Spirostreptida, Harpagophoridae<br>
+                <span class="location">📍 Location: Dang Valley, Nepal</span></p>
+            </div>
+        </div>
     </section>
     
     <section>
