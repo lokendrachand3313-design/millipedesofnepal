@@ -280,7 +280,31 @@ p {
 .map-note:hover {
     color: var(--primary-green);
 }
+/* City name markers - simple text only */
+.city-name-marker {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
 
+.city-name-marker div {
+    background: transparent !important;
+    border: none !important;
+    white-space: nowrap;
+}
+
+/* Make sure city names are readable on satellite view */
+.city-name-marker div {
+    background: transparent !important;
+    text-shadow: 
+        -1px -1px 0 white,  
+         1px -1px 0 white,
+        -1px  1px 0 white,
+         1px  1px 0 white,
+        0 0 5px white !important;
+    color: #000 !important;
+    font-weight: bold !important;
+}
 /* Image Caption */
 .image-caption {
     background-color: #f5f5f5;
