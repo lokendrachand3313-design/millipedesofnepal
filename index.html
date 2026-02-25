@@ -595,7 +595,7 @@
         direction: "center"
     });
 
-    // Add major cities of Nepal with GPS coordinates - WITH VISIBLE MARKERS
+    // Add major cities of Nepal with GPS coordinates - GREEN MARKERS + CLEAN NAMES (NO WHITE RECTANGLE)
     var cities = [
         { name: "Kathmandu", coords: [27.7172, 85.3240], info: "Capital City" },
         { name: "Pokhara", coords: [28.2096, 83.9856], info: "Tourist City" },
@@ -606,15 +606,15 @@
         { name: "Chitwan", coords: [27.5291, 84.3542], info: "National Park" },
         { name: "Mustang", coords: [28.9987, 83.7696], info: "Himalayan Region" },
         { name: "Mt. Everest", coords: [27.9881, 86.9250], info: "Highest Peak" },
-        // New cities added
+        // New cities
         { name: "Ghorahi", coords: [28.0333, 82.4833], info: "City in Dang Valley" },
         { name: "Nepalgunj", coords: [28.0500, 81.6167], info: "City in Banke District" },
-        { name: "Minikot", coords: [28.9167, 83.7333], info: "Village in Mustang District" }
+        { name: "Simikot", coords: [29.9667, 81.8167], info: "Headquarters of Humla District" } // Changed from Minikot to Simikot
     ];
 
-    // Add city markers with VISIBLE MARKERS and city names
+    // Add city markers with GREEN MARKERS and CLEAN CITY NAMES (no white rectangles)
     cities.forEach(function(city) {
-        // Create a standard marker with custom styling
+        // Create a standard green marker
         var marker = L.marker(city.coords, {
             icon: L.icon({
                 iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -626,16 +626,16 @@
             })
         }).addTo(map);
         
-        // Add city name as a separate label above the marker
+        // Add city name as a clean text label WITHOUT white rectangle
         var nameLabel = L.marker(city.coords, {
             icon: L.divIcon({
-                className: 'city-name-label',
-                html: `<div style="position: relative; top: -30px; left: 0; color: #000; font-weight: bold; font-size: 14px; text-shadow: 1px 1px 2px white, 0 0 10px white; background: rgba(255,255,255,0.7); padding: 2px 6px; border-radius: 4px; border: 1px solid #2d5a27; white-space: nowrap;">${city.name}</div>`,
-                iconSize: [0, 0] // Invisible click area - the marker handles clicks
+                className: 'city-name-clean',
+                html: `<div style="position: relative; top: -35px; left: 0; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px #000000, 0 0 10px #000000; background: transparent; border: none; white-space: nowrap;">${city.name}</div>`,
+                iconSize: [0, 0] // Invisible click area
             })
         }).addTo(map);
         
-        // Add popup with GPS coordinates (attached to marker)
+        // Add popup with GPS coordinates
         marker.bindPopup(`
             <b>${city.name}</b><br>
             ${city.info}<br>
