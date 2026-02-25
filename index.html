@@ -595,7 +595,7 @@
         direction: "center"
     });
 
-    // Add major cities of Nepal with GPS coordinates - SIMPLE TEXT MARKERS (no rectangles)
+    // Add major cities of Nepal with GPS coordinates - WITH VISIBLE MARKERS
     var cities = [
         { name: "Kathmandu", coords: [27.7172, 85.3240], info: "Capital City" },
         { name: "Pokhara", coords: [28.2096, 83.9856], info: "Tourist City" },
@@ -612,18 +612,30 @@
         { name: "Minikot", coords: [28.9167, 83.7333], info: "Village in Mustang District" }
     ];
 
-    // Add city markers with SIMPLE TEXT ONLY (no background rectangles)
+    // Add city markers with VISIBLE MARKERS and city names
     cities.forEach(function(city) {
-        // Create simple text marker with NO background
+        // Create a standard marker with custom styling
         var marker = L.marker(city.coords, {
-            icon: L.divIcon({
-                className: 'city-name-marker',  // Custom class
-                html: `<div style="color: #000; font-weight: bold; font-size: 14px; text-shadow: 1px 1px 2px white, 0 0 10px white; background: transparent; padding: 2px 4px;">${city.name}</div>`,
-                iconSize: [70, 20]  // Width and height of the clickable area
+            icon: L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
             })
         }).addTo(map);
         
-        // Add popup with GPS coordinates
+        // Add city name as a separate label above the marker
+        var nameLabel = L.marker(city.coords, {
+            icon: L.divIcon({
+                className: 'city-name-label',
+                html: `<div style="position: relative; top: -30px; left: 0; color: #000; font-weight: bold; font-size: 14px; text-shadow: 1px 1px 2px white, 0 0 10px white; background: rgba(255,255,255,0.7); padding: 2px 6px; border-radius: 4px; border: 1px solid #2d5a27; white-space: nowrap;">${city.name}</div>`,
+                iconSize: [0, 0] // Invisible click area - the marker handles clicks
+            })
+        }).addTo(map);
+        
+        // Add popup with GPS coordinates (attached to marker)
         marker.bindPopup(`
             <b>${city.name}</b><br>
             ${city.info}<br>
@@ -643,8 +655,8 @@
         div.innerHTML = `
             <b>Map Legend</b><br>
             <hr>
-            <span style="color: #2d5a27;">📍</span> Major Cities<br>
-            <small>Click on city names for coordinates</small>
+            <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png" style="width: 15px; height: 25px; vertical-align: middle;"> Major Cities<br>
+            <small>Click on markers for coordinates</small>
         `;
         return div;
     };
