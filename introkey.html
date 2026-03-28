@@ -125,6 +125,39 @@
             font-size: 0.9rem;
         }
         
+        .source-box {
+            background: #f0f4ea;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 40px;
+            text-align: center;
+            border: 1px solid #d4e0c8;
+        }
+        
+        .source-box p {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .source-box a {
+            color: #2d5a27;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .source-box a:hover {
+            text-decoration: underline;
+            color: #1e3d1a;
+        }
+        
+        .milli-peet-logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2d5a27;
+            margin-bottom: 5px;
+        }
+        
         footer {
             background-color: #2d5a27;
             color: white;
@@ -146,6 +179,7 @@
             nav a { padding: 5px 10px; font-size: 0.75rem; }
             main { padding: 20px; }
             .pdf-viewer { height: 400px; }
+            .source-box { padding: 15px; }
         }
     </style>
 </head>
@@ -170,6 +204,16 @@
 </nav>
 
 <main>
+    <!-- Source Attribution Box -->
+    <div class="source-box">
+        <div class="milli-peet-logo">📚 MILLI-PEET</div>
+        <p>This identification key and taxonomic information are adapted from the</p>
+        <p><strong>MILLI-PEET (Millipede Phylogeny and Evolution) Project</strong></p>
+        <p>For more detailed information, tools, and bibliography, visit:</p>
+        <a href="https://www.fieldmuseum.org/" target="_blank">🌐 www.fieldmuseum.org</a>
+        <p style="margin-top: 10px; font-size: 0.9rem;">🔬 Products and Tools → Bibliography | Millipede Taxonomy Resources</p>
+    </div>
+    
     <!-- Introduction PDF Section -->
     <div class="pdf-section">
         <h2>📘 Introduction to Millipedes (मिलिपिडहरूको परिचय)</h2>
@@ -206,6 +250,7 @@
 </main>
 
 <footer>
+    <p>Source: MILLI-PEET Project | <a href="https://www.fieldmuseum.org/" target="_blank">The Field Museum</a></p>
     <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
     <p>© 2026 Lokendra Chand | Millipede Research Group, Nepal</p>
 </footer>
