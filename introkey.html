@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millipedes of Nepal - Introduction & Identification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85a?q=80&w=2070&auto=format');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 80px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        header p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        nav {
+            background-color: #3a6b34;
+            padding: 15px 80px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-block;
+        }
+        
+        nav a:hover {
+            background-color: #4f8a47;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            flex: 1;
+            padding: 60px 80px;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .pdf-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        
+        .pdf-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: #333;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .pdf-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.15);
+            border-color: #2d5a27;
+        }
+        
+        .pdf-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .pdf-card h2 {
+            color: #2d5a27;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .pdf-card p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        
+        .pdf-btn {
+            display: inline-block;
+            background-color: #2d5a27;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .pdf-card:hover .pdf-btn {
+            background-color: #1e3d1a;
+        }
+        
+        .info-text {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        footer {
+            background-color: #2d5a27;
+            color: white;
+            text-align: center;
+            padding: 30px 80px;
+            margin-top: auto;
+            border-top: 3px solid #ffd700;
+        }
+        
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            header { padding: 50px 20px; }
+            header h1 { font-size: 2rem; }
+            header p { font-size: 1.2rem; }
+            nav { padding: 12px 20px; }
+            nav a { padding: 5px 12px; font-size: 0.8rem; }
+            main { padding: 40px 20px; }
+            .pdf-card { width: 260px; padding: 30px 20px; }
+            .pdf-icon { font-size: 60px; }
+            .pdf-card h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📚 Introduction & Identification</h1>
+    <p>मिलिपिडहरूको परिचय र पहिचान</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="history.html">History</a>
+    <a href="checklist.html">Checklist</a>
+    <a href="distribution.html">Distribution</a>
+    <a href="introkey.html">Introduction and Identification</a>
+    <a href="articles.html">Articles</a>
+    <a href="team.html">Team</a>
+    <a href="gallery.html">Gallery</a> 
+    <a href="upload.html">Upload</a>
+    <a href="faq.html">FAQ</a>
+</nav>
+
+<main>
+    <div class="pdf-container">
+        <!-- Introduction PDF Card -->
+        <a href="intro.pdf" target="_blank" class="pdf-card">
+            <div class="pdf-icon">📖</div>
+            <h2>Introduction</h2>
+            <p>मिलिपिडहरूको परिचय<br>पूर्ण नेपाली भाषामा</p>
+            <span class="pdf-btn">Open PDF →</span>
+        </a>
+        
+        <!-- Identification Key PDF Card -->
+        <a href="key.pdf" target="_blank" class="pdf-card">
+            <div class="pdf-icon">🔑</div>
+            <h2>Identification Key</h2>
+            <p>Illustrated Key to Order<br>चित्र सहितको पहिचान कुञ्जी</p>
+            <span class="pdf-btn">Open PDF →</span>
+        </a>
+    </div>
+    
+    <div class="info-text">
+        <p>💡 Click on any card to open the PDF file. The PDF will open in a new tab.</p>
+    </div>
+</main>
+
+<footer>
+    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© 2026 Lokendra Chand | Millipede Research Group, Nepal</p>
+</footer>
+
+</body>
+</html>
