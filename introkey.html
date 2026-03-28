@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ne">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History of Millipedes Species Description of Nepal</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Millipedes of Nepal - Introduction & Identification</title>
     <style>
         /* Reset margins and padding for full-width layout */
         * {
@@ -23,7 +22,7 @@
             background-color: #f9f9f9;
         }
         
-        /* Consistent header styling matching index.html */
+        /* Consistent header styling matching history.html and index.html */
         header {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
             background-size: cover;
@@ -106,28 +105,27 @@
         main {
             flex: 1;
             padding: 40px 80px;
-            max-width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
             width: 100%;
         }
         
-        section {
-            background-color: white;
-            border-radius: 10px;
+        .pdf-section {
+            background: white;
+            border-radius: 15px;
             padding: 35px;
             margin-bottom: 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             border: 1px solid #e0e0e0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 0.8s ease-out;
         }
         
-        section:hover {
+        .pdf-section:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
         
-        h2 {
+        .pdf-section h2 {
             color: #2d5a27;
             border-bottom: 3px solid #2d5a27;
             padding-bottom: 12px;
@@ -137,104 +135,106 @@
             transition: color 0.3s ease;
         }
         
-        h2:hover {
+        .pdf-section h2:hover {
             color: #1e3d1a;
         }
         
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        /* Style for scientific names */
-        .scientific-text i {
-            color: #583101;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        
-        .scientific-text i:hover {
-            color: #2d5a27;
-        }
-        
-        .full-history-text {
-            text-align: justify;
-            margin-bottom: 40px;
-            font-size: 1.2rem;
-            line-height: 1.8;
-            font-family: 'Times New Roman', Times, serif;
-            animation: fadeIn 1s ease-out;
-        }
-        
-        .full-history-text p {
-            margin-bottom: 20px;
-        }
-        
-        /* Make history image larger */
-        .history-img {
-            max-width: 1000px;
+        .pdf-viewer {
             width: 100%;
-            height: auto;
-            border-radius: 15px;
-            margin: 30px auto;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            border: 4px solid #fff;
-            display: block;
-            transition: all 0.5s ease;
-            animation: fadeInUp 1.2s ease-out;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f5f5f5;
         }
         
-        .history-img:hover {
-            transform: scale(1.03) rotate(0.5deg);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-            border-color: #ffd700;
+        .pdf-controls {
+            margin-top: 20px;
+            text-align: center;
         }
         
-        /* Style for the horizontal rule */
-        hr {
-            border: 0;
-            border-top: 3px solid #2d5a27;
-            margin: 50px 0;
-            opacity: 0.5;
-            animation: fadeIn 1.5s ease-out;
-        }
-        
-        /* Style for the brief history section */
-        .brief-history {
-            background-color: #f9f9f9;
-            padding: 35px;
-            border-radius: 10px;
-            border-left: 6px solid #2d5a27;
+        .pdf-controls a {
+            display: inline-block;
+            background-color: #2d5a27;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
-            animation: fadeInUp 0.8s ease-out;
         }
         
-        .brief-history:hover {
-            background-color: #f5f5f5;
+        .pdf-controls a:hover {
+            background-color: #1e3d1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .note {
+            text-align: center;
+            margin-top: 12px;
+            color: #666;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        
+        .info-banner {
+            background: linear-gradient(135deg, #e8f0e5 0%, #f0f4ea 100%);
+            border-left: 5px solid #2d5a27;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            color: #2c5a2c;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .info-banner:hover {
             border-left-width: 8px;
-            border-left-color: #ffd700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .source-box {
+            background: linear-gradient(135deg, #f0f4ea 0%, #e8f0e5 100%);
+            border-radius: 15px;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid #d4e0c8;
+            transition: all 0.3s ease;
+        }
+        
+        .source-box:hover {
+            transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         
-        .brief-history h2 {
+        .source-box p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .source-box a {
             color: #2d5a27;
-            margin-bottom: 20px;
-            border-left: none;
-            padding-left: 0;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
         }
         
-        .brief-history p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            font-family: 'Times New Roman', Times, serif;
+        .source-box a:hover {
+            color: #1e3d1a;
+            text-decoration: underline;
         }
         
-        /* Style for Nepali text if any appears */
-        .nepali-text {
-            font-family: 'Preeti', 'Times New Roman', Times, serif;
-            font-size: 1.3rem;
-            line-height: 2;
+        .milli-peet-logo {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: #2d5a27;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
         }
         
         footer {
@@ -268,7 +268,7 @@
             display: inline-block;
         }
         
-        /* Animation keyframes matching index.html */
+        /* Animation keyframes matching index.html and history.html */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -318,7 +318,7 @@
             }
         }
         
-        /* Responsive design matching index.html */
+        /* Responsive design matching index.html and history.html */
         @media (max-width: 1024px) {
             header {
                 padding: 60px 40px !important;
@@ -365,29 +365,24 @@
                 padding: 30px 20px;
             }
             
-            section {
+            .pdf-section {
                 padding: 20px;
             }
             
-            h2 {
+            .pdf-section h2 {
                 font-size: 1.8rem;
             }
             
-            p {
-                font-size: 1.1rem;
+            .pdf-viewer {
+                height: 400px;
             }
             
-            .full-history-text {
-                font-size: 1.1rem;
+            .source-box {
+                padding: 20px;
             }
             
-            .brief-history p {
-                font-size: 1.1rem;
-            }
-            
-            .history-img {
-                max-width: 100%;
-                margin: 20px auto;
+            .source-box p {
+                font-size: 1rem;
             }
             
             footer {
@@ -408,8 +403,17 @@
                 font-size: 1.2rem;
             }
             
-            h2 {
+            .pdf-section h2 {
                 font-size: 1.5rem;
+            }
+            
+            .pdf-viewer {
+                height: 350px;
+            }
+            
+            .pdf-controls a {
+                padding: 8px 20px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -417,26 +421,27 @@
 <body>
 
 <header>
-    <h1>History of Research</h1>
-    <p>Scientific exploration from 1935 to Present</p>
+    <h1>Introduction & Identification</h1>
+    <p>मिलिपिडहरूको परिचय र पहिचान</p>
 </header>
 
 <nav>
     <a href="index.html">Home</a>
-    <a href="history.html" class="active">History</a>
+    <a href="history.html">History</a>
     <a href="checklist.html">Checklist</a>
     <a href="distribution.html">Distribution</a>
-    <a href="introkey.html">Introduction and Identification</a>
+    <a href="introkey.html" class="active">Introduction and Identification</a>
     <a href="articles.html">Articles</a>
     <a href="team.html">Team</a>
     <a href="gallery.html">Gallery</a> 
     <a href="upload.html">Upload</a>
     <a href="faq.html">FAQ</a>
 </nav>
+
 <main>
-    <!-- Informational note about PDFs (optional but helpful) -->
+    <!-- Informational note about PDFs -->
     <div class="info-banner">
-        📖 <strong>Resources:</strong> The following PDF documents provide detailed introduction and illustrated identification keys for millipedes. If the PDF viewer does not load, click "Open Full PDF in New Tab".
+        📖 <strong>Resources:</strong> The following PDF documents provide detailed introduction and illustrated identification keys for millipedes of Nepal. If the PDF viewer does not load, click "Open Full PDF in New Tab".
     </div>
     
     <!-- Introduction PDF Section -->
@@ -444,12 +449,14 @@
         <h2>Introduction to Millipedes (मिलिपिडहरूको परिचय)</h2>
         
         <!-- PDF Viewer - using embed as a robust alternative to iframe -->
-        <embed class="pdf-viewer" src="intro.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf" style="width:100%; height:600px; border-radius:8px;">
+        <embed class="pdf-viewer" src="intro.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf">
         
         <div class="pdf-controls">
             <a href="intro.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
         </div>
         <div class="note">
+            💡 Tip: If the PDF doesn't display, please ensure the file "intro.pdf" exists in the same folder as this webpage.
+        </div>
     </div>
     
     <!-- Identification Key PDF Section -->
@@ -457,12 +464,13 @@
         <h2>Illustrated Key to Order (चित्र सहितको पहिचान कुञ्जी)</h2>
         
         <!-- PDF Viewer - using embed for better compatibility -->
-        <embed class="pdf-viewer" src="key.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf" style="width:100%; height:600px; border-radius:8px;">
+        <embed class="pdf-viewer" src="key.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf">
         
         <div class="pdf-controls">
             <a href="key.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
         </div>
         <div class="note">
+            💡 Tip: If the PDF doesn't display, please ensure the file "key.pdf" exists in the same folder as this webpage.
         </div>
     </div>
     
@@ -480,79 +488,93 @@
     <p>© 2026 Lokendra Chand | Millipede Research Group, Nepal</p>
 </footer>
 
-<!-- Additional script to handle any image loading fallback, plus PDF compatibility message -->
+<!-- Script to handle PDF loading fallback and header image -->
 <script>
     (function() {
-        // Ensure header background image is robust: if the main images fail, 
-        // we already have fallback gradient via pseudo-element. But also we can test
-        // dynamically and add an inline style with a local millipede image if needed.
-        // Since external images might be blocked, we set a high-quality unsplash backup as second layer.
+        // Ensure header background image loads properly
         var header = document.querySelector('header');
-        var testImage = new Image();
-        var usedFallback = false;
         
-        // List of reliable image URLs (multiple fallbacks)
-        var imageUrls = [
+        // Check if home.jpg exists and is accessible
+        var testImage = new Image();
+        var fallbackUsed = false;
+        
+        // List of reliable fallback images in case home.jpg is missing
+        var fallbackImages = [
             'https://upload.wikimedia.org/wikipedia/commons/6/6a/Millipede_%28Nepal%29.jpg',
-            'https://live.staticflickr.com/65535/52829343795_3e2a7e3f3e_b.jpg',
-            'https://images.pexels.com/photos/6047210/pexels-photo-6047210.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-            'https://cdn.pixabay.com/photo/2018/02/06/22/14/millipede-3135274_1280.jpg'
+            'https://images.pexels.com/photos/6047210/pexels-photo-6047210.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
         ];
         
         function setHeaderImage(url) {
-            if (header && !usedFallback) {
-                header.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("' + url + '")';
+            if (header && !fallbackUsed) {
+                header.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("' + url + '")';
                 header.style.backgroundSize = 'cover';
-                header.style.backgroundPosition = 'center 30%';
-                usedFallback = true;
+                header.style.backgroundPosition = 'center';
+                fallbackUsed = true;
             }
         }
         
-        // Function to try loading images sequentially
-        function tryLoadImage(index) {
-            if (index >= imageUrls.length) {
-                // All external images failed, keep the solid gradient fallback already present via pseudo-element
-                console.log("All external images failed, using gradient fallback.");
+        // Test if home.jpg loads
+        testImage.onload = function() {
+            // home.jpg exists, no action needed
+            console.log('home.jpg loaded successfully');
+        };
+        testImage.onerror = function() {
+            // home.jpg missing, try fallback images
+            console.log('home.jpg not found, using fallback');
+            tryLoadFallback(0);
+        };
+        testImage.src = 'home.jpg';
+        
+        function tryLoadFallback(index) {
+            if (index >= fallbackImages.length) {
+                // All fallbacks failed, keep the gradient with solid color
+                console.log('All fallback images failed, using gradient only');
                 return;
             }
             var img = new Image();
             img.onload = function() {
-                setHeaderImage(imageUrls[index]);
+                setHeaderImage(fallbackImages[index]);
             };
             img.onerror = function() {
-                // Try next image
-                tryLoadImage(index + 1);
+                tryLoadFallback(index + 1);
             };
-            img.src = imageUrls[index];
+            img.src = fallbackImages[index];
         }
         
-        // Start trying images after a short delay to avoid blocking
-        window.addEventListener('load', function() {
-            tryLoadImage(0);
-            
-            // Additional improvement: for PDF viewers, if the browser doesn't support embedded PDF,
-            // we add a friendly notification. This is optional.
-            var embeds = document.querySelectorAll('embed[type="application/pdf"]');
-            embeds.forEach(function(embed) {
-                // Check if PDF is supported (some browsers may hide the embed)
-                // We can add an onerror handler for the embed
-                embed.addEventListener('error', function() {
-                    var parentSection = embed.closest('.pdf-section');
-                    if (parentSection && !parentSection.querySelector('.pdf-fallback-note')) {
-                        var fallbackDiv = document.createElement('div');
-                        fallbackDiv.className = 'note';
-                        fallbackDiv.style.backgroundColor = '#fff3cd';
-                        fallbackDiv.style.padding = '10px';
-                        fallbackDiv.style.borderRadius = '8px';
-                        fallbackDiv.style.marginTop = '10px';
-                        fallbackDiv.style.border = '1px solid #ffeeba';
-                        fallbackDiv.innerHTML = '⚠️ Your browser may not support embedded PDF viewing. Please use the "Open Full PDF in New Tab" button above to view the document.';
-                        var controlsDiv = parentSection.querySelector('.pdf-controls');
-                        if (controlsDiv) {
-                            controlsDiv.insertAdjacentElement('afterend', fallbackDiv);
-                        }
+        // Add error handling for PDF embeds
+        var embeds = document.querySelectorAll('embed[type="application/pdf"]');
+        embeds.forEach(function(embed) {
+            embed.addEventListener('error', function() {
+                var parentSection = embed.closest('.pdf-section');
+                if (parentSection && !parentSection.querySelector('.pdf-fallback-note')) {
+                    var fallbackDiv = document.createElement('div');
+                    fallbackDiv.className = 'note';
+                    fallbackDiv.style.backgroundColor = '#fff3cd';
+                    fallbackDiv.style.padding = '12px';
+                    fallbackDiv.style.borderRadius = '8px';
+                    fallbackDiv.style.marginTop = '15px';
+                    fallbackDiv.style.border = '1px solid #ffeeba';
+                    fallbackDiv.style.color = '#856404';
+                    fallbackDiv.innerHTML = '⚠️ Your browser may not support embedded PDF viewing. Please use the "Open Full PDF in New Tab" button above to view the document.';
+                    var controlsDiv = parentSection.querySelector('.pdf-controls');
+                    if (controlsDiv) {
+                        controlsDiv.insertAdjacentElement('afterend', fallbackDiv);
                     }
-                });
+                }
+            });
+        });
+        
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
     })();
