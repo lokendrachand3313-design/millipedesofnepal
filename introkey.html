@@ -26,19 +26,18 @@
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 80px 80px;
+            padding: 60px 80px;
             text-align: center;
         }
         
         header h1 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
         header p {
-            font-size: 1.5rem;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            font-size: 1.4rem;
         }
         
         nav {
@@ -68,79 +67,62 @@
         
         main {
             flex: 1;
-            padding: 60px 80px;
-            max-width: 1000px;
+            padding: 40px 80px;
+            max-width: 1400px;
             margin: 0 auto;
             width: 100%;
         }
         
-        .pdf-container {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            flex-wrap: wrap;
-            margin: 40px 0;
-        }
-        
-        .pdf-card {
+        .pdf-section {
             background: white;
             border-radius: 15px;
-            padding: 40px 30px;
-            text-align: center;
-            width: 300px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            color: #333;
-            border: 1px solid #e0e0e0;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
         
-        .pdf-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 35px rgba(0,0,0,0.15);
-            border-color: #2d5a27;
-        }
-        
-        .pdf-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-        }
-        
-        .pdf-card h2 {
+        .pdf-section h2 {
             color: #2d5a27;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-        
-        .pdf-card p {
-            color: #666;
-            font-size: 1rem;
+            border-bottom: 3px solid #2d5a27;
+            padding-bottom: 12px;
             margin-bottom: 20px;
+            font-size: 1.8rem;
         }
         
-        .pdf-btn {
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f5f5f5;
+        }
+        
+        .pdf-controls {
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .pdf-controls a {
             display: inline-block;
             background-color: #2d5a27;
             color: white;
             padding: 10px 25px;
             border-radius: 30px;
             text-decoration: none;
-            margin-top: 10px;
-            transition: background-color 0.3s ease;
             font-weight: bold;
+            transition: background-color 0.3s ease;
         }
         
-        .pdf-card:hover .pdf-btn {
+        .pdf-controls a:hover {
             background-color: #1e3d1a;
         }
         
-        .info-text {
+        .note {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 15px;
             color: #666;
             font-style: italic;
+            font-size: 0.9rem;
         }
         
         footer {
@@ -158,22 +140,19 @@
         }
         
         @media (max-width: 768px) {
-            header { padding: 50px 20px; }
-            header h1 { font-size: 2rem; }
-            header p { font-size: 1.2rem; }
+            header { padding: 40px 20px; }
+            header h1 { font-size: 1.8rem; }
             nav { padding: 12px 20px; }
-            nav a { padding: 5px 12px; font-size: 0.8rem; }
-            main { padding: 40px 20px; }
-            .pdf-card { width: 260px; padding: 30px 20px; }
-            .pdf-icon { font-size: 60px; }
-            .pdf-card h2 { font-size: 1.5rem; }
+            nav a { padding: 5px 10px; font-size: 0.75rem; }
+            main { padding: 20px; }
+            .pdf-viewer { height: 400px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>📚 Introduction & Identification</h1>
+    <h1>📖 Introduction & Identification</h1>
     <p>मिलिपिडहरूको परिचय र पहिचान</p>
 </header>
 
@@ -191,26 +170,38 @@
 </nav>
 
 <main>
-    <div class="pdf-container">
-        <!-- Introduction PDF Card -->
-        <a href="intro.pdf" target="_blank" class="pdf-card">
-            <div class="pdf-icon">📖</div>
-            <h2>Introduction</h2>
-            <p>मिलिपिडहरूको परिचय<br>पूर्ण नेपाली भाषामा</p>
-            <span class="pdf-btn">Open PDF →</span>
-        </a>
+    <!-- Introduction PDF Section -->
+    <div class="pdf-section">
+        <h2>📘 Introduction to Millipedes (मिलिपिडहरूको परिचय)</h2>
         
-        <!-- Identification Key PDF Card -->
-        <a href="key.pdf" target="_blank" class="pdf-card">
-            <div class="pdf-icon">🔑</div>
-            <h2>Identification Key</h2>
-            <p>Illustrated Key to Order<br>चित्र सहितको पहिचान कुञ्जी</p>
-            <span class="pdf-btn">Open PDF →</span>
-        </a>
+        <!-- PDF Viewer -->
+        <iframe class="pdf-viewer" src="intro.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" frameborder="0">
+            This browser does not support PDFs. Please download the PDF to view it.
+        </iframe>
+        
+        <div class="pdf-controls">
+            <a href="intro.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
+        </div>
+        <div class="note">
+            💡 Tip: Use the scrollbar to read. Click the button above to open in full screen.
+        </div>
     </div>
     
-    <div class="info-text">
-        <p>💡 Click on any card to open the PDF file. The PDF will open in a new tab.</p>
+    <!-- Identification Key PDF Section -->
+    <div class="pdf-section">
+        <h2>🔑 Illustrated Key to Order (चित्र सहितको पहिचान कुञ्जी)</h2>
+        
+        <!-- PDF Viewer -->
+        <iframe class="pdf-viewer" src="key.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" frameborder="0">
+            This browser does not support PDFs. Please download the PDF to view it.
+        </iframe>
+        
+        <div class="pdf-controls">
+            <a href="key.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
+        </div>
+        <div class="note">
+            💡 Tip: Use the scrollbar to read. Click the button above to open in full screen.
+        </div>
     </div>
 </main>
 
