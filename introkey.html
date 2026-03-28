@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="ne">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Millipedes of Nepal - Introduction & Identification</title>
+    <title>History of Millipedes Species Description of Nepal</title>
+    <link rel="stylesheet" href="style.css">
     <style>
+        /* Reset margins and padding for full-width layout */
         * {
             margin: 0;
             padding: 0;
@@ -21,67 +23,44 @@
             background-color: #f9f9f9;
         }
         
+        /* Consistent header styling matching index.html */
         header {
-            /* Using a reliable, high-quality image of a millipede/forest that will always load */
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://upload.wikimedia.org/wikipedia/commons/6/6a/Millipede_%28Nepal%29.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
             background-size: cover;
-            background-position: center 30%;
+            background-position: center;
             color: white;
-            padding: 60px 80px;
+            padding: 80px 80px !important;
             text-align: center;
-            position: relative;
-            /* Fallback solid color in case image fails to load */
-            background-color: #2d5a27;
-        }
-        
-        /* Additional fallback: if the Wikimedia image doesn't work, we'll use a data URI as backup */
-        @media only screen and (min-resolution: 1dppx) {
-            header {
-                background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://live.staticflickr.com/65535/52829343795_3e2a7e3f3e_b.jpg');
-                background-size: cover;
-                background-position: center 30%;
-            }
-        }
-        
-        /* If both external images fail, we set a nice green gradient as ultimate fallback */
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1e3d1a, #3a6b34);
-            z-index: -2;
-        }
-        
-        header h1, header p {
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
         }
         
         header h1 {
-            font-size: 2.8rem;
+            font-size: 3.5rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Times New Roman', Times, serif;
+            animation: slideInLeft 1s ease-out;
         }
         
         header p {
-            font-size: 1.4rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            font-family: 'Times New Roman', Times, serif;
+            animation: slideInRight 1s ease-out;
         }
         
         nav {
             background-color: #3a6b34;
             padding: 15px 80px;
             text-align: center;
+            width: 100%;
             position: sticky;
             top: 0;
             z-index: 100;
-            flex-wrap: wrap;
-            display: flex;
-            justify-content: center;
-            gap: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
         }
         
         nav a {
@@ -91,165 +70,360 @@
             margin: 0 5px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            font-size: 1rem;
-            display: inline-block;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
         }
         
         nav a:hover {
             background-color: #4f8a47;
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #ffd700;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        nav a:hover::after {
+            width: 80%;
+        }
+        
+        nav a.active {
+            background-color: #4f8a47;
+            font-weight: bold;
         }
         
         main {
             flex: 1;
             padding: 40px 80px;
-            max-width: 1400px;
+            max-width: 100%;
             margin: 0 auto;
             width: 100%;
         }
         
-        .pdf-section {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
+        section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 35px;
             margin-bottom: 40px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
         }
         
-        .pdf-section h2 {
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        h2 {
             color: #2d5a27;
             border-bottom: 3px solid #2d5a27;
             padding-bottom: 12px;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            font-family: 'Times New Roman', Times, serif;
+            transition: color 0.3s ease;
         }
         
-        .pdf-viewer {
-            width: 100%;
-            height: 600px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: #f5f5f5;
-        }
-        
-        .pdf-controls {
-            margin-top: 15px;
-            text-align: center;
-        }
-        
-        .pdf-controls a {
-            display: inline-block;
-            background-color: #2d5a27;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        
-        .pdf-controls a:hover {
-            background-color: #1e3d1a;
-        }
-        
-        .note {
-            text-align: center;
-            margin-top: 15px;
-            color: #666;
-            font-style: italic;
-            font-size: 0.9rem;
-        }
-        
-        .source-box {
-            background: #f0f4ea;
-            border-radius: 12px;
-            padding: 20px 25px;
-            margin-bottom: 40px;
-            text-align: center;
-            border: 1px solid #d4e0c8;
-        }
-        
-        .source-box p {
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-        
-        .source-box a {
-            color: #2d5a27;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        
-        .source-box a:hover {
-            text-decoration: underline;
+        h2:hover {
             color: #1e3d1a;
         }
         
-        .milli-peet-logo {
-            font-weight: bold;
+        p {
             font-size: 1.2rem;
-            color: #2d5a27;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Optional info alert for users */
-        .info-banner {
-            background-color: #e8f0e5;
-            border-left: 4px solid #2d5a27;
-            padding: 12px 20px;
+        /* Style for scientific names */
+        .scientific-text i {
+            color: #583101;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .scientific-text i:hover {
+            color: #2d5a27;
+        }
+        
+        .full-history-text {
+            text-align: justify;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            font-family: 'Times New Roman', Times, serif;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .full-history-text p {
             margin-bottom: 20px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #2c5a2c;
+        }
+        
+        /* Make history image larger */
+        .history-img {
+            max-width: 1000px;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 30px auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 4px solid #fff;
+            display: block;
+            transition: all 0.5s ease;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        
+        .history-img:hover {
+            transform: scale(1.03) rotate(0.5deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-color: #ffd700;
+        }
+        
+        /* Style for the horizontal rule */
+        hr {
+            border: 0;
+            border-top: 3px solid #2d5a27;
+            margin: 50px 0;
+            opacity: 0.5;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        /* Style for the brief history section */
+        .brief-history {
+            background-color: #f9f9f9;
+            padding: 35px;
+            border-radius: 10px;
+            border-left: 6px solid #2d5a27;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .brief-history:hover {
+            background-color: #f5f5f5;
+            border-left-width: 8px;
+            border-left-color: #ffd700;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .brief-history h2 {
+            color: #2d5a27;
+            margin-bottom: 20px;
+            border-left: none;
+            padding-left: 0;
+        }
+        
+        .brief-history p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        /* Style for Nepali text if any appears */
+        .nepali-text {
+            font-family: 'Preeti', 'Times New Roman', Times, serif;
+            font-size: 1.3rem;
+            line-height: 2;
         }
         
         footer {
             background-color: #2d5a27;
             color: white;
             text-align: center;
-            padding: 30px 80px;
+            padding: 40px 80px;
+            width: 100%;
             margin-top: auto;
+            animation: fadeIn 1s ease-out;
             border-top: 3px solid #ffd700;
+        }
+        
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
         }
         
         footer a {
             color: #ffd700;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
         
         footer a:hover {
             text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+        
+        /* Animation keyframes matching index.html */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Responsive design matching index.html */
+        @media (max-width: 1024px) {
+            header {
+                padding: 60px 40px !important;
+            }
+            
+            nav {
+                padding: 15px 40px;
+            }
+            
+            main {
+                padding: 30px 40px;
+            }
+            
+            footer {
+                padding: 30px 40px;
+            }
         }
         
         @media (max-width: 768px) {
-            header { padding: 40px 20px; }
-            header h1 { font-size: 1.8rem; }
-            header p { font-size: 1.1rem; }
-            nav { padding: 12px 20px; }
-            nav a { padding: 5px 12px; font-size: 0.8rem; margin: 2px; }
-            main { padding: 20px; }
-            .pdf-viewer { height: 400px; }
-            .source-box { padding: 15px; }
-            .pdf-section h2 { font-size: 1.4rem; }
+            header {
+                padding: 50px 20px !important;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.4rem;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            nav a {
+                display: inline-block;
+                padding: 8px 12px;
+                margin: 3px;
+                font-size: 0.9rem;
+            }
+            
+            main {
+                padding: 30px 20px;
+            }
+            
+            section {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+            }
+            
+            .full-history-text {
+                font-size: 1.1rem;
+            }
+            
+            .brief-history p {
+                font-size: 1.1rem;
+            }
+            
+            .history-img {
+                max-width: 100%;
+                margin: 20px auto;
+            }
+            
+            footer {
+                padding: 30px 20px;
+            }
+            
+            footer p {
+                font-size: 1rem;
+            }
         }
         
         @media (max-width: 480px) {
-            nav a { padding: 5px 8px; font-size: 0.7rem; }
-            .pdf-viewer { height: 350px; }
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1.2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Introduction & Identification</h1>
-    <p>मिलिपिडहरूको परिचय र पहिचान</p>
+    <h1>History of Research</h1>
+    <p>Scientific exploration from 1935 to Present</p>
 </header>
 
 <nav>
     <a href="index.html">Home</a>
-    <a href="history.html">History</a>
+    <a href="history.html" class="active">History</a>
     <a href="checklist.html">Checklist</a>
     <a href="distribution.html">Distribution</a>
     <a href="introkey.html">Introduction and Identification</a>
@@ -259,11 +433,10 @@
     <a href="upload.html">Upload</a>
     <a href="faq.html">FAQ</a>
 </nav>
-
 <main>
     <!-- Informational note about PDFs (optional but helpful) -->
     <div class="info-banner">
-        📖 <strong>Resources:</strong> The following PDF documents provide detailed introduction and illustrated identification keys for millipedes of Nepal. If the PDF viewer does not load, click "Open Full PDF in New Tab".
+        📖 <strong>Resources:</strong> The following PDF documents provide detailed introduction and illustrated identification keys for millipedes. If the PDF viewer does not load, click "Open Full PDF in New Tab".
     </div>
     
     <!-- Introduction PDF Section -->
@@ -277,8 +450,6 @@
             <a href="intro.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
         </div>
         <div class="note">
-            💡 Tip: If the PDF doesn't display, please ensure the file "intro.pdf" exists in the same folder as this webpage.
-        </div>
     </div>
     
     <!-- Identification Key PDF Section -->
@@ -292,7 +463,6 @@
             <a href="key.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
         </div>
         <div class="note">
-            💡 Tip: If the PDF doesn't display, please ensure the file "key.pdf" exists in the same folder as this webpage.
         </div>
     </div>
     
