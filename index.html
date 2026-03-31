@@ -223,6 +223,68 @@
             min-width: 300px;
         }
         
+        /* Video section styling */
+        .video-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed #ddd;
+        }
+        
+        .video-section h4 {
+            font-size: 1.5rem;
+            color: #2d5a27;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .video-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .video-col {
+            flex: 1;
+            min-width: 300px;
+            background: #f5f5f5;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .video-col:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .video-col video {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            background-color: #000;
+        }
+        
+        .video-caption {
+            padding: 12px;
+            text-align: center;
+            background: white;
+        }
+        
+        .video-caption p {
+            margin: 0;
+            font-size: 1rem;
+            color: #555;
+        }
+        
+        .video-caption .scientific-name {
+            font-size: 1rem;
+            display: inline;
+        }
+        
         #map {
             height: 600px;
             width: 100%;
@@ -470,6 +532,10 @@
                 min-width: 100%;
             }
             
+            .video-col {
+                min-width: 100%;
+            }
+            
             footer {
                 padding: 30px 20px;
             }
@@ -521,6 +587,44 @@
                 <p><span class="scientific-name">Gonoplectus</span> sp., Spirostreptida, Harpagophoridae<br>
                 <span class="location">📍 Location: Dang Valley, Nepal</span></p>
             </div>
+        </div>
+        
+        <!-- Three Autoplay Videos Section -->
+        <div class="video-section">
+            <h4>🎥 Watch Millipedes in Action</h4>
+            <div class="video-row">
+                <div class="video-col">
+                    <video autoplay loop muted playsinline>
+                        <source src="vid1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-caption">
+                        <p><span class="scientific-name">Chondromorpha greke</span>  mating</p>
+                        <p class="location">📍 Dang Valley, Nepal</p>
+                    </div>
+                </div>
+                <div class="video-col">
+                    <video autoplay loop muted playsinline>
+                        <source src="vid2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-caption">
+                        <p><span class="scientific-name">Siphonorhinus</span> - sp. in leaf litter</p>
+                        <p class="location">📍 Forest floor, Nepal</p>
+                    </div>
+                </div>
+                <div class="video-col">
+                    <video autoplay loop muted playsinline>
+                        <source src="vid3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-caption">
+                        <p><span class="scientific-name">Gonoplectus</span> sp. walking</p>
+                        <p class="location">📍 Western Nepal</p>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 0.9rem; margin-top: 15px; color: #666;">🎬 Videos play automatically and loop continuously</p>
         </div>
     </section>
     
@@ -609,7 +713,7 @@
         { name: "Mt. Everest", coords: [27.9881, 86.9250], info: "Highest Peak" },
         { name: "Ghorahi", coords: [28.0333, 82.4833], info: "City in Dang Valley" },
         { name: "Nepalgunj", coords: [28.0500, 81.6167], info: "City in Banke District" },
-        { name: "Simikot", coords: [29.9667, 81.8167], info: "Headquarters of Humla District" } // Changed from Minikot to Simikot
+        { name: "Simikot", coords: [29.9667, 81.8167], info: "Headquarters of Humla District" }
     ];
 
     // Add city markers with GREEN MARKERS and CLEAN CITY NAMES (no white rectangles)
