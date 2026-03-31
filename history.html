@@ -141,6 +141,14 @@
             color: #1e3d1a;
         }
         
+        h3 {
+            color: #2d5a27;
+            font-size: 1.5rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
         p {
             font-size: 1.2rem;
             margin-bottom: 15px;
@@ -228,6 +236,51 @@
             font-size: 1.2rem;
             line-height: 1.8;
             font-family: 'Times New Roman', Times, serif;
+        }
+        
+        /* References section styling */
+        .references-section {
+            background-color: #fef9e6;
+            padding: 35px;
+            border-radius: 10px;
+            border-left: 6px solid #2d5a27;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .references-section:hover {
+            background-color: #fef5d8;
+            border-left-width: 8px;
+            border-left-color: #ffd700;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .references-section h2 {
+            color: #2d5a27;
+            margin-bottom: 25px;
+        }
+        
+        .references-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .references-list li {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            text-align: justify;
+            font-family: 'Times New Roman', Times, serif;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .references-list li::before {
+            content: "•";
+            color: #2d5a27;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
         }
         
         /* Style for Nepali text if any appears */
@@ -390,6 +443,10 @@
                 margin: 20px auto;
             }
             
+            .references-list li {
+                font-size: 0.85rem;
+            }
+            
             footer {
                 padding: 30px 20px;
             }
@@ -442,55 +499,99 @@
 
     <p>The 1970s and 1980s represented a period of accelerated discovery, heavily fueled by specimens from Himalayan expeditions by Prof. Dr. Jochen Martens and his colleagues. Shear (1979) erected the new subfamily Nepalellinae with the genus <i>Nepalella</i>, describing two species within this genus, and also described three species of <i>Tianella</i>. Mauriès (1983a) documented the family Cambalopsidae in Nepal with <i>Trachyjulus wilsonae</i> and <i>Podoglyphiulus elegans nepalensis</i>. Mauriès (1983b) introduced the julid subgenus <i>Nepalmatoiulus</i> with description of three new species and reported <i>Gonoplectus malayus</i> from Nepal. Golovatch (1986) started extensive research, describing the new genus <i>Himalodesmus</i> with two new species and described species under genera <i>Usbekodesmus</i> (4), <i>Hingstonia</i> (2) and <i>Sholaphilus</i> (4), which reported family Polydesmidae first time in Nepal. Again in Golovatch (1987a) he documented the family Opisotretidae, introducing <i>Martensodesmus</i> with description of three new species, also described more six species of <i>Himalodesmus</i> and two new species of genus <i>Hingstonia</i>. Successively Golovatch (1987b) reported Glomeridae for Nepal with description of five species of <i>Hyleoglomeris</i> and also described <i>Nepalotretus</i> genus with the description of <i>N. martensi</i>. Shear (1987) described more species under genus <i>Tianella</i> (4), <i>Nepalella</i> (2) and <i>Kashmireuma</i> (1). Enghoff (1987) elevated <i>Nepalmatoiulus</i> to genus rank with description of ten new species. Mauriès (1988) expanded the known diversity of Chordeumatida, describing new species of <i>Tianella</i> (4), <i>Nepalella</i> (1), and <i>Kashmireuma</i> (6).</p>
 
-    <p>The 1990s were characterized by further in-depth study of the order Polydesmida, particularly the family Paradoxosomatidae. Golovatch (1990a) first reported the cosmopolitan species <i>Orthomorpha coarctata</i> and <i>Oxidus gracilis</i>, as well as <i>Paranedyopus cylindricus</i> from Nepal with description of several new taxa under genus <i>Paranedyopus</i> (4) and <i>Orophosoma</i> (1). Golovatch (1990b) involved the description of numerous species of Polydesmidae under genera <i>Himalodesmus</i> (1), <i>Usbekodesmus</i> (1), <i>Hingstonia</i> (4) and <i>Sholaphilus</i> (2). His subsequent works (1992, 1993, 1994a, 1994b, 1996) also reported many species and described many new species of Paradoxosomatidae under known genera as well as new genera <i>Martensosoma</i>, <i>Nepalomorpha</i>, <i>Parorthomorpha</i>, and <i>Hirtodrepanum</i>. This period also saw Shelley's (1996) description of the monotypic genus <i>Nepalozonium</i>, representing the first record of its order from Central Asia. Korsós (1996) mentioned three species of <i>Anaulaciulus</i>, which were later described in Korsós (2001).Golovatch (2000) synonymized <i>Paranedyopus</i> Carl, 1932 to <i>Anoplodesmus</i> Pocock, 1895 which synonymized Nepalese species also. </p>
+    <p>The 1990s were characterized by further in-depth study of the order Polydesmida, particularly the family Paradoxosomatidae. Golovatch (1990a) first reported the cosmopolitan species <i>Orthomorpha coarctata</i> and <i>Oxidus gracilis</i>, as well as <i>Paranedyopus cylindricus</i> from Nepal with description of several new taxa under genus <i>Paranedyopus</i> (4) and <i>Orophosoma</i> (1). Golovatch (1990b) involved the description of numerous species of Polydesmidae under genera <i>Himalodesmus</i> (1), <i>Usbekodesmus</i> (1), <i>Hingstonia</i> (4) and <i>Sholaphilus</i> (2). His subsequent works (1992, 1993, 1994a, 1994b, 1996) also reported many species and described many new species of Paradoxosomatidae under known genera as well as new genera <i>Martensosoma</i>, <i>Nepalomorpha</i>, <i>Parorthomorpha</i>, and <i>Hirtodrepanum</i>. This period also saw Shelley's (1996) description of the monotypic genus <i>Nepalozonium</i>, representing the first record of its order from Central Asia. Korsós (1996) mentioned three species of <i>Anaulaciulus</i>, which were later described in Korsós (2001). Golovatch (2000) synonymized <i>Paranedyopus</i> Carl, 1932 to <i>Anoplodesmus</i> Pocock, 1895 which synonymized Nepalese species also.</p>
 
     <p>The new millennium brought further discoveries and significant taxonomic revisions. Korsós et al. (2009) described the rare <i>Hirudicryptus quintumelementum</i>, the only species of order Siphonocryptida. Golovatch (2011) synonymized <i>Usbekodesmus</i> with <i>Epanerchodus</i>, and later (2014) synonymized several paradoxosomatid genera (<i>Nepalomorpha</i>, <i>Parorthomorpha</i>, <i>Martensosoma</i>, <i>Armolites</i>, <i>Orophosoma</i>) under the resurrected genus <i>Delarthrum</i> with description of some new species, also established <i>Beronodesmus</i> new genus. Golovatch & VandenSpiegel (2014) described a species of <i>Koponenius</i>. Golovatch (2015) reported <i>Streptogonopus phipsoni</i>, described species under genera <i>Anoplodesmus</i> (1), <i>Kronopolites</i> (1), <i>Beronodesmus</i> (7), <i>Delarthrum</i> (4) and described new genus <i>Beronodesmoides</i> with description of three new species. Golovatch (2016a, 2016b, 2016c) and Golovatch et al. (2016) described many species under genus <i>Substrongylosoma</i>, <i>Pocockina</i>, <i>Beronodesmoides</i>, <i>Anoplodesmus</i>, <i>Delarthrum</i>, <i>Touranella</i> and <i>Beronodesmus</i>. Golovatch & VandenSpiegel (2016) described another species under <i>Koponenius</i>. After that Golovatch (2022) described <i>Epanerchodus telnovi</i> and in 2023, he described two species, <i>Chondromorpha greke</i> and <i>Delarthrum telnovi</i>, from Nepal. Recently Mikhaljova (2025) described two new species of <i>Nepalmatoiulus</i> from Nepal.</p>
 
     <p>For reference: mail to <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
 </div>
     </section>
-   <section class="brief-history">
-    <h2>History of Nepalese Millipede Descriptions</h2>
-
-    <img src="history.png" alt="Trend of Millipede Species Descriptions in Nepal" 
-         class="history-img" 
-         onerror="this.src='https://via.placeholder.com/1000x600?text=History+of+Millipede+Research'">
-
-    <h2>Why Is the Trend of Species Descriptions Declining?</h2>
-    <p>
-        The recent decline in the number of newly described millipede species from Nepal 
-        does not necessarily reflect reduced biodiversity. Instead, it is largely influenced 
-        by stricter national regulations and customs policies that restrict the export of 
-        biological specimens for taxonomic study. As a result, fewer specimens reach 
-        international specialists, slowing the pace of formal species descriptions.
-    </p>
-    <p>
-        This situation highlights the urgent need to strengthen taxonomic research capacity 
-        within Nepal. Developing local expertise, research infrastructure, and laboratory 
-        facilities is essential. We are planning to collaborate with national and 
-        international taxonomists, universities, and funding agencies to promote 
-        integrative taxonomy and phylogeographic research conducted inside Nepal. 
-        Such efforts will help revitalize systematic studies and accelerate the 
-        documentation of Nepal’s millipede diversity.
-    </p>
-
-    <h2>Why Am I Interested in Millipedes?</h2>
-    <p>
-        During my master’s research, I aimed to explore a relatively understudied 
-        biological group within the context of Nepal. Under the guidance of my 
-        professor and supervisor, I focused on the class Diplopoda (millipedes). 
-        I conducted a comprehensive taxonomic study of millipedes from urban forest 
-        patches in the Kathmandu Valley, emphasizing species identification based 
-        on <b>gonopod morphology</b>.
-    </p>
-    <p>
-        The discovery of high levels of endemism and previously undocumented diversity 
-        significantly deepened my interest in Nepalese millipedes. This experience 
-        reinforced the importance of continued taxonomic exploration and conservation 
-        of Nepal’s unique and largely unexplored millipede fauna.
-    </p>
-</section>
     
+    <section class="brief-history">
+        <h2>History of Nepalese Millipede Descriptions</h2>
+
+        <img src="history.png" alt="Trend of Millipede Species Descriptions in Nepal" 
+             class="history-img" 
+             onerror="this.src='https://via.placeholder.com/1000x600?text=History+of+Millipede+Research'">
+
+        <h2>Why Is the Trend of Species Descriptions Declining?</h2>
+        <p>
+            The recent decline in the number of newly described millipede species from Nepal 
+            does not necessarily reflect reduced biodiversity. Instead, it is largely influenced 
+            by stricter national regulations and customs policies that restrict the export of 
+            biological specimens for taxonomic study. As a result, fewer specimens reach 
+            international specialists, slowing the pace of formal species descriptions.
+        </p>
+        <p>
+            This situation highlights the urgent need to strengthen taxonomic research capacity 
+            within Nepal. Developing local expertise, research infrastructure, and laboratory 
+            facilities is essential. We are planning to collaborate with national and 
+            international taxonomists, universities, and funding agencies to promote 
+            integrative taxonomy and phylogeographic research conducted inside Nepal. 
+            Such efforts will help revitalize systematic studies and accelerate the 
+            documentation of Nepal’s millipede diversity.
+        </p>
+
+        <h2>Why Am I Interested in Millipedes?</h2>
+        <p>
+            During my master's research, I aimed to explore a relatively understudied 
+            biological group within the context of Nepal. Under the guidance of my 
+            professor and supervisor, I focused on the class Diplopoda (millipedes). 
+            I conducted a comprehensive taxonomic study of millipedes from urban forest 
+            patches in the Kathmandu Valley, emphasizing species identification based 
+            on <b>gonopod morphology</b>.
+        </p>
+        <p>
+            The discovery of high levels of endemism and previously undocumented diversity 
+            significantly deepened my interest in Nepalese millipedes. This experience 
+            reinforced the importance of continued taxonomic exploration and conservation 
+            of Nepal's unique and largely unexplored millipede fauna.
+        </p>
+    </section>
+    
+    <!-- References Section - APA 7th Edition -->
+    <section class="references-section">
+        <h2>References</h2>
+        <ul class="references-list">
+            <li>Attems, C. (1936). Diplopoda of India. <i>Memoirs of the Indian Museum</i>, <i>11</i>(4), 133–323.</li>
+            <li>Carl, J. (1935). Polydesmiden gesammelt von Major R.W. Hingstonia auf der III. Everest Expedition 1924. <i>Revue Suisse de Zoologie</i>, <i>42</i>(10), 325–340.</li>
+            <li>Demange, J.-M. (1961). Matériaux pour servir a une révision des Harpagophoridae (Myriapodes-Diplopodes). <i>Mémoires du Muséum national d'histoire naturelle, N. S., série A</i>, <i>24</i>, 1–274.</li>
+            <li>Enghoff, H. (1987). Revision of <i>Nepalmatoiulus</i> Mauries 1983 - a Southeast Asiatic genus of millipedes (Diplopoda: Julida: Julidae). <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 241–331.</li>
+            <li>Golovatch, S. I. (1986). Diplopoda from the Nepal Himalayas: Polydesmidae, Fuhrmannodesmidae. <i>Senckenbergiana Biologica</i>, <i>66</i>(4/6), 345–369.</li>
+            <li>Golovatch, S. I. (1987a). Diplopoda from the Nepal Himalayas. Opisotretidae, additional Polydesmidae and Fuhrmannodesmidae. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 203–217.</li>
+            <li>Golovatch, S. I. (1987b). Diplopoda from the Nepal Himalayas. Glomeridae, additional Opisotretidae. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 219–228.</li>
+            <li>Golovatch, S. I. (1990a). Diplopoda from the Nepal Himalayas. The first Paradoxosomatidae (Polydesmida). <i>Spixiana</i>, <i>13</i>(1), 9–24.</li>
+            <li>Golovatch, S. I. (1990b). Diplopoda from the Nepal Himalayas. Several additional Polydesmidae, and Fuhrmannodesmidae (Polydesmida). <i>Spixiana</i>, <i>13</i>(3), 237–252.</li>
+            <li>Golovatch, S. I. (1992). Diplopoda from the Nepal Himalayas. Some additional Paradoxosomatidae. <i>Senckenbergiana Biologica</i>, <i>72</i>(1–3), 183–203.</li>
+            <li>Golovatch, S. I. (1993). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda Polydesmida). <i>Arthropoda Selecta</i>, <i>2</i>(1), 3–14.</li>
+            <li>Golovatch, S. I. (1994a). Diplopoda from the Nepal Himalayas. Further Paradoxosomatidae (Polydesmida). <i>Senckenbergiana Biologica</i>, <i>73</i>(1–2), 163–182.</li>
+            <li>Golovatch, S. I. (1994b). Diplopoda from the Himalayas. Two new Alogolykini (Polydesmida: Paradoxosomatidae). <i>Senckenbergiana Biologica</i>, <i>73</i>(1–2), 183–187.</li>
+            <li>Golovatch, S. I. (1996). Diplopoda from the Nepal Himalayas. Review of the genus <i>Orophosoma</i> Jeekel 1980 (Polydesmida: Paradoxosomatidae). <i>Senckenbergiana Biologica</i>, <i>76</i>(1–2), 163–184.</li>
+            <li>Golovatch, S. I. (2000). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), VII. <i>Arthropoda Selecta</i>, <i>8</i>(4), 215–220.</li>
+            <li>Golovatch, S. I. (2014). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVI. <i>Arthropoda Selecta</i>, <i>23</i>(3), 227–251.</li>
+            <li>Golovatch, S. I. (2015). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVII. <i>Arthropoda Selecta</i>, <i>24</i>(2), 127–168.</li>
+            <li>Golovatch, S. I. (2016a). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVIII. <i>Arthropoda Selecta</i>, <i>25</i>(1), 1–18.</li>
+            <li>Golovatch, S. I. (2016b). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XIX. <i>Arthropoda Selecta</i>, <i>25</i>(2), 131–152.</li>
+            <li>Golovatch, S. I. (2016c). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XX. <i>Arthropoda Selecta</i>, <i>25</i>(3), 219–240.</li>
+            <li>Golovatch, S. I. (2022). A new species of the millipede genus <i>Epanerchodus</i> from western Nepal (Diplopoda: Polydesmida: Polydesmidae). <i>Russian Entomological Journal</i>, <i>31</i>(4), 432–435.</li>
+            <li>Golovatch, S. I. (2023). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XXXI. <i>Arthropoda Selecta</i>, <i>32</i>(1), 1–14.</li>
+            <li>Golovatch, S. I., Mikhaljova, E. V., & Chang, H. W. (2011). The millipede family Polydesmidae in Taiwan, with descriptions of five new species (Polydesmida, Diplopoda). <i>ZooKeys</i>, <i>93</i>, 9–43.</li>
+            <li>Golovatch, S. I., & VandenSpiegel, D. (2014). <i>Koponenius</i> gen. nov., a new genus of the millipede family Haplodesmidae from the Himalayas of India and Nepal (Diplopoda: Polydesmida). <i>Zootaxa</i>, <i>3894</i>(1), 141–151. <a href="https://doi.org/10.11646/zootaxa.3894.1.11" target="_blank">https://doi.org/10.11646/zootaxa.3894.1.11</a></li>
+            <li>Golovatch, S. I., & VandenSpiegel, D. (2016). A new species of the millipede genus <i>Koponenius</i> Golovatch et VandenSpiegel, 2014, from Nepal (Diplopoda: Polydesmida: Haplodesmidae). <i>Russian Entomological Journal</i>, <i>25</i>(1), 219–223. <a href="https://doi.org/10.15298/rusentj.25.2.10" target="_blank">https://doi.org/10.15298/rusentj.25.2.10</a></li>
+            <li>Golovatch, S. I., VandenSpiegel, D., & Semenyuk, I. I. (2016). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XXI. <i>Arthropoda Selecta</i>, <i>25</i>(4), 335–354.</li>
+            <li>Korsós, Z. (2001). Diplopoda from the Nepal Himalaya: Towards the clarification of the genus <i>Anaulaciulus</i> Pocock 1895 (Diplopoda, Julida, Julidae, Brachyiulini). <i>Senckenbergiana Biologica</i>, <i>81</i>(1-2), 61–86.</li>
+            <li>Korsós, Z., Geoffroy, J. J., & Mauriès, J. P. (2009). The fifth element: Reconnection of the disjunct distribution of the members of Siphonocryptida (Diplopoda) with the description of a new species from Nepal. <i>Journal of Natural History</i>, <i>43</i>(7-8), 435–445.</li>
+            <li>Mauriès, J. P. (1983a). Une famille nouvelle et deux genres nouveaux de Cleidogonoidea, avec notes sur la classification de la superfamille (Diplopoda, Craspedosomida). <i>Steenstrupia</i>, <i>8</i>(6), 165–187.</li>
+            <li>Mauriès, J. P. (1983b). Myriapodes du Nepal (Mission I. Löbl et A. Smetana 1981) I. Diplopodes Iuliformes (Iulida, Cambalida et Spirostreptida - <i>Nepalmatoiulus</i> nov. subgen.). <i>Revue Suisse de Zoologie</i>, <i>90</i>(1), 127–138.</li>
+            <li>Mauriès, J. P. (1988). Myriapodes du Nepal II. Diplopodes Craspedosomides nouveaux de l'Himalaya et de la region indo-malaise (Craspedosomidea et Chordeumidea). <i>Revue Suisse de Zoologie</i>, <i>95</i>(1), 179–258.</li>
+            <li>Mikhaljova, E. V. (2025). The millipede genus <i>Nepalmatoiulus</i> Mauris, 1983 (Diplopoda, Julidae) in Nepal, with descriptions of two new species. <i>Zootaxa</i>, <i>5706</i>(3), 426–438. <a href="https://doi.org/10.11646/zootaxa.5706.3.6" target="_blank">https://doi.org/10.11646/zootaxa.5706.3.6</a></li>
+            <li>Shear, W. A. (1979). Diplopoda from the Nepal Himalayas. Chordeumida with comments on the Asian chordeumid fauna. <i>Senckenbergiana Biologica</i>, <i>60</i>(1-2), 115–130.</li>
+            <li>Shear, W. A. (1987). Chordeumatid Diplopoda from the Nepal Himalayas, II. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 229–240.</li>
+            <li>Shelley, R. M. (1996). <i>Nepalozonium trimaculatum</i>, n. gen., n. sp. (Diplopoda: Polyzoniida: Hirudisomatidae): First record of the order and family from Central Asia. <i>Proceedings of the Entomological Society of Washington</i>, <i>98</i>(4), 677–680.</li>
+            <li>Thapa, V. K. (2019). <i>Invertebrate fauna of Nepal (excluding insects)</i> (pp. 241–298). Kathmandu, Nepal.</li>
+            <li>Wesener, T. (2015). The Giant Pill-Millipedes of Nepal (Diplopoda, Sphaerotheriida, Zephroniidae). <i>Zootaxa</i>, <i>3964</i>(3), 301–320. <a href="https://doi.org/10.11646/zootaxa.3964.3.1" target="_blank">https://doi.org/10.11646/zootaxa.3964.3.1</a></li>
+        </ul>
+    </section>
 </main>
 
 <footer>
