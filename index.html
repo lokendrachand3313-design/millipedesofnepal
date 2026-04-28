@@ -105,6 +105,7 @@
             width: 100%;
         }
         
+        /* Regular sections (for featured, slideshow, map - keep these as cards) */
         section {
             background-color: white;
             border-radius: 10px;
@@ -121,56 +122,63 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
         
-        h2 {
+        /* New style for content blocks WITHOUT the card styling */
+        .content-block {
+            margin-bottom: 35px;
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .content-block:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .content-block h2 {
             color: #2d5a27;
             border-bottom: 3px solid #2d5a27;
             padding-bottom: 12px;
-            margin-bottom: 25px;
-            font-size: 2.2rem;
-            font-family: 'Times New Roman', Times, serif;
-            transition: color 0.3s ease;
-        }
-        
-        h2:hover {
-            color: #1e3d1a;
-        }
-        
-        h3 {
-            color: #2d5a27;
-            font-size: 2rem;
             margin-bottom: 20px;
+            font-size: 2rem;
             font-family: 'Times New Roman', Times, serif;
-            transition: color 0.3s ease;
         }
         
-        h3:hover {
-            color: #1e3d1a;
-        }
-        
-        p {
+        .content-block p {
             font-size: 1.2rem;
             margin-bottom: 15px;
-            font-family: 'Times New Roman', Times, serif;
-            transition: color 0.3s ease;
+            color: #333;
         }
         
-        /* Style for Nepali text with Preeti font */
+        h2, h3 {
+            color: #2d5a27;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .featured h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Style for Nepali text */
         .nepali-names {
             font-family: 'Preeti', 'Times New Roman', Times, serif;
             background: #fdfaf5;
-            padding: 30px;
+            padding: 25px 30px;
             border-radius: 8px;
             line-height: 2.2;
             border-left: 6px solid #2d5a27;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             word-spacing: 8px;
             transition: all 0.3s ease;
+            margin-top: 15px;
         }
         
         .nepali-names:hover {
             background: #fff9f0;
             border-left-width: 8px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
         
         /* Style for scientific names in italic */
@@ -178,14 +186,9 @@
             font-style: italic;
             font-weight: 600;
             font-size: 1.3rem;
-            transition: color 0.3s ease;
         }
         
-        .scientific-name:hover {
-            color: #1e3d1a;
-        }
-        
-        /* Featured images styling - two in a row */
+        /* Featured images styling */
         .featured .featured-img {
             max-width: 100%;
             width: 100%;
@@ -194,21 +197,14 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             border: 4px solid #fff;
             transition: all 0.5s ease;
-            animation: fadeIn 1.5s ease-out;
             aspect-ratio: 4/3;
             object-fit: cover;
-            margin: 0;
         }
         
         .featured .featured-img:hover {
             transform: scale(1.03) rotate(0.5deg);
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
             border-color: #ffd700;
-        }
-        
-        .featured div p {
-            text-align: center;
-            margin-top: 15px;
         }
         
         .image-row {
@@ -223,7 +219,12 @@
             min-width: 300px;
         }
         
-        /* Video section styling - for 5 videos */
+        .image-col p {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        /* Video section styling */
         .video-section {
             margin-top: 30px;
             padding-top: 20px;
@@ -293,7 +294,7 @@
             margin-top: 5px;
         }
         
-        /* Slideshow Section - One photo at a time */
+        /* Slideshow Section */
         .slideshow-section {
             margin-bottom: 40px;
             background: white;
@@ -301,7 +302,6 @@
             padding: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border: 1px solid #e0e0e0;
-            animation: fadeInUp 0.8s ease-out;
         }
         
         .slideshow-container {
@@ -330,9 +330,9 @@
             background-color: #1a1a2e;
             display: block;
             border-radius: 12px;
+            cursor: pointer;
         }
         
-        /* Navigation buttons */
         .prev-slide, .next-slide {
             position: absolute;
             top: 50%;
@@ -354,15 +354,9 @@
             transform: translateY(-50%) scale(1.1);
         }
         
-        .prev-slide {
-            left: 20px;
-        }
+        .prev-slide { left: 20px; }
+        .next-slide { right: 20px; }
         
-        .next-slide {
-            right: 20px;
-        }
-        
-        /* Dots/indicators */
         .dots-container {
             text-align: center;
             padding: 15px 0;
@@ -410,7 +404,6 @@
             border: 2px solid #ddd;
             background-color: #e6f0fa;
             transition: all 0.3s ease;
-            animation: fadeIn 1.8s ease-out;
         }
         
         #worldMap:hover {
@@ -423,12 +416,6 @@
             margin-top: 10px;
             color: #666;
             font-style: italic;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-        }
-        
-        .map-caption:hover {
-            color: #2d5a27;
         }
         
         footer {
@@ -438,14 +425,12 @@
             padding: 40px 80px;
             width: 100%;
             margin-top: auto;
-            animation: fadeIn 1s ease-out;
             border-top: 3px solid #ffd700;
         }
         
         footer p {
             font-size: 1.2rem;
             margin-bottom: 10px;
-            font-family: 'Times New Roman', Times, serif;
             color: white;
         }
         
@@ -458,29 +443,15 @@
         footer a:hover {
             text-decoration: underline;
             color: #fff;
-            transform: scale(1.05);
-            display: inline-block;
         }
         
-        /* Style for location text */
         .location {
             font-weight: 500;
             color: #555;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
         }
         
-        .location:hover {
-            color: #2d5a27;
-        }
-        
-        /* Featured section special styling */
         .featured {
             text-align: center;
-        }
-        
-        .featured p {
-            font-size: 1.3rem;
         }
         
         /* Lightbox Modal */
@@ -495,7 +466,6 @@
             height: 100%;
             background-color: rgba(0,0,0,0.98);
             overflow: auto;
-            animation: fadeIn 0.3s ease-out;
         }
         
         .modal-content {
@@ -510,14 +480,8 @@
         }
         
         @keyframes zoomIn {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
         
         .close-modal {
@@ -530,7 +494,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 2001;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
         
         .close-modal:hover {
@@ -551,24 +514,16 @@
             border-radius: 5px;
             transition: all 0.3s ease;
             z-index: 2001;
-            backdrop-filter: blur(5px);
         }
         
         .nav-btn:hover {
             background: #2d5a27;
             transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0 20px rgba(255,215,0,0.5);
         }
         
-        .prev-btn {
-            left: 20px;
-        }
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
         
-        .next-btn {
-            right: 20px;
-        }
-        
-        /* Animation keyframes */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -618,110 +573,30 @@
             }
         }
         
-        /* Responsive design for mobile */
         @media (max-width: 1200px) {
-            .video-col {
-                min-width: 300px;
-                max-width: calc(33.33% - 14px);
-            }
+            .video-col { min-width: 300px; max-width: calc(33.33% - 14px); }
         }
         
         @media (max-width: 992px) {
-            .video-col {
-                min-width: 280px;
-                max-width: calc(50% - 10px);
-            }
+            .video-col { min-width: 280px; max-width: calc(50% - 10px); }
         }
         
         @media (max-width: 768px) {
-            header {
-                padding: 50px 20px;
-            }
-            
-            header h1 {
-                font-size: 2.5rem;
-            }
-            
-            header p {
-                font-size: 1.4rem;
-            }
-            
-            nav {
-                padding: 15px 20px;
-            }
-            
-            nav a {
-                display: inline-block;
-                padding: 8px 12px;
-                margin: 3px;
-                font-size: 0.9rem;
-            }
-            
-            main {
-                padding: 30px 20px;
-            }
-            
-            section {
-                padding: 20px;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            h3 {
-                font-size: 1.6rem;
-            }
-            
-            p {
-                font-size: 1.1rem;
-            }
-            
-            .nepali-names {
-                font-size: 1.2rem;
-                padding: 20px;
-                line-height: 1.8;
-            }
-            
-            .scientific-name {
-                font-size: 1.2rem;
-            }
-            
-            .image-col {
-                min-width: 100%;
-            }
-            
-            .video-col {
-                min-width: 100%;
-                max-width: 100%;
-            }
-            
-            footer {
-                padding: 30px 20px;
-            }
-            
-            footer p {
-                font-size: 1rem;
-            }
-            
-            .close-modal {
-                top: 15px;
-                right: 25px;
-                font-size: 40px;
-            }
-            
-            .prev-slide, .next-slide {
-                font-size: 20px;
-                padding: 8px 12px;
-            }
-            
-            .slide img {
-                max-height: 350px;
-            }
-            
-            #worldMap {
-                height: 350px;
-            }
+            header { padding: 50px 20px; }
+            header h1 { font-size: 2.5rem; }
+            header p { font-size: 1.4rem; }
+            nav { padding: 15px 20px; }
+            nav a { padding: 8px 12px; margin: 3px; font-size: 0.9rem; }
+            main { padding: 30px 20px; }
+            .content-block h2 { font-size: 1.7rem; }
+            .content-block p { font-size: 1.1rem; }
+            .nepali-names { font-size: 1.2rem; padding: 20px; }
+            .image-col { min-width: 100%; }
+            .video-col { min-width: 100%; max-width: 100%; }
+            footer { padding: 30px 20px; }
+            .slide img { max-height: 350px; }
+            #worldMap { height: 350px; }
+            .prev-slide, .next-slide { font-size: 20px; padding: 8px 12px; }
         }
     </style>
 </head>
@@ -746,7 +621,7 @@
 </nav>
 
 <main>
-    <!-- Slideshow Section - One photo at a time, auto-sliding -->
+    <!-- Slideshow Section (keeps card styling) -->
     <div class="slideshow-section">
         <div class="slideshow-container">
             <button class="prev-slide" id="prevSlide">❮</button>
@@ -756,104 +631,103 @@
         <div class="dots-container" id="dotsContainer"></div>
     </div>
     
+    <!-- Featured section with images and videos (keeps card styling) -->
     <section class="featured">
         <h3>Beautiful Millipedes from Nepal</h3>
         
-        <!-- Two photos in one row -->
         <div class="image-row">
             <div class="image-col">
                 <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img">
                 <p><span class="scientific-name">Gonoplectus malayus</span>, Spirostreptida, Harpagophoridae<br>
-                <span class="location"> Location: Dang Valley, Nepal</span></p>
+                <span class="location">📍 Location: Dang Valley, Nepal</span></p>
             </div>
             <div class="image-col">
                 <img src="gono7.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img">
                 <p><span class="scientific-name">Gonoplectus</span> sp., Spirostreptida, Harpagophoridae<br>
-                <span class="location"> Location: Dang Valley, Nepal</span></p>
+                <span class="location">📍 Location: Dang Valley, Nepal</span></p>
             </div>
         </div>
         
-        <!-- Five Videos with Controls Section -->
         <div class="video-section">
-            <h4> Watch Millipedes in Action</h4>
+            <h4>🎥 Watch Millipedes in Action</h4>
             <div class="video-row">
                 <div class="video-col">
-                    <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16/9; background: #000;">
+                    <video controls preload="metadata">
                         <source src="vid1.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="video-caption">
                         <p><span class="scientific-name">Chondromorpha greke</span> mating</p>
-                        <p class="location"> Dang Valley, Nepal</p>
+                        <p class="location">📍 Dang Valley, Nepal</p>
                     </div>
                 </div>
                 <div class="video-col">
-                    <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16/9; background: #000;">
+                    <video controls preload="metadata">
                         <source src="vid2.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="video-caption">
                         <p><span class="scientific-name">Siphonorhinus</span> sp. in leaf litter</p>
-                        <p class="location"> Forest floor, Dang Valley, Nepal</p>
+                        <p class="location">📍 Forest floor, Dang Valley, Nepal</p>
                     </div>
                 </div>
                 <div class="video-col">
-                    <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16/9; background: #000;">
+                    <video controls preload="metadata">
                         <source src="vid3.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="video-caption">
                         <p><span class="scientific-name">Gonoplectus</span> sp. walking</p>
-                        <p class="location"> Salyan, Nepal</p>
+                        <p class="location">📍 Salyan, Nepal</p>
                     </div>
                 </div>
                 <div class="video-col">
-                    <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16/9; background: #000;">
+                    <video controls preload="metadata">
                         <source src="vid4.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="video-caption">
-                        <p><span class="scientific-name">streptogonopus phipsoni</span> mating</p>
-                        <p class="location"> Dang Vallley, Nepal</p>
+                        <p><span class="scientific-name">Streptogonopus phipsoni</span> mating</p>
+                        <p class="location">📍 Dang Valley, Nepal</p>
                     </div>
                 </div>
                 <div class="video-col">
-                    <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16/9; background: #000;">
+                    <video controls preload="metadata">
                         <source src="vid5.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="video-caption">
                         <p>Polydesmid on tree</p>
-                        <p class="location"> Dang Valley Nepal</p>
+                        <p class="location">📍 Dang Valley, Nepal</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- The three content sections without any separators or horizontal rules -->
-    <section>
+    <!-- CONTENT BLOCKS - NO CARD STYLING, NO SEPARATORS, NO BOXES -->
+    <div class="content-block">
         <h2>Our Mission</h2>
         <p>Our mission is to advance the understanding of millipede biodiversity in Nepal through comprehensive field collection from diverse geographical regions, followed by accurate species-level identification using integrated morphological and molecular analysis, detailed documentation, and long-term specimen preservation.</p>
-    </section>
+    </div>
     
-    <section>
+    <div class="content-block">
         <h2>Why are we working on Millipedes?</h2>
         <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts.</p>
-    </section>
+    </div>
 
-    <section>
+    <div class="content-block">
         <h2>Common Nepali Names (नेपाली नामहरु)</h2>
         <div class="nepali-names">
             ओरिगाँठे, ग्याल्डुङ, अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल, Angalbeddi, Phalle, Bahukhuttey kira, Hajarkhutte kira
         </div>
-    </section>
+    </div>
 
-    <!-- World Map Section - Showing Nepal's location in the world -->
+    <!-- World Map Section (keeps card styling) -->
     <div class="world-map-section">
         <h4>🌍 Nepal in the World Map</h4>
         <div id="worldMap"></div>
-        <p class="map-caption"> Nepal is located in South Asia, between China and India</p>
+        <p class="map-caption">📍 Nepal is located in South Asia, between China and India</p>
     </div>
 </main>
 
@@ -862,11 +736,9 @@
     <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
-<!-- Add Leaflet JavaScript library -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-    // All gallery photos data
     const allPhotos = [
         'forest_dang.jpg', 'habitat2.jpg', 'habitat3.jpg', 'habitat4.jpg',
         'lab1.jpg', 'field1.jpg', 'gono_dead.jpg', 'bijan.jpg', 'me_field.jpg',
@@ -879,16 +751,13 @@
     let slideInterval;
     let slideshowActive = true;
     
-    // Function to create slideshow
     function createSlideshow() {
         const slidesContainer = document.getElementById('slideshowSlides');
         const dotsContainer = document.getElementById('dotsContainer');
         
-        // Clear containers
         slidesContainer.innerHTML = '';
         dotsContainer.innerHTML = '';
         
-        // Create slides
         allPhotos.forEach((photo, index) => {
             const slideDiv = document.createElement('div');
             slideDiv.className = 'slide';
@@ -897,14 +766,11 @@
             const img = document.createElement('img');
             img.src = photo;
             img.alt = `Fieldwork Photo ${index + 1}`;
-            img.onerror = function() {
-                this.src = 'https://via.placeholder.com/800x600?text=Photo+Not+Found';
-            };
+            img.onerror = function() { this.src = 'https://via.placeholder.com/800x600?text=Photo+Not+Found'; };
             
             slideDiv.appendChild(img);
             slidesContainer.appendChild(slideDiv);
             
-            // Create dot
             const dot = document.createElement('span');
             dot.className = 'dot';
             if (index === 0) dot.classList.add('active');
@@ -912,58 +778,35 @@
             dotsContainer.appendChild(dot);
         });
         
-        // Add click event to slides for lightbox
         document.querySelectorAll('.slide').forEach((slide, idx) => {
-            slide.addEventListener('click', () => {
-                openLightbox(idx);
-            });
+            slide.addEventListener('click', () => openLightbox(idx));
         });
     }
     
-    // Go to specific slide
     function goToSlide(index) {
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
-        
         slides[currentSlide].classList.remove('active');
         dots[currentSlide].classList.remove('active');
-        
         currentSlide = (index + allPhotos.length) % allPhotos.length;
-        
         slides[currentSlide].classList.add('active');
         dots[currentSlide].classList.add('active');
     }
     
-    // Next slide
-    function nextSlide() {
-        goToSlide(currentSlide + 1);
-    }
+    function nextSlide() { goToSlide(currentSlide + 1); }
+    function prevSlide() { goToSlide(currentSlide - 1); }
     
-    // Previous slide
-    function prevSlide() {
-        goToSlide(currentSlide - 1);
-    }
-    
-    // Start auto slideshow
     function startSlideshow() {
         if (slideInterval) clearInterval(slideInterval);
-        slideInterval = setInterval(() => {
-            if (slideshowActive) {
-                nextSlide();
-            }
-        }, 3000); // Change slide every 3 seconds
+        slideInterval = setInterval(() => { if (slideshowActive) nextSlide(); }, 3000);
     }
     
-    // Stop auto slideshow (when user interacts)
     function stopSlideshow() {
         slideshowActive = false;
-        setTimeout(() => {
-            slideshowActive = true;
-        }, 10000); // Resume after 10 seconds of inactivity
+        setTimeout(() => { slideshowActive = true; }, 10000);
     }
     
-    // ==================== LIGHTBOX ====================
-    // Create modal elements
+    // Lightbox
     const modal = document.createElement('div');
     modal.className = 'modal';
     modal.innerHTML = `
@@ -984,146 +827,46 @@
         currentLightboxIndex = index;
         modal.style.display = 'block';
         modalImg.src = allPhotos[currentLightboxIndex];
-        
-        modalImg.onerror = function() {
-            this.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
-        };
-        
-        // Stop slideshow temporarily
-        const tempActive = slideshowActive;
+        modalImg.onerror = function() { this.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found'; };
         slideshowActive = false;
-        setTimeout(() => {
-            slideshowActive = tempActive;
-        }, 5000);
+        setTimeout(() => { slideshowActive = true; }, 5000);
     }
     
-    function prevLightbox() {
-        currentLightboxIndex = (currentLightboxIndex - 1 + allPhotos.length) % allPhotos.length;
-        modalImg.src = allPhotos[currentLightboxIndex];
-    }
+    function prevLightbox() { currentLightboxIndex = (currentLightboxIndex - 1 + allPhotos.length) % allPhotos.length; modalImg.src = allPhotos[currentLightboxIndex]; }
+    function nextLightbox() { currentLightboxIndex = (currentLightboxIndex + 1) % allPhotos.length; modalImg.src = allPhotos[currentLightboxIndex]; }
     
-    function nextLightbox() {
-        currentLightboxIndex = (currentLightboxIndex + 1) % allPhotos.length;
-        modalImg.src = allPhotos[currentLightboxIndex];
-    }
-    
-    // Close modal when clicking X
-    closeModal.addEventListener('click', function() {
-        modal.style.display = 'none';
+    closeModal.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'block') modal.style.display = 'none';
+        if (e.key === 'ArrowLeft' && modal.style.display === 'block') prevLightbox();
+        if (e.key === 'ArrowRight' && modal.style.display === 'block') nextLightbox();
+        if (e.key === 'ArrowLeft' && modal.style.display !== 'block') { prevSlide(); stopSlideshow(); }
+        if (e.key === 'ArrowRight' && modal.style.display !== 'block') { nextSlide(); stopSlideshow(); }
     });
     
-    // Close modal when clicking outside the image
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-    
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
-            modal.style.display = 'none';
-        }
-        if (e.key === 'ArrowLeft' && modal.style.display === 'block') {
-            prevLightbox();
-        }
-        if (e.key === 'ArrowRight' && modal.style.display === 'block') {
-            nextLightbox();
-        }
-        if (e.key === 'ArrowLeft' && modal.style.display !== 'block') {
-            prevSlide();
-            stopSlideshow();
-        }
-        if (e.key === 'ArrowRight' && modal.style.display !== 'block') {
-            nextSlide();
-            stopSlideshow();
-        }
-    });
-    
-    // Navigation buttons for slideshow
-    document.getElementById('prevSlide').addEventListener('click', () => {
-        prevSlide();
-        stopSlideshow();
-    });
-    
-    document.getElementById('nextSlide').addEventListener('click', () => {
-        nextSlide();
-        stopSlideshow();
-    });
-    
-    // Lightbox navigation
+    document.getElementById('prevSlide').addEventListener('click', () => { prevSlide(); stopSlideshow(); });
+    document.getElementById('nextSlide').addEventListener('click', () => { nextSlide(); stopSlideshow(); });
     modalPrevBtn.addEventListener('click', prevLightbox);
     modalNextBtn.addEventListener('click', nextLightbox);
     
-    // Initialize slideshow
     createSlideshow();
     startSlideshow();
     
-    // Pause slideshow when hovering over slideshow
     const slideshowContainer = document.querySelector('.slideshow-container');
-    slideshowContainer.addEventListener('mouseenter', () => {
-        slideshowActive = false;
-    });
+    slideshowContainer.addEventListener('mouseenter', () => { slideshowActive = false; });
+    slideshowContainer.addEventListener('mouseleave', () => { slideshowActive = true; });
     
-    slideshowContainer.addEventListener('mouseleave', () => {
-        slideshowActive = true;
-    });
-    
-    // ==================== WORLD MAP ====================
-    // Create world map centered on Asia to show Nepal's location
+    // World Map
     var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
-    
-    // Add world basemap
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
         subdomains: 'abcd',
         maxZoom: 19
     }).addTo(worldMap);
     
-    // Add a marker for Nepal's location
-    var nepalMarker = L.marker([28.3949, 84.1240], {
-        icon: L.icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        })
-    }).addTo(worldMap);
-    
-    nepalMarker.bindPopup(`
-        <b>🇳🇵 Nepal</b><br>
-        South Asia<br>
-        Between China and India<br>
-        <small>Coordinates: 28.3949°N, 84.1240°E</small>
-    `).openPopup();
-    
-    // Add a circle to highlight Nepal's region
-    L.circle([28.3949, 84.1240], {
-        color: '#ff4444',
-        fillColor: '#ff8888',
-        fillOpacity: 0.2,
-        radius: 300000
-    }).addTo(worldMap);
-    
-    // Add a legend for the world map
-    var worldLegend = L.control({position: 'bottomright'});
-    worldLegend.onAdd = function(map) {
-        var div = L.DomUtil.create('div', 'info legend');
-        div.style.backgroundColor = 'white';
-        div.style.padding = '8px 12px';
-        div.style.borderRadius = '5px';
-        div.style.border = '2px solid #2d5a27';
-        div.style.fontSize = '12px';
-        div.innerHTML = `
-            <b> Nepal Location</b><br>
-            <span style="color: #ff4444;">●</span> Nepal Marker<br>
-            <span style="color: #ff8888;">◯</span> Highlighted Region
-        `;
-        return div;
-    };
-    worldLegend.addTo(worldMap);
+    L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 Nepal</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
+    L.circle([28.3949, 84.1240], { color: '#ff4444', fillColor: '#ff8888', fillOpacity: 0.2, radius: 300000 }).addTo(worldMap);
 </script>
 
 </body>
