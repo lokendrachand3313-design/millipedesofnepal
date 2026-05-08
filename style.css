@@ -389,7 +389,16 @@ h2, h3 {
     font-style: italic;
 }
 
-/* Team Page Specific Styles */
+.location {
+    font-weight: 500;
+    color: #555;
+}
+
+.featured {
+    text-align: center;
+}
+
+/* ============ TEAM PAGE SPECIFIC STYLES ============ */
 .team-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -567,15 +576,6 @@ h2, h3 {
     align-items: center;
 }
 
-.location {
-    font-weight: 500;
-    color: #555;
-}
-
-.featured {
-    text-align: center;
-}
-
 /* ============ FOOTER ============ */
 footer {
     background-color: var(--primary-green);
@@ -678,7 +678,6 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
-    header { padding: 0; }
     .header-container {
         flex-direction: column;
         text-align: center;
@@ -686,7 +685,8 @@ footer a:hover {
         gap: 15px;
         min-height: auto;
     }
-    .header-logo { height: 70px; }
+    .header-logo { height: 70px; margin-bottom: 5px; }
+    .header-text { width: 100%; }
     .header-text h1 { font-size: 2rem; }
     .header-text p { font-size: 1.1rem; }
     nav { padding: 15px 20px; }
@@ -713,6 +713,7 @@ footer a:hover {
     .member-title { font-size: 1rem; }
     .member-bio { font-size: 0.9rem; }
     .member-contact p { font-size: 0.85rem; }
+    .leadership-badge { font-size: 0.75rem; padding: 5px 12px; }
 }
 
 @media (min-width: 1600px) {
