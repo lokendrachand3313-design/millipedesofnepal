@@ -30,53 +30,70 @@
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 0;  /* Remove padding to let logo fill full height */
+            padding: 0;
             width: 100%;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             animation: fadeInDown 1s ease-out;
         }
         
-        /* NEW: Header container to hold logo and title side by side - FULL HEIGHT */
+        /* Header container with flex layout */
         .header-container {
             display: flex;
-            align-items: stretch;  /* Stretch both children to full header height */
+            align-items: center;      /* Vertically center logo and text */
             justify-content: flex-start;
-            min-height: 220px;     /* Minimum header height - can expand */
+            min-height: 220px;
             width: 100%;
+            padding: 20px 40px;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         
-        /* Logo styling - spans FULL height from top to bottom of header */
+        /* Logo styling - HALF SIZE of header height with smooth transition */
         .header-logo {
-            height: auto;
+            height: 110px;            /* Approximately half of typical header height (220px/2) */
             width: auto;
-            max-height: none;
-            max-width: 280px;      /* Limit width on large screens */
-            object-fit: cover;      /* Cover the area nicely */
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
             display: block;
-            filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.4));
-            transition: transform 0.3s ease;
-            /* Ensures logo touches top and bottom edges */
-            align-self: stretch;
-            margin: 0;
-            border-radius: 0;
         }
         
+        /* Transition effects: scale, rotation, shadow, and brightness on hover */
         .header-logo:hover {
-            transform: scale(1.02);
-            filter: drop-shadow(4px 4px 12px rgba(0,0,0,0.5));
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+            transition: all 0.3s ease-out;
         }
         
-        /* Title text block - vertically centered with background overlay effect */
+        /* Optional subtle pulse animation on page load for the logo */
+        .header-logo {
+            animation: logoGentlePop 0.6s ease-out;
+        }
+        
+        @keyframes logoGentlePop {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            80% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Title text block - vertically aligned */
         .header-text {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
             text-align: center;
-            padding: 20px 30px;
-            background: rgba(0, 0, 0, 0.3); /* Slight overlay for readability */
-            backdrop-filter: brightness(0.95);
         }
         
         header h1 {
@@ -461,45 +478,50 @@
             }
         }
         
-        /* Responsive adjustments for logo and header */
+        /* Responsive adjustments for logo (maintain half size feel on all screens) */
         @media (max-width: 1200px) {
             .video-col { min-width: 300px; max-width: calc(33.33% - 14px); }
             .header-logo {
-                max-width: 220px;
+                height: 95px;
             }
             header h1 { font-size: 3rem; }
             header p { font-size: 1.5rem; }
+            .header-container {
+                padding: 15px 30px;
+                gap: 25px;
+            }
         }
         
         @media (max-width: 992px) {
             .video-col { min-width: 280px; max-width: calc(50% - 10px); }
             .header-logo {
-                max-width: 180px;
+                height: 80px;
             }
             header h1 { font-size: 2.5rem; }
             header p { font-size: 1.3rem; }
+            .header-container {
+                padding: 15px 25px;
+                gap: 20px;
+            }
         }
         
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 15px;
                 min-height: auto;
             }
             .header-logo {
-                width: 100%;
-                max-width: 100%;
-                max-height: 200px;
-                object-fit: cover;
-                object-position: center 30%;
-            }
-            header {
-                padding: 0;
+                height: 70px;  /* Maintain half proportion on mobile relative to container */
+                margin-bottom: 5px;
             }
             .header-text {
-                padding: 30px 20px;
+                width: 100%;
             }
-            header h1 { font-size: 2.2rem; }
-            header p { font-size: 1.2rem; }
+            header h1 { font-size: 2rem; }
+            header p { font-size: 1.1rem; }
             nav { padding: 15px 20px; }
             nav a { padding: 8px 12px; margin: 3px; font-size: 0.9rem; }
             main { padding: 30px 20px; }
@@ -512,13 +534,14 @@
             #worldMap { height: 350px; }
         }
         
-        /* For very large screens, logo can be even taller */
+        /* For large screens, keep logo at half-size proportion but slightly larger for balance */
         @media (min-width: 1600px) {
             .header-container {
-                min-height: 280px;
+                min-height: 260px;
             }
             .header-logo {
-                max-width: 340px;
+                height: 130px;   /* Half of 260px */
+                max-width: 240px;
             }
             header h1 {
                 font-size: 4rem;
@@ -532,10 +555,10 @@
 <body>
 
 <header>
-    <!-- Header container: Logo spans full height from top to bottom -->
+    <!-- Header container: Logo is exactly half the header height with smooth transition -->
     <div class="header-container">
-        <!-- Logo image: fills entire header height vertically, from top edge to bottom edge -->
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.content='url(\'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%233a6b34\'/%3E%3Ctext x=\'50\' y=\'55\' font-size=\'14\' text-anchor=\'middle\' fill=\'white\'%3ELogo%3C/text%3E%3C/svg%3E\');">
+        <!-- Logo image: now sized to half of header height (visually balanced) -->
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
             <p>All about Nepalese Millipedes</p>
@@ -624,7 +647,7 @@
                     </video>
                     <div class="video-caption">
                         <p>Polydesmid on tree</p>
-                        <p class="location"> Dang Valley, Nepal</p>
+                        <p class="location">📍 Dang Valley, Nepal</p>
                     </div>
                 </div>
             </div>
@@ -645,7 +668,7 @@
     <div class="content-block">
         <h2>Common Nepali Names (नेपाली नामहरु)</h2>
         <div class="nepali-names">
-            ओरिगाँठे, ग्याल्डुङ, अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल, अंगालबेद्दी, फाल्ले, बहुखुट्टे कीरा, हजारखुट्टे कीरा
+            ओरिगाँठे, ग्याल्डुङ, अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल, Angalbeddi, Phalle, Bahukhuttey kira, Hajarkhutte kira
         </div>
     </div>
 
