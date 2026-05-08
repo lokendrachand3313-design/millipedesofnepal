@@ -1537,3 +1537,21 @@ footer a:hover {
     .header-text h1 { font-size: 4rem; }
     .header-text p { font-size: 2rem; }
 }
+<header>
+    <div class="header-container">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo">
+        <div class="header-text">
+            <h1>Millipedes of Nepal</h1>
+            <p>All about Nepalese Millipedes</p>
+        </div>
+        
+        <!-- GLOBAL SEARCH BAR - NEW -->
+        <div class="search-wrapper">
+            <div class="global-search">
+                <input type="text" id="globalSearchInput" placeholder="🔍 Search species, articles, FAQs..." autocomplete="off">
+                <button id="globalSearchBtn" class="search-btn">Search</button>
+            </div>
+            <div id="searchResultsDropdown" class="search-dropdown" style="display: none;"></div>
+        </div>
+    </div>
+</header>
