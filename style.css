@@ -33,13 +33,6 @@ body {
     background-color: #f9f9f9;
 }
 
-:root {
-    --primary-green: #2d5a27;
-    --leaf-green: #4a7c44;
-    --earth-brown: #583101;
-    --gold: #ffd700;
-}
-
 /* ============ HEADER WITH LOGO ============ */
 header {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
@@ -51,7 +44,18 @@ header {
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     animation: fadeInDown 1s ease-out;
 }
-
+:root {
+    /* Current colors - keep these */
+    --primary-green: #2d5a27;     /* Dark Green */
+    --gold: #ffd700;               /* Gold/Yellow */
+    
+    /* IMPROVED colors for better contrast */
+    --leaf-green: #3a8a35;         /* Lighter green for backgrounds (from #4a7c44) */
+    --earth-brown: #6b3e12;        /* Lighter brown for readability (from #583101) */
+    --text-dark: #1a1a1a;          /* Darker text for better contrast (from #333) */
+    --text-light: #555555;          /* Light text for specific uses */
+    --bg-light: #f5f5f0;           /* Slightly darker background */
+}
 .header-container {
     display: flex;
     align-items: center;
