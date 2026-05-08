@@ -13,13 +13,24 @@
 
 <!-- HEADER WITH LOGO -->
 <header>
+<header>
     <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'">
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
-            <p>Research Articles & Specimen Findings</p>
+            <p>All about Nepalese Millipedes</p>
+        </div>
+        
+        <!-- Global Search Bar -->
+        <div class="search-wrapper">
+            <div class="global-search">
+                <input type="text" id="globalSearchInput" placeholder="🔍 Search species, articles, FAQs..." autocomplete="off">
+                <button id="globalSearchBtn" class="search-btn">Search</button>
+            </div>
+            <div id="searchResultsDropdown" class="search-dropdown" style="display: none;"></div>
         </div>
     </div>
+</header>
 </header>
 
 <nav>
