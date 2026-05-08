@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>History of Millipedes Species Description of Nepal</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <style>
         /* Reset margins and padding for full-width layout */
         * {
@@ -23,34 +24,84 @@
             background-color: #f9f9f9;
         }
         
-        /* Consistent header styling matching index.html */
+        :root {
+            --primary-green: #2d5a27;
+            --leaf-green: #4a7c44;
+            --earth-brown: #583101;
+            --gold: #ffd700;
+        }
+        
+        /* ============ HEADER WITH LOGO ============ */
         header {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 80px 80px !important;
-            text-align: center;
+            padding: 0;
             width: 100%;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             animation: fadeInDown 1s ease-out;
         }
         
-        header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-family: 'Times New Roman', Times, serif;
-            animation: slideInLeft 1s ease-out;
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 220px;
+            width: 100%;
+            padding: 20px 40px;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         
-        header p {
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+        
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+            transition: all 0.3s ease-out;
+        }
+        
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+        }
+        
+        .header-text p {
             font-size: 1.8rem;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            font-family: 'Times New Roman', Times, serif;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
             animation: slideInRight 1s ease-out;
         }
         
+        /* ============ NAVIGATION ============ */
         nav {
             background-color: #3a6b34;
             padding: 15px 80px;
@@ -89,7 +140,7 @@
             left: 50%;
             width: 0;
             height: 2px;
-            background-color: #ffd700;
+            background-color: var(--gold);
             transition: all 0.3s ease;
             transform: translateX(-50%);
         }
@@ -103,6 +154,7 @@
             font-weight: bold;
         }
         
+        /* ============ MAIN CONTENT ============ */
         main {
             flex: 1;
             padding: 40px 80px;
@@ -128,8 +180,8 @@
         }
         
         h2 {
-            color: #2d5a27;
-            border-bottom: 3px solid #2d5a27;
+            color: var(--primary-green);
+            border-bottom: 3px solid var(--primary-green);
             padding-bottom: 12px;
             margin-bottom: 25px;
             font-size: 2.2rem;
@@ -142,7 +194,7 @@
         }
         
         h3 {
-            color: #2d5a27;
+            color: var(--primary-green);
             font-size: 1.5rem;
             margin-top: 25px;
             margin-bottom: 15px;
@@ -155,15 +207,14 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Style for scientific names */
         .scientific-text i {
-            color: #583101;
+            color: var(--earth-brown);
             font-weight: 500;
             transition: color 0.3s ease;
         }
         
         .scientific-text i:hover {
-            color: #2d5a27;
+            color: var(--primary-green);
         }
         
         .full-history-text {
@@ -179,7 +230,6 @@
             margin-bottom: 20px;
         }
         
-        /* Make history image larger */
         .history-img {
             max-width: 1000px;
             width: 100%;
@@ -196,24 +246,14 @@
         .history-img:hover {
             transform: scale(1.03) rotate(0.5deg);
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-            border-color: #ffd700;
+            border-color: var(--gold);
         }
         
-        /* Style for the horizontal rule */
-        hr {
-            border: 0;
-            border-top: 3px solid #2d5a27;
-            margin: 50px 0;
-            opacity: 0.5;
-            animation: fadeIn 1.5s ease-out;
-        }
-        
-        /* Style for the brief history section */
         .brief-history {
             background-color: #f9f9f9;
             padding: 35px;
             border-radius: 10px;
-            border-left: 6px solid #2d5a27;
+            border-left: 6px solid var(--primary-green);
             transition: all 0.3s ease;
             animation: fadeInUp 0.8s ease-out;
         }
@@ -221,12 +261,12 @@
         .brief-history:hover {
             background-color: #f5f5f5;
             border-left-width: 8px;
-            border-left-color: #ffd700;
+            border-left-color: var(--gold);
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         
         .brief-history h2 {
-            color: #2d5a27;
+            color: var(--primary-green);
             margin-bottom: 20px;
             border-left: none;
             padding-left: 0;
@@ -238,12 +278,11 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* References section styling */
         .references-section {
             background-color: #fef9e6;
             padding: 35px;
             border-radius: 10px;
-            border-left: 6px solid #2d5a27;
+            border-left: 6px solid var(--primary-green);
             transition: all 0.3s ease;
             animation: fadeInUp 0.8s ease-out;
         }
@@ -251,12 +290,12 @@
         .references-section:hover {
             background-color: #fef5d8;
             border-left-width: 8px;
-            border-left-color: #ffd700;
+            border-left-color: var(--gold);
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         
         .references-section h2 {
-            color: #2d5a27;
+            color: var(--primary-green);
             margin-bottom: 25px;
         }
         
@@ -277,28 +316,33 @@
         
         .references-list li::before {
             content: "•";
-            color: #2d5a27;
+            color: var(--primary-green);
             font-weight: bold;
             position: absolute;
             left: 0;
         }
         
-        /* Style for Nepali text if any appears */
-        .nepali-text {
-            font-family: 'Preeti', 'Times New Roman', Times, serif;
-            font-size: 1.3rem;
-            line-height: 2;
+        .references-list a {
+            color: var(--primary-green);
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
         
+        .references-list a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+        
+        /* ============ FOOTER ============ */
         footer {
-            background-color: #2d5a27;
+            background-color: var(--primary-green);
             color: white;
             text-align: center;
             padding: 40px 80px;
             width: 100%;
             margin-top: auto;
             animation: fadeIn 1s ease-out;
-            border-top: 3px solid #ffd700;
+            border-top: 3px solid var(--gold);
         }
         
         footer p {
@@ -321,7 +365,7 @@
             display: inline-block;
         }
         
-        /* Animation keyframes matching index.html */
+        /* ============ ANIMATIONS ============ */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -371,111 +415,77 @@
             }
         }
         
-        /* Responsive design matching index.html */
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+            .header-container { padding: 15px 30px; gap: 25px; }
+        }
+        
         @media (max-width: 1024px) {
-            header {
-                padding: 60px 40px !important;
-            }
-            
-            nav {
-                padding: 15px 40px;
-            }
-            
-            main {
-                padding: 30px 40px;
-            }
-            
-            footer {
-                padding: 30px 40px;
-            }
+            nav { padding: 15px 40px; }
+            main { padding: 30px 40px; }
+            footer { padding: 30px 40px; }
+        }
+        
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 25px; gap: 20px; }
         }
         
         @media (max-width: 768px) {
-            header {
-                padding: 50px 20px !important;
-            }
-            
-            header h1 {
-                font-size: 2.5rem;
-            }
-            
-            header p {
-                font-size: 1.4rem;
-            }
-            
-            nav {
-                padding: 15px 20px;
-            }
-            
-            nav a {
-                display: inline-block;
-                padding: 8px 12px;
-                margin: 3px;
-                font-size: 0.9rem;
-            }
-            
-            main {
-                padding: 30px 20px;
-            }
-            
-            section {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
                 padding: 20px;
+                gap: 15px;
+                min-height: auto;
             }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            p {
-                font-size: 1.1rem;
-            }
-            
-            .full-history-text {
-                font-size: 1.1rem;
-            }
-            
-            .brief-history p {
-                font-size: 1.1rem;
-            }
-            
-            .history-img {
-                max-width: 100%;
-                margin: 20px auto;
-            }
-            
-            .references-list li {
-                font-size: 0.85rem;
-            }
-            
-            footer {
-                padding: 30px 20px;
-            }
-            
-            footer p {
-                font-size: 1rem;
-            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            nav { padding: 15px 20px; }
+            nav a { padding: 8px 12px; margin: 3px; font-size: 0.9rem; }
+            main { padding: 30px 20px; }
+            section { padding: 20px; }
+            h2 { font-size: 1.8rem; }
+            p { font-size: 1.1rem; }
+            .full-history-text { font-size: 1.1rem; }
+            .brief-history p { font-size: 1.1rem; }
+            .history-img { max-width: 100%; margin: 20px auto; }
+            .references-list li { font-size: 0.85rem; }
+            footer { padding: 30px 20px; }
+            footer p { font-size: 1rem; }
         }
         
         @media (max-width: 480px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
-            header p {
-                font-size: 1.2rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
+            .header-text h1 { font-size: 1.8rem; }
+            .header-text p { font-size: 1rem; }
+            h2 { font-size: 1.5rem; }
+        }
+        
+        @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
+<!-- HEADER WITH LOGO (SAME AS INDEX.HTML) -->
 <header>
-    <h1>History of Research</h1>
-    <p>Scientific exploration from 1935 to Present</p>
+    <div class="header-container">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        <div class="header-text">
+            <h1>History of Research</h1>
+            <p>Scientific exploration from 1935 to Present</p>
+        </div>
+    </div>
 </header>
 
 <nav>
@@ -494,15 +504,15 @@
 <main>
     <section class="scientific-text">
         <h2>History of Nepalese Millipede Description</h2>
-<div class="full-history-text">
-    <p>The history of millipede taxonomy in Nepal is rich and extensive, beginning with Carl's 1935 description of <i>Orthomorpha (Orthomorpha) simulans</i> and <i>Hingstonia eremita</i>, the latter of which established the genus <i>Hingstonia</i>. In 1936, Attems introduced the new genus <i>Kophosphaera</i> based on <i>Kophosphaera excavata</i> (Butler, 1874) and referenced Carl's previously mentioned species. After a long gap, Demange (1961) described two species of <i>Gonoplectus</i> from Nepal, namely <i>G. hyatti</i> and <i>G. brolemanni</i>, collected by K. H. Hyatt in 1954.</p>
+        <div class="full-history-text">
+            <p>The history of millipede taxonomy in Nepal is rich and extensive, beginning with Carl's 1935 description of <i>Orthomorpha (Orthomorpha) simulans</i> and <i>Hingstonia eremita</i>, the latter of which established the genus <i>Hingstonia</i>. In 1936, Attems introduced the new genus <i>Kophosphaera</i> based on <i>Kophosphaera excavata</i> (Butler, 1874) and referenced Carl's previously mentioned species. After a long gap, Demange (1961) described two species of <i>Gonoplectus</i> from Nepal, namely <i>G. hyatti</i> and <i>G. brolemanni</i>, collected by K. H. Hyatt in 1954.</p>
 
-    <p>The 1970s and 1980s represented a period of accelerated discovery, heavily fueled by specimens from Himalayan expeditions by Prof. Dr. Jochen Martens and his colleagues. Shear (1979) erected the new subfamily Nepalellinae with the genus <i>Nepalella</i>, describing two species within this genus, and also described three species of <i>Tianella</i>. Mauriès (1983a) documented the family Cambalopsidae in Nepal with <i>Trachyjulus wilsonae</i> and <i>Podoglyphiulus elegans nepalensis</i>. Mauriès (1983b) introduced the julid subgenus <i>Nepalmatoiulus</i> with description of three new species and reported <i>Gonoplectus malayus</i> from Nepal. Golovatch (1986) started extensive research, describing the new genus <i>Himalodesmus</i> with two new species and described species under genera <i>Usbekodesmus</i> (4), <i>Hingstonia</i> (2) and <i>Sholaphilus</i> (4), which reported family Polydesmidae first time in Nepal. Again in Golovatch (1987a) he documented the family Opisotretidae, introducing <i>Martensodesmus</i> with description of three new species, also described more six species of <i>Himalodesmus</i> and two new species of genus <i>Hingstonia</i>. Successively Golovatch (1987b) reported Glomeridae for Nepal with description of five species of <i>Hyleoglomeris</i> and also described <i>Nepalotretus</i> genus with the description of <i>N. martensi</i>. Shear (1987) described more species under genus <i>Tianella</i> (4), <i>Nepalella</i> (2) and <i>Kashmireuma</i> (1). Enghoff (1987) elevated <i>Nepalmatoiulus</i> to genus rank with description of ten new species. Mauriès (1988) expanded the known diversity of Chordeumatida, describing new species of <i>Tianella</i> (4), <i>Nepalella</i> (1), and <i>Kashmireuma</i> (6).</p>
+            <p>The 1970s and 1980s represented a period of accelerated discovery, heavily fueled by specimens from Himalayan expeditions by Prof. Dr. Jochen Martens and his colleagues. Shear (1979) erected the new subfamily Nepalellinae with the genus <i>Nepalella</i>, describing two species within this genus, and also described three species of <i>Tianella</i>. Mauriès (1983a) documented the family Cambalopsidae in Nepal with <i>Trachyjulus wilsonae</i> and <i>Podoglyphiulus elegans nepalensis</i>. Mauriès (1983b) introduced the julid subgenus <i>Nepalmatoiulus</i> with description of three new species and reported <i>Gonoplectus malayus</i> from Nepal. Golovatch (1986) started extensive research, describing the new genus <i>Himalodesmus</i> with two new species and described species under genera <i>Usbekodesmus</i> (4), <i>Hingstonia</i> (2) and <i>Sholaphilus</i> (4), which reported family Polydesmidae first time in Nepal. Again in Golovatch (1987a) he documented the family Opisotretidae, introducing <i>Martensodesmus</i> with description of three new species, also described more six species of <i>Himalodesmus</i> and two new species of genus <i>Hingstonia</i>. Successively Golovatch (1987b) reported Glomeridae for Nepal with description of five species of <i>Hyleoglomeris</i> and also described <i>Nepalotretus</i> genus with the description of <i>N. martensi</i>. Shear (1987) described more species under genus <i>Tianella</i> (4), <i>Nepalella</i> (2) and <i>Kashmireuma</i> (1). Enghoff (1987) elevated <i>Nepalmatoiulus</i> to genus rank with description of ten new species. Mauriès (1988) expanded the known diversity of Chordeumatida, describing new species of <i>Tianella</i> (4), <i>Nepalella</i> (1), and <i>Kashmireuma</i> (6).</p>
 
-    <p>The 1990s were characterized by further in-depth study of the order Polydesmida, particularly the family Paradoxosomatidae. Golovatch (1990a) first reported the cosmopolitan species <i>Orthomorpha coarctata</i> and <i>Oxidus gracilis</i>, as well as <i>Paranedyopus cylindricus</i> from Nepal with description of several new taxa under genus <i>Paranedyopus</i> (4) and <i>Orophosoma</i> (1). Golovatch (1990b) involved the description of numerous species of Polydesmidae under genera <i>Himalodesmus</i> (1), <i>Usbekodesmus</i> (1), <i>Hingstonia</i> (4) and <i>Sholaphilus</i> (2). His subsequent works (1992, 1993, 1994a, 1994b, 1996) also reported many species and described many new species of Paradoxosomatidae under known genera as well as new genera <i>Martensosoma</i>, <i>Nepalomorpha</i>, <i>Parorthomorpha</i>, and <i>Hirtodrepanum</i>. This period also saw Shelley's (1996) description of the monotypic genus <i>Nepalozonium</i>, representing the first record of its order from Central Asia. Korsós (1996) mentioned three species of <i>Anaulaciulus</i>, which were later described in Korsós (2001). Golovatch (2000) synonymized <i>Paranedyopus</i> Carl, 1932 to <i>Anoplodesmus</i> Pocock, 1895 which synonymized Nepalese species also.</p>
+            <p>The 1990s were characterized by further in-depth study of the order Polydesmida, particularly the family Paradoxosomatidae. Golovatch (1990a) first reported the cosmopolitan species <i>Orthomorpha coarctata</i> and <i>Oxidus gracilis</i>, as well as <i>Paranedyopus cylindricus</i> from Nepal with description of several new taxa under genus <i>Paranedyopus</i> (4) and <i>Orophosoma</i> (1). Golovatch (1990b) involved the description of numerous species of Polydesmidae under genera <i>Himalodesmus</i> (1), <i>Usbekodesmus</i> (1), <i>Hingstonia</i> (4) and <i>Sholaphilus</i> (2). His subsequent works (1992, 1993, 1994a, 1994b, 1996) also reported many species and described many new species of Paradoxosomatidae under known genera as well as new genera <i>Martensosoma</i>, <i>Nepalomorpha</i>, <i>Parorthomorpha</i>, and <i>Hirtodrepanum</i>. This period also saw Shelley's (1996) description of the monotypic genus <i>Nepalozonium</i>, representing the first record of its order from Central Asia. Korsós (1996) mentioned three species of <i>Anaulaciulus</i>, which were later described in Korsós (2001). Golovatch (2000) synonymized <i>Paranedyopus</i> Carl, 1932 to <i>Anoplodesmus</i> Pocock, 1895 which synonymized Nepalese species also.</p>
 
-    <p>The new millennium brought further discoveries and significant taxonomic revisions. Korsós et al. (2009) described the rare <i>Hirudicryptus quintumelementum</i>, the only species of order Siphonocryptida. Golovatch (2011) synonymized <i>Usbekodesmus</i> with <i>Epanerchodus</i>, and later (2014) synonymized several paradoxosomatid genera (<i>Nepalomorpha</i>, <i>Parorthomorpha</i>, <i>Martensosoma</i>, <i>Armolites</i>, <i>Orophosoma</i>) under the resurrected genus <i>Delarthrum</i> with description of some new species, also established <i>Beronodesmus</i> new genus. Golovatch & VandenSpiegel (2014) described a species of <i>Koponenius</i>. Golovatch (2015) reported <i>Streptogonopus phipsoni</i>, described species under genera <i>Anoplodesmus</i> (1), <i>Kronopolites</i> (1), <i>Beronodesmus</i> (7), <i>Delarthrum</i> (4) and described new genus <i>Beronodesmoides</i> with description of three new species. Golovatch (2016a, 2016b, 2016c) and Golovatch et al. (2016) described many species under genus <i>Substrongylosoma</i>, <i>Pocockina</i>, <i>Beronodesmoides</i>, <i>Anoplodesmus</i>, <i>Delarthrum</i>, <i>Touranella</i> and <i>Beronodesmus</i>. Golovatch & VandenSpiegel (2016) described another species under <i>Koponenius</i>. After that Golovatch (2022) described <i>Epanerchodus telnovi</i> and in 2023, he described two species, <i>Chondromorpha greke</i> and <i>Delarthrum telnovi</i>, from Nepal. Recently Mikhaljova (2025) described two new species of <i>Nepalmatoiulus</i> from Nepal.</p>
-</div>
+            <p>The new millennium brought further discoveries and significant taxonomic revisions. Korsós et al. (2009) described the rare <i>Hirudicryptus quintumelementum</i>, the only species of order Siphonocryptida. Golovatch (2011) synonymized <i>Usbekodesmus</i> with <i>Epanerchodus</i>, and later (2014) synonymized several paradoxosomatid genera (<i>Nepalomorpha</i>, <i>Parorthomorpha</i>, <i>Martensosoma</i>, <i>Armolites</i>, <i>Orophosoma</i>) under the resurrected genus <i>Delarthrum</i> with description of some new species, also established <i>Beronodesmus</i> new genus. Golovatch & VandenSpiegel (2014) described a species of <i>Koponenius</i>. Golovatch (2015) reported <i>Streptogonopus phipsoni</i>, described species under genera <i>Anoplodesmus</i> (1), <i>Kronopolites</i> (1), <i>Beronodesmus</i> (7), <i>Delarthrum</i> (4) and described new genus <i>Beronodesmoides</i> with description of three new species. Golovatch (2016a, 2016b, 2016c) and Golovatch et al. (2016) described many species under genus <i>Substrongylosoma</i>, <i>Pocockina</i>, <i>Beronodesmoides</i>, <i>Anoplodesmus</i>, <i>Delarthrum</i>, <i>Touranella</i> and <i>Beronodesmus</i>. Golovatch & VandenSpiegel (2016) described another species under <i>Koponenius</i>. After that Golovatch (2022) described <i>Epanerchodus telnovi</i> and in 2023, he described two species, <i>Chondromorpha greke</i> and <i>Delarthrum telnovi</i>, from Nepal. Recently Mikhaljova (2025) described two new species of <i>Nepalmatoiulus</i> from Nepal.</p>
+        </div>
     </section>
     
     <section class="brief-history">
@@ -512,7 +522,7 @@
              class="history-img" 
              onerror="this.src='https://via.placeholder.com/1000x600?text=History+of+Millipede+Research'">
 
-        <h2>Why Is the Trend of Species Descriptions Declining?</h2>
+        <h3>Why Is the Trend of Species Descriptions Declining?</h3>
         <p>
             The recent decline in the number of newly described millipede species from Nepal 
             does not necessarily reflect reduced biodiversity. Instead, it is largely influenced 
@@ -527,10 +537,10 @@
             international taxonomists, universities, and funding agencies to promote 
             integrative taxonomy and phylogeographic research conducted inside Nepal. 
             Such efforts will help revitalize systematic studies and accelerate the 
-            documentation of Nepal’s millipede diversity.
+            documentation of Nepal's millipede diversity.
         </p>
 
-        <h2>Why Am I Interested in Millipedes?</h2>
+        <h3>Why Am I Interested in Millipedes?</h3>
         <p>
             During my master's research, I aimed to explore a relatively understudied 
             biological group within the context of Nepal. Under the guidance of my 
@@ -573,10 +583,8 @@
             <li>Golovatch, S. I. (2016c). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XX. <i>Arthropoda Selecta</i>, <i>25</i>(3), 219–240.</li>
             <li>Golovatch, S. I. (2022). A new species of the millipede genus <i>Epanerchodus</i> from western Nepal (Diplopoda: Polydesmida: Polydesmidae). <i>Russian Entomological Journal</i>, <i>31</i>(4), 432–435.</li>
             <li>Golovatch, S. I. (2023). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XXXI. <i>Arthropoda Selecta</i>, <i>32</i>(1), 1–14.</li>
-            <li>Golovatch, S. I., Mikhaljova, E. V., & Chang, H. W. (2011). The millipede family Polydesmidae in Taiwan, with descriptions of five new species (Polydesmida, Diplopoda). <i>ZooKeys</i>, <i>93</i>, 9–43.</li>
             <li>Golovatch, S. I., & VandenSpiegel, D. (2014). <i>Koponenius</i> gen. nov., a new genus of the millipede family Haplodesmidae from the Himalayas of India and Nepal (Diplopoda: Polydesmida). <i>Zootaxa</i>, <i>3894</i>(1), 141–151. <a href="https://doi.org/10.11646/zootaxa.3894.1.11" target="_blank">https://doi.org/10.11646/zootaxa.3894.1.11</a></li>
-            <li>Golovatch, S. I., & VandenSpiegel, D. (2016). A new species of the millipede genus <i>Koponenius</i> Golovatch et VandenSpiegel, 2014, from Nepal (Diplopoda: Polydesmida: Haplodesmidae). <i>Russian Entomological Journal</i>, <i>25</i>(1), 219–223. <a href="https://doi.org/10.15298/rusentj.25.2.10" target="_blank">https://doi.org/10.15298/rusentj.25.2.10</a></li>
-            <li>Golovatch, S. I., VandenSpiegel, D., & Semenyuk, I. I. (2016). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XXI. <i>Arthropoda Selecta</i>, <i>25</i>(4), 335–354.</li>
+            <li>Golovatch, S. I., & VandenSpiegel, D. (2016). A new species of the millipede genus <i>Koponenius</i> Golovatch et VandenSpiegel, 2014, from Nepal (Diplopoda: Polydesmida: Haplodesmidae). <i>Russian Entomological Journal</i>, <i>25</i>(1), 219–223.</li>
             <li>Korsós, Z. (2001). Diplopoda from the Nepal Himalaya: Towards the clarification of the genus <i>Anaulaciulus</i> Pocock 1895 (Diplopoda, Julida, Julidae, Brachyiulini). <i>Senckenbergiana Biologica</i>, <i>81</i>(1-2), 61–86.</li>
             <li>Korsós, Z., Geoffroy, J. J., & Mauriès, J. P. (2009). The fifth element: Reconnection of the disjunct distribution of the members of Siphonocryptida (Diplopoda) with the description of a new species from Nepal. <i>Journal of Natural History</i>, <i>43</i>(7-8), 435–445.</li>
             <li>Mauriès, J. P. (1983a). Une famille nouvelle et deux genres nouveaux de Cleidogonoidea, avec notes sur la classification de la superfamille (Diplopoda, Craspedosomida). <i>Steenstrupia</i>, <i>8</i>(6), 165–187.</li>
@@ -586,7 +594,6 @@
             <li>Shear, W. A. (1979). Diplopoda from the Nepal Himalayas. Chordeumida with comments on the Asian chordeumid fauna. <i>Senckenbergiana Biologica</i>, <i>60</i>(1-2), 115–130.</li>
             <li>Shear, W. A. (1987). Chordeumatid Diplopoda from the Nepal Himalayas, II. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 229–240.</li>
             <li>Shelley, R. M. (1996). <i>Nepalozonium trimaculatum</i>, n. gen., n. sp. (Diplopoda: Polyzoniida: Hirudisomatidae): First record of the order and family from Central Asia. <i>Proceedings of the Entomological Society of Washington</i>, <i>98</i>(4), 677–680.</li>
-            <li>Thapa, V. K. (2019). <i>Invertebrate fauna of Nepal (excluding insects)</i> (pp. 241–298). Kathmandu, Nepal.</li>
             <li>Wesener, T. (2015). The Giant Pill-Millipedes of Nepal (Diplopoda, Sphaerotheriida, Zephroniidae). <i>Zootaxa</i>, <i>3964</i>(3), 301–320. <a href="https://doi.org/10.11646/zootaxa.3964.3.1" target="_blank">https://doi.org/10.11646/zootaxa.3964.3.1</a></li>
         </ul>
     </section>
