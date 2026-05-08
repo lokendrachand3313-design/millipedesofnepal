@@ -4,610 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nepal Millipede Species Checklist with Map - Millipedes of Nepal</title>
-    
-    <!-- Leaflet CSS and JS -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <style>
-        /* Reset margins and padding for full-width layout */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            line-height: 1.6;
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #f9f9f9;
-        }
-        
-        :root {
-            --primary-green: #2e7d32;
-            --light-bg: #f5f5f5;
-            --card-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            --gold: #ffd700;
-        }
-        
-        /* ============ HEADER WITH LOGO ============ */
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 0;
-            width: 100%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            animation: fadeInDown 1s ease-out;
-        }
-        
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 220px;
-            width: 100%;
-            padding: 20px 40px;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .header-logo {
-            height: 110px;
-            width: auto;
-            max-width: 200px;
-            object-fit: contain;
-            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border-radius: 12px;
-            display: block;
-            animation: logoGentlePop 0.6s ease-out;
-        }
-        
-        .header-logo:hover {
-            transform: scale(1.08) rotate(2deg);
-            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
-            opacity: 0.95;
-            transition: all 0.3s ease-out;
-        }
-        
-        @keyframes logoGentlePop {
-            0% { transform: scale(0.9); opacity: 0; }
-            80% { transform: scale(1.02); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        .header-text {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-        }
-        
-        .header-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-            animation: slideInLeft 1s ease-out;
-            letter-spacing: 1px;
-        }
-        
-        .header-text p {
-            font-size: 1.8rem;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-            animation: slideInRight 1s ease-out;
-        }
-        
-        /* ============ NAVIGATION ============ */
-        nav {
-            background-color: #3a6b34;
-            padding: 15px 80px;
-            text-align: center;
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            animation: fadeIn 1.2s ease-out;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 20px;
-            margin: 0 5px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            font-family: 'Times New Roman', Times, serif;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        nav a:hover {
-            background-color: #4f8a47;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: var(--gold);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        
-        nav a:hover::after {
-            width: 80%;
-        }
-        
-        nav a.active {
-            background-color: #4f8a47;
-            font-weight: bold;
-        }
-        
-        /* ============ MAIN CONTENT ============ */
-        main {
-            flex: 1;
-            padding: 40px 80px;
-            max-width: 100%;
-            margin: 0 auto;
-            width: 100%;
-        }
-        
-        .page-title {
-            color: var(--primary-green);
-            text-align: center;
-            margin: 20px 0 30px 0;
-            font-size: 2.5rem;
-            font-family: 'Times New Roman', Times, serif;
-            animation: fadeInDown 0.8s ease-out;
-        }
-        
-        .search-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 20px;
-            padding: 0;
-            animation: fadeIn 1s ease-out;
-        }
-        
-        .filter-select {
-            padding: 10px;
-            border-radius: 8px;
-            border: 2px solid var(--primary-green);
-            min-width: 150px;
-            cursor: pointer;
-            background: white;
-            font-size: 14px;
-            font-family: 'Times New Roman', Times, serif;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-select:hover {
-            border-color: #1b5e20;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .filter-select:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
-        }
-        
-        .clear-filters-btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            background: var(--primary-green);
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 14px;
-        }
-        
-        .clear-filters-btn:hover {
-            background: #1b5e20;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
-        #resultsCount {
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: bold;
-            color: var(--primary-green);
-            font-size: 1.2rem;
-            font-family: 'Times New Roman', Times, serif;
-            animation: fadeIn 1.2s ease-out;
-        }
-        
-        .map-controls {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-            background: white;
-            padding: 5px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            display: flex;
-            gap: 5px;
-        }
-        
-        .map-toggle-btn {
-            padding: 5px 10px;
-            border: 2px solid var(--primary-green);
-            background: white;
-            color: var(--primary-green);
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 12px;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .map-toggle-btn.active {
-            background: var(--primary-green);
-            color: white;
-        }
-        
-        .map-toggle-btn:hover {
-            background: var(--primary-green);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-            padding: 0;
-            flex: 1;
-        }
-        
-        .map-container {
-            position: relative;
-        }
-        
-        #map {
-            height: 750px;
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: var(--card-shadow);
-            border: 2px solid var(--primary-green);
-            position: sticky;
-            top: 20px;
-            z-index: 1;
-            transition: all 0.3s ease;
-            animation: fadeInRight 1s ease-out;
-        }
-        
-        #map:hover {
-            border-color: var(--gold);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        
-        .results-container {
-            max-height: 750px;
-            overflow-y: auto;
-            padding-right: 10px;
-            animation: fadeInLeft 1s ease-out;
-        }
-        
-        .results-container::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .results-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        .results-container::-webkit-scrollbar-thumb {
-            background: var(--primary-green);
-            border-radius: 10px;
-        }
-        
-        .results-container::-webkit-scrollbar-thumb:hover {
-            background: #1b5e20;
-        }
-        
-        .species-card {
-            background: var(--light-bg);
-            border-left: 4px solid var(--primary-green);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-family: 'Times New Roman', Times, serif;
-            animation: fadeInUp 0.5s ease-out;
-        }
-        
-        .species-card:hover {
-            transform: translateY(-5px) translateX(5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-            border-left-width: 8px;
-            border-left-color: var(--gold);
-        }
-        
-        .species-card.active {
-            background: #e8f5e9;
-            border-left-color: #1b5e20;
-            border-left-width: 8px;
-            transform: scale(1.02);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        
-        .taxa-path {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .species-name {
-            font-size: 1.4em;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #1b5e20;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .species-name i {
-            font-style: italic;
-        }
-        
-        .detail-label {
-            font-weight: bold;
-            color: var(--primary-green);
-            display: inline-block;
-            min-width: 120px;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .detail-row {
-            margin: 8px 0;
-            line-height: 1.4;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 1.1rem;
-        }
-        
-        .coordinates-badge {
-            background: #fff;
-            border: 1px solid var(--primary-green);
-            border-radius: 20px;
-            padding: 5px 12px;
-            font-size: 0.9em;
-            color: var(--primary-green);
-            display: inline-block;
-            margin-top: 10px;
-            transition: all 0.3s ease;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .coordinates-badge:hover {
-            background: var(--primary-green);
-            color: white;
-            transform: scale(1.05);
-        }
-        
-        .no-data {
-            text-align: center;
-            color: #666;
-            padding: 40px;
-            font-style: italic;
-            font-size: 1.2rem;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .leaflet-popup-content {
-            font-family: 'Times New Roman', Times, serif;
-            min-width: 200px;
-            font-size: 14px;
-        }
-        
-        .leaflet-popup-content strong {
-            color: var(--primary-green);
-        }
-        
-        /* ============ FOOTER ============ */
-        footer {
-            background-color: #2d5a27;
-            color: white;
-            text-align: center;
-            padding: 40px 80px;
-            width: 100%;
-            margin-top: auto;
-            animation: fadeIn 1s ease-out;
-            border-top: 3px solid var(--gold);
-        }
-        
-        footer p {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            font-family: 'Times New Roman', Times, serif;
-            color: white;
-        }
-        
-        footer a {
-            color: #ffd700;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        footer a:hover {
-            text-decoration: underline;
-            color: white;
-            transform: scale(1.05);
-            display: inline-block;
-        }
-        
-        /* ============ ANIMATIONS ============ */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 1200px) {
-            .header-logo { height: 95px; }
-            .header-text h1 { font-size: 3rem; }
-            .header-text p { font-size: 1.5rem; }
-            .header-container { padding: 15px 30px; gap: 25px; }
-        }
-        
-        @media (max-width: 1024px) {
-            main { padding: 30px 40px; }
-            nav { padding: 15px 40px; }
-            footer { padding: 30px 40px; }
-        }
-        
-        @media (max-width: 992px) {
-            .header-logo { height: 80px; }
-            .header-text h1 { font-size: 2.5rem; }
-            .header-text p { font-size: 1.3rem; }
-            .header-container { padding: 15px 25px; gap: 20px; }
-        }
-        
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-                gap: 15px;
-                min-height: auto;
-            }
-            .header-logo { height: 70px; margin-bottom: 5px; }
-            .header-text h1 { font-size: 2rem; }
-            .header-text p { font-size: 1.1rem; }
-            nav { padding: 15px 20px; }
-            nav a { padding: 8px 12px; margin: 3px; font-size: 0.9rem; }
-            main { padding: 30px 20px; }
-            .page-title { font-size: 2rem; margin: 15px 0 20px 0; }
-            .main-content { grid-template-columns: 1fr; }
-            #map { height: 400px; position: relative; top: 0; }
-            .filter-select { min-width: 120px; font-size: 13px; }
-            .species-card { padding: 15px; }
-            .species-name { font-size: 1.2rem; }
-            .detail-row { font-size: 1rem; }
-            footer { padding: 30px 20px; }
-            footer p { font-size: 1rem; }
-        }
-        
-        @media (max-width: 480px) {
-            .filter-select { min-width: 100%; }
-            .search-container { flex-direction: column; }
-            .clear-filters-btn { width: 100%; }
-        }
-        
-        @media (min-width: 1600px) {
-            .header-container { min-height: 260px; }
-            .header-logo { height: 130px; max-width: 240px; }
-            .header-text h1 { font-size: 4rem; }
-            .header-text p { font-size: 2rem; }
-        }
-    </style>
 </head>
 <body>
 
-<!-- HEADER WITH LOGO (SAME AS INDEX.HTML) -->
+<!-- HEADER WITH LOGO -->
 <header>
     <div class="header-container">
         <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
-            <p>All about Nepalese Millipedes</p>
+            <p>Nepalese Millipede Species Checklist</p>
         </div>
     </div>
 </header>
@@ -626,7 +35,7 @@
 </nav>
 
 <main>
-    <h1 class="page-title">Nepalese Millipede Species Checklist</h1>
+    <h2 style="text-align: center; margin-bottom: 30px; color: var(--primary-green);">Nepalese Millipede Species Checklist</h2>
     
     <div class="search-container">
         <select id="orderFilter" class="filter-select">
@@ -644,16 +53,16 @@
         <button class="clear-filters-btn" onclick="clearAllFilters()">Clear Filters</button>
     </div>
 
-    <div id="resultsCount">Loading species data...</div>
+    <div id="resultsCount" style="text-align: center; margin-bottom: 20px; font-weight: bold; color: var(--primary-green); font-size: 1.2rem;">Loading species data...</div>
     
-    <div class="main-content">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
         <div class="results-container" id="checklistResults">
             <!-- Results will be populated here -->
         </div>
         
-        <div class="map-container">
-            <div class="map-controls">
-                <button id="streetBtn" class="map-toggle-btn active" onclick="toggleMapLayer('street')">Street</button>
+        <div class="map-container" style="position: relative;">
+            <div class="map-controls" style="position: absolute; top: 10px; right: 10px; z-index: 1000; background: white; padding: 5px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: flex; gap: 5px;">
+                <button id="streetBtn" class="map-toggle-btn" onclick="toggleMapLayer('street')">Street</button>
                 <button id="satelliteBtn" class="map-toggle-btn" onclick="toggleMapLayer('satellite')">Satellite</button>
             </div>
             <div id="map"></div>
@@ -683,57 +92,63 @@
 
     // Initialize map with both street and satellite layers
     function initMap() {
-        map = L.map('map').setView([28.3949, 84.1240], 7); // Center on Nepal
+        map = L.map('map').setView([28.3949, 84.1240], 7);
         
-        // Street layer (OpenStreetMap)
         streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             maxZoom: 19
         });
         
-        // Satellite layer (Esri World Imagery)
         satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+            attribution: 'Tiles &copy; Esri',
             maxZoom: 18
         });
         
-        // Start with street view
         streetLayer.addTo(map);
+        updateMapButtonStyles('street');
     }
 
-    // Toggle between street and satellite view
+    function updateMapButtonStyles(activeLayer) {
+        const streetBtn = document.getElementById('streetBtn');
+        const satelliteBtn = document.getElementById('satelliteBtn');
+        
+        if (activeLayer === 'street') {
+            streetBtn.style.background = 'var(--primary-green)';
+            streetBtn.style.color = 'white';
+            satelliteBtn.style.background = 'white';
+            satelliteBtn.style.color = 'var(--primary-green)';
+        } else {
+            satelliteBtn.style.background = 'var(--primary-green)';
+            satelliteBtn.style.color = 'white';
+            streetBtn.style.background = 'white';
+            streetBtn.style.color = 'var(--primary-green)';
+        }
+    }
+
     function toggleMapLayer(layer) {
         if (layer === currentLayer) return;
         
-        // Remove current layer
         if (currentLayer === 'street') {
             map.removeLayer(streetLayer);
         } else {
             map.removeLayer(satelliteLayer);
         }
         
-        // Update button states
-        document.getElementById('streetBtn').classList.remove('active');
-        document.getElementById('satelliteBtn').classList.remove('active');
-        
-        // Add new layer
         if (layer === 'street') {
             streetLayer.addTo(map);
-            document.getElementById('streetBtn').classList.add('active');
             currentLayer = 'street';
         } else {
             satelliteLayer.addTo(map);
-            document.getElementById('satelliteBtn').classList.add('active');
             currentLayer = 'satellite';
         }
         
-        // Re-add markers if any exist
+        updateMapButtonStyles(currentLayer);
+        
         if (markers.length > 0) {
             markers.forEach(marker => marker.addTo(map));
         }
     }
 
-    // Clear all markers from map
     function clearMarkers() {
         if (markers.length > 0) {
             markers.forEach(marker => map.removeLayer(marker));
@@ -741,13 +156,11 @@
         }
     }
 
-    // Add markers for selected species
     function addMarkersForSpecies(order, family, genus, species) {
         clearMarkers();
         
-        // Check if millipedePoints is available (from data.js)
         if (typeof millipedePoints === 'undefined') {
-            console.error('millipedePoints not found. Make sure data.js is loaded correctly.');
+            console.error('millipedePoints not found');
             return;
         }
         
@@ -758,48 +171,24 @@
             (species === 'all' || point.species === species)
         );
 
-        console.log('Filtered points:', filteredPoints.length);
+        if (filteredPoints.length === 0) return;
 
-        if (filteredPoints.length === 0) {
-            return;
-        }
-
-        // Create bounds to fit all markers
         const bounds = [];
         
         filteredPoints.forEach(point => {
             if (point.lat && point.lon) {
                 const marker = L.marker([point.lat, point.lon]).addTo(map);
-                
-                // Create popup with species info
                 const popupContent = `
                     <strong>${point.genus} ${point.species}</strong><br>
                     <em>${point.family}</em><br>
                     <small>Lat: ${point.lat.toFixed(4)}<br>Lon: ${point.lon.toFixed(4)}</small>
                 `;
-                
                 marker.bindPopup(popupContent);
-                
-                marker.on('click', () => {
-                    // Highlight corresponding card if it exists
-                    const cardId = `${point.genus}_${point.species}`.replace(/\s+/g, '-').toLowerCase();
-                    const card = document.getElementById(cardId);
-                    if (card) {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        if (currentActiveCard) {
-                            currentActiveCard.classList.remove('active');
-                        }
-                        card.classList.add('active');
-                        currentActiveCard = card;
-                    }
-                });
-                
                 markers.push(marker);
                 bounds.push([point.lat, point.lon]);
             }
         });
 
-        // Fit map to show all markers
         if (bounds.length > 0) {
             map.fitBounds(bounds, { padding: [50, 50] });
         }
@@ -1021,6 +410,51 @@
     window.clearAllFilters = clearAllFilters;
     window.toggleMapLayer = toggleMapLayer;
 </script>
+
+<style>
+    /* Additional inline styles for map container */
+    #map {
+        height: 750px;
+        width: 100%;
+        border-radius: 8px;
+        border: 2px solid var(--primary-green);
+        transition: all 0.3s ease;
+    }
+    
+    #map:hover {
+        border-color: var(--gold);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    
+    .map-container {
+        position: relative;
+    }
+    
+    .map-toggle-btn {
+        padding: 5px 10px;
+        border: 2px solid var(--primary-green);
+        background: white;
+        color: var(--primary-green);
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    
+    .map-toggle-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .no-data {
+        text-align: center;
+        color: #666;
+        padding: 40px;
+        font-style: italic;
+        font-size: 1.2rem;
+    }
+</style>
 
 </body>
 </html>
