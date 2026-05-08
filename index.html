@@ -37,6 +37,35 @@
             animation: fadeInDown 1s ease-out;
         }
         
+        /* NEW: Header container to hold logo and title side by side */
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        /* Logo styling - matches header height visually, equal to title area */
+        .header-logo {
+            height: 100px;
+            width: auto;
+            max-height: 100px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.3));
+            transition: transform 0.3s ease;
+            border-radius: 12px;
+        }
+        
+        .header-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Title text block */
+        .header-text {
+            text-align: center;
+        }
+        
         header h1 {
             font-size: 3.5rem;
             margin-bottom: 10px;
@@ -428,8 +457,16 @@
         
         @media (max-width: 768px) {
             header { padding: 50px 20px; }
-            header h1 { font-size: 2.5rem; }
-            header p { font-size: 1.4rem; }
+            .header-container {
+                gap: 15px;
+                flex-direction: column;
+            }
+            .header-logo {
+                height: 70px;
+                max-height: 70px;
+            }
+            header h1 { font-size: 2.2rem; }
+            header p { font-size: 1.2rem; }
             nav { padding: 15px 20px; }
             nav a { padding: 8px 12px; margin: 3px; font-size: 0.9rem; }
             main { padding: 30px 20px; }
@@ -446,8 +483,15 @@
 <body>
 
 <header>
-    <h1>Millipedes of Nepal</h1>
-    <p>All about Nepalese Millipedes</p>
+    <!-- Header container: Logo + Title/Subtitle side by side -->
+    <div class="header-container">
+        <!-- Logo image: logo.png placed beside the text, size equal to header text block prominence -->
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.5'; this.style.border='1px dashed white';">
+        <div class="header-text">
+            <h1>Millipedes of Nepal</h1>
+            <p>All about Nepalese Millipedes</p>
+        </div>
+    </div>
 </header>
 
 <nav>
