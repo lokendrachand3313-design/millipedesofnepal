@@ -4,547 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Distribution - Millipedes of Nepal</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <style>
-        /* Reset margins and padding for full-width layout */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            line-height: 1.6;
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #f9f9f9;
-        }
-        
-        :root {
-            --primary-green: #2d5a27;
-            --leaf-green: #4a7c44;
-            --earth-brown: #583101;
-            --gold: #ffd700;
-        }
-        
-        /* ============ HEADER WITH LOGO ============ */
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 0;
-            width: 100%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            animation: fadeInDown 1s ease-out;
-        }
-        
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 220px;
-            width: 100%;
-            padding: 20px 40px;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .header-logo {
-            height: 110px;
-            width: auto;
-            max-width: 200px;
-            object-fit: contain;
-            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border-radius: 12px;
-            display: block;
-            animation: logoGentlePop 0.6s ease-out;
-        }
-        
-        .header-logo:hover {
-            transform: scale(1.08) rotate(2deg);
-            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
-            opacity: 0.95;
-            transition: all 0.3s ease-out;
-        }
-        
-        @keyframes logoGentlePop {
-            0% { transform: scale(0.9); opacity: 0; }
-            80% { transform: scale(1.02); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        .header-text {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-        }
-        
-        .header-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-            animation: slideInLeft 1s ease-out;
-            letter-spacing: 1px;
-        }
-        
-        .header-text p {
-            font-size: 1.8rem;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-            animation: slideInRight 1s ease-out;
-        }
-        
-        /* ============ NAVIGATION ============ */
-        nav {
-            background-color: #3a6b34;
-            padding: 15px 80px;
-            text-align: center;
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            animation: fadeIn 1.2s ease-out;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 20px;
-            margin: 0 5px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            font-family: 'Times New Roman', Times, serif;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        nav a:hover {
-            background-color: #4f8a47;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: var(--gold);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        
-        nav a:hover::after {
-            width: 80%;
-        }
-        
-        nav a.active {
-            background-color: #4f8a47;
-            font-weight: bold;
-        }
-        
-        /* ============ MAIN CONTENT ============ */
-        main {
-            flex: 1;
-            padding: 40px 80px;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-        }
-        
-        /* Stats Summary */
-        .stats-summary {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 30px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border-left: 5px solid var(--primary-green);
-            text-align: center;
-            min-width: 180px;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            border-left-color: var(--gold);
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary-green);
-            line-height: 1.2;
-        }
-        
-        .stat-label {
-            font-size: 1rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .map-view-buttons { 
-            margin-bottom: 20px; 
-            display: flex;
-            gap: 10px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-        
-        .btn-view {
-            padding: 12px 25px;
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            font-family: 'Times New Roman', Times, serif;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        .btn-view:hover { 
-            background: #1e3f1a; 
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-        
-        .btn-view:active {
-            transform: translateY(-1px);
-        }
-        
-        .filter-section {
-            background: #fdfaf5;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border: 2px solid var(--primary-green);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            align-items: flex-end;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .filter-section:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            border-color: var(--gold);
-        }
-        
-        .filter-group { 
-            display: flex; 
-            flex-direction: column; 
-            flex: 1; 
-            min-width: 180px; 
-        }
-        
-        .filter-group label { 
-            font-weight: bold; 
-            margin-bottom: 8px; 
-            color: var(--primary-green); 
-            font-size: 1.1rem; 
-            font-family: 'Times New Roman', Times, serif;
-            transition: color 0.3s ease;
-        }
-        
-        .filter-group:hover label {
-            color: #1e3f1a;
-        }
-        
-        .filter-group select, 
-        .filter-group input { 
-            padding: 12px; 
-            border-radius: 5px; 
-            border: 2px solid #ccc;
-            font-size: 1rem;
-            background: white;
-            font-family: 'Times New Roman', Times, serif;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .filter-group select:hover,
-        .filter-group input:hover {
-            border-color: var(--primary-green);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .filter-group select:focus,
-        .filter-group input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
-        }
-        
-        .filter-group input {
-            cursor: text;
-        }
-        
-        .filter-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed #ccc;
-            width: 100%;
-        }
-        
-        .filter-badge {
-            background: #e8f0e8;
-            color: var(--primary-green);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .filter-badge span {
-            font-weight: bold;
-        }
-        
-        .reset-filters {
-            background: transparent;
-            color: var(--primary-green);
-            border: 2px solid var(--primary-green);
-            padding: 5px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin-left: auto;
-        }
-        
-        .reset-filters:hover {
-            background: var(--primary-green);
-            color: white;
-            transform: scale(1.05);
-        }
-        
-        #map { 
-            height: 70vh; 
-            min-height: 600px;
-            width: 100%; 
-            border-radius: 12px; 
-            border: 4px solid var(--primary-green);
-            z-index: 1;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            animation: fadeInUp 1.2s ease-out;
-        }
-        
-        #map:hover {
-            border-color: var(--gold);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
-        
-        .marker-count {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            padding: 8px 15px;
-            border-radius: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            font-weight: bold;
-            color: var(--primary-green);
-            z-index: 1000;
-            border: 2px solid var(--gold);
-        }
-        
-        .leaflet-popup-content {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 14px;
-        }
-        
-        .leaflet-popup-content h3 {
-            color: var(--primary-green);
-            margin: 0 0 5px 0;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .leaflet-popup-content hr {
-            margin: 8px 0;
-            border: 0;
-            border-top: 1px solid var(--primary-green);
-        }
-        
-        /* ============ FOOTER ============ */
-        footer {
-            background-color: var(--primary-green);
-            color: white;
-            text-align: center;
-            padding: 40px 80px;
-            width: 100%;
-            margin-top: auto;
-            animation: fadeIn 1s ease-out;
-            border-top: 3px solid var(--gold);
-        }
-        
-        footer p {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            font-family: 'Times New Roman', Times, serif;
-            color: white;
-        }
-        
-        footer a {
-            color: #ffd700;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        footer a:hover {
-            text-decoration: underline;
-            color: white;
-            transform: scale(1.05);
-            display: inline-block;
-        }
-        
-        /* ============ ANIMATIONS ============ */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 1200px) {
-            .header-logo { height: 95px; }
-            .header-text h1 { font-size: 3rem; }
-            .header-text p { font-size: 1.5rem; }
-            .header-container { padding: 15px 30px; gap: 25px; }
-        }
-        
-        @media (max-width: 1024px) {
-            main { padding: 30px 40px; }
-            nav { padding: 15px 40px; }
-            footer { padding: 30px 40px; }
-            .stat-card { min-width: 150px; padding: 15px 20px; }
-            .stat-number { font-size: 2rem; }
-        }
-        
-        @media (max-width: 992px) {
-            .header-logo { height: 80px; }
-            .header-text h1 { font-size: 2.5rem; }
-            .header-text p { font-size: 1.3rem; }
-            .header-container { padding: 15px 25px; gap: 20px; }
-        }
-        
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-                gap: 15px;
-                min-height: auto;
-            }
-            .header-logo { height: 70px; margin-bottom: 5px; }
-            .header-text h1 { font-size: 2rem; }
-            .header-text p { font-size: 1.1rem; }
-            nav { padding: 15px 20px; }
-            nav a { padding: 8px 12px; margin: 3px; font-size: 0.9rem; }
-            main { padding: 30px 20px; }
-            .stats-summary { gap: 10px; }
-            .stat-card { min-width: calc(50% - 10px); padding: 12px 15px; }
-            .stat-number { font-size: 1.8rem; }
-            .filter-section { padding: 15px; }
-            .filter-group { min-width: 100%; }
-            .map-view-buttons { flex-direction: column; }
-            .btn-view { width: 100%; }
-            #map { min-height: 450px; }
-            .reset-filters { margin-left: 0; width: 100%; text-align: center; }
-            footer { padding: 30px 20px; }
-            footer p { font-size: 1rem; }
-        }
-        
-        @media (max-width: 480px) {
-            .header-text h1 { font-size: 1.8rem; }
-            .header-text p { font-size: 1rem; }
-            .stat-card { min-width: 100%; }
-        }
-        
-        @media (min-width: 1600px) {
-            .header-container { min-height: 260px; }
-            .header-logo { height: 130px; max-width: 240px; }
-            .header-text h1 { font-size: 4rem; }
-            .header-text p { font-size: 2rem; }
-        }
-    </style>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
-<!-- HEADER WITH LOGO (SAME AS INDEX.HTML) -->
+<!-- HEADER WITH LOGO -->
 <header>
     <div class="header-container">
         <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
@@ -634,7 +100,6 @@
     <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="data.js"></script>
 
 <script>
@@ -796,6 +261,7 @@
         handleFilterChange();
     }
     
+    // Cascading change handlers
     function onOrderChange() {
         updateFamilies();
     }
@@ -937,6 +403,7 @@
     }
     function zoomToGlobal() { map.setView([20, 0], 2); }
     
+    // Make functions globally available
     window.onOrderChange = onOrderChange;
     window.onFamilyChange = onFamilyChange;
     window.onGenusChange = onGenusChange;
@@ -953,16 +420,18 @@
             allPoints = millipedePoints;
             console.log('Loaded', allPoints.length, 'millipede points');
         } else {
+            // Sample data for demo
             allPoints = [
-                { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240, date: "2023", notes: "Sample record" },
-                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "simulans", location: "Kathmandu Valley", lat: 27.7172, lon: 85.3240, date: "2024", notes: "Sample record" },
+                { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240, date: "2023", notes: "Common species in western Nepal" },
+                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "simulans", location: "Kathmandu Valley", lat: 27.7172, lon: 85.3240, date: "2024", notes: "Urban forest record" },
                 { order: "Spirostreptida", family: "Harpagophoridae", genus: "Thyropygus", species: "nepalensis", location: "Pokhara", lat: 28.2096, lon: 83.9856, date: "2023", notes: "Endemic species" },
                 { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Desmoxytes", species: "purpurosea", location: "Chitwan", lat: 27.5733, lon: 84.4851, date: "2022", notes: "Dragon millipede" },
-                { order: "Julida", family: "Julidae", genus: "Cylindroiulus", species: "neapolitanus", location: "Lumbini", lat: 27.4669, lon: 83.2762, date: "2023", notes: "Common species" }
+                { order: "Julida", family: "Julidae", genus: "Cylindroiulus", species: "neapolitanus", location: "Lumbini", lat: 27.4669, lon: 83.2762, date: "2023", notes: "Introduced species" }
             ];
             console.log('Using sample data');
         }
         
+        // Build filter hierarchy
         const hierarchy = buildFilterHierarchy(allPoints);
         filterCache.ordersSet = hierarchy.ordersSet;
         filterCache.familiesMap = hierarchy.familiesMap;
@@ -974,5 +443,6 @@
         updateStats();
     });
 </script>
+
 </body>
 </html>
