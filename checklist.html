@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nepal Millipede Species Checklist with Map</title>
+    <title>Nepal Millipede Species Checklist with Map - Millipedes of Nepal</title>
     
     <!-- Leaflet CSS and JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
-    <!-- Link to your main style.css -->
-    <link rel="stylesheet" href="style.css">
-    
     <style>
-        /* Page-specific styles that complement style.css */
-        :root {
-            --primary-green: #2e7d32;
-            --light-bg: #f5f5f5;
-            --card-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            --gold: #ffd700;
+        /* Reset margins and padding for full-width layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Times New Roman', Times, serif;
             line-height: 1.6;
@@ -29,38 +25,86 @@
             display: flex;
             flex-direction: column;
             background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
         }
-
-        /* Exact same header styling as index.html */
+        
+        :root {
+            --primary-green: #2e7d32;
+            --light-bg: #f5f5f5;
+            --card-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --gold: #ffd700;
+        }
+        
+        /* ============ HEADER WITH LOGO ============ */
         header {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 80px 80px;
-            text-align: center;
+            padding: 0;
             width: 100%;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             animation: fadeInDown 1s ease-out;
         }
         
-        header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-family: 'Times New Roman', Times, serif;
-            animation: slideInLeft 1s ease-out;
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 220px;
+            width: 100%;
+            padding: 20px 40px;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         
-        header p {
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+        
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+            transition: all 0.3s ease-out;
+        }
+        
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+        }
+        
+        .header-text p {
             font-size: 1.8rem;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            font-family: 'Times New Roman', Times, serif;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
             animation: slideInRight 1s ease-out;
         }
         
+        /* ============ NAVIGATION ============ */
         nav {
             background-color: #3a6b34;
             padding: 15px 80px;
@@ -112,7 +156,8 @@
             background-color: #4f8a47;
             font-weight: bold;
         }
-
+        
+        /* ============ MAIN CONTENT ============ */
         main {
             flex: 1;
             padding: 40px 80px;
@@ -120,16 +165,16 @@
             margin: 0 auto;
             width: 100%;
         }
-
-        h1 {
+        
+        .page-title {
             color: var(--primary-green);
             text-align: center;
-            margin: 30px 0;
+            margin: 20px 0 30px 0;
             font-size: 2.5rem;
             font-family: 'Times New Roman', Times, serif;
             animation: fadeInDown 0.8s ease-out;
         }
-
+        
         .search-container {
             display: flex;
             gap: 10px;
@@ -139,7 +184,7 @@
             padding: 0;
             animation: fadeIn 1s ease-out;
         }
-
+        
         .filter-select {
             padding: 10px;
             border-radius: 8px;
@@ -151,18 +196,18 @@
             font-family: 'Times New Roman', Times, serif;
             transition: all 0.3s ease;
         }
-
+        
         .filter-select:hover {
             border-color: #1b5e20;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
+        
         .filter-select:focus {
             outline: none;
             box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
         }
-
+        
         .clear-filters-btn {
             padding: 10px 20px;
             border-radius: 8px;
@@ -175,13 +220,13 @@
             font-family: 'Times New Roman', Times, serif;
             font-size: 14px;
         }
-
+        
         .clear-filters-btn:hover {
             background: #1b5e20;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-
+        
         #resultsCount {
             text-align: center;
             margin-bottom: 20px;
@@ -191,7 +236,7 @@
             font-family: 'Times New Roman', Times, serif;
             animation: fadeIn 1.2s ease-out;
         }
-
+        
         .map-controls {
             position: absolute;
             top: 10px;
@@ -204,7 +249,7 @@
             display: flex;
             gap: 5px;
         }
-
+        
         .map-toggle-btn {
             padding: 5px 10px;
             border: 2px solid var(--primary-green);
@@ -217,19 +262,19 @@
             font-size: 12px;
             font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .map-toggle-btn.active {
             background: var(--primary-green);
             color: white;
         }
-
+        
         .map-toggle-btn:hover {
             background: var(--primary-green);
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-
+        
         .main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -238,11 +283,11 @@
             padding: 0;
             flex: 1;
         }
-
+        
         .map-container {
             position: relative;
         }
-
+        
         #map {
             height: 750px;
             width: 100%;
@@ -255,38 +300,37 @@
             transition: all 0.3s ease;
             animation: fadeInRight 1s ease-out;
         }
-
+        
         #map:hover {
             border-color: var(--gold);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-
+        
         .results-container {
             max-height: 750px;
             overflow-y: auto;
             padding-right: 10px;
             animation: fadeInLeft 1s ease-out;
         }
-
-        /* Custom scrollbar */
+        
         .results-container::-webkit-scrollbar {
             width: 8px;
         }
-
+        
         .results-container::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 10px;
         }
-
+        
         .results-container::-webkit-scrollbar-thumb {
             background: var(--primary-green);
             border-radius: 10px;
         }
-
+        
         .results-container::-webkit-scrollbar-thumb:hover {
             background: #1b5e20;
         }
-
+        
         .species-card {
             background: var(--light-bg);
             border-left: 4px solid var(--primary-green);
@@ -299,14 +343,14 @@
             font-family: 'Times New Roman', Times, serif;
             animation: fadeInUp 0.5s ease-out;
         }
-
+        
         .species-card:hover {
             transform: translateY(-5px) translateX(5px);
             box-shadow: 0 8px 16px rgba(0,0,0,0.15);
             border-left-width: 8px;
             border-left-color: var(--gold);
         }
-
+        
         .species-card.active {
             background: #e8f5e9;
             border-left-color: #1b5e20;
@@ -314,7 +358,7 @@
             transform: scale(1.02);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-
+        
         .taxa-path {
             font-size: 0.9em;
             color: #666;
@@ -323,7 +367,7 @@
             letter-spacing: 0.5px;
             font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .species-name {
             font-size: 1.4em;
             font-weight: bold;
@@ -333,11 +377,11 @@
             padding-bottom: 5px;
             font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .species-name i {
             font-style: italic;
         }
-
+        
         .detail-label {
             font-weight: bold;
             color: var(--primary-green);
@@ -345,14 +389,14 @@
             min-width: 120px;
             font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .detail-row {
             margin: 8px 0;
             line-height: 1.4;
             font-family: 'Times New Roman', Times, serif;
             font-size: 1.1rem;
         }
-
+        
         .coordinates-badge {
             background: #fff;
             border: 1px solid var(--primary-green);
@@ -365,13 +409,13 @@
             transition: all 0.3s ease;
             font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .coordinates-badge:hover {
             background: var(--primary-green);
             color: white;
             transform: scale(1.05);
         }
-
+        
         .no-data {
             text-align: center;
             color: #666;
@@ -380,25 +424,50 @@
             font-size: 1.2rem;
             font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .leaflet-popup-content {
             font-family: 'Times New Roman', Times, serif;
             min-width: 200px;
             font-size: 14px;
         }
-
+        
         .leaflet-popup-content strong {
             color: var(--primary-green);
         }
-
-        /* Style for Nepali text if any appears in future */
-        .nepali-text {
-            font-family: 'Preeti', 'Times New Roman', Times, serif;
-            font-size: 1.3rem;
-            line-height: 2;
+        
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: #2d5a27;
+            color: white;
+            text-align: center;
+            padding: 40px 80px;
+            width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
         }
-
-        /* Animation keyframes (matching index.html) */
+        
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+        
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+        
+        /* ============ ANIMATIONS ============ */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -469,163 +538,138 @@
                 transform: translateX(0);
             }
         }
-
-        /* Responsive design - matching index.html */
+        
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+            .header-container { padding: 15px 30px; gap: 25px; }
+        }
+        
         @media (max-width: 1024px) {
-            header {
-                padding: 60px 40px;
-            }
-            
-            nav {
-                padding: 15px 40px;
-            }
-            
-            main {
-                padding: 30px 40px;
-            }
+            main { padding: 30px 40px; }
+            nav { padding: 15px 40px; }
+            footer { padding: 30px 40px; }
         }
-
+        
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 25px; gap: 20px; }
+        }
+        
         @media (max-width: 768px) {
-            header {
-                padding: 50px 20px;
-            }
-            
-            header h1 {
-                font-size: 2.5rem;
-            }
-            
-            header p {
-                font-size: 1.4rem;
-            }
-            
-            nav {
-                padding: 15px 20px;
-            }
-            
-            nav a {
-                display: inline-block;
-                padding: 8px 12px;
-                margin: 3px;
-                font-size: 0.9rem;
-            }
-            
-            main {
-                padding: 30px 20px;
-            }
-
-            h1 {
-                font-size: 2rem;
-                margin: 20px 0;
-            }
-
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            #map {
-                height: 400px;
-                position: relative;
-                top: 0;
-            }
-
-            .filter-select {
-                min-width: 120px;
-                font-size: 13px;
-            }
-
-            .species-card {
-                padding: 15px;
-            }
-
-            .species-name {
-                font-size: 1.2rem;
-            }
-
-            .detail-row {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .filter-select {
-                min-width: 100%;
-            }
-
-            .search-container {
+            .header-container {
                 flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 15px;
+                min-height: auto;
             }
-
-            .clear-filters-btn {
-                width: 100%;
-            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            nav { padding: 15px 20px; }
+            nav a { padding: 8px 12px; margin: 3px; font-size: 0.9rem; }
+            main { padding: 30px 20px; }
+            .page-title { font-size: 2rem; margin: 15px 0 20px 0; }
+            .main-content { grid-template-columns: 1fr; }
+            #map { height: 400px; position: relative; top: 0; }
+            .filter-select { min-width: 120px; font-size: 13px; }
+            .species-card { padding: 15px; }
+            .species-name { font-size: 1.2rem; }
+            .detail-row { font-size: 1rem; }
+            footer { padding: 30px 20px; }
+            footer p { font-size: 1rem; }
+        }
+        
+        @media (max-width: 480px) {
+            .filter-select { min-width: 100%; }
+            .search-container { flex-direction: column; }
+            .clear-filters-btn { width: 100%; }
+        }
+        
+        @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Header exactly matching index.html -->
-    <header>
-        <h1>Millipedes of Nepal</h1>
-        <p>All about Nepalese Millipedes</p>
-    </header>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="history.html">History</a>
-        <a href="checklist.html">Checklist</a>
-        <a href="distribution.html">Distribution</a>
-        <a href="introkey.html">Introduction and Identification</a>
-        <a href="articles.html">Articles</a>
-        <a href="team.html">Team</a>
-        <a href="gallery.html">Gallery</a> 
-        <a href="upload.html">Upload</a>
-        <a href="faq.html">FAQ</a>
-    </nav>
-
-    <main>
-        <h1>Nepalese Millipede Species Checklist</h1>
-        
-        <div class="search-container">
-            <select id="orderFilter" class="filter-select">
-                <option value="all">Select Order</option>
-            </select>
-            <select id="familyFilter" class="filter-select">
-                <option value="all">Select Family</option>
-            </select>
-            <select id="genusFilter" class="filter-select">
-                <option value="all">Select Genus</option>
-            </select>
-            <select id="speciesFilter" class="filter-select">
-                <option value="all">Select Species</option>
-            </select>
-            <button class="clear-filters-btn" onclick="clearAllFilters()">Clear Filters</button>
+<!-- HEADER WITH LOGO (SAME AS INDEX.HTML) -->
+<header>
+    <div class="header-container">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        <div class="header-text">
+            <h1>Millipedes of Nepal</h1>
+            <p>All about Nepalese Millipedes</p>
         </div>
+    </div>
+</header>
 
-        <div id="resultsCount">Loading species data...</div>
-        
-        <div class="main-content">
-            <div class="results-container" id="checklistResults">
-                <!-- Results will be populated here -->
-            </div>
-            
-            <div class="map-container">
-                <div class="map-controls">
-                    <button id="streetBtn" class="map-toggle-btn active" onclick="toggleMapLayer('street')">Street</button>
-                    <button id="satelliteBtn" class="map-toggle-btn" onclick="toggleMapLayer('satellite')">Satellite</button>
-                </div>
-                <div id="map"></div>
-            </div>
+<nav>
+    <a href="index.html">Home</a>
+    <a href="history.html">History</a>
+    <a href="checklist.html" class="active">Checklist</a>
+    <a href="distribution.html">Distribution</a>
+    <a href="introkey.html">Introduction and Identification</a>
+    <a href="articles.html">Articles</a>
+    <a href="team.html">Team</a>
+    <a href="gallery.html">Gallery</a> 
+    <a href="upload.html">Upload</a>
+    <a href="faq.html">FAQ</a>
+</nav>
+
+<main>
+    <h1 class="page-title">Nepalese Millipede Species Checklist</h1>
+    
+    <div class="search-container">
+        <select id="orderFilter" class="filter-select">
+            <option value="all">Select Order</option>
+        </select>
+        <select id="familyFilter" class="filter-select">
+            <option value="all">Select Family</option>
+        </select>
+        <select id="genusFilter" class="filter-select">
+            <option value="all">Select Genus</option>
+        </select>
+        <select id="speciesFilter" class="filter-select">
+            <option value="all">Select Species</option>
+        </select>
+        <button class="clear-filters-btn" onclick="clearAllFilters()">Clear Filters</button>
+    </div>
+
+    <div id="resultsCount">Loading species data...</div>
+    
+    <div class="main-content">
+        <div class="results-container" id="checklistResults">
+            <!-- Results will be populated here -->
         </div>
-    </main>
+        
+        <div class="map-container">
+            <div class="map-controls">
+                <button id="streetBtn" class="map-toggle-btn active" onclick="toggleMapLayer('street')">Street</button>
+                <button id="satelliteBtn" class="map-toggle-btn" onclick="toggleMapLayer('satellite')">Satellite</button>
+            </div>
+            <div id="map"></div>
+        </div>
+    </div>
+</main>
 
-    <!-- Include your GPS data -->
-    <script src="data.js"></script>
-    
-    <footer>
-        <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-        <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
-    </footer>
-    
-    <script>
+<footer>
+    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+</footer>
+
+<!-- Include your GPS data -->
+<script src="data.js"></script>
+
+<script>
     // Full species data from checklist.json
     let speciesData = [];
     let map = null;
@@ -714,7 +758,7 @@
             (species === 'all' || point.species === species)
         );
 
-        console.log('Filtered points:', filteredPoints.length); // Debug log
+        console.log('Filtered points:', filteredPoints.length);
 
         if (filteredPoints.length === 0) {
             return;
@@ -771,17 +815,17 @@
         })
         .then(data => {
             speciesData = data;
-            console.log('Species data loaded:', speciesData.length); // Debug log
+            console.log('Species data loaded:', speciesData.length);
             initFilters();
             initMap();
             document.getElementById('resultsCount').innerText = `Total: ${speciesData.length} species`;
-            displayResults(speciesData); // Show all initially
+            displayResults(speciesData);
         })
         .catch(error => {
             console.error('Error loading data:', error);
             document.getElementById('checklistResults').innerHTML = 
                 '<div class="no-data">Error loading species data. Please try again.</div>';
-            initMap(); // Still initialize map
+            initMap();
         });
 
     function initFilters() {
@@ -811,7 +855,6 @@
             select.appendChild(opt);
         });
 
-        // Restore previous selection if it exists in new options
         if (currentValue && currentValue !== 'all' && uniqueVals.includes(currentValue)) {
             select.value = currentValue;
         }
@@ -916,7 +959,6 @@
             card.className = 'species-card';
             card.id = cardId;
             
-            // Create coordinates display
             let coordsHtml = '';
             if (hasCoordinates) {
                 coordsHtml = `<div class="coordinates-badge">📍 ${speciesPoints.length} location${speciesPoints.length > 1 ? 's' : ''} on map</div>`;
@@ -931,17 +973,14 @@
                 ${coordsHtml}
             `;
 
-            // Add click handler to show on map
             card.onclick = () => {
                 if (hasCoordinates && typeof millipedePoints !== 'undefined') {
-                    // Clear previous active state
                     if (currentActiveCard) {
                         currentActiveCard.classList.remove('active');
                     }
                     card.classList.add('active');
                     currentActiveCard = card;
                     
-                    // Show these points on map
                     clearMarkers();
                     
                     speciesPoints.forEach(point => {
@@ -954,7 +993,6 @@
                         markers.push(marker);
                     });
                     
-                    // Fit map to show all points for this species
                     if (speciesPoints.length > 0) {
                         const bounds = speciesPoints.map(p => [p.lat, p.lon]);
                         map.fitBounds(bounds, { padding: [50, 50] });
@@ -972,7 +1010,6 @@
         document.getElementById('genusFilter').innerHTML = '<option value="all">Select Genus</option>';
         document.getElementById('speciesFilter').innerHTML = '<option value="all">Select Species</option>';
         
-        // Repopulate family based on 'all' orders
         if (speciesData.length > 0) {
             populateDropdown('familyFilter', 'family');
         }
@@ -983,6 +1020,7 @@
     // Make functions available globally
     window.clearAllFilters = clearAllFilters;
     window.toggleMapLayer = toggleMapLayer;
-    </script>
+</script>
+
 </body>
 </html>
