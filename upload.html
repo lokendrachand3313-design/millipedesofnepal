@@ -4,50 +4,214 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Finding - Millipedes of Nepal</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <style>
+        /* Reset margins and padding for full-width layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+        
+        :root {
+            --primary-green: #2d5a27;
+            --leaf-green: #4a7c44;
+            --earth-brown: #583101;
+            --gold: #ffd700;
+        }
+        
+        /* ============ HEADER WITH LOGO ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 220px;
+            width: 100%;
+            padding: 20px 40px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+        
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+            transition: all 0.3s ease-out;
+        }
+        
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+        }
+        
+        .header-text p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
+        }
+        
+        /* ============ NAVIGATION ============ */
+        nav {
+            background-color: #3a6b34;
+            padding: 15px 80px;
+            text-align: center;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav a:hover {
+            background-color: #4f8a47;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        nav a:hover::after {
+            width: 80%;
+        }
+        
+        nav a.active {
+            background-color: #4f8a47;
+            font-weight: bold;
+        }
+        
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 40px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
         .upload-container {
             max-width: 700px;
-            margin: 50px auto;
+            margin: 0 auto;
             background: #fff;
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border-top: 5px solid var(--primary-green);
+            animation: fadeInUp 0.8s ease-out;
         }
-        .form-header { text-align: center; margin-bottom: 30px; }
-        .form-header h2 { color: var(--primary-green); margin-bottom: 10px; }
         
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--earth-brown); }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-        .file-upload {
-            background: #f0f7f0;
-            padding: 20px;
-            border: 2px dashed var(--leaf-green);
+        .form-header {
             text-align: center;
-            border-radius: 8px;
+            margin-bottom: 30px;
         }
-        .submit-btn {
-            background: var(--primary-green);
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 30px;
+        
+        .form-header h2 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            font-size: 2rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .form-header p {
+            color: #666;
             font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.3s;
         }
-        .submit-btn:hover { background: var(--leaf-green); }
-        .note { font-size: 0.85rem; color: #666; margin-top: 15px; text-align: center; }
+        
+        .instruction-box {
+            background: #e8f0e8;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border-left: 5px solid var(--primary-green);
+            transition: all 0.3s ease;
+        }
+        
+        .instruction-box:hover {
+            background: #e0f0e0;
+            border-left-width: 8px;
+        }
+        
+        .instruction-box p {
+            font-weight: bold;
+            margin-top: 5px;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+        }
         
         /* QR Code Styles */
         .qr-section {
@@ -66,12 +230,14 @@
             padding: 25px 20px;
             text-align: center;
             border: 2px solid var(--leaf-green);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
         }
         
         .qr-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(45,90,39,0.2);
+            box-shadow: 0 8px 20px rgba(45, 90, 39, 0.2);
+            border-color: var(--gold);
         }
         
         .qr-icon {
@@ -84,6 +250,7 @@
             font-weight: bold;
             color: var(--primary-green);
             margin-bottom: 15px;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         .qr-code {
@@ -124,11 +291,14 @@
             text-decoration: none;
             font-weight: bold;
             margin-top: 10px;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         .qr-button:hover {
             background: var(--leaf-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
         .qr-button.whatsapp {
@@ -147,47 +317,159 @@
             background: #B33A2C;
         }
         
-        .instruction-box {
-            background: #e8f0e8;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: var(--primary-green);
+            color: white;
             text-align: center;
-            border-left: 5px solid var(--primary-green);
+            padding: 40px 80px;
+            width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
         }
         
-        .instruction-box h3 {
-            color: var(--primary-green);
+        footer p {
+            font-size: 1.2rem;
             margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
         }
         
-        .two-option-layout {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 30px;
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
         
-        .option-col {
-            flex: 1;
-            min-width: 300px;
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
         }
         
-        @media (max-width: 600px) {
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+            .header-container { padding: 15px 30px; gap: 25px; }
+        }
+        
+        @media (max-width: 1024px) {
+            nav { padding: 15px 40px; }
+            main { padding: 30px 40px; }
+            footer { padding: 30px 40px; }
+        }
+        
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 25px; gap: 20px; }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 15px;
+                min-height: auto;
+            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            nav { padding: 15px 20px; }
+            nav a { padding: 8px 12px; margin: 3px; font-size: 0.9rem; }
+            main { padding: 30px 20px; }
             .upload-container { padding: 20px; }
+            .form-header h2 { font-size: 1.5rem; }
             .qr-card { min-width: 100%; }
+            footer { padding: 30px 20px; }
+            footer p { font-size: 1rem; }
+        }
+        
+        @media (max-width: 480px) {
+            .header-text h1 { font-size: 1.8rem; }
+            .header-text p { font-size: 1rem; }
+            .qr-code { width: 150px; height: 150px; }
+        }
+        
+        @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
+<!-- HEADER WITH LOGO (SAME AS INDEX.HTML) -->
 <header>
-    <h1>Citizen Science Portal</h1>
-    <p>Contribute your observations to our database</p>
+    <div class="header-container">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        <div class="header-text">
+            <h1>Citizen Science Portal</h1>
+            <p>Contribute your observations to our database</p>
+        </div>
+    </div>
 </header>
 
 <nav>
-     <a href="index.html">Home</a>
+    <a href="index.html">Home</a>
     <a href="history.html">History</a>
     <a href="checklist.html">Checklist</a>
     <a href="distribution.html">Distribution</a>
@@ -195,7 +477,7 @@
     <a href="articles.html">Articles</a>
     <a href="team.html">Team</a>
     <a href="gallery.html">Gallery</a> 
-    <a href="upload.html">Upload</a>
+    <a href="upload.html" class="active">Upload</a>
     <a href="faq.html">FAQ</a>
 </nav>
 
@@ -205,9 +487,10 @@
             <h2>Submit a New Observation</h2>
             <p>Your contribution helps us map the biodiversity of Nepal.</p>
         </div>
+        
         <!-- Important Notice -->
         <div class="instruction-box">
-            <p style="margin-top: 10px; font-weight: bold;">⬇️ Scan the QR code or click the button below ⬇️</p>
+            <p>⬇️ Scan the QR code or click the button below ⬇️</p>
         </div>
 
         <!-- QR Codes Section -->
@@ -243,7 +526,8 @@
 </main>
 
 <footer>
-    <p>&copy; 2026 Millipedes of Nepal | Lokendra Chand & Ayub Senchury</p>
+    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
 <!-- QR Code Generation Library -->
