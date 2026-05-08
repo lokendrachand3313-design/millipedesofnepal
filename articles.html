@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Articles & Findings - Millipedes of Nepal</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <style>
         /* Reset margins and padding for full-width layout */
         * {
@@ -29,34 +30,78 @@
             --earth-brown: #5d4037;
             --gold: #ffd700;
         }
-
+        
+        /* ============ HEADER WITH LOGO ============ */
         header {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 80px 80px;
-            text-align: center;
+            padding: 0;
             width: 100%;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             animation: fadeInDown 1s ease-out;
         }
         
-        header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-family: 'Times New Roman', Times, serif;
-            animation: slideInLeft 1s ease-out;
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 220px;
+            width: 100%;
+            padding: 20px 40px;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         
-        header p {
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+        
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+            transition: all 0.3s ease-out;
+        }
+        
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+        }
+        
+        .header-text p {
             font-size: 1.8rem;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            font-family: 'Times New Roman', Times, serif;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
             animation: slideInRight 1s ease-out;
         }
         
+        /* ============ NAVIGATION ============ */
         nav {
             background-color: #3a6b34;
             padding: 15px 80px;
@@ -109,6 +154,7 @@
             font-weight: bold;
         }
         
+        /* ============ MAIN CONTENT ============ */
         main {
             flex: 1;
             padding: 40px 80px;
@@ -318,7 +364,7 @@
             background: #e0f0e0;
             transform: scale(1.05);
         }
-
+        
         .article-title {
             font-size: 2rem;
             color: var(--earth-brown);
@@ -326,7 +372,7 @@
             margin-bottom: 15px;
             font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .article-title i { 
             font-style: italic; 
             color: #2d5a27;
@@ -336,7 +382,7 @@
         .article-title i:hover {
             color: #1e3f1a;
         }
-
+        
         .meta-info {
             font-size: 0.95rem;
             color: #666;
@@ -380,7 +426,7 @@
             background: #2d5a27;
             color: white;
         }
-
+        
         .abstract-text {
             line-height: 1.8;
             color: #444;
@@ -403,7 +449,7 @@
             overflow: hidden;
             font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .taxa-table td {
             padding: 8px 15px;
             border-bottom: 1px solid #e0e0e0;
@@ -417,14 +463,14 @@
         .taxa-table tr:last-child td {
             border-bottom: none;
         }
-
+        
         .label {
             font-weight: bold;
             color: var(--earth-brown);
             width: 100px;
             background: #f0f0f0;
         }
-
+        
         .scientific {
             font-style: italic;
             color: #2d5a27;
@@ -481,97 +527,10 @@
             transform: translateY(-1px);
         }
         
-        /* Future Articles Section */
-        .future-articles {
-            margin-top: 60px;
-            margin-bottom: 40px;
-        }
-        
-        .future-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            animation: fadeIn 1s ease-out;
-        }
-        
-        .future-header h3 {
-            color: #2d5a27;
-            font-size: 1.8rem;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .future-line {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(to right, #2d5a27, transparent);
-        }
-        
-        .placeholder-cards {
+        .main-with-sidebar {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        
-        .placeholder-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px 20px;
-            text-align: center;
-            border: 2px dashed #2d5a27;
-            opacity: 0.8;
-            transition: all 0.4s ease;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .placeholder-card:hover {
-            opacity: 1;
-            background: #f0f7f0;
-            transform: translateY(-5px) scale(1.02);
-            border-style: solid;
-            border-color: var(--gold);
-        }
-        
-        .placeholder-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        .placeholder-card h4 {
-            color: #2d5a27;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .placeholder-card p {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .coming-soon {
-            display: inline-block;
-            padding: 5px 15px;
-            background: #2d5a27;
-            color: white;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .coming-soon:hover {
-            background: #1e3f1a;
-            transform: scale(1.05);
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
         }
         
         .sidebar {
@@ -589,7 +548,7 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             border-color: var(--gold);
         }
-
+        
         .sidebar h3 { 
             color: #2d5a27; 
             border-bottom: 2px solid #ddd; 
@@ -647,19 +606,18 @@
             color: #2d5a27;
         }
         
-        .main-with-sidebar {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 40px;
+        .hover-scale {
+            transition: all 0.3s ease;
         }
         
-        /* Style for Nepali text if any appears in future */
-        .nepali-text {
-            font-family: 'Preeti', 'Times New Roman', Times, serif;
-            font-size: 1.3rem;
-            line-height: 2;
+        .hover-scale:hover {
+            transform: scale(1.1);
+            border-color: var(--gold) !important;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
         }
         
+        /* ============ FOOTER ============ */
         footer {
             background-color: #2d5a27;
             color: white;
@@ -690,8 +648,8 @@
             transform: scale(1.05);
             display: inline-block;
         }
-
-        /* Animation keyframes */
+        
+        /* ============ ANIMATIONS ============ */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -751,110 +709,79 @@
                 transform: translateX(0);
             }
         }
-
+        
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+            .header-container { padding: 15px 30px; gap: 25px; }
+        }
+        
         @media (max-width: 1024px) {
-            header {
-                padding: 60px 40px;
-            }
-            
-            main {
-                padding: 30px 40px;
-            }
-            
-            nav {
-                padding: 15px 40px;
-            }
-            
-            footer {
-                padding: 30px 40px;
-            }
-            
-            .article-card {
-                grid-template-columns: 250px 1fr;
-            }
+            main { padding: 30px 40px; }
+            nav { padding: 15px 40px; }
+            footer { padding: 30px 40px; }
+            .article-card { grid-template-columns: 250px 1fr; }
+        }
+        
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 25px; gap: 20px; }
         }
         
         @media (max-width: 968px) {
-            .article-card {
-                grid-template-columns: 1fr;
-            }
-            
-            .article-image {
-                min-height: 250px;
-            }
-            
-            .article-content {
-                padding: 25px;
-            }
-            
-            .main-with-sidebar {
-                grid-template-columns: 1fr;
-            }
-            
-            .full-photo-caption h3 {
-                font-size: 1.5rem;
-            }
-            
-            .full-photo-caption p {
-                font-size: 1rem;
-            }
+            .article-card { grid-template-columns: 1fr; }
+            .article-image { min-height: 250px; }
+            .article-content { padding: 25px; }
+            .main-with-sidebar { grid-template-columns: 1fr; }
+            .full-photo-caption h3 { font-size: 1.5rem; }
+            .full-photo-caption p { font-size: 1rem; }
         }
         
         @media (max-width: 768px) {
-            header {
-                padding: 50px 20px;
-            }
-            
-            header h1 {
-                font-size: 2.5rem;
-            }
-            
-            header p {
-                font-size: 1.4rem;
-            }
-            
-            nav {
-                padding: 15px 20px;
-            }
-            
-            nav a {
-                display: inline-block;
-                padding: 8px 12px;
-                margin: 3px;
-                font-size: 0.9rem;
-            }
-            
-            main {
-                padding: 30px 20px;
-            }
-            
-            .page-header h2 {
-                font-size: 2rem;
-            }
-            
-            .full-photo-caption {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
                 padding: 20px;
+                gap: 15px;
+                min-height: auto;
             }
-            
-            .full-photo-caption h3 {
-                font-size: 1.3rem;
-            }
-            
-            footer {
-                padding: 30px 20px;
-            }
-            
-            footer p {
-                font-size: 1rem;
-            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            nav { padding: 15px 20px; }
+            nav a { padding: 8px 12px; margin: 3px; font-size: 0.9rem; }
+            main { padding: 30px 20px; }
+            .page-header h2 { font-size: 2rem; }
+            .full-photo-caption { padding: 20px; }
+            .full-photo-caption h3 { font-size: 1.3rem; }
+            .article-title { font-size: 1.5rem; }
+            footer { padding: 30px 20px; }
+            footer p { font-size: 1rem; }
+        }
+        
+        @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
+<!-- HEADER WITH LOGO (SAME AS INDEX.HTML) -->
 <header>
-    <h1>Millipedes of Nepal</h1>
-    <p>Research Articles & Specimen Findings</p>
+    <div class="header-container">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        <div class="header-text">
+            <h1>Millipedes of Nepal</h1>
+            <p>Research Articles & Specimen Findings</p>
+        </div>
+    </div>
 </header>
 
 <nav>
@@ -863,7 +790,7 @@
     <a href="checklist.html">Checklist</a>
     <a href="distribution.html">Distribution</a>
     <a href="introkey.html">Introduction and Identification</a>
-    <a href="articles.html">Articles</a>
+    <a href="articles.html" class="active">Articles</a>
     <a href="team.html">Team</a>
     <a href="gallery.html">Gallery</a> 
     <a href="upload.html">Upload</a>
@@ -895,7 +822,7 @@
                 <div class="article-image">
                     <img src="sp1.png" alt="Trigoniulus corallinus specimen" class="specimen-photo" onerror="this.src='https://via.placeholder.com/400x300?text=Trigoniulus+corallinus'">
                     <div class="photo-caption">
-                        <i>Trigoniulus corallinus</i> -Preserved specimen in lab
+                        <i>Trigoniulus corallinus</i> - Preserved specimen in lab
                     </div>
                 </div>
                 <div class="article-content">
@@ -965,7 +892,7 @@
         
         <aside class="sidebar">
             <h3>📋 Quick Navigation</h3>
-            <a href="#article1" class="recent-link"><span>1.</span> <i>Trigoniulus corallinus </i>Record</a>
+            <a href="#article1" class="recent-link"><span>1.</span> <i>Trigoniulus corallinus</i> Record</a>
             <a href="#article2" class="recent-link"><span>2.</span> <i>Gonoplectus lindbergi</i> Record</a>
             
             <br>
@@ -1001,18 +928,6 @@
     <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
     <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
-
-<!-- No script needed for year as we're using fixed 2026 -->
-
-<style>
-    /* Additional hover effect for sidebar images */
-    .hover-scale:hover {
-        transform: scale(1.1);
-        border-color: var(--gold) !important;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        cursor: pointer;
-    }
-</style>
 
 </body>
 </html>
