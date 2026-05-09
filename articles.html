@@ -6,20 +6,19 @@
     <title>Research Articles & Findings - Millipedes of Nepal</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <!-- Search data -->
-<script src="search-data.js"></script>
 </head>
 <body>
 
 <header>
     <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
             <p>All about Nepalese Millipedes</p>
         </div>
     </div>
 </header>
+
 <nav>
     <a href="index.html">Home</a>
     <a href="history.html">History</a>
@@ -71,11 +70,16 @@
                     </div>
                     
                     <table class="taxa-table">
-                        <tr><td class="label">Order:</td><td>Spirobolida</td></tr>
-                        <tr><td class="label">Family:</td><td>Pachybolidae</td></tr>
-                        <tr><td class="label">Genus:</td><td class="scientific">Trigoniulus</td></tr>
-                        <tr><td class="label">Species:</td><td class="scientific">corallinus</td></tr>
-                        <tr><td class="label">Collected by:</td><td>L. Chand & A. Senchury</td></tr>
+                        <tr><td class="label">Order:</td><td>Spirobolida</td>
+                        <tr>
+                        <tr><td class="label">Family:</td><td>Pachybolidae</td>
+                        </tr>
+                        <tr><td class="label">Genus:</td><td class="scientific">Trigoniulus</td>
+                        </tr>
+                        <tr><td class="label">Species:</td><td class="scientific">corallinus</td>
+                        </tr>
+                        <tr><td class="label">Collected by:</td><td>L. Chand & A. Senchury</td>
+                        </tr>
                     </table>
                     
                     <div class="location-box">
@@ -107,11 +111,16 @@
                     </div>
                     
                     <table class="taxa-table">
-                        <tr><td class="label">Order:</td><td>Spirostreptida</td></tr>
-                        <tr><td class="label">Family:</td><td>Harpagophoridae</td></tr>
-                        <tr><td class="label">Genus:</td><td class="scientific">Gonoplectus</td></tr>
-                        <tr><td class="label">Species:</td><td class="scientific">lindbergi</td></tr>
-                        <tr><td class="label">Collected by:</td><td>L. Chand</td></tr>
+                        <tr><td class="label">Order:</td><td>Spirostreptida</td>
+                        </tr>
+                        <tr><td class="label">Family:</td><td>Harpagophoridae</td>
+                        </tr>
+                        <tr><td class="label">Genus:</td><td class="scientific">Gonoplectus</td>
+                        </tr>
+                        <tr><td class="label">Species:</td><td class="scientific">lindbergi</td>
+                        </tr>
+                        <tr><td class="label">Collected by:</td><td>L. Chand</td>
+                        </tr>
                     </table>
                     
                     <div class="location-box">
@@ -133,7 +142,7 @@
             
             <br>
             <h3>📊 Statistics</h3>
-            <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <div style="background: #ebf5fb; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
                 <p><strong>Current Articles:</strong> 2</p>
                 <p><strong>Specimens:</strong> 2</p>
                 <p><strong>New Records:</strong> 2</p>
@@ -153,8 +162,8 @@
             
             <h3>📷 Recent Photos</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-                <img src="sp1.png" alt="Trigoniulus" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; border: 2px solid #2d5a27; transition: all 0.3s ease;" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen1'" class="hover-scale">
-                <img src="sp2.png" alt="Gonoplectus" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; border: 2px solid #2d5a27; transition: all 0.3s ease;" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen2'" class="hover-scale">
+                <img src="sp1.png" alt="Trigoniulus" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; border: 2px solid #1a5276; transition: all 0.3s ease;" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen1'" class="hover-scale">
+                <img src="sp2.png" alt="Gonoplectus" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; border: 2px solid #1a5276; transition: all 0.3s ease;" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen2'" class="hover-scale">
             </div>
         </aside>
     </div>
@@ -174,7 +183,7 @@
     }
     
     .page-header h2 {
-        color: var(--primary-green);
+        color: var(--primary-blue, #1a5276);
         font-size: 2.5rem;
         margin-bottom: 15px;
         font-family: 'Times New Roman', Times, serif;
@@ -199,7 +208,7 @@
     
     .full-photo-section:hover {
         transform: translateY(-5px);
-        border-color: var(--gold);
+        border-color: var(--gold, #f39c12);
     }
     
     .full-photo-container {
@@ -233,7 +242,7 @@
     .full-photo-caption h3 {
         font-size: 2rem;
         margin-bottom: 10px;
-        color: var(--gold);
+        color: var(--gold, #f39c12);
     }
     
     .full-photo-caption p {
@@ -274,7 +283,7 @@
     
     .article-card:hover {
         transform: translateY(-8px);
-        border-color: var(--gold);
+        border-color: var(--gold, #f39c12);
     }
     
     .article-image {
@@ -318,12 +327,12 @@
     
     .taxonomic-line {
         font-size: 0.9rem;
-        color: var(--leaf-green);
+        color: var(--primary-blue, #1a5276);
         font-weight: bold;
         text-transform: uppercase;
         letter-spacing: 1px;
         margin-bottom: 10px;
-        background: #f0f7f0;
+        background: #ebf5fb;
         display: inline-block;
         padding: 5px 15px;
         border-radius: 20px;
@@ -331,7 +340,7 @@
     
     .article-title {
         font-size: 2rem;
-        color: var(--earth-brown);
+        color: #7b3f00;
         line-height: 1.3;
         margin-bottom: 15px;
     }
@@ -349,7 +358,7 @@
     }
     
     .badge {
-        background: var(--primary-green);
+        background: var(--primary-blue, #1a5276);
         color: white;
         padding: 5px 12px;
         border-radius: 20px;
@@ -358,13 +367,13 @@
     }
     
     .status {
-        background: #f0f7f0;
-        color: var(--primary-green);
+        background: #ebf5fb;
+        color: var(--primary-blue, #1a5276);
         padding: 5px 12px;
         border-radius: 20px;
         font-size: 0.8rem;
         font-weight: bold;
-        border: 1px solid var(--primary-green);
+        border: 1px solid var(--primary-blue, #1a5276);
     }
     
     .abstract-text {
@@ -391,21 +400,21 @@
     
     .label {
         font-weight: bold;
-        color: var(--earth-brown);
+        color: #7b3f00;
         width: 100px;
         background: #f0f0f0;
     }
     
     .scientific {
         font-style: italic;
-        color: var(--primary-green);
+        color: var(--primary-blue, #1a5276);
     }
     
     .location-box {
         margin: 20px 0;
         padding: 12px 15px;
-        background: #f0f7f0;
-        border-left: 4px solid var(--leaf-green);
+        background: #ebf5fb;
+        border-left: 4px solid var(--primary-blue, #1a5276);
         border-radius: 0 8px 8px 0;
         font-size: 0.95rem;
         color: #555;
@@ -422,7 +431,7 @@
     .read-more {
         display: inline-block;
         padding: 10px 25px;
-        background: var(--primary-green);
+        background: var(--primary-blue, #1a5276);
         color: white;
         text-decoration: none;
         border-radius: 30px;
@@ -432,7 +441,7 @@
     }
     
     .read-more:hover {
-        background: #1e3f1a;
+        background: #0e3a54;
         transform: translateY(-3px);
     }
     
@@ -446,7 +455,7 @@
     }
     
     .sidebar h3 {
-        color: var(--primary-green);
+        color: var(--primary-blue, #1a5276);
         border-bottom: 2px solid #ddd;
         padding-bottom: 12px;
         margin-bottom: 15px;
@@ -466,12 +475,12 @@
     }
     
     .recent-link:hover {
-        color: var(--leaf-green);
+        color: var(--primary-blue, #1a5276);
         padding-left: 15px;
     }
     
     .recent-link span {
-        color: var(--primary-green);
+        color: var(--primary-blue, #1a5276);
         font-weight: bold;
     }
     
@@ -493,9 +502,9 @@
     }
     
     .external-link:hover {
-        background: #e0e0e0;
+        background: #ebf5fb;
         transform: translateX(5px);
-        color: var(--primary-green);
+        color: var(--primary-blue, #1a5276);
     }
     
     .hover-scale {
@@ -504,7 +513,7 @@
     
     .hover-scale:hover {
         transform: scale(1.1);
-        border-color: var(--gold) !important;
+        border-color: var(--gold, #f39c12) !important;
         cursor: pointer;
     }
     
