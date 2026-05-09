@@ -10,10 +10,10 @@
 </head>
 <body>
 
-<!-- HEADER WITH LOGO -->
+<!-- HEADER WITH LOGO - BLUE THEME -->
 <header>
     <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
             <p>Nepalese Millipede Species Checklist</p>
@@ -35,7 +35,7 @@
 </nav>
 
 <main>
-    <h2 style="text-align: center; margin-bottom: 30px; color: var(--primary-green);">Nepalese Millipede Species Checklist</h2>
+    <h2 style="text-align: center; margin-bottom: 30px; color: var(--primary-blue, #1a5276);">Nepalese Millipede Species Checklist</h2>
     
     <div class="search-container">
         <select id="orderFilter" class="filter-select">
@@ -53,7 +53,7 @@
         <button class="clear-filters-btn" onclick="clearAllFilters()">Clear Filters</button>
     </div>
 
-    <div id="resultsCount" style="text-align: center; margin-bottom: 20px; font-weight: bold; color: var(--primary-green); font-size: 1.2rem;">Loading species data...</div>
+    <div id="resultsCount" style="text-align: center; margin-bottom: 20px; font-weight: bold; color: var(--primary-blue, #1a5276); font-size: 1.2rem;">Loading species data...</div>
     
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
         <div class="results-container" id="checklistResults">
@@ -113,15 +113,15 @@
         const satelliteBtn = document.getElementById('satelliteBtn');
         
         if (activeLayer === 'street') {
-            streetBtn.style.background = 'var(--primary-green)';
+            streetBtn.style.background = 'var(--primary-blue, #1a5276)';
             streetBtn.style.color = 'white';
             satelliteBtn.style.background = 'white';
-            satelliteBtn.style.color = 'var(--primary-green)';
+            satelliteBtn.style.color = 'var(--primary-blue, #1a5276)';
         } else {
-            satelliteBtn.style.background = 'var(--primary-green)';
+            satelliteBtn.style.background = 'var(--primary-blue, #1a5276)';
             satelliteBtn.style.color = 'white';
             streetBtn.style.background = 'white';
-            streetBtn.style.color = 'var(--primary-green)';
+            streetBtn.style.color = 'var(--primary-blue, #1a5276)';
         }
     }
 
@@ -417,12 +417,12 @@
         height: 750px;
         width: 100%;
         border-radius: 8px;
-        border: 2px solid var(--primary-green);
+        border: 2px solid var(--primary-blue, #1a5276);
         transition: all 0.3s ease;
     }
     
     #map:hover {
-        border-color: var(--gold);
+        border-color: var(--gold, #f39c12);
         box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
     
@@ -432,9 +432,9 @@
     
     .map-toggle-btn {
         padding: 5px 10px;
-        border: 2px solid var(--primary-green);
+        border: 2px solid var(--primary-blue, #1a5276);
         background: white;
-        color: var(--primary-green);
+        color: var(--primary-blue, #1a5276);
         font-weight: bold;
         border-radius: 4px;
         cursor: pointer;
@@ -445,6 +445,8 @@
     .map-toggle-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        background: var(--primary-blue, #1a5276);
+        color: white;
     }
     
     .no-data {
@@ -453,6 +455,20 @@
         padding: 40px;
         font-style: italic;
         font-size: 1.2rem;
+    }
+    
+    /* Fix for filter select hover */
+    .filter-select:hover {
+        border-color: var(--primary-blue, #1a5276);
+    }
+    
+    /* Fix for clear filters button */
+    .clear-filters-btn {
+        background: var(--primary-blue, #1a5276);
+    }
+    
+    .clear-filters-btn:hover {
+        background: #0e3a54;
     }
 </style>
 
