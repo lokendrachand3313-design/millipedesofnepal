@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
+
 <header>
     <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
             <p>All about Nepalese Millipedes</p>
@@ -120,7 +121,7 @@
     <div class="content-block">
         <h2>Common Nepali Names (नेपाली नामहरु)</h2>
         <div class="nepali-names">
-            ओरिगाँठे, ग्याल्डुङ, अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल, Angalbeddi, Phalle, Bahukhuttey kira, Hajarkhutte kira
+            ओरिगाँठे, ग्याल्डुङ, अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल, अंगालबेद्दी, फाल्ले, बहुखुट्टे कीरा, हजारखुट्टे कीरा
         </div>
     </div>
 
@@ -151,7 +152,6 @@
     L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 Nepal</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
     L.circle([28.3949, 84.1240], { color: '#ff4444', fillColor: '#ff8888', fillOpacity: 0.2, radius: 300000 }).addTo(worldMap);
 </script>
-<script>
-</script>
+
 </body>
 </html>
