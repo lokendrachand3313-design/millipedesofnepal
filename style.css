@@ -1692,3 +1692,34 @@ footer a:hover {
     .header-text h1 { font-size: 4rem; }
     .header-text p { font-size: 2rem; }
 }
+/* Centered Altitude Section */
+.altitude-section {
+    text-align: center;
+    margin: 40px auto;
+    max-width: 1000px;
+}
+
+.altitude-img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border: 3px solid var(--primary-blue, #1a5276);
+    transition: all 0.3s ease;
+}
+
+.altitude-img:hover {
+    transform: scale(1.02);
+    border-color: var(--gold, #f39c12);
+}
+
+.altitude-caption {
+    text-align: center;
+    margin-top: 15px;
+    font-style: italic;
+    color: #555;
+    font-size: 0.95rem;
+}
