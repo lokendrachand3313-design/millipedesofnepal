@@ -108,7 +108,7 @@ const millipedePoints = [
     { order: "Chordeumatida", family: "Entomobielziidae", subfamily: "NA", tribe: "NA", genus: "Tianella", species: "jaljalensis", lat: 27.50522, lon: 87.286375 },
     { order: "Chordeumatida", family: "Entomobielziidae", subfamily: "NA", tribe: "NA", genus: "Tianella", species: "jaljalensis", lat: 27.591914, lon: 86.618057 },
     { order: "Chordeumatida", family: "Entomobielziidae", subfamily: "NA", tribe: "NA", genus: "Tianella", species: "jaljalensis", lat: 27.563925, lon: 87.294639 },
-    { order: "Chordeumatida", family: "Entomobielziidae", subfamily: "NA", tribe: "NA", genus: "Tianella", species: "kathmandua", lat: 27.578551, lon: 85.383726 },
+    { order: "Chordeumatida", family: "Entomobielziidae", subfamily: "NA", tribe: "NA", genus: "Tianella", species: "katmandua", lat: 27.578551, lon: 85.383726 },
     { order: "Chordeumatida", family: "Entomobielziidae", subfamily: "NA", tribe: "NA", genus: "Tianella", species: "lughla", lat: 27.691809, lon: 86.733086 },
     { order: "Chordeumatida", family: "Entomobielziidae", subfamily: "NA", tribe: "NA", genus: "Tianella", species: "lughla", lat: 27.83277, lon: 86.746399 },
     { order: "Chordeumatida", family: "Entomobielziidae", subfamily: "NA", tribe: "NA", genus: "Tianella", species: "lughla", lat: 27.901691, lon: 86.894647 },
