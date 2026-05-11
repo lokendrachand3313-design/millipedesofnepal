@@ -37,6 +37,16 @@
 <main>
     <h2 style="text-align: center; margin-bottom: 30px; color: var(--primary-blue, #1a5276);">Nepalese Millipede Species Checklist</h2>
     
+    <!-- ============ METHODOLOGY SECTION - ADDED BEFORE SEARCH BOX ============ -->
+    <div class="methodology-section">
+        <h3 class="methodology-title">📋 Methodology</h3>
+        <div class="methodology-content">
+            <p>This checklist is based on primary as well as secondary information. Millipede species of Nepal published in various literature were listed including their distribution locations. Articles were searched from 'Google Scholar', taxonomic journal websites such as Zootaxa and Zookeys as well as Zoological records using keywords 'millipedes', 'nepal', 'diplopoda'. Old literature was downloaded from Biodiversity Heritage Library (www.biodiversitylibrary.org) and Archive (archive.org). Closed access and articles which are not available online were collected through email by original writer.</p>
+            
+            <p>For species records in Nepal, specimens were observed and during field visit by by us in Eastern and central parts of Nepal. All higher rankings were placed in alphabetical orders. After tabulating all the species in the table, confirmed in 'Milli-Base' for their classification (Sierwald & Spelda 2026). For distribution map, the GPS point of type locality as well as places from where they were recorded were used. For species without specified GPS coordinates, the point data were approximated based on the nearest possible locality along the route documented by Martens & Christine (1987).</p>
+        </div>
+    </div>
+    
     <div class="search-container">
         <select id="orderFilter" class="filter-select">
             <option value="all">Select Order</option>
@@ -412,7 +422,7 @@
 </script>
 
 <style>
-    /* Additional inline styles for map container */
+    /* Additional inline styles for map container and methodology section */
     #map {
         height: 750px;
         width: 100%;
@@ -455,6 +465,44 @@
         padding: 40px;
         font-style: italic;
         font-size: 1.2rem;
+    }
+    
+    /* Methodology Section Styles - Centered */
+    .methodology-section {
+        background: #ebf5fb;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        border-left: 6px solid var(--primary-blue, #1a5276);
+        transition: all 0.3s ease;
+        max-width: 100%;
+    }
+    
+    .methodology-section:hover {
+        background: #d6eaf8;
+        border-left-width: 8px;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    .methodology-title {
+        color: var(--primary-blue, #1a5276);
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        border-bottom: 2px solid var(--primary-blue, #1a5276);
+        padding-bottom: 8px;
+        display: inline-block;
+    }
+    
+    .methodology-content {
+        text-align: justify;
+        line-height: 1.8;
+    }
+    
+    .methodology-content p {
+        margin-bottom: 15px;
+        font-size: 1rem;
+        color: #333;
     }
     
     /* Fix for filter select hover */
