@@ -24,7 +24,9 @@ const millipedePoints = [
     { order: "Polyzoniida", family: "Hirudisomatidae", subfamily: "NA", tribe: "NA", genus: "Nepalozonium", species: "trimaculatum", lat: 27.99456, lon: 85.536616 },
     { order: "Polyzoniida", family: "Hirudisomatidae", subfamily: "NA", tribe: "NA", genus: "Nepalozonium", species: "trimaculatum", lat: 28.169063, lon: 85.55246 },
     { order: "Polyzoniida", family: "Hirudisomatidae", subfamily: "NA", tribe: "NA", genus: "Nepalozonium", species: "trimaculatum", lat: 28.160334, lon: 85.61341 },
-    { order: "Polyzoniida", family: "Hirudisomatidae", subfamily: "NA", tribe: "NA", genus: "Hirudicryptus", species: "quintumelementum", lat: 27.81208, lon: 85.384353 },
+    
+    // Siphonocryptida - Siphonocryptidae
+   { order: "Siphonocryptida", family: "Siphonocryptidae", subfamily: "NA", tribe: "NA", genus: "Hirudicryptus", species: "quintumelementum", lat: 27.81208, lon: 85.384353 },
     
     // Julida - Julidae
     { order: "Julida", family: "Julidae", subfamily: "Julinae", tribe: "NA", genus: "Anaulaciulus", species: "bilineatus", lat: 29.170822, lon: 82.935022 },
