@@ -1723,3 +1723,78 @@ footer a:hover {
     color: #555;
     font-size: 0.95rem;
 }
+/* ============ FULL WIDTH VIDEO SECTION ============ */
+.full-video-section {
+    margin-bottom: 40px;
+    background: #1a1a2e;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.full-video-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    background: #000;
+}
+
+.full-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #000;
+    cursor: pointer;
+}
+
+/* Make video full width and responsive */
+video {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    object-fit: cover;
+}
+
+.video-caption {
+    background: linear-gradient(135deg, #1a5276 0%, #0e3a54 100%);
+    padding: 20px 30px;
+    color: white;
+}
+
+.video-caption h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--gold, #f39c12);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.video-caption p {
+    font-size: 1rem;
+    color: #e0e0e0;
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+/* Responsive for video */
+@media (max-width: 768px) {
+    .full-video-section {
+        margin-bottom: 30px;
+    }
+    
+    .video-caption {
+        padding: 15px 20px;
+    }
+    
+    .video-caption h3 {
+        font-size: 1.2rem;
+    }
+    
+    .video-caption p {
+        font-size: 0.9rem;
+    }
+}
