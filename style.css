@@ -1,6 +1,6 @@
 /* ============================================
    Millipedes of Nepal - Blue Theme Style Sheet
-   Full Width - Big & Centered Version
+   BIG & FULL WIDTH Version
    ============================================ */
 
 /* Reset margins and padding for full-width layout */
@@ -24,21 +24,15 @@ body {
 }
 
 :root {
-    /* Blue Theme Colors */
     --primary-blue: #1a5276;
     --primary-blue-dark: #0e3a54;
     --primary-blue-light: #d6eaf8;
     --blue-accent: #2980b9;
     --blue-bg: #ebf5fb;
     --gold: #f39c12;
-    --text-dark: #1a1a1a;
-    --text-light: #555;
-    --bg-white: #ffffff;
-    --bg-light: #f5f7fa;
-    --shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* ============ HEADER WITH LOGO - FULL WIDTH ============ */
+/* ============ HEADER ============ */
 header {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
     background-size: cover;
@@ -46,9 +40,7 @@ header {
     color: white;
     padding: 0;
     width: 100%;
-    max-width: 100%;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    animation: fadeInDown 1s ease-out;
 }
 
 .header-container {
@@ -56,7 +48,6 @@ header {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: 100%;
     padding: 20px 40px;
     gap: 30px;
     flex-wrap: wrap;
@@ -68,22 +59,13 @@ header {
     max-width: 200px;
     object-fit: contain;
     filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.4s ease;
     border-radius: 12px;
-    display: block;
-    animation: logoGentlePop 0.6s ease-out;
 }
 
 .header-logo:hover {
     transform: scale(1.08) rotate(2deg);
     filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
-    opacity: 0.95;
-}
-
-@keyframes logoGentlePop {
-    0% { transform: scale(0.9); opacity: 0; }
-    80% { transform: scale(1.02); }
-    100% { transform: scale(1); opacity: 1; }
 }
 
 .header-text {
@@ -98,63 +80,40 @@ header {
     font-size: 3.5rem;
     margin-bottom: 10px;
     text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-    animation: slideInLeft 1s ease-out;
-    letter-spacing: 1px;
 }
 
 .header-text p {
     font-size: 1.8rem;
     text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-    animation: slideInRight 1s ease-out;
 }
 
-/* ============ NAVIGATION BAR - BLUE ============ */
+/* ============ NAVIGATION ============ */
 nav {
     background-color: var(--primary-blue);
-    padding: 15px 40px;
+    padding: 15px 20px;
     text-align: center;
     width: 100%;
-    max-width: 100%;
     position: sticky;
     top: 0;
     z-index: 100;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    animation: fadeIn 1.2s ease-out;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    padding: 8px 20px;
-    margin: 0 5px;
+    padding: 8px 16px;
+    margin: 0 3px;
     border-radius: 4px;
     transition: all 0.3s ease;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-family: 'Times New Roman', Times, serif;
-    position: relative;
-    overflow: hidden;
+    display: inline-block;
 }
 
 nav a:hover {
     background-color: var(--blue-accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background-color: var(--gold);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-}
-
-nav a:hover::after {
-    width: 80%;
 }
 
 nav a.active {
@@ -162,36 +121,28 @@ nav a.active {
     font-weight: bold;
 }
 
-/* ============ MAIN CONTENT - FULL WIDTH ============ */
+/* ============ MAIN CONTENT - NO LIMITS! ============ */
 main {
     flex: 1;
-    padding: 40px 80px;
-    max-width: 100%;
+    padding: 40px 5%;
     width: 100%;
+    max-width: 100%;
     margin: 0 auto;
 }
 
-/* ============ FULL WIDTH VIDEO SECTION - BIG & CENTERED ============ */
+/* ============ FULL WIDTH VIDEO SECTION - BIG! ============ */
 .full-video-section {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto 50px auto;
+    margin-bottom: 50px;
     background: #1a1a2e;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-}
-
-.full-video-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
 .video-wrapper {
     width: 100%;
     background: #000;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -201,11 +152,11 @@ main {
     width: 100%;
     height: auto;
     display: block;
-    max-height: 70vh;
+    max-height: 80vh;
     object-fit: contain;
 }
 
-/* Play button overlay effect on thumbnail */
+/* Play button overlay */
 .video-wrapper::after {
     content: "▶";
     position: absolute;
@@ -224,8 +175,10 @@ main {
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
-    z-index: 10;
-    font-family: Arial, sans-serif;
+}
+
+.video-wrapper {
+    position: relative;
 }
 
 .video-wrapper:hover::after {
@@ -241,20 +194,18 @@ main {
 }
 
 .video-caption-full h3 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 12px;
     color: var(--gold);
-    font-family: 'Times New Roman', Times, serif;
 }
 
 .video-caption-full p {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #e0e0e0;
-    margin-bottom: 0;
     line-height: 1.6;
 }
 
-/* ============ PDF SECTION STYLES - BIG & CENTERED ============ */
+/* ============ PDF SECTION - BIG! ============ */
 .pdf-section {
     background: white;
     border-radius: 20px;
@@ -263,15 +214,6 @@ main {
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     border: 1px solid #e0e0e0;
     width: 100%;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.pdf-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
 }
 
 .pdf-section h2 {
@@ -279,13 +221,13 @@ main {
     border-bottom: 3px solid var(--primary-blue);
     padding-bottom: 15px;
     margin-bottom: 30px;
-    font-size: 2rem;
+    font-size: 2.2rem;
     text-align: center;
 }
 
 .pdf-viewer {
     width: 100%;
-    height: 800px;
+    height: 850px;
     border: 1px solid #ddd;
     border-radius: 12px;
     background: #f5f5f5;
@@ -300,7 +242,7 @@ main {
     display: inline-block;
     background-color: var(--primary-blue);
     color: white;
-    padding: 14px 35px;
+    padding: 15px 40px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
@@ -322,17 +264,14 @@ main {
     font-size: 1rem;
 }
 
-/* ============ SOURCE BOX - BIG & CENTERED ============ */
+/* ============ SOURCE BOX - BIG! ============ */
 .source-box {
     background: linear-gradient(135deg, #ebf5fb 0%, #d6eaf8 100%);
     border-radius: 20px;
-    padding: 35px 40px;
+    padding: 40px;
     text-align: center;
     border: 1px solid #cce5f0;
     width: 100%;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
     transition: all 0.3s ease;
 }
 
@@ -344,7 +283,7 @@ main {
 
 .milli-peet-logo {
     font-weight: bold;
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: var(--primary-blue);
     margin-bottom: 15px;
     letter-spacing: 2px;
@@ -352,7 +291,7 @@ main {
 
 .source-box p {
     margin-bottom: 12px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #333;
 }
 
@@ -360,7 +299,7 @@ main {
     color: var(--primary-blue);
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     transition: all 0.3s ease;
 }
 
@@ -369,43 +308,28 @@ main {
     text-decoration: underline;
 }
 
-/* ============ World Map Section ============ */
+/* ============ WORLD MAP ============ */
 .world-map-section {
     margin-top: 20px;
     margin-bottom: 40px;
     background: white;
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 35px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border: 1px solid #e0e0e0;
 }
 
 .world-map-section h4 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: var(--primary-blue);
     margin-bottom: 20px;
     text-align: center;
 }
 
 #worldMap {
-    height: 500px;
+    height: 550px;
     width: 100%;
     border-radius: 10px;
-    border: 2px solid #ddd;
-    background-color: #e6f0fa;
-    transition: all 0.3s ease;
-}
-
-#worldMap:hover {
-    border-color: var(--primary-blue);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-.map-caption {
-    text-align: center;
-    margin-top: 10px;
-    color: #666;
-    font-style: italic;
+    border: 2px solid var(--primary-blue);
 }
 
 /* ============ FOOTER ============ */
@@ -413,19 +337,15 @@ footer {
     background-color: var(--primary-blue);
     color: white;
     text-align: center;
-    padding: 40px 80px;
+    padding: 40px 5%;
     width: 100%;
-    max-width: 100%;
     margin-top: auto;
-    animation: fadeIn 1s ease-out;
     border-top: 3px solid var(--gold);
 }
 
 footer p {
     font-size: 1.2rem;
     margin-bottom: 10px;
-    font-family: 'Times New Roman', Times, serif;
-    color: white;
 }
 
 footer a {
@@ -437,125 +357,43 @@ footer a {
 footer a:hover {
     text-decoration: underline;
     color: white;
-    transform: scale(1.05);
-    display: inline-block;
 }
 
-/* ============ ANIMATIONS ============ */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* ============ RESPONSIVE DESIGN ============ */
-@media (max-width: 1200px) {
-    .header-logo { height: 95px; }
-    .header-text h1 { font-size: 3rem; }
-    .header-text p { font-size: 1.5rem; }
-    .pdf-viewer { height: 650px; }
-    .video-caption-full h3 { font-size: 1.5rem; }
-}
-
-@media (max-width: 992px) {
-    .header-logo { height: 80px; }
-    .header-text h1 { font-size: 2.5rem; }
-    .header-text p { font-size: 1.3rem; }
-    .header-container { padding: 15px 25px; gap: 20px; }
-    .pdf-viewer { height: 550px; }
-    .pdf-section { padding: 25px; }
-    .video-caption-full h3 { font-size: 1.3rem; }
-    .video-caption-full p { font-size: 1rem; }
-}
-
+/* ============ RESPONSIVE ============ */
 @media (max-width: 768px) {
     .header-container {
         flex-direction: column;
         text-align: center;
         padding: 20px;
-        min-height: auto;
     }
-    .header-logo { height: 70px; margin-bottom: 5px; }
+    .header-logo { height: 70px; }
     .header-text h1 { font-size: 2rem; }
     .header-text p { font-size: 1.1rem; }
-    nav { padding: 15px 20px; }
-    nav a { padding: 8px 12px; margin: 3px; font-size: 0.9rem; }
-    main { padding: 30px 20px; }
-    .full-video-section { margin-bottom: 30px; }
-    .video-caption-full { padding: 15px 20px; }
-    .video-caption-full h3 { font-size: 1.1rem; }
-    .video-caption-full p { font-size: 0.9rem; }
+    
+    nav a { padding: 6px 10px; margin: 2px; font-size: 0.85rem; }
+    main { padding: 30px 15px; }
+    
+    .video-caption-full h3 { font-size: 1.3rem; }
+    .video-caption-full p { font-size: 1rem; }
     .video-wrapper::after { width: 50px; height: 50px; font-size: 25px; }
-    .pdf-section { padding: 20px; margin-bottom: 30px; }
+    
+    .pdf-section { padding: 20px; }
     .pdf-section h2 { font-size: 1.5rem; }
-    .pdf-viewer { height: 400px; }
+    .pdf-viewer { height: 450px; }
     .pdf-controls a { padding: 10px 25px; font-size: 1rem; }
-    .source-box { padding: 20px; }
-    .milli-peet-logo { font-size: 1.4rem; }
-    footer { padding: 30px 20px; }
+    
+    .source-box { padding: 25px; }
+    .milli-peet-logo { font-size: 1.5rem; }
+    .source-box p { font-size: 1rem; }
+    
+    .world-map-section h4 { font-size: 1.3rem; }
+    #worldMap { height: 350px; }
+    
     footer p { font-size: 1rem; }
 }
 
 @media (max-width: 480px) {
-    .header-text h1 { font-size: 1.8rem; }
-    .header-text p { font-size: 1rem; }
-    .pdf-viewer { height: 300px; }
-    .pdf-controls a { padding: 8px 20px; font-size: 0.9rem; }
+    .pdf-viewer { height: 350px; }
+    .video-caption-full h3 { font-size: 1.1rem; }
     .video-wrapper::after { width: 40px; height: 40px; font-size: 20px; }
-    .video-caption-full h3 { font-size: 1rem; }
-    .source-box p { font-size: 0.9rem; }
-}
-
-@media (min-width: 1600px) {
-    .header-container { min-height: 260px; }
-    .header-logo { height: 130px; max-width: 240px; }
-    .header-text h1 { font-size: 4rem; }
-    .header-text p { font-size: 2rem; }
-    .full-video-section { max-width: 1400px; }
-    .pdf-section { max-width: 1400px; }
-    .source-box { max-width: 1400px; }
-    .pdf-viewer { height: 900px; }
 }
