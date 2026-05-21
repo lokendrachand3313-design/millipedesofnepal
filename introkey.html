@@ -6,6 +6,237 @@
     <title>Millipedes of Nepal - Introduction & Identification</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        /* Override styles to make everything BIG and CENTERED */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 5%;
+        }
+        
+        /* Video Section - BIG */
+        .full-video-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 50px auto;
+            background: #1a1a2e;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .full-video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .video-caption-full {
+            background: linear-gradient(135deg, #1a5276 0%, #0e3a54 100%);
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        .video-caption-full h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #f39c12;
+        }
+        
+        .video-caption-full p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: white;
+        }
+        
+        /* PDF Section - BIG TEXT */
+        .pdf-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .pdf-section h2 {
+            color: #1a5276;
+            border-bottom: 3px solid #1a5276;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            text-align: center;
+        }
+        
+        /* Intro text inside PDF section - BIG & CENTERED */
+        .intro-text {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f0f7f0;
+            border-radius: 15px;
+        }
+        
+        .intro-text p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .intro-text ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+        
+        .intro-text li {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .key-text {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #fef9e6;
+            border-radius: 15px;
+        }
+        
+        .key-text p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .key-text ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+        
+        .key-text li {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            padding: 8px;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 800px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background: #f5f5f5;
+            margin-top: 20px;
+        }
+        
+        .pdf-controls {
+            margin-top: 25px;
+            text-align: center;
+        }
+        
+        .pdf-controls a {
+            display: inline-block;
+            background-color: #1a5276;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .pdf-controls a:hover {
+            background-color: #0e3a54;
+            transform: translateY(-3px);
+        }
+        
+        .note {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+            font-style: italic;
+            font-size: 1rem;
+        }
+        
+        /* Source Box - BIG CENTERED */
+        .source-box {
+            background: linear-gradient(135deg, #ebf5fb 0%, #d6eaf8 100%);
+            border-radius: 20px;
+            padding: 45px;
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .source-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .milli-peet-logo {
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: #1a5276;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+        
+        .source-box p {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .source-box strong {
+            font-size: 1.4rem;
+            color: #1a5276;
+        }
+        
+        .source-box a {
+            color: #1a5276;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .source-box a:hover {
+            color: #f39c12;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .video-caption-full h3 { font-size: 1.5rem; }
+            .video-caption-full p { font-size: 1rem; }
+            .pdf-section h2 { font-size: 1.5rem; }
+            .intro-text p { font-size: 1.1rem; }
+            .intro-text li { font-size: 1rem; }
+            .key-text p { font-size: 1.1rem; }
+            .key-text li { font-size: 1rem; }
+            .pdf-viewer { height: 450px; }
+            .pdf-controls a { padding: 10px 25px; font-size: 1rem; }
+            .milli-peet-logo { font-size: 1.8rem; }
+            .source-box p { font-size: 1rem; }
+            .source-box strong { font-size: 1.1rem; }
+            .source-box a { font-size: 1rem; }
+        }
+    </style>
 </head>
 <body>
 
@@ -34,7 +265,7 @@
 
 <main>
 
-    <!-- BIG FULL WIDTH VIDEO -->
+    <!-- FULL WIDTH VIDEO -->
     <div class="full-video-section">
         <div class="video-wrapper">
             <video class="full-video" controls preload="metadata" poster="video-thumbnail.jpg">
@@ -48,9 +279,22 @@
         </div>
     </div>
 
-    <!-- BIG PDF SECTION 1 -->
+    <!-- INTRODUCTION PDF SECTION with BIG TEXT -->
     <div class="pdf-section">
         <h2>📄 Introduction to Millipedes (मिलिपिडहरूको परिचय)</h2>
+        
+        <!-- BIG CENTERED TEXT CONTENT -->
+        <div class="intro-text">
+            <p><strong>Millipedes are fascinating arthropods with unique characteristics:</strong></p>
+            <ul>
+                <li>🦶 Millipedes have <strong>two pairs of legs per body segment</strong></li>
+                <li>🛡️ They have a hard exoskeleton made of <strong>chitin</strong></li>
+                <li>🌿 Millipedes are <strong>herbivores/detritivores</strong>, feeding on decaying plant material</li>
+                <li>♻️ They are <strong>important decomposers</strong> in forest ecosystems</li>
+                <li>🏔️ Found in <strong>tropical and temperate regions</strong> worldwide</li>
+            </ul>
+        </div>
+        
         <embed class="pdf-viewer" src="intro.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf">
         <div class="pdf-controls">
             <a href="intro.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
@@ -58,9 +302,23 @@
         <div class="note">The PDF may take a few seconds to load. If not visible, click the button above.</div>
     </div>
     
-    <!-- BIG PDF SECTION 2 -->
+    <!-- IDENTIFICATION KEY PDF SECTION with BIG TEXT -->
     <div class="pdf-section">
         <h2>🔑 Illustrated Key to Order (चित्र सहितको पहिचान कुञ्जी)</h2>
+        
+        <!-- BIG CENTERED TEXT CONTENT -->
+        <div class="key-text">
+            <p><strong>Millipede Classification & Identification:</strong></p>
+            <ul>
+                <li>📚 Millipedes belong to the class <strong>Diplopoda</strong></li>
+                <li>📏 They have a long <strong>cylindrical body</strong> divided into many segments</li>
+                <li>🦵 Each segment has <strong>two pairs of legs</strong> (except first few segments)</li>
+                <li>🚶 The legs are used for <strong>walking and burrowing</strong></li>
+                <li>🔬 Identification is based on <strong>gonopod morphology</strong> (male reproductive structures)</li>
+                <li>🗺️ Nepal has <strong>high endemism</strong> of millipede species</li>
+            </ul>
+        </div>
+        
         <embed class="pdf-viewer" src="keys.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf">
         <div class="pdf-controls">
             <a href="keys.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
@@ -68,13 +326,13 @@
         <div class="note">The PDF may take a few seconds to load. If not visible, click the button above.</div>
     </div>
     
-    <!-- BIG SOURCE BOX -->
+    <!-- SOURCE ATTRIBUTION BOX - BIG CENTERED -->
     <div class="source-box">
         <div class="milli-peet-logo">MILLI-PEET</div>
         <p>This identification key and taxonomic information are adapted from the</p>
         <p><strong>MILLI-PEET (Millipede Phylogeny and Evolution) Project</strong></p>
-        <p>By Petra Sierwald</p>
-        <a href="https://www.fieldmuseum.org/" target="_blank">www.fieldmuseum.org</a>
+        <p>By <strong>Petra Sierwald</strong></p>
+        <a href="https://www.fieldmuseum.org/" target="_blank">🌐 www.fieldmuseum.org</a>
     </div>
 </main>
 
