@@ -11,9 +11,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* Additional inline styles for map container and methodology section */
         #map {
-            height: 400px;
+            height: 450px;
             width: 100%;
             border-radius: 8px;
             border: 2px solid var(--primary-blue, #1a5276);
@@ -23,10 +22,6 @@
         #map:hover {
             border-color: var(--gold, #f39c12);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        
-        .map-container {
-            position: relative;
         }
         
         .map-toggle-btn {
@@ -53,10 +48,10 @@
             color: #666;
             padding: 40px;
             font-style: italic;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
         
-        /* Methodology Section Styles */
+        /* Methodology Section */
         .methodology-section {
             background: #ebf5fb;
             border-radius: 15px;
@@ -94,18 +89,6 @@
             color: #333;
         }
         
-        .filter-select:hover {
-            border-color: var(--primary-blue, #1a5276);
-        }
-        
-        .clear-filters-btn {
-            background: var(--primary-blue, #1a5276);
-        }
-        
-        .clear-filters-btn:hover {
-            background: #0e3a54;
-        }
-        
         /* Search Container */
         .search-container {
             display: flex;
@@ -123,22 +106,43 @@
             background: white;
             cursor: pointer;
             font-family: 'Times New Roman', Times, serif;
+            font-size: 0.9rem;
+        }
+        
+        .filter-select:hover {
+            border-color: var(--primary-blue, #1a5276);
+        }
+        
+        .clear-filters-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background: var(--primary-blue, #1a5276);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.9rem;
+        }
+        
+        .clear-filters-btn:hover {
+            background: #0e3a54;
         }
         
         /* Tree Styles */
         .tree-header { text-align: center; margin-bottom: 10px; }
-        .tree-header h3 { color: #1a5276; font-size: 1.1rem; margin-bottom: 5px; }
-        .tree-header p { color: #666; font-size: 0.7rem; }
+        .tree-header h3 { color: #1a5276; font-size: 1.2rem; margin-bottom: 5px; }
+        .tree-header p { color: #666; font-size: 0.8rem; }
         
         .tree-breadcrumb { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; justify-content: center; }
-        .tree-nav-btn { background: #eef2fa; border: none; padding: 5px 15px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; transition: 0.2s; }
+        .tree-nav-btn { background: #eef2fa; border: none; padding: 5px 15px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: 0.2s; }
         .tree-nav-btn:hover { background: #cbdde9; }
         .tree-reset-btn { background: #f39c12; color: white; font-weight: bold; }
         .tree-back-btn { background: #1a5276; color: white; }
         
         .tree-wrapper { 
             width: 100%; 
-            height: 520px;
+            height: 550px;
             overflow: auto;
             background: #fafbfc;
             border-radius: 8px;
@@ -156,7 +160,7 @@
         }
         
         .node circle:hover {
-            r: 6;
+            r: 7;
             filter: brightness(0.9);
         }
         
@@ -177,16 +181,16 @@
             stroke-width: 1.5px;
         }
         
-        .legend-box { text-align: center; padding: 8px; background: #f8f9fa; border-radius: 8px; margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; font-size: 0.7rem; }
-        .legend-color { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+        .legend-box { text-align: center; padding: 10px; background: #f8f9fa; border-radius: 8px; margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; font-size: 0.8rem; }
+        .legend-color { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
         
         .current-focus {
             text-align: center;
-            padding: 6px;
+            padding: 8px;
             background: #eef2fa;
             border-radius: 6px;
             margin-top: 8px;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             color: #1a5276;
             font-weight: bold;
         }
@@ -199,13 +203,13 @@
         }
         
         .species-list-column {
-            flex: 1;  /* 25% */
-            min-width: 280px;
+            flex: 1;
+            min-width: 300px;
         }
         
         .tree-column {
-            flex: 3;  /* 75% */
-            min-width: 500px;
+            flex: 3;
+            min-width: 550px;
         }
         
         .results-container {
@@ -215,7 +219,7 @@
         }
         
         .results-container::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         
         .results-container::-webkit-scrollbar-track {
@@ -231,8 +235,8 @@
         .species-card {
             background: #f5f5f5;
             border-left: 4px solid var(--primary-blue, #1a5276);
-            padding: 12px;
-            margin-bottom: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
             border-radius: 0 8px 8px 0;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -244,26 +248,26 @@
         }
         
         .taxa-path {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             color: #666;
             margin-bottom: 5px;
         }
         
         .species-name {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
             color: var(--primary-blue, #1a5276);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
         .detail-row {
-            font-size: 0.7rem;
-            margin: 3px 0;
+            font-size: 0.8rem;
+            margin: 5px 0;
         }
         
         .detail-label {
             font-weight: bold;
-            min-width: 100px;
+            min-width: 110px;
             display: inline-block;
         }
         
@@ -271,10 +275,10 @@
             background: white;
             border: 1px solid var(--primary-blue, #1a5276);
             border-radius: 15px;
-            padding: 2px 8px;
-            font-size: 0.7rem;
+            padding: 3px 10px;
+            font-size: 0.75rem;
             display: inline-block;
-            margin-top: 5px;
+            margin-top: 8px;
         }
         
         /* Bottom section */
@@ -285,32 +289,32 @@
         .bottom-header {
             background: #1a5276;
             color: white;
-            padding: 10px 15px;
+            padding: 12px 15px;
             border-radius: 8px 8px 0 0;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         
         .species-details-section {
             background: white;
             border-radius: 0 0 8px 8px;
-            padding: 15px;
+            padding: 20px;
             border-left: 4px solid #1a5276;
             border-right: 1px solid #e0e0e0;
             border-bottom: 1px solid #e0e0e0;
             display: none;
-            max-height: 250px;
+            max-height: 280px;
             overflow-y: auto;
         }
         
         .details-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 12px;
         }
         
         .detail-item {
-            padding: 8px;
+            padding: 10px;
             background: #f8f9fa;
             border-radius: 6px;
         }
@@ -319,23 +323,41 @@
             font-weight: bold;
             color: #1a5276;
             display: block;
-            margin-bottom: 3px;
-            font-size: 0.7rem;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
         }
         
         .detail-value {
             color: #333;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             line-height: 1.4;
         }
         
         .detail-value i { font-style: italic; }
         
+        #resultsCount {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: var(--primary-blue, #1a5276);
+            font-size: 1rem;
+        }
+        
+        .map-status {
+            text-align: center;
+            padding: 8px;
+            background: #e9ecef;
+            font-size: 0.8rem;
+            border-radius: 0 0 8px 8px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+        
         @media (max-width: 900px) {
             .checklist-layout { flex-direction: column; }
             .species-list-column { flex: auto; }
             .tree-column { flex: auto; }
-            .tree-wrapper { height: 400px; }
+            .tree-wrapper { height: 450px; }
         }
     </style>
 </head>
@@ -366,7 +388,7 @@
 </nav>
 
 <main>
-    <h2 style="text-align: center; margin-bottom: 25px; color: var(--primary-blue, #1a5276);">Nepalese Millipede Species Checklist</h2>
+    <h2 style="text-align: center; margin-bottom: 25px; color: var(--primary-blue, #1a5276); font-size: 1.8rem;">Nepalese Millipede Species Checklist</h2>
     
     <!-- METHODOLOGY SECTION -->
     <div class="methodology-section">
@@ -387,7 +409,7 @@
         <button class="clear-filters-btn" onclick="clearAllFilters()">Clear Filters</button>
     </div>
 
-    <div id="resultsCount" style="text-align: center; margin-bottom: 20px; font-weight: bold; color: var(--primary-blue, #1a5276);">Loading species data...</div>
+    <div id="resultsCount">Loading species data...</div>
     
     <!-- TWO COLUMN LAYOUT: Species List (25%) + Phylogenetic Tree (75%) -->
     <div class="checklist-layout">
@@ -420,10 +442,10 @@
         <div id="map"></div>
         
         <div class="species-details-section" id="speciesDetails">
-            <h3 style="color: #1a5276; margin-bottom: 10px; font-size: 1rem;">📄 Species Details</h3>
+            <h3 style="color: #1a5276; margin-bottom: 12px; font-size: 1.1rem;">📄 Species Details</h3>
             <div class="details-grid" id="detailsGrid"></div>
         </div>
-        <div style="text-align: center; padding: 5px; background: #e9ecef; font-size: 0.7rem; border-radius: 0 0 8px 8px; border: 1px solid #ddd; border-top: none;" id="mapStatus">Click on a species in the tree or list to view details and location</div>
+        <div class="map-status" id="mapStatus">Click on a species in the tree or list to view details and location</div>
     </div>
 </main>
 
@@ -760,7 +782,7 @@
         const wrapper = document.getElementById("treeWrapper");
         const width = wrapper.clientWidth - 15;
         const nodeCount = countNodes(data);
-        const height = Math.min(500, Math.max(350, nodeCount * 28));
+        const height = Math.min(530, Math.max(400, nodeCount * 32));
         
         const svg = d3.select("#phylogenetic-tree")
             .append("svg")
@@ -769,10 +791,10 @@
             .attr("viewBox", `0 0 ${width} ${height}`)
             .style("background", "#fafbfc");
         
-        const g = svg.append("g").attr("transform", "translate(45, 20)");
+        const g = svg.append("g").attr("transform", "translate(50, 25)");
         
         const root = d3.hierarchy(data);
-        const treeLayout = d3.tree().size([height - 40, width - 90]);
+        const treeLayout = d3.tree().size([height - 50, width - 100]);
         treeLayout(root);
         
         g.selectAll(".link")
@@ -789,7 +811,7 @@
             .attr("transform", d => `translate(${d.y}, ${d.x})`);
         
         nodes.append("circle")
-            .attr("r", d => d.data.type === 'root' ? 5 : (d.data.type === 'order' ? 4.5 : (d.data.type === 'family' ? 4 : (d.data.type === 'genus' ? 3.5 : 3))))
+            .attr("r", d => d.data.type === 'root' ? 6 : (d.data.type === 'order' ? 5.5 : (d.data.type === 'family' ? 5 : (d.data.type === 'genus' ? 4.5 : 4))))
             .attr("fill", d => {
                 if (d.data.type === 'order') return "#3b82f6";
                 if (d.data.type === 'family') return "#10b981";
@@ -798,17 +820,17 @@
                 return "#1a5276";
             })
             .attr("stroke", "white")
-            .attr("stroke-width", 1);
+            .attr("stroke-width", 1.2);
         
         nodes.append("text")
-            .attr("dx", 12)
-            .attr("dy", 4)
+            .attr("dx", 15)
+            .attr("dy", 5)
             .style("font-size", d => {
-                if (d.data.type === 'order') return "13px";
-                if (d.data.type === 'family') return "12px";
-                if (d.data.type === 'genus') return "11px";
-                if (d.data.type === 'species') return "10px";
-                return "12px";
+                if (d.data.type === 'order') return "14px";
+                if (d.data.type === 'family') return "13px";
+                if (d.data.type === 'genus') return "12px";
+                if (d.data.type === 'species') return "11px";
+                return "13px";
             })
             .style("font-weight", d => (d.data.type === 'order' || d.data.type === 'root') ? "bold" : "normal")
             .style("font-style", d => (d.data.type === 'genus' || d.data.type === 'species') ? "italic" : "normal")
@@ -823,7 +845,7 @@
             .text(d => {
                 if (d.data.type === 'root') return d.data.name;
                 let name = d.data.name;
-                if (name.length > 25) name = name.slice(0, 22) + "..";
+                if (name.length > 28) name = name.slice(0, 25) + "...";
                 return name;
             })
             .on("click", function(e, d) {
