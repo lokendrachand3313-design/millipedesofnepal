@@ -419,14 +419,14 @@
         
         <div class="tree-column">
             <div class="tree-header">
-                <h3>🌳 Phylogenetic Tree (Focus Mode)</h3>
+                <h3>Taxonomic Tree</h3>
                 <p>Click Order/Family/Genus to focus | Click species name to see details & map</p>
             </div>
             <div class="tree-breadcrumb" id="treeBreadcrumb"></div>
             <div class="tree-wrapper" id="treeWrapper">
                 <div id="phylogenetic-tree"></div>
             </div>
-            <div class="current-focus" id="currentFocus">🌿 All Orders</div>
+            <div class="current-focus" id="currentFocus">All Orders</div>
             <div class="legend-box">
                 <div><span class="legend-color" style="background:#3b82f6;"></span> Order</div>
                 <div><span class="legend-color" style="background:#10b981;"></span> Family</div>
@@ -438,7 +438,7 @@
     
     <!-- BOTTOM SECTION: Map + Species Details -->
     <div class="bottom-section">
-        <div class="bottom-header">📍 Distribution Map (Nepal)</div>
+        <div class="bottom-header">Locality</div>
         <div id="map"></div>
         
         <div class="species-details-section" id="speciesDetails">
@@ -681,9 +681,9 @@
             <div class="detail-item"><span class="detail-label">Type Locality:</span><span class="detail-value">${item.type_locality || 'N/A'}</span></div>
             <div class="detail-item"><span class="detail-label">Global Distribution:</span><span class="detail-value">${item.global_dist || 'N/A'}</span></div>
             <div class="detail-item"><span class="detail-label">Nepal Distribution:</span><span class="detail-value">${nepalDist}</span></div>
-            <div class="detail-item"><span class="detail-label">Recorded Locations:</span><span class="detail-value">📍 ${points.length} location(s) on map</span></div>
+            <div class="detail-item"><span class="detail-label">Recorded Locations:</span><span class="detail-value"> ${points.length} location(s) on map</span></div>
         `;
-        document.getElementById('mapStatus').innerHTML = `📍 ${points.length} location(s) displayed on map | Use mouse wheel to zoom`;
+        document.getElementById('mapStatus').innerHTML = ` ${points.length} location(s) displayed on map | Use mouse wheel to zoom`;
     }
 
     function findSpeciesByNames(genus, species) {
@@ -725,7 +725,7 @@
             }
             children.push({ name: order, type: 'order', children: familyChildren });
         }
-        return { name: "🌳 Millipedes of Nepal", type: 'root', children: children };
+        return { name: "Diplopoda*(illipedes)", type: 'root', children: children };
     }
     
     function focusOnNode(nodeData) {
@@ -741,7 +741,7 @@
         focusStack = [];
         drawTree(currentTreeData);
         updateBreadcrumb();
-        document.getElementById('currentFocus').innerHTML = `🌿 All Orders`;
+        document.getElementById('currentFocus').innerHTML = `All Orders`;
         document.getElementById('speciesDetails').style.display = 'none';
         document.getElementById('mapStatus').innerHTML = 'Click on a species in the tree or list to view details and location';
     }
@@ -766,7 +766,7 @@
     function updateBreadcrumb() {
         const bc = document.getElementById("treeBreadcrumb");
         bc.innerHTML = "";
-        const resetBtn = document.createElement("button"); resetBtn.className = "tree-nav-btn tree-reset-btn"; resetBtn.innerText = "🏠 Reset"; resetBtn.onclick = () => resetToFullTree(); bc.appendChild(resetBtn);
+        const resetBtn = document.createElement("button"); resetBtn.className = "tree-nav-btn tree-reset-btn"; resetBtn.innerText = "Reset"; resetBtn.onclick = () => resetToFullTree(); bc.appendChild(resetBtn);
         if (focusStack.length > 0) {
             const backBtn = document.createElement("button"); backBtn.className = "tree-nav-btn tree-back-btn"; backBtn.innerText = "← Back"; backBtn.onclick = () => goBack(); bc.appendChild(backBtn);
         }
@@ -886,7 +886,7 @@
         focusStack = [];
         drawTree(currentTreeData);
         updateBreadcrumb();
-        document.getElementById('currentFocus').innerHTML = `🌿 All Orders`;
+        document.getElementById('currentFocus').innerHTML = `All Orders`;
     }
     
     window.addEventListener('resize', () => { if (currentTreeData) drawTree(currentTreeData); });
