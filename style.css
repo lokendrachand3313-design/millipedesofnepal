@@ -297,6 +297,27 @@ h2, h3 {
     min-width: 300px;
 }
 
+/* Make both featured images same size */
+.image-col {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-img {
+    width: 100%;
+    height: 300px;  /* Fixed height - both images will be same */
+    object-fit: cover;  /* This crops the image to fit without distortion */
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    transition: all 0.5s ease;
+}
+
+.featured-img:hover {
+    transform: scale(1.02);
+}
+
 .image-col p {
     text-align: center;
     margin-top: 15px;
