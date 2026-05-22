@@ -296,6 +296,11 @@ h2, h3 {
     text-align: center;
     margin-top: 15px;
 }
+@media (max-width: 768px) {
+    .featured-img {
+        height: 220px;  /* Smaller height on mobile */
+    }
+}
 /* Video section - Homepage */
 .video-section {
     margin-top: 30px;
