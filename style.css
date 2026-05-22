@@ -266,24 +266,6 @@ h2, h3 {
 }
 
 /* Featured images */
-.featured .featured-img {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    border: 4px solid #fff;
-    transition: all 0.5s ease;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-}
-
-.featured .featured-img:hover {
-    transform: scale(1.03) rotate(0.5deg);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-    border-color: var(--gold);
-}
-
 .image-row {
     display: flex;
     gap: 20px;
@@ -294,21 +276,13 @@ h2, h3 {
 
 .image-col {
     flex: 1;
-    min-width: 300px;
-}
-
-/* Make both featured images same size */
-.image-col {
-    flex: 1;
     min-width: 280px;
-    display: flex;
-    flex-direction: column;
 }
 
 .featured-img {
     width: 100%;
-    height: 300px;  /* Fixed height - both images will be same */
-    object-fit: cover;  /* This crops the image to fit without distortion */
+    height: 280px;  /* FIXED HEIGHT - both images same size */
+    object-fit: cover;  /* Crops image to fit without stretching */
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     transition: all 0.5s ease;
@@ -322,7 +296,6 @@ h2, h3 {
     text-align: center;
     margin-top: 15px;
 }
-
 /* Video section - Homepage */
 .video-section {
     margin-top: 30px;
