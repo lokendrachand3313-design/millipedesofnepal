@@ -1,130 +1,244 @@
 <!DOCTYPE html>
-<html lang="ne">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Millipedes of Nepal - Introduction & Identification | मिलिपिडहरूको परिचय र पहिचान</title>
-    <!-- Leaflet CSS (lightweight) -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction & Identification - Millipedes of Nepal</title>
+    <meta name="description" content="Learn about millipede identification with illustrated keys, video introduction, and PDF resources for Nepalese millipedes.">
+    <meta name="keywords" content="millipedes, Nepal, identification, introduction, taxonomy, Diplopoda, key">
     <style>
+        /* ============================================
+           Millipedes of Nepal - COMPLETE BLUE THEME
+           Version: 2.0 - Introduction & Identification Page
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: #f4f8f4;
-            color: #1e2a2e;
-            line-height: 1.5;
+        html, body {
             width: 100%;
+            max-width: 100%;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* HEADER - full bleed */
-        header {
-            background: linear-gradient(135deg, #1a472a 0%, #0e3a2a 100%);
-            color: white;
-            padding: 20px 5%;
-            border-bottom: 5px solid #f9b234;
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
             width: 100%;
+        }
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            header, nav, footer, .full-video-section, .pdf-controls, .note {
+                display: none;
+            }
+            .pdf-viewer {
+                height: 500px;
+                border: 1px solid #ccc;
+            }
+            body {
+                background: white;
+            }
+        }
+
+        /* ============ HEADER WITH LOGO ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
         }
 
         .header-container {
-            max-width: 1600px;
-            margin: 0 auto;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
             flex-wrap: wrap;
-            gap: 20px;
+        }
+
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             text-align: center;
         }
 
-        .header-logo {
-            height: 85px;
-            width: auto;
-            background: white;
-            border-radius: 50%;
-            padding: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
         .header-text h1 {
-            font-size: 2.4rem;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
             letter-spacing: 1px;
-            margin-bottom: 6px;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
         }
 
         .header-text p {
-            font-size: 1.3rem;
-            background: #f9b234;
-            display: inline-block;
-            padding: 6px 20px;
-            border-radius: 40px;
-            color: #1a472a;
-            font-weight: bold;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
+            font-family: 'Preeti', 'Times New Roman', Times, serif;
         }
 
-        /* NAVIGATION - full width, sticky */
+        /* ============ NAVIGATION BAR ============ */
         nav {
-            background: #2c3e2b;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 5%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background-color: var(--primary-blue);
+            padding: 15px 5%;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
             position: sticky;
             top: 0;
             z-index: 100;
-            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            padding: 10px 20px;
-            font-weight: bold;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
             font-size: 1rem;
-            border-radius: 40px;
-            transition: all 0.2s ease;
-            background: rgba(255,255,255,0.1);
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
         }
 
-        nav a:hover, nav a.active {
-            background: #f9b234;
-            color: #1a472a;
+        nav a:hover {
+            background-color: var(--blue-accent);
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
-        /* MAIN - FULL WIDTH, NO GAPS */
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* ============ MAIN CONTENT ============ */
         main {
-            width: 100%;
+            flex: 1;
+            padding: 40px 5%;
             max-width: 100%;
-            margin: 0;
-            padding: 40px 0;
-            background: #f4f8f4;
-        }
-
-        /* Containers inside main for content - centered but edge-to-edge video and sections */
-        .full-width-container {
             width: 100%;
-            max-width: 100%;
             margin: 0 auto;
         }
 
-        /* VIDEO SECTION - edge to edge, no gaps */
+        /* Full Video Section */
         .full-video-section {
             width: 100%;
-            max-width: 100%;
-            margin: 0 0 50px 0;
+            max-width: 1400px;
+            margin: 0 auto 50px auto;
             background: #1a1a2e;
-            border-radius: 0;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .full-video-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .video-wrapper {
+            width: 100%;
+            background: #000;
+            position: relative;
         }
 
         .full-video {
@@ -133,46 +247,72 @@
             display: block;
         }
 
+        .video-wrapper::after {
+            content: "▶";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(26, 82, 118, 0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .video-wrapper:hover::after {
+            opacity: 1;
+        }
+
         .video-caption-full {
-            background: linear-gradient(135deg, #1a5276 0%, #0e3a54 100%);
-            padding: 30px 5%;
-            text-align: center;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+            padding: 30px 40px;
+            color: white;
             width: 100%;
+            text-align: center;
         }
 
         .video-caption-full p {
             font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 0;
             line-height: 1.6;
-            color: white;
-            margin: 0;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        /* PDF SECTIONS - full width with inner max-width for readability, but background stretches */
+        /* PDF Section Styles */
         .pdf-section {
             background: white;
-            border-radius: 0;
-            padding: 40px 5%;
+            border-radius: 20px;
+            padding: 40px;
             margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-top: 1px solid #e0e0e0;
-            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
             width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .pdf-section .pdf-inner {
-            max-width: 1400px;
-            margin: 0 auto;
+        .pdf-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
         .pdf-section h2 {
-            color: #1a5276;
-            border-bottom: 3px solid #1a5276;
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
             padding-bottom: 15px;
             margin-bottom: 30px;
-            font-size: 2.2rem;
+            font-size: 2rem;
             text-align: center;
         }
 
@@ -182,7 +322,6 @@
             border: 1px solid #ddd;
             border-radius: 12px;
             background: #f5f5f5;
-            margin-top: 20px;
         }
 
         .pdf-controls {
@@ -192,119 +331,216 @@
 
         .pdf-controls a {
             display: inline-block;
-            background-color: #1a5276;
+            background-color: var(--primary-blue);
             color: white;
-            padding: 15px 40px;
+            padding: 12px 30px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
         }
 
         .pdf-controls a:hover {
-            background-color: #0e3a54;
+            background-color: var(--primary-blue-dark);
             transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
         }
 
         .note {
             text-align: center;
             margin-top: 15px;
             color: #666;
-            font-style: normal;
-            font-size: 1rem;
+            font-style: italic;
+            font-size: 0.85rem;
         }
 
-        /* SOURCE BOX - full width but inner content centered */
+        /* Source Box */
         .source-box {
-            background: linear-gradient(135deg, #ebf5fb 0%, #d6eaf8 100%);
-            border-radius: 0;
-            padding: 50px 5%;
+            background: linear-gradient(135deg, var(--blue-bg) 0%, #d6eaf8 100%);
+            border-radius: 20px;
+            padding: 45px;
             text-align: center;
             width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
             transition: all 0.3s ease;
-            margin-top: 20px;
         }
 
-        .source-inner {
-            max-width: 1200px;
-            margin: 0 auto;
+        .source-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
         .milli-peet-logo {
             font-weight: bold;
             font-size: 2.5rem;
-            color: #1a5276;
+            color: var(--primary-blue);
             margin-bottom: 20px;
             letter-spacing: 3px;
         }
 
         .source-box p {
             margin-bottom: 15px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #333;
             line-height: 1.6;
         }
 
         .source-box strong {
-            font-size: 1.4rem;
-            color: #1a5276;
+            font-size: 1.3rem;
+            color: var(--primary-blue);
         }
 
         .source-box a {
-            color: #1a5276;
+            color: var(--primary-blue);
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
             display: inline-block;
             margin-top: 10px;
         }
 
         .source-box a:hover {
-            color: #f39c12;
+            color: var(--gold);
             text-decoration: underline;
+            transform: translateX(5px);
         }
 
-        /* FOOTER full width */
+        /* ============ FOOTER ============ */
         footer {
-            background: #1e2e1c;
-            color: #ddd;
+            background-color: var(--primary-blue);
+            color: white;
             text-align: center;
-            padding: 30px 5%;
-            margin-top: 0;
-            font-size: 1rem;
+            padding: 40px 5%;
             width: 100%;
+            max-width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
         }
 
         footer a {
-            color: #f9b234;
+            color: var(--gold);
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         footer a:hover {
             text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
         }
 
-        /* responsive adjustments - no gaps anywhere */
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ============ RESPONSIVE DESIGN ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+            .pdf-viewer { height: 650px; }
+        }
+
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 5%; gap: 20px; }
+            .pdf-viewer { height: 550px; }
+            .pdf-section h2 { font-size: 1.5rem; }
+        }
+
         @media (max-width: 768px) {
-            .header-text h1 { font-size: 1.8rem; }
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            nav a { padding: 6px 10px; font-size: 0.85rem; }
+            main { padding: 30px 5%; }
+            
+            .full-video-section { margin-bottom: 30px; }
+            .video-wrapper::after { width: 50px; height: 50px; font-size: 25px; }
+            .video-caption-full { padding: 20px; }
             .video-caption-full p { font-size: 1rem; }
-            .pdf-section h2 { font-size: 1.6rem; }
+            
+            .pdf-section { padding: 25px; margin-bottom: 30px; }
             .pdf-viewer { height: 450px; }
-            .pdf-controls a { padding: 10px 25px; font-size: 1rem; }
+            .pdf-controls a { padding: 10px 20px; font-size: 0.9rem; }
+            
+            .source-box { padding: 30px 20px; }
             .milli-peet-logo { font-size: 1.8rem; }
             .source-box p { font-size: 1rem; }
             .source-box strong { font-size: 1.1rem; }
-            .source-box a { font-size: 1rem; }
-            nav a { padding: 6px 14px; font-size: 0.85rem; }
+            
+            footer p { font-size: 1rem; }
         }
 
-        /* remove any default body margins/paddings that could cause side gaps */
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
+        @media (max-width: 480px) {
+            .header-text h1 { font-size: 1.8rem; }
+            .header-text p { font-size: 1rem; }
+            .pdf-viewer { height: 350px; }
+            .pdf-section h2 { font-size: 1.2rem; }
+            .milli-peet-logo { font-size: 1.5rem; }
+        }
+
+        @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
+            .pdf-viewer { height: 950px; }
         }
     </style>
 </head>
@@ -343,68 +579,80 @@
             </video>
         </div>
         <div class="video-caption-full">
-            <p>The Nepali names mentioned in this video for millipede is wrong; so for Nepali names of Millipede visit Homepage of this website.</p>
+            <p>📝 The Nepali names mentioned in this video for millipede is wrong; so for Nepali names of Millipede visit Homepage of this website.</p>
         </div>
     </div>
 
-    <!-- INTRODUCTION PDF SECTION - full width layout, inner constrained for readability -->
+    <!-- INTRODUCTION PDF SECTION -->
     <div class="pdf-section">
-        <div class="pdf-inner">
-            <h2>📄 Introduction to Millipedes (मिलिपिडहरूको परिचय)</h2>   
-            <embed class="pdf-viewer" src="intro.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf">
-            <div class="pdf-controls">
-                <a href="intro.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
-            </div>
-            <div class="note">The PDF may take a few seconds to load. If not visible, click the button above.</div>
+        <h2>📄 Introduction to Millipedes (मिलिपिडहरूको परिचय)</h2>   
+        <embed class="pdf-viewer" src="intro.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf" onerror="this.style.display='none'">
+        <div class="pdf-controls">
+            <a href="intro.pdf" target="_blank">Open Full PDF in New Tab</a>
         </div>
+        <div class="note">💡 The PDF may take a few seconds to load. If not visible, click the button above.</div>
     </div>
     
     <!-- IDENTIFICATION KEY PDF SECTION -->
     <div class="pdf-section">
-        <div class="pdf-inner">
-            <h2>🔑 Illustrated Key to Order (चित्र सहितको पहिचान कुञ्जी)</h2>
-            <embed class="pdf-viewer" src="keys.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf">
-            <div class="pdf-controls">
-                <a href="keys.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
-            </div>
-            <div class="note">The PDF may take a few seconds to load. If not visible, click the button above.</div>
+        <h2>🔑 Illustrated Key to Order (चित्र सहितको पहिचान कुञ्जी)</h2>
+        <embed class="pdf-viewer" src="keys.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf" onerror="this.style.display='none'">
+        <div class="pdf-controls">
+            <a href="keys.pdf" target="_blank">Open Full PDF in New Tab</a>
         </div>
+        <div class="note">💡 The PDF may take a few seconds to load. If not visible, click the button above.</div>
     </div>
     
-    <!-- SOURCE ATTRIBUTION BOX (full width) -->
+    <!-- SOURCE ATTRIBUTION BOX -->
     <div class="source-box">
-        <div class="source-inner">
-            <div class="milli-peet-logo">MILLI-PEET</div>
-            <p>This identification key and taxonomic information are adapted from the</p>
-            <p><strong>MILLI-PEET (Millipede Phylogeny and Evolution) Project</strong></p>
-            <p>By <strong>Petra Sierwald</strong></p>
-            <a href="https://www.fieldmuseum.org/" target="_blank">🌐 www.fieldmuseum.org</a>
-        </div>
+        <div class="milli-peet-logo">MILLI-PEET</div>
+        <p>This identification key and taxonomic information are adapted from the</p>
+        <p><strong>MILLI-PEET (Millipede Phylogeny and Evolution) Project</strong></p>
+        <p>By <strong>Petra Sierwald</strong></p>
+        <a href="https://www.fieldmuseum.org/" target="_blank" rel="noopener noreferrer">www.fieldmuseum.org</a>
     </div>
 </main>
 
 <footer>
-    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© 2025 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
 <script>
     (function() {
-        // ensure any external assets don't break layout; also handle video poster fallback
+        // Handle video errors gracefully
         const video = document.querySelector('.full-video');
         if(video) {
             video.addEventListener('error', function() {
-                console.log("Video file not found: ensure intronepali.mp4 and thumb.png exist.");
+                console.log("⚠️ Video file not found: Please ensure intronepali.mp4 and thumb.png exist.");
+                // Optional: Show a fallback message
+                const wrapper = document.querySelector('.video-wrapper');
+                if(wrapper) {
+                    const fallbackMsg = document.createElement('div');
+                    fallbackMsg.style.cssText = 'position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:white; background:rgba(0,0,0,0.7); padding:20px; border-radius:10px; text-align:center;';
+                    fallbackMsg.innerHTML = '🎥 Video not available<br><small>Please check if intronepali.mp4 exists</small>';
+                    wrapper.style.position = 'relative';
+                    wrapper.appendChild(fallbackMsg);
+                }
             });
         }
-        // PDF embeds graceful error handling (no user-facing disturbance)
+        
+        // Handle PDF embed errors gracefully
         const embeds = document.querySelectorAll('embed.pdf-viewer');
         embeds.forEach(embed => {
             embed.addEventListener('error', function() {
-                // silent fallback; PDF might be missing but the layout remains full-width
+                console.log("⚠️ PDF file not found:", embed.src);
+                // Hide the failed embed and show a message in its place
+                const parent = embed.parentElement;
+                const errorMsg = document.createElement('div');
+                errorMsg.style.cssText = 'background:#f8f9fa; padding:40px; text-align:center; border-radius:12px; border:1px dashed #ccc; margin:20px 0;';
+                errorMsg.innerHTML = '📄 <strong>PDF preview not available</strong><br><small>Please click the button below to open the PDF directly.</small>';
+                embed.style.display = 'none';
+                parent.insertBefore(errorMsg, embed.nextSibling);
             });
         });
     })();
 </script>
+
 </body>
 </html>
