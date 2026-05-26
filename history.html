@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* Additional inline styles to ensure the reference box works correctly 
-           without breaking existing design. Only minimal enhancements for scrollable box */
+        /* Additional inline styles to keep gallery tidy with images */
         .ref-scroll-container {
-            max-height: 320px;      /* only about 6-7 references visible at once */
+            max-height: 320px;
             overflow-y: auto;
             margin-top: 1rem;
             margin-bottom: 1rem;
@@ -59,7 +58,6 @@
         .references-list-compact li a:hover {
             color: #1d451d;
         }
-        /* preserve original layout but wrap references nicely */
         .taxonomist-gallery, .brief-history, .scientific-text {
             position: relative;
         }
@@ -79,6 +77,82 @@
             justify-content: space-between;
             flex-wrap: wrap;
             margin-bottom: 0.5rem;
+        }
+
+        /* Enhanced taxonomist card with photo image */
+        .taxonomist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1.8rem;
+        }
+        .taxonomist-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.2rem 0.8rem 1rem;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+            border: 1px solid #ece0cf;
+        }
+        .taxonomist-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 28px rgba(0,0,0,0.12);
+        }
+        .taxonomist-photo-img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto 0.9rem;
+            display: block;
+            border: 4px solid #d9cbad;
+            background: #e9e2d4;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .taxonomist-card h3 {
+            margin: 0.5rem 0 0.2rem;
+            font-size: 1.25rem;
+            color: #2c4b2a;
+        }
+        .taxonomist-country {
+            font-size: 0.85rem;
+            background: #f3efe4;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            margin: 0.4rem 0;
+        }
+        .taxonomist-card p {
+            font-size: 0.8rem;
+            color: #5e6e55;
+            margin-top: 0.3rem;
+        }
+        .fallback-icon {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 0.9rem;
+            background: #cddec2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2c5e2a;
+            border: 4px solid #f3e1b3;
+        }
+        /* Image gallery hint */
+        .photo-hint {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #7e6b4e;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: #f8f3e8;
+            border-radius: 40px;
+            display: inline-block;
+            width: auto;
         }
     </style>
 </head>
@@ -164,105 +238,130 @@
         </p>
     </section>
     
-    <!-- TAXONOMIST GALLERY: All names from references, 6 per row -->
+    <!-- TAXONOMIST GALLERY with LOCAL JPG PHOTOS (using last name filenames) -->
     <div class="taxonomist-gallery">
         <div class="section-title-wrap">
-            <h2>Taxonomists of Nepalese Millipedes</h2>
+            <h2>📸 Taxonomists of Nepalese Millipedes</h2>
+            <p style="margin-top: -0.5rem; font-size:0.85rem; color:#6a5c46;">Portraits — researchers who described Nepalese millipede species</p>
         </div>
         <div class="taxonomist-grid">
-            <!-- Row 1 -->
+            <!-- Each card uses local JPG file with last name. Place your photos as: Carl.jpg, Attems.jpg, Demange.jpg, Shear.jpg, Mauriès.jpg, Golovatch.jpg, Enghoff.jpg, Korsós.jpg, Geoffroy.jpg, Shelley.jpg, VandenSpiegel.jpg, Wesener.jpg, Mikhaljova.jpg -->
+            <!-- Photo path can be adjusted: change 'taxonomist_photos/' to your folder, or keep same directory -->
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇨🇭</div>
+                <img class="taxonomist-photo-img" src="Carl.jpg" alt="J. Carl" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇨🇭</div>
                 <h3>J. Carl</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇨🇭</span> Switzerland</div>
+                <div class="taxonomist-country">🇨🇭 Switzerland</div>
                 <p>First descriptions (1935)</p>
             </div>
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇦🇹</div>
+                <img class="taxonomist-photo-img" src="Attems.jpg" alt="C. Attems" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇦🇹</div>
                 <h3>C. Attems</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇦🇹</span> Austria</div>
+                <div class="taxonomist-country">🇦🇹 Austria</div>
                 <p>Genus <i>Kophosphaera</i> (1936)</p>
             </div>
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇫🇷</div>
+                <img class="taxonomist-photo-img" src="Demange.jpg" alt="J.-M. Demange" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇫🇷</div>
                 <h3>J.-M. Demange</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇫🇷</span> France</div>
+                <div class="taxonomist-country">🇫🇷 France</div>
                 <p><i>Gonoplectus</i> spp. (1961)</p>
             </div>
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇺🇸</div>
+                <img class="taxonomist-photo-img" src="Shear.jpg" alt="W. A. Shear" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇺🇸</div>
                 <h3>W. A. Shear</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇺🇸</span> USA</div>
+                <div class="taxonomist-country">🇺🇸 USA</div>
                 <p>Nepalellinae, <i>Tianella</i> (1979,1987)</p>
             </div>
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇫🇷</div>
+                <img class="taxonomist-photo-img" src="Mauriès.jpg" alt="J.-P. Mauriès" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇫🇷</div>
                 <h3>J.-P. Mauriès</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇫🇷</span> France</div>
+                <div class="taxonomist-country">🇫🇷 France</div>
                 <p>Cambalopsidae, Julidae (1983,1988)</p>
             </div>
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇷🇺</div>
+                <img class="taxonomist-photo-img" src="Golovatch.jpg" alt="S. Golovatch" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇷🇺</div>
                 <h3>S. Golovatch</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇷🇺</span> Russia</div>
+                <div class="taxonomist-country">🇷🇺 Russia</div>
                 <p>Most prolific describer (1986–2023)</p>
             </div>
-
-            <!-- Row 2 -->
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇩🇰</div>
+                <img class="taxonomist-photo-img" src="Enghoff.jpg" alt="H. Enghoff" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇩🇰</div>
                 <h3>H. Enghoff</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇩🇰</span> Denmark</div>
+                <div class="taxonomist-country">🇩🇰 Denmark</div>
                 <p><i>Nepalmatoiulus</i> revision (1987)</p>
             </div>
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇭🇺</div>
+                <img class="taxonomist-photo-img" src="Korsós.jpg" alt="Z. Korsós" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇭🇺</div>
                 <h3>Z. Korsós</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇭🇺</span> Hungary</div>
+                <div class="taxonomist-country">🇭🇺 Hungary</div>
                 <p><i>Anaulaciulus</i>, Siphonocryptida</p>
             </div>
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇫🇷</div>
+                <img class="taxonomist-photo-img" src="Geoffroy.jpg" alt="J.-J. Geoffroy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇫🇷</div>
                 <h3>J.-J. Geoffroy</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇫🇷</span> France</div>
+                <div class="taxonomist-country">🇫🇷 France</div>
                 <p><i>Hirudicryptus</i> (2009)</p>
             </div>
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇺🇸</div>
+                <img class="taxonomist-photo-img" src="Shelley.jpg" alt="R. M. Shelley" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇺🇸</div>
                 <h3>R. M. Shelley</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇺🇸</span> USA</div>
+                <div class="taxonomist-country">🇺🇸 USA</div>
                 <p><i>Nepalozonium</i> (1996)</p>
             </div>
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇧🇪</div>
+                <img class="taxonomist-photo-img" src="VandenSpiegel.jpg" alt="D. VandenSpiegel" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇧🇪</div>
                 <h3>D. VandenSpiegel</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇧🇪</span> Belgium</div>
+                <div class="taxonomist-country">🇧🇪 Belgium</div>
                 <p><i>Koponenius</i> (2014,2016)</p>
             </div>
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇩🇪</div>
+                <img class="taxonomist-photo-img" src="Wesener.jpg" alt="T. Wesener" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇩🇪</div>
                 <h3>T. Wesener</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇩🇪</span> Germany</div>
+                <div class="taxonomist-country">🇩🇪 Germany</div>
                 <p>Giant Pill-Millipedes (2015)</p>
             </div>
-            <!-- Row 3 -->
+            
             <div class="taxonomist-card">
-                <div class="taxonomist-photo" style="background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px;">🇷🇺</div>
+                <img class="taxonomist-photo-img" src="Mikhaljova.jpg" alt="E. Mikhaljova" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="fallback-icon" style="display: none;">🇷🇺</div>
                 <h3>E. Mikhaljova</h3>
-                <div class="taxonomist-country"><span class="country-icon">🇷🇺</span> Russia</div>
+                <div class="taxonomist-country">🇷🇺 Russia</div>
                 <p><i>Nepalmatoiulus</i> (2025)</p>
             </div>
         </div>
-        <p style="text-align: center; font-size: 0.8rem; margin-top: 1.2rem; color: #5d6d7e;">
-            📷 Flag icons represent country of affiliation | Photos coming soon
-        </p>
+        <div style="text-align: center; margin-top: 1.2rem;">
+            <p class="photo-hint">📁 <strong>Photo setup:</strong> Place your JPG files in the same folder as this HTML file, using the last names: <strong>Carl.jpg, Attems.jpg, Demange.jpg, Shear.jpg, Mauriès.jpg, Golovatch.jpg, Enghoff.jpg, Korsós.jpg, Geoffroy.jpg, Shelley.jpg, VandenSpiegel.jpg, Wesener.jpg, Mikhaljova.jpg</strong><br>
+            <span style="font-size:0.7rem;">(If a photo is missing, a flag icon will appear automatically)</span></p>
+        </div>
     </div>
     
     <!-- SLIDABLE REFERENCES BOX: only few references visible, vertical scroll (slide) to see the rest -->
     <div style="background: #fef7e8; border-radius: 28px; padding: 1rem 1.5rem 0.8rem 1.5rem; margin: 2rem 0 1.5rem; border: 1px solid #e0d1bc; box-shadow: 0 6px 14px rgba(0,0,0,0.05);">
         <div class="ref-header-compact">
-            <h2 style="border-left: 5px solid #7eaa5f; padding-left: 1rem; margin: 0 0 0.25rem 0;">📖 Selected References (APA 7th)</h2>
-            <div class="slide-hint">⬇️ slide / scroll inside box ⬇️</div>
+            <h2 style="border-left: 5px solid #7eaa5f; padding-left: 1rem; margin: 0 0 0.25rem 0;">References </h2>
         </div>
         <div class="ref-scroll-container">
             <ul class="references-list-compact">
@@ -297,9 +396,6 @@
                 <li>Shelley, R. M. (1996). <i>Nepalozonium trimaculatum</i>, n. gen., n. sp. (Polyzoniida). <i>Proceedings of the Entomological Society of Washington</i>, <i>98</i>(4), 677–680.</li>
                 <li>Wesener, T. (2015). Giant Pill-Millipedes of Nepal (Zephroniidae). <i>Zootaxa</i>, <i>3964</i>(3), 301–320. <a href="https://doi.org/10.11646/zootaxa.3964.3.1" target="_blank" rel="noopener">https://doi.org/10.11646/zootaxa.3964.3.1</a></li>
             </ul>
-        </div>
-        <div style="font-size: 0.7rem; text-align: right; padding: 8px 12px 4px 0; color: #7b6b50; border-top: 1px solid #e5d6c0; margin-top: 8px;">
-            🔽 <strong>scroll inside the box</strong> — showing only first few references, slide to browse full bibliography
         </div>
     </div>
     
