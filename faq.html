@@ -4,18 +4,568 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - Millipedes of Nepal</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <meta name="description" content="Frequently asked questions about millipedes of Nepal, their identification, ecology, biology, and our research project.">
+    <meta name="keywords" content="millipedes, Nepal, FAQ, questions, answers, biology, ecology, Diplopoda">
+    <style>
+        /* ============================================
+           Millipedes of Nepal - COMPLETE BLUE THEME
+           Version: 2.0 - FAQ Page
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            header, nav, footer, .jump-to, .contact-btn {
+                display: none;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .faq-item {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+            }
+        }
+
+        /* ============ HEADER WITH LOGO ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+        }
+
+        .header-text p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
+        }
+
+        /* ============ NAVIGATION BAR ============ */
+        nav {
+            background-color: var(--primary-blue);
+            padding: 15px 5%;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* FAQ Header */
+        .faq-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .faq-header-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+
+        .faq-header-img:hover {
+            transform: scale(1.02);
+            border-color: var(--gold);
+        }
+
+        .faq-header-text h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .faq-header-text p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Jump To Navigation */
+        .jump-to {
+            background: var(--blue-bg);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 2px solid var(--primary-blue);
+            width: 100%;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .jump-to h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .jump-to ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .jump-to li a {
+            text-decoration: none;
+            color: var(--primary-blue);
+            display: block;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .jump-to li a:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateX(5px);
+            border-color: var(--primary-blue);
+        }
+
+        /* FAQ List */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            border-left: 6px solid var(--primary-blue);
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease-out;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            scroll-margin-top: 100px;
+        }
+
+        .faq-item:hover {
+            transform: translateX(10px) translateY(-3px);
+            border-left-color: var(--gold);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-question::before {
+            content: "❓";
+            font-size: 1.5rem;
+        }
+
+        .faq-answer {
+            line-height: 1.7;
+            color: #333;
+            padding-left: 40px;
+            font-size: 1rem;
+        }
+
+        .faq-answer-content p {
+            margin-bottom: 10px;
+        }
+
+        .faq-answer-content i {
+            font-style: italic;
+        }
+
+        /* Footer Note */
+        .footer-note {
+            background: var(--blue-bg);
+            padding: 35px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+            border: 2px dashed var(--primary-blue);
+            width: 100%;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .footer-note h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-note p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .contact-btn:hover {
+            background: var(--primary-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 5%;
+            width: 100%;
+            max-width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ============ RESPONSIVE DESIGN ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 5%; gap: 20px; }
+            .faq-header-text h2 { font-size: 1.7rem; }
+            .faq-question { font-size: 1.2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            nav a { padding: 6px 10px; font-size: 0.85rem; }
+            main { padding: 30px 5%; }
+            
+            .faq-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .faq-header-img {
+                width: 150px;
+                height: 150px;
+            }
+            .faq-header-text h2 { font-size: 1.5rem; }
+            .faq-header-text p { font-size: 1rem; }
+            
+            .jump-to { padding: 20px; }
+            .jump-to h3 { font-size: 1.2rem; }
+            .jump-to ul { grid-template-columns: 1fr; }
+            
+            .faq-item { padding: 20px; }
+            .faq-question { font-size: 1.1rem; flex-wrap: wrap; }
+            .faq-answer { padding-left: 20px; font-size: 0.95rem; }
+            
+            .footer-note { padding: 25px; }
+            .footer-note h3 { font-size: 1.2rem; }
+            
+            footer p { font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .header-text h1 { font-size: 1.8rem; }
+            .header-text p { font-size: 1rem; }
+            .faq-header-img { width: 120px; height: 120px; }
+            .faq-header-text h2 { font-size: 1.3rem; }
+            .faq-question { font-size: 1rem; }
+            .faq-answer { padding-left: 15px; }
+            .faq-question::before { font-size: 1.2rem; }
+        }
+
+        @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
+            .faq-header-img { width: 250px; height: 250px; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- HEADER WITH LOGO -->
 <header>
     <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
         <div class="header-text">
-            <h1>Frequently Asked Questions</h1>
-            <p>Common inquiries about millipedes and their biology</p>
+            <h1>Millipedes of Nepal</h1>
+            <p>Frequently Asked Questions</p>
         </div>
     </div>
 </header>
@@ -35,7 +585,7 @@
 
 <main>
     <div class="faq-header">
-        <img src="cmating3.jpg" alt="Colorful millipede" class="faq-header-img" onerror="this.src='https://via.placeholder.com/200x200?text=🪲+Millipede'">
+        <img src="cmating3.jpg" alt="Colorful millipede mating" class="faq-header-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%23d4e6f1\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'18\' text-anchor=\'middle\' fill=\'%231a5276\'%3E🪲%3C/text%3E%3Ctext x=\'100\' y=\'135\' font-size=\'14\' text-anchor=\'middle\' fill=\'%231a5276\'%3EMillipede%3C/text%3E%3C/svg%3E'">
         <div class="faq-header-text">
             <h2>Everything You Need to Know About Millipedes</h2>
             <p>Discover fascinating facts about these many-legged decomposers that play a vital role in Nepal's ecosystems.</p>
@@ -63,7 +613,7 @@
             <h2 class="faq-question">What are millipedes?</h2>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <p>Millipedes are arthropods belonging to the class Diplopoda. They are characterized by having two pairs of jointed legs on most body segments. With over 12,000 species worldwide, they are one of the most diverse groups of organisms on Earth.</p>
+                    <p>Millipedes are arthropods belonging to the class Diplopoda. They are characterized by having two pairs of jointed legs on most body segments. With over 12,000 species worldwide, they are one of the most diverse groups of organisms on Earth. In Nepal, we have documented numerous species ranging from the lowland Terai to the high Himalayas.</p>
                 </div>
             </div>
         </div>
@@ -72,7 +622,7 @@
             <h2 class="faq-question">How many legs do millipedes have?</h2>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <p>The number of legs millipedes have can vary significantly, ranging from 30 to over 750 legs depending on the species. Despite their name meaning "thousand feet," no millipede species actually has 1,000 legs - the record holder is <i>Illacme plenipes</i> with up to 750 legs.</p>
+                    <p>The number of legs millipedes have can vary significantly, ranging from 30 to over 750 legs depending on the species. Despite their name meaning "thousand feet," no millipede species actually has 1,000 legs - the record holder is <i>Illacme plenipes</i> with up to 750 legs. Most common species have between 80 and 400 legs.</p>
                 </div>
             </div>
         </div>
@@ -81,7 +631,7 @@
             <h2 class="faq-question">What do millipedes eat?</h2>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <p>Millipedes are detritivores, meaning they primarily feed on decomposing plant material, dead leaves, and other organic matter. Some may also consume fungi and other plant-based materials. They play a crucial role in breaking down leaf litter and recycling nutrients in forest ecosystems.</p>
+                    <p>Millipedes are detritivores, meaning they primarily feed on decomposing plant material, dead leaves, and other organic matter. Some may also consume fungi and other plant-based materials. They play a crucial role in breaking down leaf litter and recycling nutrients in forest ecosystems. In Nepalese forests, they help create rich organic soil by processing fallen leaves.</p>
                 </div>
             </div>
         </div>
@@ -90,7 +640,7 @@
             <h2 class="faq-question">Where do millipedes live?</h2>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <p>Millipedes are typically found in moist environments such as forest floors, leaf litter, under rocks, and decaying logs. They prefer dark, humid conditions. In Nepal, they can be found from the lowland Terai forests up to high Himalayan regions.</p>
+                    <p>Millipedes are typically found in moist environments such as forest floors, leaf litter, under rocks, and decaying logs. They prefer dark, humid conditions. In Nepal, they can be found from the lowland Terai forests (around 60m elevation) up to high Himalayan regions (over 4000m). Different species have adapted to specific elevation zones and habitat types.</p>
                 </div>
             </div>
         </div>
@@ -99,7 +649,7 @@
             <h2 class="faq-question">Are millipedes harmful to humans?</h2>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <p>Millipedes are generally harmless to humans. They do not bite or sting, but some species can release a defensive chemical that may cause mild skin irritation or allergic reactions in some people. It's always best to wash your hands after handling them.</p>
+                    <p>Millipedes are generally harmless to humans. They do not bite or sting, but some species can release a defensive chemical that may cause mild skin irritation or allergic reactions in some people. It's always best to wash your hands after handling them. Unlike centipedes, millipedes are not venomous and pose no serious threat to humans or pets.</p>
                 </div>
             </div>
         </div>
@@ -108,7 +658,7 @@
             <h2 class="faq-question">How do millipedes defend themselves?</h2>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <p>Millipedes can curl into a tight coil to protect their soft underbelly. Many species also secrete toxic or foul-smelling chemicals (including hydrogen cyanide) from their bodies to deter predators. This is why they sometimes smell bad when handled.</p>
+                    <p>Millipedes have several defense mechanisms. They can curl into a tight coil to protect their soft underbelly (like a spiral). Many species also secrete toxic or foul-smelling chemicals (including hydrogen cyanide and benzoquinones) from glands along their body to deter predators. This is why they sometimes have an unpleasant smell when handled. Their hard exoskeleton also provides protection.</p>
                 </div>
             </div>
         </div>
@@ -117,7 +667,7 @@
             <h2 class="faq-question">How do millipedes reproduce?</h2>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <p>Millipedes reproduce by laying eggs. Males transfer sperm to females using specialized limbs called gonopods. Females lay eggs in the soil or other concealed, moist environments. Some species even build nests and guard their eggs until they hatch.</p>
+                    <p>Millipedes reproduce by laying eggs. Males transfer sperm to females using specialized limbs called gonopods (modified legs on the 7th segment). Females lay eggs in the soil or other concealed, moist environments. Some species even build nests and guard their eggs until they hatch. The young hatch with only three pairs of legs and add more segments and legs with each molt.</p>
                 </div>
             </div>
         </div>
@@ -126,7 +676,7 @@
             <h2 class="faq-question">Why do I find millipedes in my house?</h2>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <p>Millipedes may enter homes seeking moisture and shelter, especially during dry weather or heavy rain. They are usually found in basements, bathrooms, and other damp areas. Sealing cracks and reducing moisture around your home can help prevent them.</p>
+                    <p>Millipedes may enter homes seeking moisture and shelter, especially during dry weather or heavy rain. They are usually found in basements, bathrooms, and other damp areas. They are attracted to decaying organic matter and moisture. To prevent them, seal cracks around doors and windows, reduce humidity, remove leaf litter near your home, and fix any leaky pipes.</p>
                 </div>
             </div>
         </div>
@@ -135,7 +685,7 @@
             <h2 class="faq-question">Do millipedes play a role in the ecosystem?</h2>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <p>Yes, millipedes play a crucial role in the ecosystem by breaking down decaying plant material and recycling nutrients back into the soil, aiding in soil formation and fertility. They are essential decomposers in forest ecosystems and help create rich topsoil.</p>
+                    <p>Yes, millipedes play a crucial role in the ecosystem! They are essential decomposers that break down decaying plant material and recycle nutrients back into the soil, aiding in soil formation and fertility. They help create rich topsoil, improve soil structure, and support plant growth. In Nepalese forests, they are vital members of the detritivore community, processing vast amounts of leaf litter each year.</p>
                 </div>
             </div>
         </div>
@@ -144,7 +694,7 @@
             <h2 class="faq-question">Can millipedes be kept as pets?</h2>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <p>Yes, some species of millipedes are kept as pets. They require a habitat with high humidity, appropriate substrate (like coconut fiber or leaf litter), and a diet of decaying plant matter, fruits, and vegetables. Giant African millipedes are popular pet species.</p>
+                    <p>Yes, some species of millipedes are kept as pets. They require a habitat with high humidity (70-80%), appropriate substrate (like coconut fiber, peat moss, or leaf litter), and a diet of decaying plant matter, fruits, and vegetables. Giant African millipedes (<i>Archispirostreptus gigas</i>) are popular pet species. However, we encourage observing them in their natural habitat rather than removing them from the wild.</p>
                 </div>
             </div>
         </div>
@@ -158,9 +708,40 @@
 </main>
 
 <footer>
-    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© 2025 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
+
+<script>
+    // Smooth scroll for anchor links with offset for fixed header
+    document.querySelectorAll('.jump-to a, a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const headerOffset = 100;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+    
+    // Handle image loading errors gracefully
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('error', function() {
+            console.log('Image failed to load:', this.src);
+        });
+    });
+</script>
 
 </body>
 </html>
