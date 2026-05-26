@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Millipedes of Nepal - Introduction & Identification | मिलिपिडहरूको परिचय र पहिचान</title>
-    <!-- Leaflet CSS (lightweight, for potential future use) -->
+    <!-- Leaflet CSS (lightweight) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         * {
@@ -18,18 +18,21 @@
             background: #f4f8f4;
             color: #1e2a2e;
             line-height: 1.5;
+            width: 100%;
+            overflow-x: hidden;
         }
 
-        /* HEADER */
+        /* HEADER - full bleed */
         header {
             background: linear-gradient(135deg, #1a472a 0%, #0e3a2a 100%);
             color: white;
             padding: 20px 5%;
             border-bottom: 5px solid #f9b234;
+            width: 100%;
         }
 
         .header-container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -65,7 +68,7 @@
             font-weight: bold;
         }
 
-        /* NAVIGATION */
+        /* NAVIGATION - full width, sticky */
         nav {
             background: #2c3e2b;
             display: flex;
@@ -77,6 +80,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            width: 100%;
         }
 
         nav a {
@@ -96,22 +100,31 @@
             transform: translateY(-2px);
         }
 
-        /* MAIN container */
+        /* MAIN - FULL WIDTH, NO GAPS */
         main {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 5%;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 40px 0;
+            background: #f4f8f4;
         }
 
-        /* VIDEO SECTION (big & centered) */
+        /* Containers inside main for content - centered but edge-to-edge video and sections */
+        .full-width-container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        /* VIDEO SECTION - edge to edge, no gaps */
         .full-video-section {
             width: 100%;
-            max-width: 1200px;
-            margin: 0 auto 50px auto;
+            max-width: 100%;
+            margin: 0 0 50px 0;
             background: #1a1a2e;
-            border-radius: 20px;
+            border-radius: 0;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .full-video {
@@ -122,8 +135,9 @@
 
         .video-caption-full {
             background: linear-gradient(135deg, #1a5276 0%, #0e3a54 100%);
-            padding: 30px 40px;
+            padding: 30px 5%;
             text-align: center;
+            width: 100%;
         }
 
         .video-caption-full p {
@@ -131,20 +145,26 @@
             line-height: 1.6;
             color: white;
             margin: 0;
-        }
-
-        /* PDF SECTION (big cards) */
-        .pdf-section {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 1px solid #e0e0e0;
-            width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        /* PDF SECTIONS - full width with inner max-width for readability, but background stretches */
+        .pdf-section {
+            background: white;
+            border-radius: 0;
+            padding: 40px 5%;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            width: 100%;
+        }
+
+        .pdf-section .pdf-inner {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .pdf-section h2 {
@@ -154,36 +174,6 @@
             margin-bottom: 30px;
             font-size: 2.2rem;
             text-align: center;
-        }
-
-        /* big text intro elements */
-        .intro-text {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f0f7f0;
-            border-radius: 15px;
-        }
-
-        .intro-text p {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .key-text {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #fef9e6;
-            border-radius: 15px;
-        }
-
-        .key-text p {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin-bottom: 15px;
         }
 
         .pdf-viewer {
@@ -225,22 +215,20 @@
             font-size: 1rem;
         }
 
-        /* SOURCE BOX - big centered */
+        /* SOURCE BOX - full width but inner content centered */
         .source-box {
             background: linear-gradient(135deg, #ebf5fb 0%, #d6eaf8 100%);
-            border-radius: 20px;
-            padding: 45px;
+            border-radius: 0;
+            padding: 50px 5%;
             text-align: center;
             width: 100%;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
             transition: all 0.3s ease;
+            margin-top: 20px;
         }
 
-        .source-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        .source-inner {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .milli-peet-logo {
@@ -278,14 +266,15 @@
             text-decoration: underline;
         }
 
-        /* FOOTER */
+        /* FOOTER full width */
         footer {
             background: #1e2e1c;
             color: #ddd;
             text-align: center;
             padding: 30px 5%;
-            margin-top: 50px;
+            margin-top: 0;
             font-size: 1rem;
+            width: 100%;
         }
 
         footer a {
@@ -297,13 +286,11 @@
             text-decoration: underline;
         }
 
-        /* responsive */
+        /* responsive adjustments - no gaps anywhere */
         @media (max-width: 768px) {
             .header-text h1 { font-size: 1.8rem; }
             .video-caption-full p { font-size: 1rem; }
             .pdf-section h2 { font-size: 1.6rem; }
-            .intro-text p { font-size: 1.1rem; }
-            .key-text p { font-size: 1.1rem; }
             .pdf-viewer { height: 450px; }
             .pdf-controls a { padding: 10px 25px; font-size: 1rem; }
             .milli-peet-logo { font-size: 1.8rem; }
@@ -311,6 +298,13 @@
             .source-box strong { font-size: 1.1rem; }
             .source-box a { font-size: 1rem; }
             nav a { padding: 6px 14px; font-size: 0.85rem; }
+        }
+
+        /* remove any default body margins/paddings that could cause side gaps */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
         }
     </style>
 </head>
@@ -340,8 +334,7 @@
 </nav>
 
 <main>
-
-    <!-- FULL WIDTH VIDEO SECTION (italic removed) -->
+    <!-- VIDEO SECTION - full bleed (no gaps left/right) -->
     <div class="full-video-section">
         <div class="video-wrapper">
             <video class="full-video" controls preload="metadata" poster="thumb.png">
@@ -354,33 +347,39 @@
         </div>
     </div>
 
-    <!-- INTRODUCTION PDF SECTION with BIG TEXT -->
+    <!-- INTRODUCTION PDF SECTION - full width layout, inner constrained for readability -->
     <div class="pdf-section">
-        <h2>📄 Introduction to Millipedes (मिलिपिडहरूको परिचय)</h2>   
-        <embed class="pdf-viewer" src="intro.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf">
-        <div class="pdf-controls">
-            <a href="intro.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
+        <div class="pdf-inner">
+            <h2>📄 Introduction to Millipedes (मिलिपिडहरूको परिचय)</h2>   
+            <embed class="pdf-viewer" src="intro.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf">
+            <div class="pdf-controls">
+                <a href="intro.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
+            </div>
+            <div class="note">The PDF may take a few seconds to load. If not visible, click the button above.</div>
         </div>
-        <div class="note">The PDF may take a few seconds to load. If not visible, click the button above.</div>
     </div>
     
-    <!-- IDENTIFICATION KEY PDF SECTION with BIG TEXT -->
+    <!-- IDENTIFICATION KEY PDF SECTION -->
     <div class="pdf-section">
-        <h2>🔑 Illustrated Key to Order (चित्र सहितको पहिचान कुञ्जी)</h2>
-        <embed class="pdf-viewer" src="keys.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf">
-        <div class="pdf-controls">
-            <a href="keys.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
+        <div class="pdf-inner">
+            <h2>🔑 Illustrated Key to Order (चित्र सहितको पहिचान कुञ्जी)</h2>
+            <embed class="pdf-viewer" src="keys.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf">
+            <div class="pdf-controls">
+                <a href="keys.pdf" target="_blank">📄 Open Full PDF in New Tab</a>
+            </div>
+            <div class="note">The PDF may take a few seconds to load. If not visible, click the button above.</div>
         </div>
-        <div class="note">The PDF may take a few seconds to load. If not visible, click the button above.</div>
     </div>
     
-    <!-- SOURCE ATTRIBUTION BOX (big centered) -->
+    <!-- SOURCE ATTRIBUTION BOX (full width) -->
     <div class="source-box">
-        <div class="milli-peet-logo">MILLI-PEET</div>
-        <p>This identification key and taxonomic information are adapted from the</p>
-        <p><strong>MILLI-PEET (Millipede Phylogeny and Evolution) Project</strong></p>
-        <p>By <strong>Petra Sierwald</strong></p>
-        <a href="https://www.fieldmuseum.org/" target="_blank">🌐 www.fieldmuseum.org</a>
+        <div class="source-inner">
+            <div class="milli-peet-logo">MILLI-PEET</div>
+            <p>This identification key and taxonomic information are adapted from the</p>
+            <p><strong>MILLI-PEET (Millipede Phylogeny and Evolution) Project</strong></p>
+            <p>By <strong>Petra Sierwald</strong></p>
+            <a href="https://www.fieldmuseum.org/" target="_blank">🌐 www.fieldmuseum.org</a>
+        </div>
     </div>
 </main>
 
@@ -389,22 +388,20 @@
     <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
-<!-- Optional small script for any placeholder or dummy asset fallback (no italics, just resilience) -->
 <script>
     (function() {
-        // Just to handle missing poster gracefully, no italics styling interference
+        // ensure any external assets don't break layout; also handle video poster fallback
         const video = document.querySelector('.full-video');
         if(video) {
             video.addEventListener('error', function() {
-                // if video fails to load, shows fallback message but not altering italics
-                console.log("Video file could not be loaded. Ensure intronepali.mp4 and thumb.png exist.");
+                console.log("Video file not found: ensure intronepali.mp4 and thumb.png exist.");
             });
         }
-        // Check for PDF embeds fallback (just user friendly)
+        // PDF embeds graceful error handling (no user-facing disturbance)
         const embeds = document.querySelectorAll('embed.pdf-viewer');
         embeds.forEach(embed => {
             embed.addEventListener('error', function() {
-                // silently no changes
+                // silent fallback; PDF might be missing but the layout remains full-width
             });
         });
     })();
