@@ -530,9 +530,6 @@ const millipedePoints = [
     { order: "Spirostreptida", family: "Harpagophoridae", subfamily: "Harpagophorinae", tribe: "Gonoplectini", genus: "Gonoplectus", species: "malayus", lat: 27.697504, lon: 84.427875 },
     { order: "Spirostreptida", family: "Harpagophoridae", subfamily: "Harpagophorinae", tribe: "Gonoplectini", genus: "Gonoplectus", species: "malayus", lat: 27.56522, lon: 84.097853 },
     { order: "Spirostreptida", family: "Harpagophoridae", subfamily: "Harpagophorinae", tribe: "Gonoplectini", genus: "Gonoplectus", species: "lindbergi", lat: 26.644483, lon: 88.027548 },
-
-     // Siphonocryptida - Siphonocryptidae
-    { order: "Siphonocryptida", family: "Siphonocryptidae", subfamily: "NA", tribe: "NA", genus: "Hirudicryptus", species: " quintumelementum", lat: 27.730944, lon: 85.3941628 },
     
     // Spirobolida - Pachybolidae
     { order: "Spirobolida", family: "Pachybolidae", subfamily: "Trigoniulinae", tribe: "NA", genus: "Trigoniulus", species: "corralinus", lat: 27.730944, lon: 85.320841 },
