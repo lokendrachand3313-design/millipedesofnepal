@@ -4,88 +4,332 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>History of Millipedes Species Description of Nepal</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Explore the rich history of millipede taxonomy in Nepal from 1935 to present, featuring key taxonomists and their discoveries.">
+    <meta name="keywords" content="millipedes, Nepal, taxonomy, history, Diplopoda, Golovatch, Carl, Attems">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* Additional inline styles to keep gallery tidy with images */
-        .ref-scroll-container {
-            max-height: 320px;
-            overflow-y: auto;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            padding-right: 0.5rem;
-            border-radius: 20px;
-            background: #fefaf2;
-            scroll-behavior: smooth;
-        }
-        .ref-scroll-container::-webkit-scrollbar {
-            width: 6px;
-        }
-        .ref-scroll-container::-webkit-scrollbar-track {
-            background: #e2d9cb;
-            border-radius: 10px;
-        }
-        .ref-scroll-container::-webkit-scrollbar-thumb {
-            background: #7faa6b;
-            border-radius: 10px;
-        }
-        .references-list-compact {
-            list-style: none;
-            padding-left: 0.8rem;
+        /* ============================================
+           Millipedes of Nepal - COMPLETE BLUE THEME
+           Version: 2.0 - History Page
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
+        * {
             margin: 0;
-        }
-        .references-list-compact li {
-            padding: 0.6rem 0.6rem 0.6rem 1.6rem;
-            margin-bottom: 6px;
-            border-bottom: 1px solid #e4d8c4;
-            font-size: 0.85rem;
-            line-height: 1.45;
-            position: relative;
-        }
-        .references-list-compact li:before {
-            content: "📄";
-            position: absolute;
-            left: -2px;
-            top: 0.55rem;
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-        .references-list-compact li a {
-            color: #2c6e2c;
-            text-decoration: none;
-            border-bottom: 1px dotted #bcab8a;
-        }
-        .references-list-compact li a:hover {
-            color: #1d451d;
-        }
-        .taxonomist-gallery, .brief-history, .scientific-text {
-            position: relative;
-        }
-        .slide-hint {
-            display: inline-block;
-            background: #ece1cf;
-            padding: 2px 12px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: normal;
-            margin-left: 12px;
-            color: #4e6b3a;
-        }
-        .ref-header-compact {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-bottom: 0.5rem;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Enhanced taxonomist card with photo image */
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            header, nav, footer {
+                display: none;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            section {
+                break-inside: avoid;
+                box-shadow: none;
+            }
+        }
+
+        /* ============ HEADER WITH LOGO ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+        }
+
+        .header-text p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
+        }
+
+        /* ============ NAVIGATION BAR ============ */
+        nav {
+            background-color: var(--primary-blue);
+            padding: 15px 5%;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        section {
+            background-color: var(--bg-white);
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            width: 100%;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        h3 {
+            color: var(--primary-blue);
+            margin: 25px 0 15px 0;
+            font-size: 1.5rem;
+        }
+
+        .full-history-text {
+            text-align: justify;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            width: 100%;
+        }
+
+        .full-history-text p {
+            margin-bottom: 20px;
+        }
+
+        .history-img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 4px solid #fff;
+            display: block;
+            transition: all 0.5s ease;
+        }
+
+        .history-img:hover {
+            transform: scale(1.03);
+            border-color: var(--gold);
+        }
+
+        .brief-history {
+            background-color: var(--blue-bg);
+            padding: 35px;
+            border-radius: 10px;
+            border-left: 6px solid var(--primary-blue);
+            width: 100%;
+        }
+
+        .brief-history p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        /* Taxonomist Gallery */
+        .taxonomist-gallery {
+            background: linear-gradient(135deg, #e8f0f7 0%, #d4e4f0 100%);
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            margin: 2.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            width: 100%;
+        }
+
+        .section-title-wrap {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .taxonomist-gallery h2 {
+            text-align: center;
+            color: var(--primary-blue);
+            border-left: 5px solid var(--gold);
+            border-right: 5px solid var(--gold);
+            display: inline-block;
+            width: auto;
+            margin: 0 auto;
+            padding: 0.5rem 1.8rem;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            background: rgba(255,255,240,0.8);
+            border-radius: 40px;
+        }
+
         .taxonomist-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
             gap: 1.8rem;
             margin-top: 1.8rem;
         }
+
         .taxonomist-card {
             background: white;
             border-radius: 28px;
@@ -95,10 +339,12 @@
             transition: all 0.25s ease;
             border: 1px solid #ece0cf;
         }
+
         .taxonomist-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 18px 28px rgba(0,0,0,0.12);
         }
+
         .taxonomist-photo-img {
             width: 140px;
             height: 140px;
@@ -110,11 +356,14 @@
             background: #e9e2d4;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+
         .taxonomist-card h3 {
             margin: 0.5rem 0 0.2rem;
             font-size: 1.25rem;
             color: #2c4b2a;
+            border: none;
         }
+
         .taxonomist-country {
             font-size: 0.85rem;
             background: #f3efe4;
@@ -123,11 +372,13 @@
             border-radius: 40px;
             margin: 0.4rem 0;
         }
+
         .taxonomist-card p {
             font-size: 0.8rem;
             color: #5e6e55;
             margin-top: 0.3rem;
         }
+
         .fallback-icon {
             width: 140px;
             height: 140px;
@@ -142,26 +393,212 @@
             color: #2c5e2a;
             border: 4px solid #f3e1b3;
         }
-        /* Image gallery hint */
-        .photo-hint {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #7e6b4e;
+
+        /* References Section */
+        .ref-scroll-container {
+            max-height: 320px;
+            overflow-y: auto;
             margin-top: 1rem;
-            padding: 0.5rem;
-            background: #f8f3e8;
-            border-radius: 40px;
+            margin-bottom: 1rem;
+            padding-right: 0.5rem;
+            border-radius: 20px;
+            background: #fefaf2;
+            scroll-behavior: smooth;
+        }
+
+        .ref-scroll-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .ref-scroll-container::-webkit-scrollbar-track {
+            background: #e2d9cb;
+            border-radius: 10px;
+        }
+
+        .ref-scroll-container::-webkit-scrollbar-thumb {
+            background: #7faa6b;
+            border-radius: 10px;
+        }
+
+        .references-list-compact {
+            list-style: none;
+            padding-left: 0.8rem;
+            margin: 0;
+        }
+
+        .references-list-compact li {
+            padding: 0.6rem 0.6rem 0.6rem 1.6rem;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #e4d8c4;
+            font-size: 0.85rem;
+            line-height: 1.45;
+            position: relative;
+        }
+
+        .references-list-compact li:before {
+            content: "📄";
+            position: absolute;
+            left: -2px;
+            top: 0.55rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .references-list-compact li a {
+            color: #2c6e2c;
+            text-decoration: none;
+            border-bottom: 1px dotted #bcab8a;
+        }
+
+        .references-list-compact li a:hover {
+            color: #1d451d;
+        }
+
+        .ref-header-compact {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 5%;
+            width: 100%;
+            max-width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
             display: inline-block;
-            width: auto;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ============ RESPONSIVE DESIGN ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 5%; gap: 20px; }
+            .taxonomist-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            nav a { padding: 6px 10px; font-size: 0.85rem; }
+            main { padding: 30px 5%; }
+            h2 { font-size: 1.7rem; }
+            .full-history-text { font-size: 1rem; }
+            .taxonomist-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            section { padding: 25px; }
+            footer p { font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .header-text h1 { font-size: 1.8rem; }
+            .header-text p { font-size: 1rem; }
+            .taxonomist-grid { grid-template-columns: 1fr; }
+            .taxonomist-photo-img { width: 120px; height: 120px; }
+            .fallback-icon { width: 120px; height: 120px; font-size: 2.5rem; }
+        }
+
+        @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- HEADER WITH LOGO -->
 <header>
     <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#2d5a27'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%233a6b34\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23ffd700\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
         <div class="header-text">
             <h1>History of Research</h1>
             <p>Scientific exploration from 1935 to Present</p>
@@ -201,6 +638,7 @@
 
         <img src="history.png" alt="Trend of Millipede Species Descriptions in Nepal" 
              class="history-img" 
+             loading="lazy"
              onerror="this.src='https://via.placeholder.com/1000x600?text=History+of+Millipede+Research'">
 
         <h3>Why Is the Trend of Species Descriptions Declining?</h3>
@@ -228,7 +666,7 @@
             professor and supervisor, I focused on the class Diplopoda (millipedes). 
             I conducted a comprehensive taxonomic study of millipedes from urban forest 
             patches in the Kathmandu Valley, emphasizing species identification based 
-            on <b>gonopod morphology</b>.After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts.
+            on <b>gonopod morphology</b>. After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts.
         </p>
         <p>
             The discovery of high levels of endemism and previously undocumented diversity 
@@ -238,17 +676,14 @@
         </p>
     </section>
     
-    <!-- TAXONOMIST GALLERY with LOCAL JPG PHOTOS (using last name filenames) -->
+    <!-- TAXONOMIST GALLERY -->
     <div class="taxonomist-gallery">
         <div class="section-title-wrap">
             <h2>Taxonomists of Nepalese Millipedes</h2>
         </div>
         <div class="taxonomist-grid">
-            <!-- Each card uses local JPG file with last name. Place your photos as: Carl.jpg, Attems.jpg, Demange.jpg, Shear.jpg, Mauriès.jpg, Golovatch.jpg, Enghoff.jpg, Korsós.jpg, Geoffroy.jpg, Shelley.jpg, VandenSpiegel.jpg, Wesener.jpg, Mikhaljova.jpg -->
-            <!-- Photo path can be adjusted: change 'taxonomist_photos/' to your folder, or keep same directory -->
-            
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="carlj.jpg" alt="J. Carl" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="carlj.jpg" alt="J. Carl" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇨🇭</div>
                 <h3>J. Carl</h3>
                 <div class="taxonomist-country">🇨🇭 Switzerland</div>
@@ -256,7 +691,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="attems.jpg" alt="C. Attems" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="attems.jpg" alt="C. Attems" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇦🇹</div>
                 <h3>C. Attems</h3>
                 <div class="taxonomist-country">🇦🇹 Austria</div>
@@ -264,7 +699,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="demange.jpg" alt="J.-M. Demange" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="demange.jpg" alt="J.-M. Demange" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇫🇷</div>
                 <h3>J.-M. Demange</h3>
                 <div class="taxonomist-country">🇫🇷 France</div>
@@ -272,7 +707,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="shear.jpg" alt="W. A. Shear" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="shear.jpg" alt="W. A. Shear" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇺🇸</div>
                 <h3>W. A. Shear</h3>
                 <div class="taxonomist-country">🇺🇸 USA</div>
@@ -280,7 +715,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="mauries.jpg" alt="J.-P. Mauriès" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="mauries.jpg" alt="J.-P. Mauriès" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇫🇷</div>
                 <h3>J.-P. Mauriès</h3>
                 <div class="taxonomist-country">🇫🇷 France</div>
@@ -288,7 +723,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="golovatch.jpg" alt="S. Golovatch" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="golovatch.jpg" alt="S. Golovatch" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇷🇺</div>
                 <h3>S. Golovatch</h3>
                 <div class="taxonomist-country">🇷🇺 Russia</div>
@@ -296,7 +731,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="enghoff.jpg" alt="H. Enghoff" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="enghoff.jpg" alt="H. Enghoff" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇩🇰</div>
                 <h3>H. Enghoff</h3>
                 <div class="taxonomist-country">🇩🇰 Denmark</div>
@@ -304,7 +739,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="korsos.jpg" alt="Z. Korsós" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="korsos.jpg" alt="Z. Korsós" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇭🇺</div>
                 <h3>Z. Korsós</h3>
                 <div class="taxonomist-country">🇭🇺 Hungary</div>
@@ -312,7 +747,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="geoffroy.png" alt="J.-J. Geoffroy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="geoffroy.png" alt="J.-J. Geoffroy" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇫🇷</div>
                 <h3>J.-J. Geoffroy</h3>
                 <div class="taxonomist-country">🇫🇷 France</div>
@@ -320,7 +755,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="shelley.jpg" alt="R. M. Shelley" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="shelley.jpg" alt="R. M. Shelley" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇺🇸</div>
                 <h3>R. M. Shelley</h3>
                 <div class="taxonomist-country">🇺🇸 USA</div>
@@ -328,7 +763,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="vanden.jpg" alt="D. VandenSpiegel" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="vanden.jpg" alt="D. VandenSpiegel" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇧🇪</div>
                 <h3>D. VandenSpiegel</h3>
                 <div class="taxonomist-country">🇧🇪 Belgium</div>
@@ -336,7 +771,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="wesner.jpg" alt="T. Wesener" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="wesner.jpg" alt="T. Wesener" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇩🇪</div>
                 <h3>T. Wesener</h3>
                 <div class="taxonomist-country">🇩🇪 Germany</div>
@@ -344,7 +779,7 @@
             </div>
             
             <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="mikhaljova.jpg" alt="E. Mikhaljova" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img class="taxonomist-photo-img" src="mikhaljova.jpg" alt="E. Mikhaljova" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="fallback-icon" style="display: none;">🇷🇺</div>
                 <h3>E. Mikhaljova</h3>
                 <div class="taxonomist-country">🇷🇺 Russia</div>
@@ -353,12 +788,11 @@
         </div>
     </div>
     
-    <!-- SLIDABLE REFERENCES BOX: only few references visible, vertical scroll (slide) to see the rest -->
- <div style="background: #e8f0fe; border-radius: 24px; padding: 1.25rem 1.75rem 1rem 1.75rem; margin: 2rem 0 1.5rem; border: 1px solid #c5d6e8; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);">
-    <div class="ref-header-compact">
-        <h2 style="border-left: 4px solid #c73e3e; padding-left: 1rem; margin: 0; font-size: 1.35rem; font-weight: 600; color: #2c5282; letter-spacing: -0.2px;">References</h2>
-    </div>
-</div>
+    <!-- REFERENCES SECTION -->
+    <div style="background: #e8f0fe; border-radius: 24px; padding: 1.25rem 1.75rem 1rem 1.75rem; margin: 2rem 0 1.5rem; border: 1px solid #c5d6e8; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);">
+        <div class="ref-header-compact">
+            <h2 style="border-left: 4px solid #c73e3e; padding-left: 1rem; margin: 0; font-size: 1.35rem; font-weight: 600; color: #2c5282; letter-spacing: -0.2px;">References</h2>
+        </div>
         <div class="ref-scroll-container">
             <ul class="references-list-compact">
                 <li>Attems, C. (1936). Diplopoda of India. <i>Memoirs of the Indian Museum</i>, <i>11</i>(4), 133–323.</li>
@@ -394,12 +828,11 @@
             </ul>
         </div>
     </div>
-    
 </main>
 
 <footer>
-    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>© 2026 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© 2025 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
 </body>
