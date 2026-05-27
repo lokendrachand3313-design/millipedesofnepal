@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ne">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <style>
+        /* ============ SHARED STYLES (Same as distribution.html) ============ */
         * {
             margin: 0;
             padding: 0;
@@ -27,7 +28,9 @@
         :root {
             --primary-blue: #1a5276;
             --primary-blue-dark: #0e3a54;
-            --gold: #e6b422;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
             --green: #28a745;
             --red: #dc3545;
             --orange: #fd7e14;
@@ -36,6 +39,7 @@
             --shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
 
+        /* Header */
         header {
             background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('home.jpg');
             background-size: cover;
@@ -70,6 +74,150 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
+        /* Right side group: Millipede PNG + Clock */
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .millipede-icon {
+            height: 90px;
+            width: auto;
+            max-width: 150px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s ease;
+        }
+
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+        }
+
+        /* Clock Styles */
+        .clock-container {
+            background: transparent;
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .analog-clock {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 5px;
+            position: relative;
+            background: transparent;
+        }
+
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            pointer-events: none;
+        }
+
+        .clock-center {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 3px;
+        }
+
+        .hour-hand {
+            width: 3px;
+            height: 22px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: translateX(-50%) rotate(0deg);
+        }
+
+        .minute-hand {
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateX(-50%) rotate(0deg);
+        }
+
+        .second-hand {
+            width: 1px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: translateX(-50%) rotate(0deg);
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 9px;
+            font-weight: bold;
+            color: #f39c12;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+        }
+
+        .number-12 { top: 8%; left: 50%; }
+        .number-3 { top: 50%; left: 92%; }
+        .number-6 { top: 92%; left: 50%; }
+        .number-9 { top: 50%; left: 8%; }
+
+        .clock-time-digital {
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 15px;
+        }
+
+        .clock-date {
+            font-size: 8px;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 3px;
+        }
+
+        .clock-nepali-date {
+            font-size: 9px;
+            color: #ecf0f1;
+            text-align: center;
+            font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
+            background: rgba(0,0,0,0.2);
+            padding: 2px 5px;
+            border-radius: 12px;
+        }
+
+        /* Navigation */
         nav {
             background: var(--primary-blue);
             padding: 12px 5%;
@@ -95,6 +243,7 @@
             color: var(--primary-blue);
         }
 
+        /* Main Content */
         main {
             max-width: 1400px;
             margin: 0 auto;
@@ -114,6 +263,7 @@
             padding-bottom: 8px;
         }
 
+        /* Contact Buttons */
         .contact-section {
             display: flex;
             justify-content: center;
@@ -139,6 +289,7 @@
         .email-btn { background: var(--gmail); }
         .email-btn:hover { background: #b83a2e; transform: translateY(-2px); }
 
+        /* Two Columns */
         .upload-dashboard {
             display: flex;
             flex-wrap: wrap;
@@ -538,8 +689,12 @@
             .header-text h1 { font-size: 1.8rem; }
             .header-text p { font-size: 1rem; }
             .header-logo { height: 60px; }
+            .millipede-icon { height: 50px; }
+            .analog-clock { width: 60px; height: 60px; }
+            .clock-container { min-width: 140px; }
             .form-panel, .gallery-panel { min-width: 280px; }
             #map { height: 300px; }
+            .right-group { gap: 5px; }
         }
     </style>
 </head>
@@ -547,10 +702,38 @@
 
 <header>
     <div class="header-container">
-        <img src="logo.png" alt="Logo" class="header-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
+             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
+        
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
             <p>Citizen Science Portal</p>
+        </div>
+        
+        <div class="right-group">
+            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
+                 onerror="this.style.display='none'">
+            
+            <div class="clock-container">
+                <div class="analog-clock">
+                    <div class="clock-face">
+                        <div class="clock-ring"></div>
+                        <div class="hand hour-hand" id="hourHand"></div>
+                        <div class="hand minute-hand" id="minuteHand"></div>
+                        <div class="hand second-hand" id="secondHand"></div>
+                        <div class="clock-center"></div>
+                        <div class="clock-numbers">
+                            <div class="number number-12">12</div>
+                            <div class="number number-3">3</div>
+                            <div class="number number-6">6</div>
+                            <div class="number number-9">9</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clock-time-digital" id="digitalTime">--:--:--</div>
+                <div class="clock-date" id="englishDate">--</div>
+                <div class="clock-nepali-date" id="nepaliDate">--</div>
+            </div>
         </div>
     </div>
 </header>
@@ -560,7 +743,7 @@
     <a href="history.html">History</a>
     <a href="checklist.html">Checklist</a>
     <a href="distribution.html">Distribution</a>
-    <a href="introkey.html">Identification</a>
+    <a href="introkey.html">Introduction and Identification</a>
     <a href="articles.html">Articles</a>
     <a href="team.html">Team</a>
     <a href="gallery.html">Gallery</a> 
@@ -700,19 +883,117 @@
 </main>
 
 <footer>
-    <p>Contact: <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>© 2025 Lokendra Chand | Millipedes of Nepal</p>
+    <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
 <div class="modal"><span class="modal-close">&times;</span><img id="modalImage"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
 <script>
 // ============================================
-// CONFIGURATION - REPLACE WITH YOUR URL
+// NEPAL TIME ZONE FUNCTIONS
 // ============================================
+
+function getNepalTime() {
+    const now = new Date();
+    const nepalOffset = 5.75 * 60 * 60 * 1000;
+    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+    return new Date(utcTime + nepalOffset);
+}
+
+function toNepaliDigits(number) {
+    const nepaliDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+    return String(number).split('').map(d => nepaliDigits[parseInt(d)] || d).join('');
+}
+
+function getNepaliMonthName(month) {
+    const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'श्रावण', 'भाद्र', 'आश्विन', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फाल्गुन', 'चैत्र'];
+    return nepaliMonths[month];
+}
+
+function getNepaliWeekday(day) {
+    const nepaliWeekdays = ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'];
+    return nepaliWeekdays[day];
+}
+
+function getNepaliDate(gregorianDate) {
+    let bsYear = gregorianDate.getFullYear() + 57;
+    let bsMonth = gregorianDate.getMonth();
+    let bsDay = gregorianDate.getDate();
+    
+    if (bsMonth < 3) {
+        bsYear--;
+        bsMonth += 9;
+    } else {
+        bsMonth -= 3;
+    }
+    
+    bsDay = bsDay + 15;
+    if (bsDay > 32) {
+        bsDay -= 32;
+        bsMonth++;
+        if (bsMonth > 11) {
+            bsMonth = 0;
+            bsYear++;
+        }
+    }
+    
+    return { year: bsYear, month: bsMonth, day: bsDay };
+}
+
+function updateClock() {
+    const now = getNepalTime();
+    
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    
+    const hourAngle = (hours % 12) * 30 + minutes * 0.5;
+    const minuteAngle = minutes * 6;
+    const secondAngle = seconds * 6;
+    
+    const hourHand = document.getElementById('hourHand');
+    const minuteHand = document.getElementById('minuteHand');
+    const secondHand = document.getElementById('secondHand');
+    
+    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${hourAngle}deg)`;
+    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minuteAngle}deg)`;
+    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${secondAngle}deg)`;
+    
+    const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    const digitalTimeElem = document.getElementById('digitalTime');
+    if (digitalTimeElem) digitalTimeElem.innerHTML = timeString;
+    
+    const englishDateStr = now.toLocaleDateString('en-US', { 
+        weekday: 'short', 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+    });
+    const englishDateElem = document.getElementById('englishDate');
+    if (englishDateElem) englishDateElem.innerHTML = englishDateStr;
+    
+    const nepaliDate = getNepaliDate(now);
+    const nepaliYearDigits = toNepaliDigits(nepaliDate.year);
+    const nepaliDayDigits = toNepaliDigits(nepaliDate.day);
+    const nepaliMonthName = getNepaliMonthName(nepaliDate.month);
+    const nepaliWeekday = getNepaliWeekday(now.getDay());
+    
+    const nepaliDateString = `${nepaliWeekday}, ${nepaliMonthName} ${nepaliDayDigits}, ${nepaliYearDigits}`;
+    const nepaliDateElem = document.getElementById('nepaliDate');
+    if (nepaliDateElem) nepaliDateElem.innerHTML = nepaliDateString;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+// ============================================
+// UPLOAD, GALLERY AND MAP FUNCTIONS
+// ============================================
+
+// CONFIGURATION - REPLACE WITH YOUR URL
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbysJwkxdEoDsqPM_fPEdWLce9qEPj9d-154IcrjyFlgM1nfweKBY3uJ4-1KJRHiInFBGw/exec';
 const CLOUD_NAME = 'dmvqby8np';
 const UPLOAD_PRESET = 'millipede_uploads';
@@ -1147,5 +1428,6 @@ initMap();
 loadObservations();
 setInterval(loadObservations, 60000);
 </script>
+
 </body>
 </html>
