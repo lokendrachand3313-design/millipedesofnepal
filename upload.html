@@ -6,9 +6,6 @@
     <title>Upload - Millipedes of Nepal</title>
     <meta name="description" content="Share your millipede observations, photos, and research data with the Millipedes of Nepal project team.">
     
-    <!-- Leaflet CSS for Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
     <!-- Shared Styles -->
     <link rel="stylesheet" href="style.css">
     
@@ -319,27 +316,6 @@
             font-size: 0.8rem;
         }
         
-        .map-container {
-            margin-top: 30px;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .map-header {
-            background: var(--primary-blue);
-            color: white;
-            padding: 12px 20px;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        #map {
-            height: 400px;
-            width: 100%;
-            background: #f0f4f8;
-        }
-        
         .admin-panel {
             background: white;
             border-radius: 20px;
@@ -511,11 +487,6 @@
             .whatsapp-btn, .email-btn { width: 80%; justify-content: center; }
             .form-panel, .gallery-panel { min-width: 280px; }
             .admin-header { flex-direction: column; text-align: center; }
-            #map { height: 350px; }
-        }
-        
-        @media (max-width: 480px) {
-            #map { height: 300px; }
         }
     </style>
 </head>
@@ -656,11 +627,6 @@
         </div>
     </div>
     
-    <div class="map-container">
-        <div class="map-header"><h3>Observations Map by Public</h3><span id="mapStats">Loading markers...</span></div>
-        <div id="map"></div>
-    </div>
-    
     <div class="admin-panel">
         <div class="admin-header">
             <h3>Admin Control Panel</h3>
@@ -725,8 +691,6 @@
     <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
     <p>Copyright <script>document.write(new Date().getFullYear());</script> Lokendra Chand | +977-9809733313 / +817090238470</p>
 </footer>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
     // ============================================
@@ -827,107 +791,33 @@
     updateClock();
     
     // ============================================
-    // UPLOAD AND MAP FUNCTIONALITY
+    // UPLOAD FUNCTIONALITY
     // ============================================
     
-    // Sample observations with GPS coordinates
-    const sampleObservations = [
-        { photoId: "sample1", observer: "Lokendra Chand", location: "Dang Valley", date: "2024-11-15", order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", notes: "Found under leaf litter", comments: "", lat: "28.3949", lon: "84.1240", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
-        { photoId: "sample2", observer: "Research Team", location: "Kathmandu Valley", date: "2024-10-20", order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", notes: "Urban forest record", comments: "", lat: "27.7172", lon: "85.3240", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
-        { photoId: "sample3", observer: "Ayub Senchury", location: "Pokhara", date: "2024-09-05", order: "Julida", family: "Julidae", genus: "Nepalmatoiulus", species: "generalis", notes: "Near water source", comments: "", lat: "28.2096", lon: "83.9856", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
-        { photoId: "sample4", observer: "Field Team", location: "Chitwan", date: "2024-08-12", order: "Polydesmida", family: "Paradoxosomatidae", genus: "Desmoxytes", species: "purpurosea", notes: "Dragon millipede", comments: "", lat: "27.5733", lon: "84.4851", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
-        { photoId: "sample5", observer: "Research Team", location: "Lumbini", date: "2024-07-18", order: "Julida", family: "Julidae", genus: "Cylindroiulus", species: "neapolitanus", notes: "Introduced species", comments: "", lat: "27.4669", lon: "83.2762", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" }
-    ];
-
     let isAdmin = false;
-    let map;
-    let markers = [];
     let allObservations = [];
     let selectedPhoto = null;
 
-    // Initialize Map with OpenStreetMap tiles (more reliable)
-    function initMap() {
-        map = L.map('map').setView([28.3949, 84.1240], 7);
-        
-        // Using standard OpenStreetMap tiles - most reliable
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 19
-        }).addTo(map);
-        
-        console.log("Map initialized successfully");
-    }
-
-    // Extract GPS from text
-    function extractGPS(text) {
-        if (!text) return null;
-        let match = text.match(/GPS:\s*([-\d.]+),\s*([-\d.]+)/i);
-        if (match) return { lat: parseFloat(match[1]), lon: parseFloat(match[2]) };
-        match = text.match(/([-\d.]+),\s*([-\d.]+)/);
-        if (match) {
-            let lat = parseFloat(match[1]), lon = parseFloat(match[2]);
-            if (lat >= 26 && lat <= 31 && lon >= 80 && lon <= 89) return { lat, lon };
-        }
-        return null;
-    }
-
-    // Update map markers
-    function updateMap() {
-        if (!map) {
-            console.log("Map not initialized yet");
-            return;
-        }
-        
-        markers.forEach(m => map.removeLayer(m));
-        markers = [];
-        let count = 0;
-        
-        for (let obs of allObservations) {
-            let gps = null;
-            if (obs.lat && obs.lat !== '') {
-                gps = { lat: parseFloat(obs.lat), lon: parseFloat(obs.lon) };
-            } else {
-                gps = extractGPS(obs.location);
-            }
-            
-            if (gps && !isNaN(gps.lat) && !isNaN(gps.lon) && gps.lat >= 26 && gps.lat <= 31 && gps.lon >= 80 && gps.lon <= 89) {
-                let tax = obs.genus ? obs.genus + ' ' + obs.species : (obs.family || obs.order || '');
-                let html = '<div style="font-family: Times New Roman, serif; min-width: 200px;">' +
-                    '<img src="' + obs.imageUrl + '" style="width:100%; height:100px; object-fit:cover; border-radius:8px; margin-bottom:8px;"><br>' +
-                    '<b>' + obs.location.substring(0, 50) + '</b><br>' +
-                    '<i>' + tax + '</i><br>' +
-                    'By: ' + obs.observer + ' | ' + obs.date + '</div>';
-                let marker = L.marker([gps.lat, gps.lon]).addTo(map);
-                marker.bindPopup(html);
-                markers.push(marker);
-                count++;
-            }
-        }
-        document.getElementById('mapStats').innerHTML = 'Markers: ' + count;
-        console.log("Map updated with " + count + " markers");
-    }
-
     // Load observations
     function loadObservations() {
-        allObservations = [...sampleObservations];
-        document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length + ' (Demo Data)';
+        allObservations = [];
+        document.getElementById('statsCount').innerHTML = 'Total: 0';
         renderGallery();
-        updateMap();
     }
 
     // Render gallery
     function renderGallery() {
+        const container = document.getElementById('galleryContainer');
         if (!allObservations.length) {
-            document.getElementById('galleryContainer').innerHTML = '<div style="text-align:center; padding:40px;">No observations yet. Be the first to upload!</div>';
+            container.innerHTML = '<div style="text-align:center; padding:40px;">No observations yet. Be the first to upload!</div>';
             return;
         }
         
-        const container = document.getElementById('galleryContainer');
         container.innerHTML = '';
         
         for (let i = 0; i < allObservations.length; i++) {
             const obs = allObservations[i];
-            const hasGps = (obs.lat && obs.lat !== '') || extractGPS(obs.location);
+            const hasGps = (obs.lat && obs.lat !== '') || (obs.location && obs.location.includes('GPS:'));
             
             const card = document.createElement('div');
             card.className = 'photo-card';
@@ -1000,11 +890,10 @@
         document.getElementById('selectedName').innerHTML = obs.location.substring(0, 50);
         document.getElementById('selectedId').innerHTML = obs.photoId;
         
-        let gps = (obs.lat && obs.lat !== '') ? { lat: obs.lat, lon: obs.lon } : extractGPS(obs.location);
-        if (gps) {
-            document.getElementById('currentGps').innerHTML = gps.lat + ', ' + gps.lon;
-            document.getElementById('editLat').value = gps.lat;
-            document.getElementById('editLon').value = gps.lon;
+        if (obs.lat && obs.lat !== '') {
+            document.getElementById('currentGps').innerHTML = obs.lat + ', ' + obs.lon;
+            document.getElementById('editLat').value = obs.lat;
+            document.getElementById('editLon').value = obs.lon;
         } else {
             document.getElementById('currentGps').innerHTML = 'Not set';
             document.getElementById('editLat').value = '';
@@ -1030,7 +919,6 @@
         if (!selectedPhoto) { alert('Select a photo first'); return; }
         allObservations.splice(selectedPhoto.index, 1);
         document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
-        updateMap();
         renderGallery();
         showStatus('Photo deleted!', 'success');
         document.getElementById('selectedInfo').classList.remove('show');
@@ -1083,7 +971,6 @@
         
         allObservations[selectedPhoto.index].lat = lat;
         allObservations[selectedPhoto.index].lon = lon;
-        updateMap();
         renderGallery();
         showStatus('GPS updated!', 'success');
         document.getElementById('selectedInfo').classList.remove('show');
@@ -1098,7 +985,6 @@
         allObservations[selectedPhoto.index].genus = document.getElementById('editGenus').value;
         allObservations[selectedPhoto.index].species = document.getElementById('editSpecies').value;
         allObservations[selectedPhoto.index].comments = document.getElementById('editComments').value;
-        updateMap();
         renderGallery();
         showStatus('Taxonomy updated!', 'success');
         document.getElementById('selectedInfo').classList.remove('show');
@@ -1124,7 +1010,6 @@
             document.getElementById('placeResult').innerHTML = `Found: ${lat}, ${lon}`;
             document.getElementById('editLat').value = lat;
             document.getElementById('editLon').value = lon;
-            map.flyTo([lat, lon], 12);
         } else {
             document.getElementById('placeResult').innerHTML = 'Not found';
         }
@@ -1150,7 +1035,14 @@
         
         try {
             const photoId = Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-            const gps = extractGPS(location);
+            
+            // Extract GPS from location text if present
+            let lat = '', lon = '';
+            const gpsMatch = location.match(/GPS:\s*([-\d.]+),\s*([-\d.]+)/i);
+            if (gpsMatch) {
+                lat = gpsMatch[1];
+                lon = gpsMatch[2];
+            }
             
             const newObservation = {
                 photoId: photoId,
@@ -1164,13 +1056,12 @@
                 notes: notes,
                 comments: '',
                 imageUrl: URL.createObjectURL(file),
-                lat: gps ? gps.lat : '',
-                lon: gps ? gps.lon : ''
+                lat: lat,
+                lon: lon
             };
             
             allObservations.unshift(newObservation);
             document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
-            updateMap();
             renderGallery();
             
             showStatus('Upload successful!', 'success');
@@ -1228,11 +1119,8 @@
     // Set default date
     document.getElementById('obsDate').valueAsDate = new Date();
 
-    // Initialize everything when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        initMap();
-        loadObservations();
-    });
+    // Initialize
+    loadObservations();
 </script>
 
 </body>
