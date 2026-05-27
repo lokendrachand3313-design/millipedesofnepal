@@ -4,481 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Millipedes of Nepal</title>
+    <meta name="description" content="Discover the diverse millipede fauna of Nepal. Complete checklist, distribution maps, identification guides, and research articles on Nepalese Diplopoda.">
+    <meta name="keywords" content="millipedes, Nepal, Diplopoda, biodiversity, taxonomy, checklist">
+    
+    <!-- Leaflet CSS for Map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+    
     <style>
-        /* ============================================
-           Millipedes of Nepal - COMPLETE BLUE THEME
-           Full Screen - Works for ALL HTML Files
-           Version: 2.0 - Attractive Clock with Close PNG
-           ============================================ */
-
-        /* ============ RESET & BASE ============ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            line-height: 1.6;
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #f0f4f8;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-        }
-
-        :root {
-            --primary-blue: #1a5276;
-            --primary-blue-dark: #0e3a54;
-            --blue-accent: #2980b9;
-            --blue-bg: #ebf5fb;
-            --gold: #f39c12;
-            --text-dark: #1a1a1a;
-            --text-light: #555;
-            --bg-white: #ffffff;
-            --bg-light: #f5f7fa;
-            --shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        /* Nepali font support */
-        @font-face {
-            font-family: 'Preeti';
-            src: local('Preeti'), url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap');
-        }
-
-        /* Reduced motion preference */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            header, nav, footer, .video-section, .world-map-section, .clock-container, .millipede-icon {
-                display: none;
-            }
-            body {
-                background: white;
-                color: black;
-            }
-            section, .content-block {
-                break-inside: avoid;
-                box-shadow: none;
-            }
-        }
-
-        /* ============ HEADER WITH LOGO - FULL WIDTH ============ */
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 0;
-            width: 100%;
-            max-width: 100%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            animation: fadeInDown 1s ease-out;
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 100%;
-            padding: 20px 5%;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        /* Logo styling */
-        .header-logo {
-            height: 110px;
-            width: auto;
-            max-width: 200px;
-            object-fit: contain;
-            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border-radius: 12px;
-            display: block;
-            animation: logoGentlePop 0.6s ease-out;
-        }
-
-        .header-logo:hover {
-            transform: scale(1.08) rotate(2deg);
-            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
-            opacity: 0.95;
-        }
-
-        @keyframes logoGentlePop {
-            0% { transform: scale(0.9); opacity: 0; }
-            80% { transform: scale(1.02); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .header-text {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .header-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-            animation: slideInLeft 1s ease-out;
-            letter-spacing: 1px;
-        }
-
-        .header-text p {
-            font-size: 1.8rem;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-            animation: slideInRight 1s ease-out;
-        }
-
-        /* Right side group: Millipede PNG + Clock - EXTREMELY CLOSE (2px gap) */
-        .right-group {
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            animation: fadeInRight 0.8s ease-out;
-        }
-
-        /* Millipede Icon - ENLARGED 2X (200px height) */
-        .millipede-icon {
-            height: 200px;
-            width: auto;
-            max-width: 350px;
-            object-fit: contain;
-            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .millipede-icon:hover {
-            transform: scale(1.05) rotate(3deg);
-            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
-        }
-
-        /* ============ ATTRACTIVE CLOCK STYLES ============ */
-        .clock-container {
-            background: transparent;
-            border-radius: 0;
-            padding: 0;
-            min-width: 200px;
-            text-align: center;
-            border: none;
-            box-shadow: none;
-            transition: all 0.3s ease;
-        }
-
-        .analog-clock {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 8px;
-            position: relative;
-            background: transparent;
-            border-radius: 50%;
-            box-shadow: none;
-        }
-
-        .clock-face {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            border-radius: 50%;
-        }
-
-        /* Decorative ring around clock */
-        .clock-ring {
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 215, 0, 0.6);
-            pointer-events: none;
-            animation: ringPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes ringPulse {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
-        }
-
-        .clock-center {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #ff6b6b;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            box-shadow: 0 0 6px rgba(255,107,107,0.9);
-            animation: centerGlow 1.5s ease-in-out infinite;
-        }
-
-        @keyframes centerGlow {
-            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
-            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
-        }
-
-        .hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform-origin: bottom center;
-            border-radius: 4px;
-            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
-        }
-
-        .hour-hand {
-            width: 4.5px;
-            height: 28px;
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            transform: translateX(-50%) rotate(0deg);
-            box-shadow: 0 0 5px rgba(243,156,18,0.6);
-            border-radius: 4px 4px 2px 2px;
-        }
-
-        .minute-hand {
-            width: 3.5px;
-            height: 38px;
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            transform: translateX(-50%) rotate(0deg);
-            box-shadow: 0 0 5px rgba(52,152,219,0.6);
-            border-radius: 3px 3px 2px 2px;
-        }
-
-        .second-hand {
-            width: 1.8px;
-            height: 45px;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            transform: translateX(-50%) rotate(0deg);
-            box-shadow: 0 0 6px rgba(255,107,107,0.7);
-            border-radius: 2px;
-        }
-
-        .clock-numbers {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-
-        .number {
-            position: absolute;
-            font-size: 12px;
-            font-weight: bold;
-            transform: translate(-50%, -50%);
-            text-shadow: 0 0 3px rgba(0,0,0,0.4);
-        }
-
-        /* Different colors for each number */
-        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
-        .number-1 { color: #f39c12; top: 14%; left: 67%; }
-        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
-        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
-        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
-        .number-5 { color: #3498db; top: 86%; left: 67%; }
-        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
-        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
-        .number-8 { color: #e67e22; top: 73%; left: 19%; }
-        .number-9 { color: #f39c12; top: 50%; left: 8%; }
-        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
-        .number-11 { color: #3498db; top: 14%; left: 33%; }
-
-        .clock-time-digital {
-            font-size: 16px;
-            font-weight: bold;
-            color: #f39c12;
-            text-align: center;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
-            text-shadow: 0 0 4px rgba(243,156,18,0.5);
-            background: rgba(0,0,0,0.3);
-            padding: 4px 8px;
-            border-radius: 20px;
-            display: inline-block;
-            width: auto;
-            margin-top: 5px;
-        }
-
-        .clock-date {
-            font-size: 9px;
-            color: #3498db;
-            text-align: center;
-            margin-top: 6px;
-            font-weight: bold;
-            text-shadow: 0 0 2px rgba(52,152,219,0.3);
-        }
-
-        .clock-nepali-date {
-            font-size: 11px;
-            color: #ecf0f1;
-            text-align: center;
-            font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
-            font-weight: normal;
-            margin-top: 3px;
-            text-shadow: 0 0 2px rgba(0,0,0,0.3);
-            background: rgba(0,0,0,0.2);
-            padding: 2px 6px;
-            border-radius: 15px;
-            display: inline-block;
-        }
-
-        /* ============ NAVIGATION BAR - BLUE ============ */
-        nav {
-            background-color: var(--primary-blue);
-            padding: 15px 5%;
-            text-align: center;
-            width: 100%;
-            max-width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            animation: fadeIn 1.2s ease-out;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            margin: 0 3px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            font-family: 'Times New Roman', Times, serif;
-            position: relative;
-            overflow: hidden;
-        }
-
-        nav a:hover {
-            background-color: var(--blue-accent);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        nav a:focus-visible {
-            outline: 3px solid var(--gold);
-            outline-offset: 3px;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: var(--gold);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover::after {
-            width: 80%;
-        }
-
-        nav a.active {
-            background-color: var(--blue-accent);
-            font-weight: bold;
-        }
-
-        /* ============ MAIN CONTENT - FULL WIDTH ============ */
-        main {
-            flex: 1;
-            padding: 40px 5%;
-            max-width: 100%;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        /* Section styling (cards) */
-        section {
-            background-color: var(--bg-white);
-            border-radius: 10px;
-            padding: 35px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 1px solid #e0e0e0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 0.8s ease-out;
-            width: 100%;
-        }
-
-        section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        /* Content blocks without card styling */
-        .content-block {
-            margin-bottom: 35px;
-            padding: 0;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            animation: fadeInUp 0.8s ease-out;
-            width: 100%;
-        }
-
-        .content-block:hover {
-            transform: none;
-            box-shadow: none;
-        }
-
-        .content-block h2 {
-            color: var(--primary-blue);
-            border-bottom: 3px solid var(--primary-blue);
-            padding-bottom: 12px;
-            margin-bottom: 20px;
-            font-size: 2rem;
-            font-family: 'Times New Roman', Times, serif;
-        }
-
-        .content-block p {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        h2, h3 {
-            color: var(--primary-blue);
-            font-family: 'Times New Roman', Times, serif;
-        }
-
+        /* ============ INDEX.HTML SPECIFIC STYLES ============ */
+        
+        /* Featured section */
         .featured h3 {
             font-size: 2rem;
             margin-bottom: 20px;
+            text-align: center;
+            color: var(--primary-blue);
         }
-
-        /* ============ HOME PAGE - FIXED EQUAL IMAGES ============ */
+        
         .image-row {
             display: flex;
             gap: 20px;
@@ -486,12 +31,12 @@
             flex-wrap: wrap;
             width: 100%;
         }
-
+        
         .image-col {
             flex: 1;
             min-width: 280px;
         }
-
+        
         .featured-img {
             width: 100%;
             aspect-ratio: 4/3;
@@ -500,16 +45,27 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             transition: all 0.5s ease;
         }
-
+        
         .featured-img:hover {
             transform: scale(1.02);
         }
-
+        
         .image-col p {
             text-align: center;
             margin-top: 15px;
         }
-
+        
+        .scientific-name {
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+        
+        .location {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
         /* Nepali text styling */
         .nepali-names {
             font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
@@ -524,59 +80,77 @@
             margin-top: 15px;
             width: 100%;
         }
-
+        
         .nepali-names:hover {
             background: #d4e6f1;
             border-left-width: 8px;
         }
-
+        
+        /* Content blocks */
+        .content-block {
+            margin-bottom: 35px;
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            animation: fadeInUp 0.8s ease-out;
+            width: 100%;
+        }
+        
+        .content-block:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .content-block h2 {
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .content-block p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
         /* Altitude section */
         .altitude-container {
             text-align: center;
             margin: 20px 0;
         }
-
+        
         .altitude-img {
             max-width: 100%;
             height: auto;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-
+        
         .altitude-caption {
             font-size: 0.9rem;
             color: #666;
             margin-top: 10px;
             font-style: italic;
         }
-
-        /* Scientific names */
-        .scientific-name {
-            font-style: italic;
-            font-weight: 600;
-            font-size: 1.3rem;
-        }
-
-        .location {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        /* Video section - Homepage */
+        
+        /* Video section */
         .video-section {
             margin-top: 30px;
             padding-top: 20px;
             border-top: 2px dashed #ddd;
             width: 100%;
         }
-
+        
         .video-section h4 {
             font-size: 1.5rem;
             color: var(--primary-blue);
             margin-bottom: 20px;
             text-align: center;
         }
-
+        
         .video-row {
             display: flex;
             gap: 20px;
@@ -584,7 +158,7 @@
             justify-content: center;
             width: 100%;
         }
-
+        
         .video-col {
             flex: 1;
             min-width: 280px;
@@ -595,12 +169,12 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
+        
         .video-col:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-
+        
         .video-col video {
             width: 100%;
             height: auto;
@@ -610,30 +184,30 @@
             background-color: #000;
             cursor: pointer;
         }
-
+        
         .video-caption {
             padding: 12px;
             text-align: center;
             background: white;
         }
-
+        
         .video-caption p {
             margin: 0;
             font-size: 0.9rem;
             color: #555;
         }
-
+        
         .video-caption .scientific-name {
             font-size: 0.9rem;
             display: inline;
         }
-
+        
         .video-caption .location {
             font-size: 0.85rem;
             display: block;
             margin-top: 5px;
         }
-
+        
         /* World Map Section */
         .world-map-section {
             margin-top: 20px;
@@ -645,14 +219,14 @@
             border: 1px solid #e0e0e0;
             width: 100%;
         }
-
+        
         .world-map-section h4 {
             font-size: 1.5rem;
             color: var(--primary-blue);
             margin-bottom: 20px;
             text-align: center;
         }
-
+        
         #worldMap {
             height: 500px;
             width: 100%;
@@ -661,190 +235,36 @@
             background-color: #e6f0fa;
             transition: all 0.3s ease;
         }
-
+        
         #worldMap:hover {
             border-color: var(--primary-blue);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-
+        
         .map-caption {
             text-align: center;
             margin-top: 10px;
             color: #666;
             font-style: italic;
         }
-
-        /* ============ FOOTER ============ */
-        footer {
-            background-color: var(--primary-blue);
-            color: white;
-            text-align: center;
-            padding: 40px 5%;
-            width: 100%;
-            max-width: 100%;
-            margin-top: auto;
-            animation: fadeIn 1s ease-out;
-            border-top: 3px solid var(--gold);
-        }
-
-        footer p {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            font-family: 'Times New Roman', Times, serif;
-            color: white;
-        }
-
-        footer a {
-            color: var(--gold);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-            color: white;
-            transform: scale(1.05);
-            display: inline-block;
-        }
-
-        /* ============ ANIMATIONS ============ */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* ============ RESPONSIVE DESIGN ============ */
-        @media (max-width: 1200px) {
-            .header-logo { height: 95px; }
-            .millipede-icon { height: 160px; max-width: 280px; }
-            .header-text h1 { font-size: 3rem; }
-            .header-text p { font-size: 1.5rem; }
-            .video-col { min-width: 300px; max-width: calc(33.33% - 14px); }
-            .featured-img { aspect-ratio: 4/3; }
-        }
-
-        @media (max-width: 1024px) {
-            nav { padding: 15px 5%; }
-            main { padding: 30px 5%; }
-            footer { padding: 30px 5%; }
-        }
-
-        @media (max-width: 992px) {
-            .header-logo { height: 75px; }
-            .millipede-icon { height: 130px; max-width: 220px; }
-            .header-text h1 { font-size: 2.5rem; }
-            .header-text p { font-size: 1.3rem; }
-            .header-container { padding: 15px 5%; gap: 20px; }
-            .analog-clock { width: 80px; height: 80px; }
-            .clock-container { min-width: 170px; }
-            .right-group { gap: 1px; }
-        }
-
+        
+        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-            }
-            .header-logo { height: 70px; }
-            .millipede-icon { height: 110px; max-width: 190px; }
-            .header-text h1 { font-size: 2rem; }
-            .header-text p { font-size: 1.1rem; }
-            nav a { padding: 6px 10px; font-size: 0.85rem; }
-            main { padding: 30px 5%; }
             .content-block h2 { font-size: 1.7rem; }
             .video-row .video-col { min-width: 100%; max-width: 100%; }
             .image-row { flex-direction: column; }
             .featured-img { aspect-ratio: 4/3; }
             #worldMap { height: 400px; }
-            footer p { font-size: 1rem; }
-            section { padding: 25px; }
-            .right-group { 
-                justify-content: center;
-                margin-top: 10px;
-            }
-            .analog-clock { width: 70px; height: 70px; }
         }
-
+        
         @media (max-width: 480px) {
-            .header-text h1 { font-size: 1.8rem; }
-            .header-text p { font-size: 1rem; }
             .featured-img { aspect-ratio: 4/3; }
-            .header-logo { height: 55px; }
-            .millipede-icon { height: 90px; max-width: 150px; }
-            .analog-clock { width: 60px; height: 60px; }
-            .clock-container { min-width: 150px; }
-            .right-group { gap: 0px; }
-            .clock-time-digital { font-size: 11px; }
-            .clock-nepali-date { font-size: 9px; }
+            .nepali-names { font-size: 1rem; padding: 20px; }
         }
-
+        
         @media (min-width: 1600px) {
-            .header-container { min-height: 260px; }
-            .header-logo { height: 130px; max-width: 240px; }
-            .millipede-icon { height: 220px; max-width: 380px; }
-            .header-text h1 { font-size: 4rem; }
-            .header-text p { font-size: 2rem; }
             .featured-img { aspect-ratio: 16/9; }
             #worldMap { height: 750px; }
-            .analog-clock { width: 120px; height: 120px; }
-            .clock-container { min-width: 240px; }
-            .right-group { gap: 3px; }
         }
     </style>
 </head>
@@ -853,19 +273,19 @@
 <header>
     <div class="header-container">
         <!-- Logo on the left -->
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
+             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
         
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
             <p>All about Nepalese Millipedes</p>
         </div>
         
-        <!-- Right side: Millipede PNG + Clock - EXTREMELY CLOSE (2px gap) -->
+        <!-- Right side: Millipede PNG + Clock -->
         <div class="right-group">
-            <!-- Millipede PNG - ENLARGED 2X (200px height) -->
-            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" onerror="this.style.display='none'">
+            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
+                 onerror="this.style.display='none'">
             
-            <!-- ATTRACTIVE TRANSPARENT ANALOG CLOCK with colors -->
             <div class="clock-container">
                 <div class="analog-clock">
                     <div class="clock-face">
@@ -986,7 +406,7 @@
         </div>
     </section>
 
-    <!-- CONTENT BLOCKS - NO CARD STYLING -->
+    <!-- CONTENT BLOCKS -->
     <div class="content-block">
         <h2>Our Mission</h2>
         <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts. Our mission is to advance the understanding of millipede biodiversity in Nepal through comprehensive field collection from diverse geographical regions, followed by accurate species-level identification using integrated morphological and molecular analysis, detailed documentation, and long-term specimen preservation.</p>
@@ -1021,6 +441,7 @@
     <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
+<!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
@@ -1028,7 +449,6 @@
     // NEPAL TIME ZONE FUNCTIONS
     // ============================================
     
-    // Get current time in Nepal (UTC+5:45)
     function getNepalTime() {
         const now = new Date();
         const nepalOffset = 5.75 * 60 * 60 * 1000;
@@ -1036,25 +456,21 @@
         return new Date(utcTime + nepalOffset);
     }
     
-    // Convert number to Nepali digits
     function toNepaliDigits(number) {
         const nepaliDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
         return String(number).split('').map(d => nepaliDigits[parseInt(d)] || d).join('');
     }
     
-    // Convert English month to Nepali month name
     function getNepaliMonthName(month) {
         const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'श्रावण', 'भाद्र', 'आश्विन', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फाल्गुन', 'चैत्र'];
         return nepaliMonths[month];
     }
     
-    // Convert English weekday to Nepali weekday
     function getNepaliWeekday(day) {
         const nepaliWeekdays = ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'];
         return nepaliWeekdays[day];
     }
     
-    // Get approximate Nepali date (Bikram Sambat)
     function getNepaliDate(gregorianDate) {
         let bsYear = gregorianDate.getFullYear() + 57;
         let bsMonth = gregorianDate.getMonth();
@@ -1077,14 +493,9 @@
             }
         }
         
-        return {
-            year: bsYear,
-            month: bsMonth,
-            day: bsDay
-        };
+        return { year: bsYear, month: bsMonth, day: bsDay };
     }
     
-    // Update analog clock with Nepal time
     function updateClock() {
         const now = getNepalTime();
         
@@ -1148,6 +559,15 @@
             radius: 300000 
         }).addTo(worldMap);
     });
+    
+    // Handle image loading errors
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('error', function() {
+            console.log('Image failed to load:', this.src);
+        });
+    });
 </script>
+
 </body>
 </html>
