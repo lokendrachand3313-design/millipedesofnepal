@@ -16,12 +16,12 @@
     <style>
         /* ============ INDEX.HTML SPECIFIC STYLES ============ */
         
-        /* Featured section */
         .featured h3 {
             font-size: 2rem;
             margin-bottom: 20px;
             text-align: center;
             color: var(--primary-blue);
+            font-family: 'Times New Roman', Times, serif;
         }
         
         .image-row {
@@ -53,17 +53,20 @@
         .image-col p {
             text-align: center;
             margin-top: 15px;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         .scientific-name {
             font-style: italic;
             font-weight: 600;
             font-size: 1.3rem;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         .location {
             font-size: 0.9rem;
             color: #666;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         /* Nepali text styling */
@@ -108,12 +111,14 @@
             padding-bottom: 12px;
             margin-bottom: 20px;
             font-size: 2rem;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         .content-block p {
             font-size: 1.2rem;
             margin-bottom: 15px;
             color: #333;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         /* Altitude section */
@@ -134,6 +139,7 @@
             color: #666;
             margin-top: 10px;
             font-style: italic;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         /* Video section */
@@ -149,6 +155,7 @@
             color: var(--primary-blue);
             margin-bottom: 20px;
             text-align: center;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         .video-row {
@@ -195,6 +202,7 @@
             margin: 0;
             font-size: 0.9rem;
             color: #555;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         .video-caption .scientific-name {
@@ -225,6 +233,7 @@
             color: var(--primary-blue);
             margin-bottom: 20px;
             text-align: center;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         #worldMap {
@@ -246,6 +255,7 @@
             margin-top: 10px;
             color: #666;
             font-style: italic;
+            font-family: 'Times New Roman', Times, serif;
         }
         
         /* Responsive adjustments */
@@ -272,7 +282,6 @@
 
 <header>
     <div class="header-container">
-        <!-- Logo on the left -->
         <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
              onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
         
@@ -281,7 +290,6 @@
             <p>All about Nepalese Millipedes</p>
         </div>
         
-        <!-- Right side: Millipede PNG + Clock -->
         <div class="right-group">
             <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
                  onerror="this.style.display='none'">
@@ -338,12 +346,14 @@
         
         <div class="image-row">
             <div class="image-col">
-                <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img" loading="lazy">
+                <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img" loading="lazy"
+                     onerror="this.src='https://via.placeholder.com/600x450?text=Gonoplectus+malayus'">
                 <p><span class="scientific-name">Gonoplectus malayus</span>, Spirostreptida, Harpagophoridae<br>
                 <span class="location">Location: Dang Valley, Nepal</span></p>
             </div>
             <div class="image-col">
-                <img src="gono7.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img" loading="lazy">
+                <img src="gono7.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img" loading="lazy"
+                     onerror="this.src='https://via.placeholder.com/600x450?text=Gonoplectus+sp.'">
                 <p><span class="scientific-name">Gonoplectus</span> sp., Spirostreptida, Harpagophoridae<br>
                 <span class="location">Location: Dang Valley, Nepal</span></p>
             </div>
@@ -416,7 +426,8 @@
     <div class="content-block">
         <h2>Nepal's Elevation Gradient: From Terai to Everest</h2>
         <div class="altitude-container">
-            <img src="altitude1.png" alt="Nepal altitude profile from Terai to Mount Everest" class="altitude-img" loading="lazy">
+            <img src="altitude1.png" alt="Nepal altitude profile from Terai to Mount Everest" class="altitude-img" loading="lazy"
+                 onerror="this.src='https://via.placeholder.com/1000x400?text=Nepal+Elevation+Profile'">
             <p class="altitude-caption">Nepal's diverse topography creates unique microhabitats for millipede species across different elevations.</p>
         </div>
     </div>
