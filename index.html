@@ -9,7 +9,7 @@
         /* ============================================
            Millipedes of Nepal - COMPLETE BLUE THEME
            Full Screen - Works for ALL HTML Files
-           Version: 2.0 - Consolidated with Transparent Clock
+           Version: 2.0 - Attractive Clock with Close PNG
            ============================================ */
 
         /* ============ RESET & BASE ============ */
@@ -153,15 +153,15 @@
             animation: slideInRight 1s ease-out;
         }
 
-        /* Right side group: Millipede PNG + Clock - CLOSER TOGETHER */
+        /* Right side group: Millipede PNG + Clock - EXTREMELY CLOSE (2px gap) */
         .right-group {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 2px;
             animation: fadeInRight 0.8s ease-out;
         }
 
-        /* Millipede Icon - ENLARGED 2X (200px height), closer to clock */
+        /* Millipede Icon - ENLARGED 2X (200px height) */
         .millipede-icon {
             height: 200px;
             width: auto;
@@ -176,7 +176,7 @@
             filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
         }
 
-        /* ============ COMPLETELY TRANSPARENT CLOCK STYLES ============ */
+        /* ============ ATTRACTIVE CLOCK STYLES ============ */
         .clock-container {
             background: transparent;
             border-radius: 0;
@@ -205,16 +205,41 @@
             border-radius: 50%;
         }
 
+        /* Decorative ring around clock */
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
         .clock-center {
             position: absolute;
-            width: 5px;
-            height: 5px;
-            background: #f39c12;
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
             border-radius: 50%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
+            box-shadow: 0 0 6px rgba(255,107,107,0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
+            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
         }
 
         .hand {
@@ -222,31 +247,35 @@
             bottom: 50%;
             left: 50%;
             transform-origin: bottom center;
-            border-radius: 2px;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
         }
 
         .hour-hand {
-            width: 3px;
+            width: 4.5px;
             height: 28px;
-            background: #f39c12;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
             transform: translateX(-50%) rotate(0deg);
-            box-shadow: none;
+            box-shadow: 0 0 5px rgba(243,156,18,0.6);
+            border-radius: 4px 4px 2px 2px;
         }
 
         .minute-hand {
-            width: 2px;
+            width: 3.5px;
             height: 38px;
-            background: #ecf0f1;
+            background: linear-gradient(135deg, #3498db, #2980b9);
             transform: translateX(-50%) rotate(0deg);
-            box-shadow: none;
+            box-shadow: 0 0 5px rgba(52,152,219,0.6);
+            border-radius: 3px 3px 2px 2px;
         }
 
         .second-hand {
-            width: 1px;
-            height: 42px;
-            background: #e74c3c;
+            width: 1.8px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
             transform: translateX(-50%) rotate(0deg);
-            box-shadow: none;
+            box-shadow: 0 0 6px rgba(255,107,107,0.7);
+            border-radius: 2px;
         }
 
         .clock-numbers {
@@ -259,30 +288,49 @@
 
         .number {
             position: absolute;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
-            color: #f39c12;
             transform: translate(-50%, -50%);
-            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+            text-shadow: 0 0 3px rgba(0,0,0,0.4);
         }
 
+        /* Different colors for each number */
+        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
+        .number-1 { color: #f39c12; top: 14%; left: 67%; }
+        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
+        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
+        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
+        .number-5 { color: #3498db; top: 86%; left: 67%; }
+        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
+        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
+        .number-8 { color: #e67e22; top: 73%; left: 19%; }
+        .number-9 { color: #f39c12; top: 50%; left: 8%; }
+        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
+        .number-11 { color: #3498db; top: 14%; left: 33%; }
+
         .clock-time-digital {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
-            color: white;
+            color: #f39c12;
             text-align: center;
             font-family: 'Courier New', monospace;
-            letter-spacing: 1px;
-            text-shadow: 0 0 2px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+            text-shadow: 0 0 4px rgba(243,156,18,0.5);
+            background: rgba(0,0,0,0.3);
+            padding: 4px 8px;
+            border-radius: 20px;
+            display: inline-block;
+            width: auto;
+            margin-top: 5px;
         }
 
         .clock-date {
             font-size: 9px;
-            color: #f39c12;
+            color: #3498db;
             text-align: center;
-            margin-top: 4px;
+            margin-top: 6px;
             font-weight: bold;
-            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+            text-shadow: 0 0 2px rgba(52,152,219,0.3);
         }
 
         .clock-nepali-date {
@@ -291,8 +339,12 @@
             text-align: center;
             font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
             font-weight: normal;
-            margin-top: 2px;
+            margin-top: 3px;
             text-shadow: 0 0 2px rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.2);
+            padding: 2px 6px;
+            border-radius: 15px;
+            display: inline-block;
         }
 
         /* ============ NAVIGATION BAR - BLUE ============ */
@@ -740,7 +792,7 @@
             .header-container { padding: 15px 5%; gap: 20px; }
             .analog-clock { width: 80px; height: 80px; }
             .clock-container { min-width: 170px; }
-            .right-group { gap: 3px; }
+            .right-group { gap: 1px; }
         }
 
         @media (max-width: 768px) {
@@ -777,7 +829,7 @@
             .millipede-icon { height: 90px; max-width: 150px; }
             .analog-clock { width: 60px; height: 60px; }
             .clock-container { min-width: 150px; }
-            .right-group { gap: 2px; }
+            .right-group { gap: 0px; }
             .clock-time-digital { font-size: 11px; }
             .clock-nepali-date { font-size: 9px; }
         }
@@ -791,8 +843,8 @@
             .featured-img { aspect-ratio: 16/9; }
             #worldMap { height: 750px; }
             .analog-clock { width: 120px; height: 120px; }
-            .clock-container { min-width: 230px; }
-            .right-group { gap: 8px; }
+            .clock-container { min-width: 240px; }
+            .right-group { gap: 3px; }
         }
     </style>
 </head>
@@ -808,24 +860,33 @@
             <p>All about Nepalese Millipedes</p>
         </div>
         
-        <!-- Right side: Millipede PNG + Clock - CLOSER TOGETHER (gap: 5px) -->
+        <!-- Right side: Millipede PNG + Clock - EXTREMELY CLOSE (2px gap) -->
         <div class="right-group">
             <!-- Millipede PNG - ENLARGED 2X (200px height) -->
             <img src="milli.png" alt="Millipede Icon" class="millipede-icon" onerror="this.style.display='none'">
             
-            <!-- COMPLETELY TRANSPARENT ANALOG CLOCK -->
+            <!-- ATTRACTIVE TRANSPARENT ANALOG CLOCK with colors -->
             <div class="clock-container">
                 <div class="analog-clock">
                     <div class="clock-face">
+                        <div class="clock-ring"></div>
                         <div class="hand hour-hand" id="hourHand"></div>
                         <div class="hand minute-hand" id="minuteHand"></div>
                         <div class="hand second-hand" id="secondHand"></div>
                         <div class="clock-center"></div>
                         <div class="clock-numbers">
-                            <div class="number" style="top: 10%; left: 50%;">12</div>
-                            <div class="number" style="top: 50%; left: 90%;">3</div>
-                            <div class="number" style="top: 90%; left: 50%;">6</div>
-                            <div class="number" style="top: 50%; left: 10%;">9</div>
+                            <div class="number number-12">12</div>
+                            <div class="number number-1">1</div>
+                            <div class="number number-2">2</div>
+                            <div class="number number-3">3</div>
+                            <div class="number number-4">4</div>
+                            <div class="number number-5">5</div>
+                            <div class="number number-6">6</div>
+                            <div class="number number-7">7</div>
+                            <div class="number number-8">8</div>
+                            <div class="number number-9">9</div>
+                            <div class="number number-10">10</div>
+                            <div class="number number-11">11</div>
                         </div>
                     </div>
                 </div>
