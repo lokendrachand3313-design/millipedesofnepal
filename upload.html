@@ -791,33 +791,90 @@
     updateClock();
     
     // ============================================
-    // UPLOAD FUNCTIONALITY
+    // UPLOAD FUNCTIONALITY WITH YOUR CONFIGURATION
     // ============================================
     
+    // YOUR CONFIGURATION
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaxiu8Mg0AigGuEqRbCm3KMyzeVh4mLJVtamWnFJeevD-U7E9yW0MQKTpy-eiCRri0jQ/exec';
+    const CLOUD_NAME = 'dmvqby8np';
+    const UPLOAD_PRESET = 'millipede_uploads';
+    const ADMIN_PASSWORD = 'yamuna@3313';
+    const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
     let isAdmin = false;
     let allObservations = [];
     let selectedPhoto = null;
 
-    // Load observations
-    function loadObservations() {
-        allObservations = [];
-        document.getElementById('statsCount').innerHTML = 'Total: 0';
-        renderGallery();
+    // Extract GPS from text
+    function extractGPS(text) {
+        if (!text) return null;
+        let match = text.match(/GPS:\s*([-\d.]+),\s*([-\d.]+)/i);
+        if (match) return { lat: parseFloat(match[1]), lon: parseFloat(match[2]) };
+        match = text.match(/([-\d.]+),\s*([-\d.]+)/);
+        if (match) {
+            let lat = parseFloat(match[1]), lon = parseFloat(match[2]);
+            if (lat >= 26 && lat <= 31 && lon >= 80 && lon <= 89) return { lat, lon };
+        }
+        return null;
+    }
+
+    // Load all observations from Google Sheets
+    async function loadObservations() {
+        try {
+            const response = await fetch(GOOGLE_SCRIPT_URL);
+            const result = await response.json();
+            
+            if (result.success && result.data && result.data.length > 1) {
+                const rows = result.data.slice(1);
+                allObservations = rows.map(row => ({
+                    photoId: row[0], timestamp: row[1], observer: row[2], location: row[3], date: row[4],
+                    order: row[5] || '', family: row[6] || '', genus: row[7] || '', species: row[8] || '',
+                    notes: row[9] || '', comments: row[10] || '',
+                    imageUrl: row[11], publicId: row[12], lat: row[13] || '', lon: row[14] || ''
+                }));
+                document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
+                renderGallery();
+            } else {
+                document.getElementById('galleryContainer').innerHTML = '<div style="text-align:center; padding:40px;">No observations yet. Be the first to upload!</div>';
+                document.getElementById('statsCount').innerHTML = 'Total: 0';
+            }
+        } catch (error) {
+            console.error(error);
+            document.getElementById('galleryContainer').innerHTML = '<div style="text-align:center; padding:40px; color:red;">Error loading gallery. Check connection.</div>';
+        }
+    }
+
+    // Upload to Cloudinary
+    async function uploadToCloudinary(file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', UPLOAD_PRESET);
+        formData.append('folder', 'millipedes_nepal');
+        
+        const response = await fetch(CLOUDINARY_URL, { 
+            method: 'POST', 
+            body: formData 
+        });
+        
+        if (!response.ok) throw new Error('Cloudinary upload failed');
+        const data = await response.json();
+        return { url: data.secure_url, publicId: data.public_id };
     }
 
     // Render gallery
     function renderGallery() {
-        const container = document.getElementById('galleryContainer');
         if (!allObservations.length) {
-            container.innerHTML = '<div style="text-align:center; padding:40px;">No observations yet. Be the first to upload!</div>';
+            document.getElementById('galleryContainer').innerHTML = '<div style="text-align:center; padding:40px;">No observations yet. Be the first to upload!</div>';
             return;
         }
         
+        const container = document.getElementById('galleryContainer');
         container.innerHTML = '';
         
         for (let i = 0; i < allObservations.length; i++) {
             const obs = allObservations[i];
-            const hasGps = (obs.lat && obs.lat !== '') || (obs.location && obs.location.includes('GPS:'));
+            const rowNum = allObservations.length - i + 1;
+            const hasGps = (obs.lat && obs.lat !== '') || extractGPS(obs.location);
             
             const card = document.createElement('div');
             card.className = 'photo-card';
@@ -835,19 +892,19 @@
             gpsBtn.innerHTML = 'GPS';
             gpsBtn.className = 'admin-btn gps-btn';
             if (isAdmin) gpsBtn.classList.add('admin-visible');
-            gpsBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, i, 'gps'); };
+            gpsBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'gps'); };
             
             const taxBtn = document.createElement('button');
             taxBtn.innerHTML = 'TAX';
             taxBtn.className = 'admin-btn tax-btn';
             if (isAdmin) taxBtn.classList.add('admin-visible');
-            taxBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, i, 'tax'); };
+            taxBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'tax'); };
             
             const delBtn = document.createElement('button');
             delBtn.innerHTML = 'DEL';
             delBtn.className = 'admin-btn del-btn';
             if (isAdmin) delBtn.classList.add('admin-visible');
-            delBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, i, 'del'); };
+            delBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'del'); };
             
             btnDiv.appendChild(gpsBtn);
             btnDiv.appendChild(taxBtn);
@@ -885,15 +942,16 @@
         }
     }
 
-    function selectPhoto(obs, index, action) {
-        selectedPhoto = { ...obs, index: index };
+    function selectPhoto(obs, rowNum, action) {
+        selectedPhoto = { ...obs, rowNum: rowNum };
         document.getElementById('selectedName').innerHTML = obs.location.substring(0, 50);
         document.getElementById('selectedId').innerHTML = obs.photoId;
         
-        if (obs.lat && obs.lat !== '') {
-            document.getElementById('currentGps').innerHTML = obs.lat + ', ' + obs.lon;
-            document.getElementById('editLat').value = obs.lat;
-            document.getElementById('editLon').value = obs.lon;
+        let gps = (obs.lat && obs.lat !== '') ? { lat: obs.lat, lon: obs.lon } : extractGPS(obs.location);
+        if (gps) {
+            document.getElementById('currentGps').innerHTML = gps.lat + ', ' + gps.lon;
+            document.getElementById('editLat').value = gps.lat;
+            document.getElementById('editLon').value = gps.lon;
         } else {
             document.getElementById('currentGps').innerHTML = 'Not set';
             document.getElementById('editLat').value = '';
@@ -915,14 +973,26 @@
         }
     }
 
-    function deletePhoto() {
+    async function deletePhoto() {
         if (!selectedPhoto) { alert('Select a photo first'); return; }
-        allObservations.splice(selectedPhoto.index, 1);
-        document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
-        renderGallery();
-        showStatus('Photo deleted!', 'success');
-        document.getElementById('selectedInfo').classList.remove('show');
-        selectedPhoto = null;
+        try {
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'deleteObservation', row: selectedPhoto.rowNum })
+            });
+            const result = await response.json();
+            if (result.success) {
+                showStatus('Photo deleted!', 'success');
+                await loadObservations();
+                document.getElementById('selectedInfo').classList.remove('show');
+                selectedPhoto = null;
+            } else {
+                showStatus('Delete failed: ' + result.message, 'error');
+            }
+        } catch (error) {
+            showStatus('Delete failed: ' + error.message, 'error');
+        }
     }
 
     function showStatus(msg, type) {
@@ -950,7 +1020,6 @@
 
     document.getElementById('adminLoginBtn').addEventListener('click', () => {
         const key = document.getElementById('adminKey').value.trim();
-        const ADMIN_PASSWORD = 'takmara@3313';
         if (key === ADMIN_PASSWORD) {
             isAdmin = true;
             document.getElementById('adminStatus').innerHTML = 'Admin Active';
@@ -963,32 +1032,58 @@
         }
     });
 
-    document.getElementById('updateGpsBtn').addEventListener('click', () => {
+    document.getElementById('updateGpsBtn').addEventListener('click', async () => {
         if (!isAdmin || !selectedPhoto) { alert('Select a photo first'); return; }
         const lat = parseFloat(document.getElementById('editLat').value);
         const lon = parseFloat(document.getElementById('editLon').value);
         if (isNaN(lat) || isNaN(lon)) { alert('Enter valid coordinates'); return; }
         
-        allObservations[selectedPhoto.index].lat = lat;
-        allObservations[selectedPhoto.index].lon = lon;
-        renderGallery();
-        showStatus('GPS updated!', 'success');
-        document.getElementById('selectedInfo').classList.remove('show');
-        selectedPhoto = null;
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                action: 'updateGpsByPhotoId', 
+                photoId: selectedPhoto.photoId, 
+                lat: lat, 
+                lon: lon 
+            })
+        });
+        const result = await response.json();
+        if (result.success) {
+            showStatus('GPS updated!', 'success');
+            await loadObservations();
+            document.getElementById('selectedInfo').classList.remove('show');
+            selectedPhoto = null;
+        } else {
+            showStatus('Update failed: ' + result.message, 'error');
+        }
     });
 
-    document.getElementById('updateTaxBtn').addEventListener('click', () => {
+    document.getElementById('updateTaxBtn').addEventListener('click', async () => {
         if (!isAdmin || !selectedPhoto) { alert('Select a photo first'); return; }
         
-        allObservations[selectedPhoto.index].order = document.getElementById('editOrder').value;
-        allObservations[selectedPhoto.index].family = document.getElementById('editFamily').value;
-        allObservations[selectedPhoto.index].genus = document.getElementById('editGenus').value;
-        allObservations[selectedPhoto.index].species = document.getElementById('editSpecies').value;
-        allObservations[selectedPhoto.index].comments = document.getElementById('editComments').value;
-        renderGallery();
-        showStatus('Taxonomy updated!', 'success');
-        document.getElementById('selectedInfo').classList.remove('show');
-        selectedPhoto = null;
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                action: 'updateTaxonomyByPhotoId', 
+                photoId: selectedPhoto.photoId, 
+                order: document.getElementById('editOrder').value,
+                family: document.getElementById('editFamily').value,
+                genus: document.getElementById('editGenus').value,
+                species: document.getElementById('editSpecies').value,
+                comments: document.getElementById('editComments').value
+            })
+        });
+        const result = await response.json();
+        if (result.success) {
+            showStatus('Taxonomy updated!', 'success');
+            await loadObservations();
+            document.getElementById('selectedInfo').classList.remove('show');
+            selectedPhoto = null;
+        } else {
+            showStatus('Update failed: ' + result.message, 'error');
+        }
     });
 
     document.getElementById('deletePhotoBtn').addEventListener('click', () => {
@@ -1034,35 +1129,28 @@
         document.getElementById('uploadBtn').innerHTML = 'Uploading...';
         
         try {
+            const cloud = await uploadToCloudinary(file);
             const photoId = Date.now() + '_' + Math.random().toString(36).substr(2, 6);
             
-            // Extract GPS from location text if present
-            let lat = '', lon = '';
-            const gpsMatch = location.match(/GPS:\s*([-\d.]+),\s*([-\d.]+)/i);
-            if (gpsMatch) {
-                lat = gpsMatch[1];
-                lon = gpsMatch[2];
-            }
-            
-            const newObservation = {
-                photoId: photoId,
-                observer: observer,
-                location: location,
-                date: date,
-                order: order,
-                family: family,
-                genus: genus,
-                species: species,
-                notes: notes,
-                comments: '',
-                imageUrl: URL.createObjectURL(file),
-                lat: lat,
-                lon: lon
-            };
-            
-            allObservations.unshift(newObservation);
-            document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
-            renderGallery();
+            await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'saveObservation',
+                    photoId: photoId,
+                    observer: observer,
+                    location: location,
+                    date: date,
+                    order: order,
+                    family: family,
+                    genus: genus,
+                    species: species,
+                    notes: notes,
+                    imageUrl: cloud.url,
+                    publicId: cloud.publicId
+                })
+            });
             
             showStatus('Upload successful!', 'success');
             document.getElementById('photoInput').value = '';
@@ -1077,6 +1165,7 @@
             document.getElementById('species').value = '';
             document.getElementById('obsDate').valueAsDate = new Date();
             
+            await loadObservations();
         } catch (error) {
             showStatus('Upload failed: ' + error.message, 'error');
         } finally {
