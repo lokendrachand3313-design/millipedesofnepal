@@ -41,7 +41,7 @@
         }
         
         .whatsapp-btn {
-            background: var(--whatsapp);
+            background: #25D366;
         }
         
         .whatsapp-btn:hover {
@@ -51,7 +51,7 @@
         }
         
         .email-btn {
-            background: var(--gmail);
+            background: #D44638;
         }
         
         .email-btn:hover {
@@ -257,9 +257,9 @@
             font-weight: bold;
         }
         
-        .gps-btn { background: var(--orange); color: white; }
-        .tax-btn { background: var(--green); color: white; }
-        .del-btn { background: var(--red); color: white; }
+        .gps-btn { background: #fd7e14; color: white; }
+        .tax-btn { background: #28a745; color: white; }
+        .del-btn { background: #dc3545; color: white; }
         .admin-visible { display: flex; }
         
         .photo-img {
@@ -283,8 +283,8 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        .gps-yes { background: var(--green); color: white; }
-        .gps-no { background: var(--orange); color: white; }
+        .gps-yes { background: #28a745; color: white; }
+        .gps-no { background: #fd7e14; color: white; }
         
         .taxonomy-box {
             background: #e8f0f9;
@@ -350,11 +350,11 @@
             margin-top: 30px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-top: 5px solid var(--red);
+            border-top: 5px solid #dc3545;
         }
         
         .admin-header {
-            background: var(--red);
+            background: #dc3545;
             color: white;
             padding: 15px 25px;
             display: flex;
@@ -379,7 +379,7 @@
         
         .admin-login button {
             background: white;
-            color: var(--red);
+            color: #dc3545;
             width: auto;
             margin: 0;
             padding: 8px 20px;
@@ -430,7 +430,7 @@
         
         .tool-card button {
             margin-top: 0;
-            background: var(--orange);
+            background: #fd7e14;
         }
         
         .selected-info {
@@ -518,6 +518,11 @@
             .whatsapp-btn, .email-btn { width: 80%; justify-content: center; }
             .form-panel, .gallery-panel { min-width: 280px; }
             .admin-header { flex-direction: column; text-align: center; }
+            #map { height: 350px; }
+        }
+        
+        @media (max-width: 480px) {
+            #map { height: 300px; }
         }
     </style>
 </head>
