@@ -81,7 +81,10 @@ body {
 
 /* ============ PRINT STYLES ============ */
 @media print {
-    header, nav, footer, .no-print {
+    header, nav, footer, .no-print, .gallery-filters, 
+    .map-controls, .admin-panel, .contact-buttons,
+    .jump-to, .full-video-section, .pdf-controls,
+    .map-view-buttons, .filter-section {
         display: none !important;
     }
     body {
@@ -195,7 +198,7 @@ header {
     filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
 }
 
-/* Clock Styles */
+/* ============ CLOCK STYLES ============ */
 .clock-container {
     background: transparent;
     border-radius: 0;
@@ -275,6 +278,7 @@ header {
     background: linear-gradient(135deg, #f39c12, #e67e22);
     transform: translateX(-50%) rotate(0deg);
     box-shadow: 0 0 5px rgba(243,156,18,0.6);
+    border-radius: 4px 4px 2px 2px;
 }
 
 .minute-hand {
@@ -283,6 +287,7 @@ header {
     background: linear-gradient(135deg, #3498db, #2980b9);
     transform: translateX(-50%) rotate(0deg);
     box-shadow: 0 0 5px rgba(52,152,219,0.6);
+    border-radius: 3px 3px 2px 2px;
 }
 
 .second-hand {
@@ -291,6 +296,7 @@ header {
     background: linear-gradient(135deg, #ff6b6b, #ee5a24);
     transform: translateX(-50%) rotate(0deg);
     box-shadow: 0 0 6px rgba(255,107,107,0.7);
+    border-radius: 2px;
 }
 
 .clock-numbers {
@@ -426,6 +432,16 @@ nav a.active {
     font-weight: bold;
 }
 
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
 /* ============ MAIN CONTENT ============ */
 main {
     flex: 1;
@@ -435,38 +451,38 @@ main {
     margin: 0 auto;
 }
 
-/* ============ FOOTER - STANDARD FOR ALL PAGES ============ */
-footer {
-    background-color: var(--primary-blue);
-    color: white;
-    text-align: center;
-    padding: 40px 5%;
+/* Section Cards */
+section, .card {
+    background-color: var(--bg-white);
+    border-radius: 10px;
+    padding: 35px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.8s ease-out;
     width: 100%;
-    max-width: 100%;
-    margin-top: auto;
-    animation: fadeIn 1s ease-out;
-    border-top: 3px solid var(--gold);
 }
 
-footer p {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    font-family: 'Times New Roman', Times, serif;
-    color: white;
+section:hover, .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
-footer a {
-    color: var(--gold);
-    text-decoration: none;
-    transition: all 0.3s ease;
+h2 {
+    color: var(--primary-blue);
+    border-bottom: 3px solid var(--primary-blue);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    font-size: 2rem;
     font-family: 'Times New Roman', Times, serif;
 }
 
-footer a:hover {
-    text-decoration: underline;
-    color: white;
-    transform: scale(1.05);
-    display: inline-block;
+h3 {
+    color: var(--primary-blue);
+    margin: 25px 0 15px 0;
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 /* ============ BUTTONS ============ */
@@ -507,6 +523,40 @@ footer a:hover {
 .btn-outline:hover {
     background: var(--primary-blue);
     color: white;
+}
+
+/* ============ FOOTER - STANDARD FOR ALL PAGES ============ */
+footer {
+    background-color: var(--primary-blue);
+    color: white;
+    text-align: center;
+    padding: 40px 5%;
+    width: 100%;
+    max-width: 100%;
+    margin-top: auto;
+    animation: fadeIn 1s ease-out;
+    border-top: 3px solid var(--gold);
+}
+
+footer p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+}
+
+footer a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: white;
+    transform: scale(1.05);
+    display: inline-block;
 }
 
 /* ============ ANIMATIONS ============ */
@@ -601,6 +651,26 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+    .nav-links.show {
+        display: flex;
+    }
+    nav a {
+        width: 100%;
+        text-align: center;
+    }
+    
     .header-container {
         flex-direction: column;
         text-align: center;
@@ -619,6 +689,9 @@ footer a:hover {
     .millipede-icon { height: 110px; max-width: 190px; }
     .analog-clock { width: 70px; height: 70px; }
     
+    h2 { font-size: 1.7rem; }
+    section, .card { padding: 25px; }
+    
     footer p { font-size: 1rem; }
 }
 
@@ -632,6 +705,8 @@ footer a:hover {
     .right-group { gap: 0px; }
     .clock-time-digital { font-size: 11px; }
     .clock-nepali-date { font-size: 9px; }
+    h2 { font-size: 1.4rem; }
+    h3 { font-size: 1.2rem; }
     footer p { font-size: 0.9rem; }
 }
 
