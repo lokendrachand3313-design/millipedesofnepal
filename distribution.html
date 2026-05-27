@@ -6,219 +6,16 @@
     <title>Distribution - Millipedes of Nepal</title>
     <meta name="description" content="Explore the distribution of millipede species across Nepal with interactive maps and filtering capabilities.">
     <meta name="keywords" content="millipedes, Nepal, distribution, map, biodiversity, Diplopoda">
+    
+    <!-- Leaflet CSS for Map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+    
     <style>
-        /* ============================================
-           Millipedes of Nepal - COMPLETE BLUE THEME
-           Version: 2.0 - Distribution Page
-           ============================================ */
-
-        /* ============ RESET & BASE ============ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            line-height: 1.6;
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #f0f4f8;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-        }
-
-        :root {
-            --primary-blue: #1a5276;
-            --primary-blue-dark: #0e3a54;
-            --blue-accent: #2980b9;
-            --blue-bg: #ebf5fb;
-            --gold: #f39c12;
-            --text-dark: #1a1a1a;
-            --text-light: #555;
-            --bg-white: #ffffff;
-            --bg-light: #f5f7fa;
-            --shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        /* Reduced motion preference */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            header, nav, footer, .filter-section, .map-view-buttons {
-                display: none;
-            }
-            body {
-                background: white;
-                color: black;
-            }
-            #map {
-                height: 400px;
-                border: 1px solid #ccc;
-            }
-        }
-
-        /* ============ HEADER WITH LOGO ============ */
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 0;
-            width: 100%;
-            max-width: 100%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            animation: fadeInDown 1s ease-out;
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 100%;
-            padding: 20px 5%;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .header-logo {
-            height: 110px;
-            width: auto;
-            max-width: 200px;
-            object-fit: contain;
-            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border-radius: 12px;
-            display: block;
-            animation: logoGentlePop 0.6s ease-out;
-        }
-
-        .header-logo:hover {
-            transform: scale(1.08) rotate(2deg);
-            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
-            opacity: 0.95;
-        }
-
-        @keyframes logoGentlePop {
-            0% { transform: scale(0.9); opacity: 0; }
-            80% { transform: scale(1.02); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .header-text {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .header-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-            animation: slideInLeft 1s ease-out;
-            letter-spacing: 1px;
-        }
-
-        .header-text p {
-            font-size: 1.8rem;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-            animation: slideInRight 1s ease-out;
-        }
-
-        /* ============ NAVIGATION BAR ============ */
-        nav {
-            background-color: var(--primary-blue);
-            padding: 15px 5%;
-            text-align: center;
-            width: 100%;
-            max-width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            animation: fadeIn 1.2s ease-out;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            margin: 0 3px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            font-family: 'Times New Roman', Times, serif;
-            position: relative;
-            overflow: hidden;
-        }
-
-        nav a:hover {
-            background-color: var(--blue-accent);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        nav a:focus-visible {
-            outline: 3px solid var(--gold);
-            outline-offset: 3px;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: var(--gold);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover::after {
-            width: 80%;
-        }
-
-        nav a.active {
-            background-color: var(--blue-accent);
-            font-weight: bold;
-        }
-
-        /* ============ MAIN CONTENT ============ */
-        main {
-            flex: 1;
-            padding: 40px 5%;
-            max-width: 100%;
-            width: 100%;
-            margin: 0 auto;
-        }
-
+        /* ============ DISTRIBUTION.HTML SPECIFIC STYLES ============ */
+        
         /* Stats Summary */
         .stats-summary {
             display: flex;
@@ -228,7 +25,7 @@
             margin-bottom: 30px;
             width: 100%;
         }
-
+        
         .stat-card {
             background: white;
             padding: 15px 25px;
@@ -239,26 +36,28 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
+        
         .stat-card:hover {
             transform: translateY(-3px);
             border-left-color: var(--gold);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-
+        
         .stat-number {
             font-size: 2rem;
             font-weight: bold;
             color: var(--primary-blue);
+            font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .stat-label {
             font-size: 0.8rem;
             color: #666;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            font-family: 'Times New Roman', Times, serif;
         }
-
+        
         /* Map View Buttons */
         .map-view-buttons {
             display: flex;
@@ -266,7 +65,7 @@
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
-
+        
         .btn-view {
             padding: 10px 20px;
             background: var(--primary-blue);
@@ -279,13 +78,13 @@
             font-family: 'Times New Roman', Times, serif;
             font-size: 0.9rem;
         }
-
+        
         .btn-view:hover {
             background: var(--primary-blue-dark);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-
+        
         /* Filter Section */
         .filter-section {
             background: var(--blue-bg);
@@ -298,20 +97,21 @@
             gap: 15px;
             width: 100%;
         }
-
+        
         .filter-group {
             flex: 1;
             min-width: 150px;
         }
-
+        
         .filter-group label {
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
             color: var(--primary-blue);
             font-size: 0.85rem;
+            font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .filter-group select,
         .filter-group input {
             width: 100%;
@@ -322,19 +122,19 @@
             font-size: 0.9rem;
             transition: all 0.3s ease;
         }
-
+        
         .filter-group select:hover,
         .filter-group input:hover {
             border-color: var(--primary-blue);
         }
-
+        
         .filter-group select:focus,
         .filter-group input:focus {
             outline: none;
             border-color: var(--gold);
             box-shadow: 0 0 5px rgba(243, 156, 18, 0.3);
         }
-
+        
         .filter-info {
             display: flex;
             flex-wrap: wrap;
@@ -345,7 +145,7 @@
             width: 100%;
             align-items: center;
         }
-
+        
         .filter-badge {
             background: white;
             color: var(--primary-blue);
@@ -353,8 +153,9 @@
             border-radius: 20px;
             font-size: 0.85rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .reset-filters {
             background: transparent;
             color: var(--primary-blue);
@@ -367,13 +168,13 @@
             font-weight: bold;
             font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .reset-filters:hover {
             background: var(--primary-blue);
             color: white;
             transform: translateY(-1px);
         }
-
+        
         /* Map */
         #map {
             height: 550px;
@@ -383,12 +184,12 @@
             transition: all 0.3s ease;
             z-index: 1;
         }
-
+        
         #map:hover {
             border-color: var(--gold);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-
+        
         .marker-count {
             background: white;
             padding: 8px 15px;
@@ -402,157 +203,86 @@
             width: auto;
             border: 1px solid var(--gold);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-family: 'Times New Roman', Times, serif;
         }
-
+        
         /* Leaflet Popup Customization */
         .leaflet-popup-content-wrapper {
             border-radius: 10px;
             font-family: 'Times New Roman', Times, serif;
         }
-
+        
         .leaflet-popup-content {
             font-family: 'Times New Roman', Times, serif;
         }
-
-        /* ============ FOOTER ============ */
-        footer {
-            background-color: var(--primary-blue);
-            color: white;
-            text-align: center;
-            padding: 40px 5%;
-            width: 100%;
-            max-width: 100%;
-            margin-top: auto;
-            animation: fadeIn 1s ease-out;
-            border-top: 3px solid var(--gold);
-        }
-
-        footer p {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            font-family: 'Times New Roman', Times, serif;
-            color: white;
-        }
-
-        footer a {
-            color: var(--gold);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-            color: white;
-            transform: scale(1.05);
-            display: inline-block;
-        }
-
-        /* ============ ANIMATIONS ============ */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* ============ RESPONSIVE DESIGN ============ */
-        @media (max-width: 1200px) {
-            .header-logo { height: 95px; }
-            .header-text h1 { font-size: 3rem; }
-            .header-text p { font-size: 1.5rem; }
-        }
-
-        @media (max-width: 992px) {
-            .header-logo { height: 80px; }
-            .header-text h1 { font-size: 2.5rem; }
-            .header-text p { font-size: 1.3rem; }
-            .header-container { padding: 15px 5%; gap: 20px; }
-        }
-
+        
+        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-            }
-            .header-logo { height: 70px; margin-bottom: 5px; }
-            .header-text h1 { font-size: 2rem; }
-            .header-text p { font-size: 1.1rem; }
-            nav a { padding: 6px 10px; font-size: 0.85rem; }
-            main { padding: 30px 5%; }
-            
             .stats-summary { gap: 10px; }
             .stat-card { min-width: calc(50% - 10px); padding: 10px; }
             .stat-number { font-size: 1.5rem; }
-            
             .filter-group { min-width: 100%; }
             .filter-info { flex-direction: column; align-items: stretch; }
             .reset-filters { margin-left: 0; width: 100%; text-align: center; }
-            
             .map-view-buttons { flex-direction: column; }
             .btn-view { width: 100%; text-align: center; }
-            
             #map { height: 400px; }
-            
-            footer p { font-size: 1rem; }
         }
-
+        
         @media (max-width: 480px) {
-            .header-text h1 { font-size: 1.8rem; }
-            .header-text p { font-size: 1rem; }
             .stat-card { min-width: 100%; }
             .marker-count { font-size: 0.75rem; }
         }
-
+        
         @media (min-width: 1600px) {
-            .header-container { min-height: 260px; }
-            .header-logo { height: 130px; max-width: 240px; }
-            .header-text h1 { font-size: 4rem; }
-            .header-text p { font-size: 2rem; }
             #map { height: 650px; }
         }
     </style>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
 <header>
     <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
+             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        
         <div class="header-text">
-            <h1>Distribution Records</h1>
+            <h1>Millipedes of Nepal</h1>
             <p>Mapping Millipedes Species Across Nepal</p>
+        </div>
+        
+        <div class="right-group">
+            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
+                 onerror="this.style.display='none'">
+            
+            <div class="clock-container">
+                <div class="analog-clock">
+                    <div class="clock-face">
+                        <div class="clock-ring"></div>
+                        <div class="hand hour-hand" id="hourHand"></div>
+                        <div class="hand minute-hand" id="minuteHand"></div>
+                        <div class="hand second-hand" id="secondHand"></div>
+                        <div class="clock-center"></div>
+                        <div class="clock-numbers">
+                            <div class="number number-12">12</div>
+                            <div class="number number-1">1</div>
+                            <div class="number number-2">2</div>
+                            <div class="number number-3">3</div>
+                            <div class="number number-4">4</div>
+                            <div class="number number-5">5</div>
+                            <div class="number number-6">6</div>
+                            <div class="number number-7">7</div>
+                            <div class="number number-8">8</div>
+                            <div class="number number-9">9</div>
+                            <div class="number number-10">10</div>
+                            <div class="number number-11">11</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clock-time-digital" id="digitalTime">--:--:--</div>
+                <div class="clock-date" id="englishDate">--</div>
+                <div class="clock-nepali-date" id="nepaliDate">--</div>
+            </div>
         </div>
     </div>
 </header>
@@ -638,9 +368,114 @@
     <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Data File -->
 <script src="data.js"></script>
 
 <script>
+    // ============================================
+    // NEPAL TIME ZONE FUNCTIONS
+    // ============================================
+    
+    function getNepalTime() {
+        const now = new Date();
+        const nepalOffset = 5.75 * 60 * 60 * 1000;
+        const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+        return new Date(utcTime + nepalOffset);
+    }
+    
+    function toNepaliDigits(number) {
+        const nepaliDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+        return String(number).split('').map(d => nepaliDigits[parseInt(d)] || d).join('');
+    }
+    
+    function getNepaliMonthName(month) {
+        const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'श्रावण', 'भाद्र', 'आश्विन', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फाल्गुन', 'चैत्र'];
+        return nepaliMonths[month];
+    }
+    
+    function getNepaliWeekday(day) {
+        const nepaliWeekdays = ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'];
+        return nepaliWeekdays[day];
+    }
+    
+    function getNepaliDate(gregorianDate) {
+        let bsYear = gregorianDate.getFullYear() + 57;
+        let bsMonth = gregorianDate.getMonth();
+        let bsDay = gregorianDate.getDate();
+        
+        if (bsMonth < 3) {
+            bsYear--;
+            bsMonth += 9;
+        } else {
+            bsMonth -= 3;
+        }
+        
+        bsDay = bsDay + 15;
+        if (bsDay > 32) {
+            bsDay -= 32;
+            bsMonth++;
+            if (bsMonth > 11) {
+                bsMonth = 0;
+                bsYear++;
+            }
+        }
+        
+        return { year: bsYear, month: bsMonth, day: bsDay };
+    }
+    
+    function updateClock() {
+        const now = getNepalTime();
+        
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        
+        const hourAngle = (hours % 12) * 30 + minutes * 0.5;
+        const minuteAngle = minutes * 6;
+        const secondAngle = seconds * 6;
+        
+        const hourHand = document.getElementById('hourHand');
+        const minuteHand = document.getElementById('minuteHand');
+        const secondHand = document.getElementById('secondHand');
+        
+        if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${hourAngle}deg)`;
+        if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minuteAngle}deg)`;
+        if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${secondAngle}deg)`;
+        
+        const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        const digitalTimeElem = document.getElementById('digitalTime');
+        if (digitalTimeElem) digitalTimeElem.innerHTML = timeString;
+        
+        const englishDateStr = now.toLocaleDateString('en-US', { 
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+        const englishDateElem = document.getElementById('englishDate');
+        if (englishDateElem) englishDateElem.innerHTML = englishDateStr;
+        
+        const nepaliDate = getNepaliDate(now);
+        const nepaliYearDigits = toNepaliDigits(nepaliDate.year);
+        const nepaliDayDigits = toNepaliDigits(nepaliDate.day);
+        const nepaliMonthName = getNepaliMonthName(nepaliDate.month);
+        const nepaliWeekday = getNepaliWeekday(now.getDay());
+        
+        const nepaliDateString = `${nepaliWeekday}, ${nepaliMonthName} ${nepaliDayDigits}, ${nepaliYearDigits}`;
+        const nepaliDateElem = document.getElementById('nepaliDate');
+        if (nepaliDateElem) nepaliDateElem.innerHTML = nepaliDateString;
+    }
+    
+    setInterval(updateClock, 1000);
+    updateClock();
+    
+    // ============================================
+    // DISTRIBUTION MAP FUNCTIONS
+    // ============================================
+    
     // Initialize Map
     const map = L.map('map').setView([28.3949, 84.1240], 7);
     const markersLayer = L.layerGroup().addTo(map);
@@ -909,6 +744,8 @@
                 if (pointOrder === 'Spirostreptida') markerColor = '#2980b9';
                 else if (pointOrder === 'Polydesmida') markerColor = '#27ae60';
                 else if (pointOrder === 'Julida') markerColor = '#f39c12';
+                else if (pointOrder === 'Chordeumatida') markerColor = '#9b59b6';
+                else if (pointOrder === 'Glomerida') markerColor = '#e74c3c';
                 
                 const customIcon = L.divIcon({
                     html: `<div style="background-color: ${markerColor}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.5);"></div>`,
@@ -928,7 +765,6 @@
                         <p style="margin:5px 0;"><strong>📍 Location:</strong> ${point.location || 'Nepal'}</p>
                         <p style="margin:5px 0;"><strong>🗺️ Coordinates:</strong><br>
                         ${point.lat.toFixed(4)}°N, ${point.lon.toFixed(4)}°E</p>
-                        ${point.date ? `<p style="margin:5px 0;"><strong>📅 Date:</strong> ${point.date}</p>` : ''}
                         ${point.notes ? `<p style="margin:5px 0; font-style: italic;">📝 ${point.notes}</p>` : ''}
                     </div>
                 `);
@@ -943,7 +779,6 @@
         document.getElementById('visiblePoints').textContent = visibleCount;
         
         if (bounds.length > 0 && bounds.length !== allPoints.length) {
-            // Only auto-zoom when filtered, not on initial load of all points
             const order = document.getElementById('orderFilter').value;
             const family = document.getElementById('familyFilter').value;
             const genus = document.getElementById('genusFilter').value;
@@ -991,12 +826,12 @@
         } else {
             // Sample data for demo if no data.js
             allPoints = [
-                { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240, date: "2023", notes: "Common species in western Nepal" },
-                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "simulans", location: "Kathmandu Valley", lat: 27.7172, lon: 85.3240, date: "2024", notes: "Urban forest record" },
-                { order: "Spirostreptida", family: "Harpagophoridae", genus: "Thyropygus", species: "nepalensis", location: "Pokhara", lat: 28.2096, lon: 83.9856, date: "2023", notes: "Endemic species" },
-                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Desmoxytes", species: "purpurosea", location: "Chitwan", lat: 27.5733, lon: 84.4851, date: "2022", notes: "Dragon millipede" },
-                { order: "Julida", family: "Julidae", genus: "Cylindroiulus", species: "neapolitanus", location: "Lumbini", lat: 27.4669, lon: 83.2762, date: "2023", notes: "Introduced species" },
-                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Oxidus", species: "gracilis", location: "Kathmandu", lat: 27.7172, lon: 85.3240, date: "2024", notes: "Greenhouse millipede" }
+                { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240, notes: "Common species in western Nepal" },
+                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", location: "Kathmandu Valley", lat: 27.7172, lon: 85.3240, notes: "Urban forest record" },
+                { order: "Spirostreptida", family: "Harpagophoridae", genus: "Thyropygus", species: "nepalensis", location: "Pokhara", lat: 28.2096, lon: 83.9856, notes: "Endemic species" },
+                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Desmoxytes", species: "purpurosea", location: "Chitwan", lat: 27.5733, lon: 84.4851, notes: "Dragon millipede" },
+                { order: "Julida", family: "Julidae", genus: "Cylindroiulus", species: "neapolitanus", location: "Lumbini", lat: 27.4669, lon: 83.2762, notes: "Introduced species" },
+                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Oxidus", species: "gracilis", location: "Kathmandu", lat: 27.7172, lon: 85.3240, notes: "Greenhouse millipede" }
             ];
             console.log('Using sample data. Please ensure data.js contains millipedePoints array.');
         }
