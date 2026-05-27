@@ -9,7 +9,7 @@
         /* ============================================
            Millipedes of Nepal - COMPLETE BLUE THEME
            Full Screen - Works for ALL HTML Files
-           Version: 2.0 - Consolidated
+           Version: 2.0 - Consolidated with Transparent Clock
            ============================================ */
 
         /* ============ RESET & BASE ============ */
@@ -52,6 +52,12 @@
             --shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
+        /* Nepali font support */
+        @font-face {
+            font-family: 'Preeti';
+            src: local('Preeti'), url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap');
+        }
+
         /* Reduced motion preference */
         @media (prefers-reduced-motion: reduce) {
             * {
@@ -63,7 +69,7 @@
 
         /* Print styles */
         @media print {
-            header, nav, footer, .video-section, .world-map-section {
+            header, nav, footer, .video-section, .world-map-section, .clock-container, .millipede-icon {
                 display: none;
             }
             body {
@@ -100,6 +106,7 @@
             flex-wrap: wrap;
         }
 
+        /* Logo styling */
         .header-logo {
             height: 110px;
             width: auto;
@@ -144,6 +151,148 @@
             font-size: 1.8rem;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
             animation: slideInRight 1s ease-out;
+        }
+
+        /* Right side group: Millipede PNG + Clock - CLOSER TOGETHER */
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        /* Millipede Icon - ENLARGED 2X (200px height), closer to clock */
+        .millipede-icon {
+            height: 200px;
+            width: auto;
+            max-width: 350px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+        }
+
+        /* ============ COMPLETELY TRANSPARENT CLOCK STYLES ============ */
+        .clock-container {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            min-width: 200px;
+            text-align: center;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
+            position: relative;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: none;
+        }
+
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .clock-center {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #f39c12;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 2px;
+        }
+
+        .hour-hand {
+            width: 3px;
+            height: 28px;
+            background: #f39c12;
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: none;
+        }
+
+        .minute-hand {
+            width: 2px;
+            height: 38px;
+            background: #ecf0f1;
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: none;
+        }
+
+        .second-hand {
+            width: 1px;
+            height: 42px;
+            background: #e74c3c;
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: none;
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 11px;
+            font-weight: bold;
+            color: #f39c12;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+        }
+
+        .clock-time-digital {
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+            text-shadow: 0 0 2px rgba(0,0,0,0.5);
+        }
+
+        .clock-date {
+            font-size: 9px;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 4px;
+            font-weight: bold;
+            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+        }
+
+        .clock-nepali-date {
+            font-size: 11px;
+            color: #ecf0f1;
+            text-align: center;
+            font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
+            font-weight: normal;
+            margin-top: 2px;
+            text-shadow: 0 0 2px rgba(0,0,0,0.3);
         }
 
         /* ============ NAVIGATION BAR - BLUE ============ */
@@ -311,7 +460,7 @@
 
         /* Nepali text styling */
         .nepali-names {
-            font-family: 'Preeti', 'Times New Roman', Times, serif;
+            font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
             background: var(--blue-bg);
             padding: 25px 30px;
             border-radius: 8px;
@@ -534,6 +683,17 @@
             }
         }
 
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         @keyframes slideInLeft {
             from {
                 opacity: 0;
@@ -559,6 +719,7 @@
         /* ============ RESPONSIVE DESIGN ============ */
         @media (max-width: 1200px) {
             .header-logo { height: 95px; }
+            .millipede-icon { height: 160px; max-width: 280px; }
             .header-text h1 { font-size: 3rem; }
             .header-text p { font-size: 1.5rem; }
             .video-col { min-width: 300px; max-width: calc(33.33% - 14px); }
@@ -572,10 +733,14 @@
         }
 
         @media (max-width: 992px) {
-            .header-logo { height: 80px; }
+            .header-logo { height: 75px; }
+            .millipede-icon { height: 130px; max-width: 220px; }
             .header-text h1 { font-size: 2.5rem; }
             .header-text p { font-size: 1.3rem; }
             .header-container { padding: 15px 5%; gap: 20px; }
+            .analog-clock { width: 80px; height: 80px; }
+            .clock-container { min-width: 170px; }
+            .right-group { gap: 3px; }
         }
 
         @media (max-width: 768px) {
@@ -584,7 +749,8 @@
                 text-align: center;
                 padding: 20px;
             }
-            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-logo { height: 70px; }
+            .millipede-icon { height: 110px; max-width: 190px; }
             .header-text h1 { font-size: 2rem; }
             .header-text p { font-size: 1.1rem; }
             nav a { padding: 6px 10px; font-size: 0.85rem; }
@@ -596,23 +762,37 @@
             #worldMap { height: 400px; }
             footer p { font-size: 1rem; }
             section { padding: 25px; }
+            .right-group { 
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .analog-clock { width: 70px; height: 70px; }
         }
 
         @media (max-width: 480px) {
             .header-text h1 { font-size: 1.8rem; }
             .header-text p { font-size: 1rem; }
             .featured-img { aspect-ratio: 4/3; }
-            .video-caption-full h3 { font-size: 1.1rem; }
-            .faq-question { font-size: 1.1rem; }
+            .header-logo { height: 55px; }
+            .millipede-icon { height: 90px; max-width: 150px; }
+            .analog-clock { width: 60px; height: 60px; }
+            .clock-container { min-width: 150px; }
+            .right-group { gap: 2px; }
+            .clock-time-digital { font-size: 11px; }
+            .clock-nepali-date { font-size: 9px; }
         }
 
         @media (min-width: 1600px) {
             .header-container { min-height: 260px; }
             .header-logo { height: 130px; max-width: 240px; }
+            .millipede-icon { height: 220px; max-width: 380px; }
             .header-text h1 { font-size: 4rem; }
             .header-text p { font-size: 2rem; }
             .featured-img { aspect-ratio: 16/9; }
             #worldMap { height: 750px; }
+            .analog-clock { width: 120px; height: 120px; }
+            .clock-container { min-width: 230px; }
+            .right-group { gap: 8px; }
         }
     </style>
 </head>
@@ -620,10 +800,39 @@
 
 <header>
     <div class="header-container">
+        <!-- Logo on the left -->
         <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
+        
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
             <p>All about Nepalese Millipedes</p>
+        </div>
+        
+        <!-- Right side: Millipede PNG + Clock - CLOSER TOGETHER (gap: 5px) -->
+        <div class="right-group">
+            <!-- Millipede PNG - ENLARGED 2X (200px height) -->
+            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" onerror="this.style.display='none'">
+            
+            <!-- COMPLETELY TRANSPARENT ANALOG CLOCK -->
+            <div class="clock-container">
+                <div class="analog-clock">
+                    <div class="clock-face">
+                        <div class="hand hour-hand" id="hourHand"></div>
+                        <div class="hand minute-hand" id="minuteHand"></div>
+                        <div class="hand second-hand" id="secondHand"></div>
+                        <div class="clock-center"></div>
+                        <div class="clock-numbers">
+                            <div class="number" style="top: 10%; left: 50%;">12</div>
+                            <div class="number" style="top: 50%; left: 90%;">3</div>
+                            <div class="number" style="top: 90%; left: 50%;">6</div>
+                            <div class="number" style="top: 50%; left: 10%;">9</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clock-time-digital" id="digitalTime">--:--:--</div>
+                <div class="clock-date" id="englishDate">--</div>
+                <div class="clock-nepali-date" id="nepaliDate">--</div>
+            </div>
         </div>
     </div>
 </header>
@@ -720,7 +929,7 @@
     <div class="content-block">
         <h2>Our Mission</h2>
         <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts. Our mission is to advance the understanding of millipede biodiversity in Nepal through comprehensive field collection from diverse geographical regions, followed by accurate species-level identification using integrated morphological and molecular analysis, detailed documentation, and long-term specimen preservation.</p>
-    </div
+    </div>
 
     <!-- Altitude Profile Section -->
     <div class="content-block">
@@ -745,6 +954,7 @@
         <p class="map-caption">Nepal is located in South Asia, between China and India</p>
     </div>
 </main>
+
 <footer>
     <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
     <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
@@ -753,16 +963,123 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-    // Initialize world map when DOM is loaded
+    // ============================================
+    // NEPAL TIME ZONE FUNCTIONS
+    // ============================================
+    
+    // Get current time in Nepal (UTC+5:45)
+    function getNepalTime() {
+        const now = new Date();
+        const nepalOffset = 5.75 * 60 * 60 * 1000;
+        const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+        return new Date(utcTime + nepalOffset);
+    }
+    
+    // Convert number to Nepali digits
+    function toNepaliDigits(number) {
+        const nepaliDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+        return String(number).split('').map(d => nepaliDigits[parseInt(d)] || d).join('');
+    }
+    
+    // Convert English month to Nepali month name
+    function getNepaliMonthName(month) {
+        const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'श्रावण', 'भाद्र', 'आश्विन', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फाल्गुन', 'चैत्र'];
+        return nepaliMonths[month];
+    }
+    
+    // Convert English weekday to Nepali weekday
+    function getNepaliWeekday(day) {
+        const nepaliWeekdays = ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'];
+        return nepaliWeekdays[day];
+    }
+    
+    // Get approximate Nepali date (Bikram Sambat)
+    function getNepaliDate(gregorianDate) {
+        let bsYear = gregorianDate.getFullYear() + 57;
+        let bsMonth = gregorianDate.getMonth();
+        let bsDay = gregorianDate.getDate();
+        
+        if (bsMonth < 3) {
+            bsYear--;
+            bsMonth += 9;
+        } else {
+            bsMonth -= 3;
+        }
+        
+        bsDay = bsDay + 15;
+        if (bsDay > 32) {
+            bsDay -= 32;
+            bsMonth++;
+            if (bsMonth > 11) {
+                bsMonth = 0;
+                bsYear++;
+            }
+        }
+        
+        return {
+            year: bsYear,
+            month: bsMonth,
+            day: bsDay
+        };
+    }
+    
+    // Update analog clock with Nepal time
+    function updateClock() {
+        const now = getNepalTime();
+        
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        
+        const hourAngle = (hours % 12) * 30 + minutes * 0.5;
+        const minuteAngle = minutes * 6;
+        const secondAngle = seconds * 6;
+        
+        const hourHand = document.getElementById('hourHand');
+        const minuteHand = document.getElementById('minuteHand');
+        const secondHand = document.getElementById('secondHand');
+        
+        if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${hourAngle}deg)`;
+        if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minuteAngle}deg)`;
+        if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${secondAngle}deg)`;
+        
+        const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        const digitalTimeElem = document.getElementById('digitalTime');
+        if (digitalTimeElem) digitalTimeElem.innerHTML = timeString;
+        
+        const englishDateStr = now.toLocaleDateString('en-US', { 
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+        const englishDateElem = document.getElementById('englishDate');
+        if (englishDateElem) englishDateElem.innerHTML = englishDateStr;
+        
+        const nepaliDate = getNepaliDate(now);
+        const nepaliYearDigits = toNepaliDigits(nepaliDate.year);
+        const nepaliDayDigits = toNepaliDigits(nepaliDate.day);
+        const nepaliMonthName = getNepaliMonthName(nepaliDate.month);
+        const nepaliWeekday = getNepaliWeekday(now.getDay());
+        
+        const nepaliDateString = `${nepaliWeekday}, ${nepaliMonthName} ${nepaliDayDigits}, ${nepaliYearDigits}`;
+        const nepaliDateElem = document.getElementById('nepaliDate');
+        if (nepaliDateElem) nepaliDateElem.innerHTML = nepaliDateString;
+    }
+    
+    setInterval(updateClock, 1000);
+    updateClock();
+    
+    // Initialize world map
     document.addEventListener('DOMContentLoaded', function() {
         var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
+            attribution: '&copy; OpenStreetMap contributors',
             subdomains: 'abcd',
             maxZoom: 19
         }).addTo(worldMap);
         
-        L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 Nepal</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
+        L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 नेपाल (Nepal)</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
         L.circle([28.3949, 84.1240], { 
             color: '#1a5276', 
             fillColor: '#2980b9', 
@@ -771,6 +1088,5 @@
         }).addTo(worldMap);
     });
 </script>
-
 </body>
 </html>
