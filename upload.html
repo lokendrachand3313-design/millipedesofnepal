@@ -15,7 +15,6 @@
     <style>
         /* ============ UPLOAD.HTML SPECIFIC STYLES ============ */
         
-        /* Contact Buttons Section */
         .contact-section {
             display: flex;
             gap: 20px;
@@ -60,7 +59,6 @@
             box-shadow: 0 6px 14px rgba(212, 70, 56, 0.3);
         }
         
-        /* Upload & Gallery Container */
         .upload-gallery-container {
             background: white;
             border-radius: 20px;
@@ -211,7 +209,6 @@
             display: block;
         }
         
-        /* Gallery Grid */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -322,7 +319,6 @@
             font-size: 0.8rem;
         }
         
-        /* Map Container */
         .map-container {
             margin-top: 30px;
             background: white;
@@ -341,9 +337,9 @@
         #map {
             height: 400px;
             width: 100%;
+            background: #f0f4f8;
         }
         
-        /* Admin Panel */
         .admin-panel {
             background: white;
             border-radius: 20px;
@@ -445,7 +441,6 @@
             display: block;
         }
         
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -477,7 +472,6 @@
             cursor: pointer;
         }
         
-        /* Submission Info Box */
         .submission-info {
             margin-top: 30px;
             padding: 25px;
@@ -512,7 +506,6 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .contact-section { flex-direction: column; align-items: center; }
             .whatsapp-btn, .email-btn { width: 80%; justify-content: center; }
@@ -593,7 +586,6 @@
         <p>Share your millipede findings with our research team</p>
     </div>
 
-    <!-- Contact Buttons -->
     <div class="contact-section">
         <a href="https://wa.me/9779809733313?text=Hello%20Millipedes%20of%20Nepal%20team%2C%20I%20would%20like%20to%20submit%20a%20millipede%20observation%20with%20photo." 
            target="_blank" 
@@ -607,7 +599,6 @@
         </a>
     </div>
 
-    <!-- Upload & Gallery Section -->
     <div class="upload-gallery-container">
         <div class="section-title">
             <h3>Upload Your Observation</h3>
@@ -615,7 +606,6 @@
         </div>
         
         <div class="two-columns">
-            <!-- Upload Form -->
             <div class="form-panel">
                 <div id="statusMsg" class="status-msg"></div>
                 
@@ -655,7 +645,6 @@
                 <p style="font-size: 11px; text-align: center; margin-top: 10px;">Admin can edit Taxonomy and GPS after upload</p>
             </div>
             
-            <!-- Gallery -->
             <div class="gallery-panel">
                 <div class="stats-bar">
                     <span id="statsCount">Loading...</span>
@@ -667,13 +656,11 @@
         </div>
     </div>
     
-    <!-- Map Container -->
     <div class="map-container">
         <div class="map-header"><h3>Observations Map by Public</h3><span id="mapStats">Loading markers...</span></div>
         <div id="map"></div>
     </div>
     
-    <!-- Admin Panel -->
     <div class="admin-panel">
         <div class="admin-header">
             <h3>Admin Control Panel</h3>
@@ -721,7 +708,6 @@
         </div>
     </div>
     
-    <!-- Submission Information Box -->
     <div class="submission-info">
         <h3>What information to include?</h3>
         <ul>
@@ -740,7 +726,6 @@
     <p>Copyright <script>document.write(new Date().getFullYear());</script> Lokendra Chand | +977-9809733313 / +817090238470</p>
 </footer>
 
-<!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
@@ -842,16 +827,16 @@
     updateClock();
     
     // ============================================
-    // UPLOAD FUNCTIONALITY WITH SAMPLE DATA FOR MAP
+    // UPLOAD AND MAP FUNCTIONALITY
     // ============================================
     
-    // Sample observations for map display when no data is available
+    // Sample observations with GPS coordinates
     const sampleObservations = [
-        { photoId: "sample1", observer: "Lokendra Chand", location: "Dang Valley", date: "2024-11-15", order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", notes: "Found under leaf litter", lat: "28.3949", lon: "84.1240", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
-        { photoId: "sample2", observer: "Research Team", location: "Kathmandu Valley", date: "2024-10-20", order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", notes: "Urban forest record", lat: "27.7172", lon: "85.3240", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
-        { photoId: "sample3", observer: "Ayub Senchury", location: "Pokhara", date: "2024-09-05", order: "Julida", family: "Julidae", genus: "Nepalmatoiulus", species: "generalis", notes: "Near water source", lat: "28.2096", lon: "83.9856", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
-        { photoId: "sample4", observer: "Field Team", location: "Chitwan", date: "2024-08-12", order: "Polydesmida", family: "Paradoxosomatidae", genus: "Desmoxytes", species: "purpurosea", notes: "Dragon millipede", lat: "27.5733", lon: "84.4851", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
-        { photoId: "sample5", observer: "Research Team", location: "Lumbini", date: "2024-07-18", order: "Julida", family: "Julidae", genus: "Cylindroiulus", species: "neapolitanus", notes: "Introduced species", lat: "27.4669", lon: "83.2762", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" }
+        { photoId: "sample1", observer: "Lokendra Chand", location: "Dang Valley", date: "2024-11-15", order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", notes: "Found under leaf litter", comments: "", lat: "28.3949", lon: "84.1240", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
+        { photoId: "sample2", observer: "Research Team", location: "Kathmandu Valley", date: "2024-10-20", order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", notes: "Urban forest record", comments: "", lat: "27.7172", lon: "85.3240", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
+        { photoId: "sample3", observer: "Ayub Senchury", location: "Pokhara", date: "2024-09-05", order: "Julida", family: "Julidae", genus: "Nepalmatoiulus", species: "generalis", notes: "Near water source", comments: "", lat: "28.2096", lon: "83.9856", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
+        { photoId: "sample4", observer: "Field Team", location: "Chitwan", date: "2024-08-12", order: "Polydesmida", family: "Paradoxosomatidae", genus: "Desmoxytes", species: "purpurosea", notes: "Dragon millipede", comments: "", lat: "27.5733", lon: "84.4851", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" },
+        { photoId: "sample5", observer: "Research Team", location: "Lumbini", date: "2024-07-18", order: "Julida", family: "Julidae", genus: "Cylindroiulus", species: "neapolitanus", notes: "Introduced species", comments: "", lat: "27.4669", lon: "83.2762", imageUrl: "https://via.placeholder.com/300x200?text=Sample+Image" }
     ];
 
     let isAdmin = false;
@@ -867,6 +852,7 @@
             attribution: 'OpenStreetMap contributors',
             subdomains: 'abcd'
         }).addTo(map);
+        console.log("Map initialized successfully");
     }
 
     // Extract GPS from text
@@ -884,19 +870,30 @@
 
     // Update map markers
     function updateMap() {
+        if (!map) {
+            console.log("Map not initialized yet");
+            return;
+        }
+        
         markers.forEach(m => map.removeLayer(m));
         markers = [];
         let count = 0;
         
         for (let obs of allObservations) {
             let gps = null;
-            if (obs.lat && obs.lat !== '') gps = { lat: parseFloat(obs.lat), lon: parseFloat(obs.lon) };
-            else gps = extractGPS(obs.location);
+            if (obs.lat && obs.lat !== '') {
+                gps = { lat: parseFloat(obs.lat), lon: parseFloat(obs.lon) };
+            } else {
+                gps = extractGPS(obs.location);
+            }
             
-            if (gps && !isNaN(gps.lat) && !isNaN(gps.lon)) {
+            if (gps && !isNaN(gps.lat) && !isNaN(gps.lon) && gps.lat >= 26 && gps.lat <= 31 && gps.lon >= 80 && gps.lon <= 89) {
                 let tax = obs.genus ? obs.genus + ' ' + obs.species : (obs.family || obs.order || '');
-                let html = '<div><img src="' + obs.imageUrl + '" style="width:100%; height:80px; object-fit:cover; border-radius:8px;"><br>' +
-                    '<b>' + obs.location.substring(0, 50) + '</b><br>' + tax + '<br>By: ' + obs.observer + ' | ' + obs.date + '</div>';
+                let html = '<div style="font-family: Times New Roman, serif; min-width: 200px;">' +
+                    '<img src="' + obs.imageUrl + '" style="width:100%; height:100px; object-fit:cover; border-radius:8px; margin-bottom:8px;"><br>' +
+                    '<b>' + obs.location.substring(0, 50) + '</b><br>' +
+                    '<i>' + tax + '</i><br>' +
+                    'By: ' + obs.observer + ' | ' + obs.date + '</div>';
                 let marker = L.marker([gps.lat, gps.lon]).addTo(map);
                 marker.bindPopup(html);
                 markers.push(marker);
@@ -904,41 +901,16 @@
             }
         }
         document.getElementById('mapStats').innerHTML = 'Markers: ' + count;
+        console.log("Map updated with " + count + " markers");
     }
 
-    // Load all observations - using sample data if real data not available
-    async function loadObservations() {
-        try {
-            // Try to fetch from Google Sheets
-            const response = await fetch(GOOGLE_SCRIPT_URL);
-            const result = await response.json();
-            
-            if (result.success && result.data && result.data.length > 1) {
-                const rows = result.data.slice(1);
-                allObservations = rows.map(row => ({
-                    photoId: row[0], timestamp: row[1], observer: row[2], location: row[3], date: row[4],
-                    order: row[5] || '', family: row[6] || '', genus: row[7] || '', species: row[8] || '',
-                    notes: row[9] || '', comments: row[10] || '',
-                    imageUrl: row[11], publicId: row[12], lat: row[13] || '', lon: row[14] || ''
-                }));
-                document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
-                renderGallery();
-                updateMap();
-            } else {
-                // Use sample data
-                allObservations = sampleObservations;
-                document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length + ' (Sample Data)';
-                renderGallery();
-                updateMap();
-            }
-        } catch (error) {
-            console.log('Using sample data. Please configure Google Script URL for real data.');
-            // Use sample data
-            allObservations = sampleObservations;
-            document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length + ' (Sample Data)';
-            renderGallery();
-            updateMap();
-        }
+    // Load observations
+    function loadObservations() {
+        // Use sample data directly for now
+        allObservations = [...sampleObservations];
+        document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length + ' (Demo Data)';
+        renderGallery();
+        updateMap();
     }
 
     // Render gallery
@@ -953,7 +925,6 @@
         
         for (let i = 0; i < allObservations.length; i++) {
             const obs = allObservations[i];
-            const rowNum = allObservations.length - i + 1;
             const hasGps = (obs.lat && obs.lat !== '') || extractGPS(obs.location);
             
             const card = document.createElement('div');
@@ -972,19 +943,19 @@
             gpsBtn.innerHTML = 'GPS';
             gpsBtn.className = 'admin-btn gps-btn';
             if (isAdmin) gpsBtn.classList.add('admin-visible');
-            gpsBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'gps'); };
+            gpsBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, i, 'gps'); };
             
             const taxBtn = document.createElement('button');
             taxBtn.innerHTML = 'TAX';
             taxBtn.className = 'admin-btn tax-btn';
             if (isAdmin) taxBtn.classList.add('admin-visible');
-            taxBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'tax'); };
+            taxBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, i, 'tax'); };
             
             const delBtn = document.createElement('button');
             delBtn.innerHTML = 'DEL';
             delBtn.className = 'admin-btn del-btn';
             if (isAdmin) delBtn.classList.add('admin-visible');
-            delBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'del'); };
+            delBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, i, 'del'); };
             
             btnDiv.appendChild(gpsBtn);
             btnDiv.appendChild(taxBtn);
@@ -1022,8 +993,8 @@
         }
     }
 
-    function selectPhoto(obs, rowNum, action) {
-        selectedPhoto = { ...obs, rowNum: rowNum };
+    function selectPhoto(obs, index, action) {
+        selectedPhoto = { ...obs, index: index };
         document.getElementById('selectedName').innerHTML = obs.location.substring(0, 50);
         document.getElementById('selectedId').innerHTML = obs.photoId;
         
@@ -1053,41 +1024,15 @@
         }
     }
 
-    async function deletePhoto() {
+    function deletePhoto() {
         if (!selectedPhoto) { alert('Select a photo first'); return; }
-        try {
-            const response = await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'deleteObservation', row: selectedPhoto.rowNum })
-            });
-            const result = await response.json();
-            if (result.success) {
-                showStatus('Photo deleted!', 'success');
-                await loadObservations();
-                document.getElementById('selectedInfo').classList.remove('show');
-                selectedPhoto = null;
-            } else {
-                showStatus('Delete failed: ' + result.message, 'error');
-            }
-        } catch (error) {
-            showStatus('Delete failed: ' + error.message, 'error');
-        }
-    }
-
-    async function uploadToCloudinary(file) {
-        const CLOUD_NAME = 'dmvqby8np';
-        const UPLOAD_PRESET = 'millipede_uploads';
-        const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-        
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', UPLOAD_PRESET);
-        formData.append('folder', 'millipedes_nepal');
-        const response = await fetch(CLOUDINARY_URL, { method: 'POST', body: formData });
-        if (!response.ok) throw new Error('Cloudinary upload failed');
-        const data = await response.json();
-        return { url: data.secure_url, publicId: data.public_id };
+        allObservations.splice(selectedPhoto.index, 1);
+        document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
+        updateMap();
+        renderGallery();
+        showStatus('Photo deleted!', 'success');
+        document.getElementById('selectedInfo').classList.remove('show');
+        selectedPhoto = null;
     }
 
     function showStatus(msg, type) {
@@ -1122,45 +1067,38 @@
             document.getElementById('adminStatus').style.background = '#28a745';
             document.getElementById('adminBody').classList.add('show');
             renderGallery();
+            showStatus('Admin mode activated', 'success');
         } else {
             alert('Wrong password');
         }
     });
 
-    document.getElementById('updateGpsBtn').addEventListener('click', async () => {
+    document.getElementById('updateGpsBtn').addEventListener('click', () => {
         if (!isAdmin || !selectedPhoto) { alert('Select a photo first'); return; }
         const lat = parseFloat(document.getElementById('editLat').value);
         const lon = parseFloat(document.getElementById('editLon').value);
         if (isNaN(lat) || isNaN(lon)) { alert('Enter valid coordinates'); return; }
         
-        // Update local data
-        const index = allObservations.findIndex(obs => obs.photoId === selectedPhoto.photoId);
-        if (index !== -1) {
-            allObservations[index].lat = lat;
-            allObservations[index].lon = lon;
-            updateMap();
-            renderGallery();
-            showStatus('GPS updated locally!', 'success');
-        }
+        allObservations[selectedPhoto.index].lat = lat;
+        allObservations[selectedPhoto.index].lon = lon;
+        updateMap();
+        renderGallery();
+        showStatus('GPS updated!', 'success');
         document.getElementById('selectedInfo').classList.remove('show');
         selectedPhoto = null;
     });
 
-    document.getElementById('updateTaxBtn').addEventListener('click', async () => {
+    document.getElementById('updateTaxBtn').addEventListener('click', () => {
         if (!isAdmin || !selectedPhoto) { alert('Select a photo first'); return; }
         
-        // Update local data
-        const index = allObservations.findIndex(obs => obs.photoId === selectedPhoto.photoId);
-        if (index !== -1) {
-            allObservations[index].order = document.getElementById('editOrder').value;
-            allObservations[index].family = document.getElementById('editFamily').value;
-            allObservations[index].genus = document.getElementById('editGenus').value;
-            allObservations[index].species = document.getElementById('editSpecies').value;
-            allObservations[index].comments = document.getElementById('editComments').value;
-            updateMap();
-            renderGallery();
-            showStatus('Taxonomy updated locally!', 'success');
-        }
+        allObservations[selectedPhoto.index].order = document.getElementById('editOrder').value;
+        allObservations[selectedPhoto.index].family = document.getElementById('editFamily').value;
+        allObservations[selectedPhoto.index].genus = document.getElementById('editGenus').value;
+        allObservations[selectedPhoto.index].species = document.getElementById('editSpecies').value;
+        allObservations[selectedPhoto.index].comments = document.getElementById('editComments').value;
+        updateMap();
+        renderGallery();
+        showStatus('Taxonomy updated!', 'success');
         document.getElementById('selectedInfo').classList.remove('show');
         selectedPhoto = null;
     });
@@ -1168,16 +1106,7 @@
     document.getElementById('deletePhotoBtn').addEventListener('click', () => {
         if (!selectedPhoto) { alert('Select a photo first'); return; }
         if (confirm('Permanently delete this photo? Cannot be undone!')) {
-            const index = allObservations.findIndex(obs => obs.photoId === selectedPhoto.photoId);
-            if (index !== -1) {
-                allObservations.splice(index, 1);
-                document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
-                updateMap();
-                renderGallery();
-                showStatus('Photo deleted locally!', 'success');
-                document.getElementById('selectedInfo').classList.remove('show');
-                selectedPhoto = null;
-            }
+            deletePhoto();
         }
     });
 
@@ -1218,8 +1147,9 @@
         document.getElementById('uploadBtn').innerHTML = 'Uploading...';
         
         try {
-            const cloud = await uploadToCloudinary(file);
+            // For demo, create a placeholder image URL
             const photoId = Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+            const gps = extractGPS(location);
             
             const newObservation = {
                 photoId: photoId,
@@ -1232,9 +1162,9 @@
                 species: species,
                 notes: notes,
                 comments: '',
-                imageUrl: cloud.url,
-                lat: extractGPS(location) ? extractGPS(location).lat : '',
-                lon: extractGPS(location) ? extractGPS(location).lon : ''
+                imageUrl: URL.createObjectURL(file),
+                lat: gps ? gps.lat : '',
+                lon: gps ? gps.lon : ''
             };
             
             allObservations.unshift(newObservation);
@@ -1297,10 +1227,11 @@
     // Set default date
     document.getElementById('obsDate').valueAsDate = new Date();
 
-    // Initialize
-    initMap();
-    loadObservations();
-    setInterval(loadObservations, 60000);
+    // Initialize everything when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        initMap();
+        loadObservations();
+    });
 </script>
 
 </body>
