@@ -845,13 +845,16 @@
     let allObservations = [];
     let selectedPhoto = null;
 
-    // Initialize Map
+    // Initialize Map with OpenStreetMap tiles (more reliable)
     function initMap() {
         map = L.map('map').setView([28.3949, 84.1240], 7);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: 'OpenStreetMap contributors',
-            subdomains: 'abcd'
+        
+        // Using standard OpenStreetMap tiles - most reliable
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
         }).addTo(map);
+        
         console.log("Map initialized successfully");
     }
 
@@ -906,7 +909,6 @@
 
     // Load observations
     function loadObservations() {
-        // Use sample data directly for now
         allObservations = [...sampleObservations];
         document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length + ' (Demo Data)';
         renderGallery();
@@ -1147,7 +1149,6 @@
         document.getElementById('uploadBtn').innerHTML = 'Uploading...';
         
         try {
-            // For demo, create a placeholder image URL
             const photoId = Date.now() + '_' + Math.random().toString(36).substr(2, 6);
             const gps = extractGPS(location);
             
