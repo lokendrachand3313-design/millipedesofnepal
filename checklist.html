@@ -617,8 +617,8 @@
             <div class="legend-box">
                 <div><span class="legend-color" style="background:#3b82f6;"></span> Order</div>
                 <div><span class="legend-color" style="background:#10b981;"></span> Family</div>
-                <div><span class="legend-color" style="background:#f59e0b;"></span> Genus (italic)</div>
-                <div><span class="legend-color" style="background:#ef4444;"></span> Species (italic)</div>
+                <div><span class="legend-color" style="background:#f59e0b;"></span> Genus</div>
+                <div><span class="legend-color" style="background:#ef4444;"></span> Species</div>
             </div>
         </div>
     </div>
@@ -795,28 +795,6 @@
         }
     }
 
-    function addMarkersForSpecies(order, family, genus, species) {
-        clearMarkers();
-        if (typeof millipedePoints === 'undefined') return;
-        const filteredPoints = millipedePoints.filter(point => 
-            (order === 'all' || point.order === order) &&
-            (family === 'all' || point.family === family) &&
-            (genus === 'all' || point.genus === genus) &&
-            (species === 'all' || point.species === species)
-        );
-        if (filteredPoints.length === 0) return;
-        const bounds = [];
-        filteredPoints.forEach(point => {
-            if (point.lat && point.lon) {
-                const marker = L.marker([point.lat, point.lon]).addTo(map);
-                marker.bindPopup(`<strong>${point.genus} ${point.species}</strong><br><em>${point.family}</em>`);
-                markers.push(marker);
-                bounds.push([point.lat, point.lon]);
-            }
-        });
-        if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
-    }
-
     async function loadSpeciesData() {
         try {
             const response = await fetch('checklist.json');
@@ -875,7 +853,7 @@
             points.forEach(point => {
                 if (point.lat && point.lon) {
                     const marker = L.marker([point.lat, point.lon]).addTo(map);
-                    marker.bindPopup(`<strong>${point.genus} ${point.species}</strong><br><em>${point.family}</em><br>${point.location || ''}`);
+                    marker.bindPopup(`<strong>${point.genus} ${point.species}</strong><br><em>${point.family}</em>`);
                     markers.push(marker);
                 }
             });
@@ -955,7 +933,6 @@
         );
         
         displayResults(filtered);
-        addMarkersForSpecies(order, family, genus, species);
         
         const filterStatus = [];
         if (order !== 'all') filterStatus.push(order);
@@ -1122,8 +1099,8 @@
         const wrapper = document.getElementById("treeWrapper");
         const width = wrapper.clientWidth - 15;
         const nodeCount = countNodes(data);
-        // Increased vertical spacing for better readability
-        const height = Math.min(650, Math.max(450, nodeCount * 38));
+        // Increased height for better spacing - allows scrolling
+        const height = Math.min(1000, Math.max(550, nodeCount * 48));
         
         const svg = d3.select("#phylogenetic-tree")
             .append("svg")
@@ -1132,11 +1109,11 @@
             .attr("viewBox", "0 0 " + width + " " + height)
             .style("background", "#fafbfc");
         
-        const g = svg.append("g").attr("transform", "translate(50, 25)");
+        const g = svg.append("g").attr("transform", "translate(50, 30)");
         
         const root = d3.hierarchy(data);
-        // Use nodeSize for consistent spacing between nodes
-        const treeLayout = d3.tree().nodeSize([38, 160]);
+        // Use nodeSize for consistent spacing - 48px vertical gap between nodes
+        const treeLayout = d3.tree().nodeSize([48, 160]);
         treeLayout(root);
         
         g.selectAll(".link")
@@ -1154,11 +1131,11 @@
         
         nodes.append("circle")
             .attr("r", d => {
-                if (d.data.type === 'root') return 5;
-                if (d.data.type === 'order') return 4.5;
-                if (d.data.type === 'family') return 4;
-                if (d.data.type === 'genus') return 3.5;
-                return 3;
+                if (d.data.type === 'root') return 6;
+                if (d.data.type === 'order') return 5;
+                if (d.data.type === 'family') return 4.5;
+                if (d.data.type === 'genus') return 4;
+                return 3.5;
             })
             .attr("fill", d => {
                 if (d.data.type === 'order') return "#3b82f6";
@@ -1168,16 +1145,16 @@
                 return "#1a5276";
             })
             .attr("stroke", "white")
-            .attr("stroke-width", 1);
+            .attr("stroke-width", 1.2);
         
         nodes.append("text")
-            .attr("dx", 12)
+            .attr("dx", 14)
             .attr("dy", 4)
             .style("font-size", d => {
-                if (d.data.type === 'order') return "12px";
-                if (d.data.type === 'family') return "11px";
-                if (d.data.type === 'genus') return "10px";
-                return "9px";
+                if (d.data.type === 'order') return "13px";
+                if (d.data.type === 'family') return "12px";
+                if (d.data.type === 'genus') return "11px";
+                return "10px";
             })
             .style("font-weight", d => (d.data.type === 'order' || d.data.type === 'root') ? "bold" : "normal")
             .style("font-style", d => (d.data.type === 'genus' || d.data.type === 'species') ? "italic" : "normal")
@@ -1193,7 +1170,7 @@
             .text(d => {
                 if (d.data.type === 'root') return d.data.name;
                 let name = d.data.name;
-                if (name.length > 25) name = name.slice(0, 22) + "...";
+                if (name.length > 28) name = name.slice(0, 25) + "...";
                 return name;
             })
             .on("click", function(e, d) {
