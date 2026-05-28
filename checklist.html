@@ -238,7 +238,7 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Tree Styles - Fixed for no overlap */
+        /* Tree Styles - Properly spaced inside the box */
         .tree-header {
             text-align: center;
             margin-bottom: 10px;
@@ -294,7 +294,7 @@
         
         .tree-wrapper {
             width: 100%;
-            height: 600px;
+            height: 550px;
             overflow: auto;
             background: #fafbfc;
             border-radius: 8px;
@@ -499,7 +499,7 @@
                 min-width: auto;
             }
             .tree-wrapper {
-                height: 500px;
+                height: 450px;
             }
         }
         
@@ -517,7 +517,7 @@
         
         @media (min-width: 1600px) {
             #map { height: 550px; }
-            .tree-wrapper { height: 750px; }
+            .tree-wrapper { height: 650px; }
         }
     </style>
 </head>
@@ -1156,8 +1156,8 @@
         const wrapper = document.getElementById("treeWrapper");
         const width = wrapper.clientWidth - 15;
         const nodeCount = countNodes(data);
-        // Increased height significantly to prevent overlapping - each node gets more vertical space
-        const height = Math.min(800, Math.max(500, nodeCount * 45));
+        // Calculate height based on node count with optimal spacing (35px per node)
+        const height = Math.min(530, Math.max(350, nodeCount * 32));
         
         const svg = d3.select("#phylogenetic-tree")
             .append("svg")
@@ -1166,11 +1166,11 @@
             .attr("viewBox", "0 0 " + width + " " + height)
             .style("background", "#fafbfc");
         
-        const g = svg.append("g").attr("transform", "translate(50, 30)");
+        const g = svg.append("g").attr("transform", "translate(40, 20)");
         
         const root = d3.hierarchy(data);
-        // Increased node spacing (nodeSize) to prevent overlap
-        const treeLayout = d3.tree().nodeSize([45, 180]);
+        // Use size method for better fit within the container
+        const treeLayout = d3.tree().size([height - 40, width - 80]);
         treeLayout(root);
         
         g.selectAll(".link")
@@ -1188,11 +1188,11 @@
         
         nodes.append("circle")
             .attr("r", d => {
-                if (d.data.type === 'root') return 6;
-                if (d.data.type === 'order') return 5.5;
-                if (d.data.type === 'family') return 5;
-                if (d.data.type === 'genus') return 4.5;
-                return 4;
+                if (d.data.type === 'root') return 5;
+                if (d.data.type === 'order') return 4.5;
+                if (d.data.type === 'family') return 4;
+                if (d.data.type === 'genus') return 3.5;
+                return 3;
             })
             .attr("fill", d => {
                 if (d.data.type === 'order') return "#3b82f6";
@@ -1202,16 +1202,16 @@
                 return "#1a5276";
             })
             .attr("stroke", "white")
-            .attr("stroke-width", 1.2);
+            .attr("stroke-width", 1);
         
         nodes.append("text")
-            .attr("dx", 15)
-            .attr("dy", 5)
+            .attr("dx", 12)
+            .attr("dy", 4)
             .style("font-size", d => {
-                if (d.data.type === 'order') return "14px";
-                if (d.data.type === 'family') return "13px";
-                if (d.data.type === 'genus') return "12px";
-                return "11px";
+                if (d.data.type === 'order') return "12px";
+                if (d.data.type === 'family') return "11px";
+                if (d.data.type === 'genus') return "10px";
+                return "9px";
             })
             .style("font-weight", d => (d.data.type === 'order' || d.data.type === 'root') ? "bold" : "normal")
             .style("font-style", d => (d.data.type === 'genus' || d.data.type === 'species') ? "italic" : "normal")
@@ -1227,7 +1227,7 @@
             .text(d => {
                 if (d.data.type === 'root') return d.data.name;
                 let name = d.data.name;
-                if (name.length > 28) name = name.slice(0, 25) + "...";
+                if (name.length > 25) name = name.slice(0, 22) + "...";
                 return name;
             })
             .on("click", function(e, d) {
