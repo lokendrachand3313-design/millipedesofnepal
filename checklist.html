@@ -299,7 +299,7 @@
         
         .phylogenetic-tree {
             font-family: 'Times New Roman', Times, serif;
-            min-width: 100%;
+            width: 100%;
         }
         
         .node circle {
@@ -1098,9 +1098,11 @@
         container.innerHTML = "";
         const wrapper = document.getElementById("treeWrapper");
         const width = wrapper.clientWidth - 15;
+        
+        // Count total nodes to set appropriate height - allows full scrolling
         const nodeCount = countNodes(data);
-        // Increased height for better spacing - allows scrolling
-        const height = Math.min(1000, Math.max(550, nodeCount * 48));
+        // Each node needs 45px of vertical space - no max limit so you can scroll
+        const height = nodeCount * 45;
         
         const svg = d3.select("#phylogenetic-tree")
             .append("svg")
@@ -1112,8 +1114,8 @@
         const g = svg.append("g").attr("transform", "translate(50, 30)");
         
         const root = d3.hierarchy(data);
-        // Use nodeSize for consistent spacing - 48px vertical gap between nodes
-        const treeLayout = d3.tree().nodeSize([48, 160]);
+        // Use nodeSize for consistent spacing - 45px vertical gap between nodes
+        const treeLayout = d3.tree().nodeSize([45, 160]);
         treeLayout(root);
         
         g.selectAll(".link")
