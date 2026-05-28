@@ -1099,27 +1099,30 @@
         if (!container) return;
         container.innerHTML = "";
         const wrapper = document.getElementById("treeWrapper");
-        const width = wrapper.clientWidth - 15;
+        // Get the actual width of the wrapper
+        const wrapperWidth = wrapper.clientWidth;
+        // Use 80% of wrapper width for horizontal space
+        const treeWidth = wrapperWidth - 30;
         
         // Count total nodes to set appropriate height
         const nodeCount = countNodes(data);
-        // Each node needs 48px of vertical space
-        const treeHeight = nodeCount * 48;
-        // Add extra padding for better visibility
-        const totalHeight = treeHeight + 100;
+        // Each node needs 45px of vertical space for comfortable spacing
+        const treeHeight = nodeCount * 45;
+        // Add extra padding for top and bottom
+        const totalHeight = treeHeight + 80;
         
         const svg = d3.select("#phylogenetic-tree")
             .append("svg")
-            .attr("width", width)
+            .attr("width", treeWidth)
             .attr("height", totalHeight)
-            .attr("viewBox", "0 0 " + width + " " + totalHeight)
+            .attr("viewBox", "0 0 " + treeWidth + " " + totalHeight)
             .style("background", "#fafbfc");
         
-        const g = svg.append("g").attr("transform", "translate(50, 50)");
+        const g = svg.append("g").attr("transform", "translate(30, 40)");
         
         const root = d3.hierarchy(data);
-        // Use nodeSize for consistent spacing - 48px vertical gap
-        const treeLayout = d3.tree().nodeSize([48, 160]);
+        // Use nodeSize for consistent spacing - 45px vertical, 120px horizontal (reduced width)
+        const treeLayout = d3.tree().nodeSize([45, 120]);
         treeLayout(root);
         
         g.selectAll(".link")
@@ -1137,11 +1140,11 @@
         
         nodes.append("circle")
             .attr("r", d => {
-                if (d.data.type === 'root') return 6;
-                if (d.data.type === 'order') return 5;
-                if (d.data.type === 'family') return 4.5;
-                if (d.data.type === 'genus') return 4;
-                return 3.5;
+                if (d.data.type === 'root') return 5;
+                if (d.data.type === 'order') return 4.5;
+                if (d.data.type === 'family') return 4;
+                if (d.data.type === 'genus') return 3.5;
+                return 3;
             })
             .attr("fill", d => {
                 if (d.data.type === 'order') return "#3b82f6";
@@ -1151,16 +1154,16 @@
                 return "#1a5276";
             })
             .attr("stroke", "white")
-            .attr("stroke-width", 1.2);
+            .attr("stroke-width", 1);
         
         nodes.append("text")
-            .attr("dx", 14)
-            .attr("dy", 4)
+            .attr("dx", 12)
+            .attr("dy", 3)
             .style("font-size", d => {
-                if (d.data.type === 'order') return "13px";
-                if (d.data.type === 'family') return "12px";
-                if (d.data.type === 'genus') return "11px";
-                return "10px";
+                if (d.data.type === 'order') return "12px";
+                if (d.data.type === 'family') return "11px";
+                if (d.data.type === 'genus') return "10px";
+                return "9px";
             })
             .style("font-weight", d => (d.data.type === 'order' || d.data.type === 'root') ? "bold" : "normal")
             .style("font-style", d => (d.data.type === 'genus' || d.data.type === 'species') ? "italic" : "normal")
@@ -1176,7 +1179,7 @@
             .text(d => {
                 if (d.data.type === 'root') return d.data.name;
                 let name = d.data.name;
-                if (name.length > 28) name = name.slice(0, 25) + "...";
+                if (name.length > 22) name = name.slice(0, 19) + "...";
                 return name;
             })
             .on("click", function(e, d) {
