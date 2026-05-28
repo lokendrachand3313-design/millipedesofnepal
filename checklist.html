@@ -238,7 +238,7 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Tree Styles */
+        /* Tree Styles - Fixed for no overlap */
         .tree-header {
             text-align: center;
             margin-bottom: 10px;
@@ -294,7 +294,7 @@
         
         .tree-wrapper {
             width: 100%;
-            height: 550px;
+            height: 600px;
             overflow: auto;
             background: #fafbfc;
             border-radius: 8px;
@@ -499,7 +499,7 @@
                 min-width: auto;
             }
             .tree-wrapper {
-                height: 450px;
+                height: 500px;
             }
         }
         
@@ -510,11 +510,14 @@
             #map { height: 350px; }
             .details-grid { grid-template-columns: 1fr; }
             .checklist-page-header h2 { font-size: 1.5rem; }
+            .tree-wrapper {
+                height: 400px;
+            }
         }
         
         @media (min-width: 1600px) {
             #map { height: 550px; }
-            .tree-wrapper { height: 650px; }
+            .tree-wrapper { height: 750px; }
         }
     </style>
 </head>
@@ -1153,7 +1156,8 @@
         const wrapper = document.getElementById("treeWrapper");
         const width = wrapper.clientWidth - 15;
         const nodeCount = countNodes(data);
-        const height = Math.min(530, Math.max(400, nodeCount * 32));
+        // Increased height significantly to prevent overlapping - each node gets more vertical space
+        const height = Math.min(800, Math.max(500, nodeCount * 45));
         
         const svg = d3.select("#phylogenetic-tree")
             .append("svg")
@@ -1162,10 +1166,11 @@
             .attr("viewBox", "0 0 " + width + " " + height)
             .style("background", "#fafbfc");
         
-        const g = svg.append("g").attr("transform", "translate(50, 25)");
+        const g = svg.append("g").attr("transform", "translate(50, 30)");
         
         const root = d3.hierarchy(data);
-        const treeLayout = d3.tree().size([height - 50, width - 100]);
+        // Increased node spacing (nodeSize) to prevent overlap
+        const treeLayout = d3.tree().nodeSize([45, 180]);
         treeLayout(root);
         
         g.selectAll(".link")
