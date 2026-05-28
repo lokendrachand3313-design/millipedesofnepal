@@ -10,9 +10,6 @@
     <!-- Leaflet CSS for Map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
-    <!-- D3.js for Tree -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    
     <!-- Shared Styles -->
     <link rel="stylesheet" href="style.css">
     
@@ -252,41 +249,6 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        .tree-breadcrumb {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 10px;
-            justify-content: center;
-        }
-        
-        .tree-nav-btn {
-            background: #eef2fa;
-            border: none;
-            padding: 5px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: 0.2s;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .tree-nav-btn:hover {
-            background: #cbdde9;
-            transform: translateY(-1px);
-        }
-        
-        .tree-reset-btn {
-            background: var(--gold);
-            color: white;
-            font-weight: bold;
-        }
-        
-        .tree-back-btn {
-            background: var(--primary-blue);
-            color: white;
-        }
-        
         .tree-wrapper {
             width: 100%;
             height: 550px;
@@ -295,40 +257,139 @@
             border-radius: 8px;
             padding: 10px;
             border: 1px solid #e0e0e0;
-            position: relative;
         }
         
-        .phylogenetic-tree {
+        /* ============ ACCORDION TREE STYLES ============ */
+        .accordion-tree {
             font-family: 'Times New Roman', Times, serif;
-            width: 100%;
-            min-height: 100%;
+            padding: 5px;
         }
         
-        .node circle {
-            transition: all 0.2s;
+        /* Order Level */
+        .accordion-order {
+            margin-bottom: 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
         }
         
-        .node circle:hover {
-            r: 6;
-            filter: brightness(0.9);
-        }
-        
-        .node text {
-            dominant-baseline: middle;
-            transition: all 0.2s;
+        .accordion-order-header {
+            background: #e8f0fe;
+            padding: 10px 15px;
             cursor: pointer;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .node text:hover {
             font-weight: bold;
-            text-decoration: underline;
+            font-size: 15px;
+            color: #1a5276;
+            border-left: 4px solid #3b82f6;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .link {
-            fill: none;
-            stroke: #bbb;
-            stroke-width: 1.5px;
+        .accordion-order-header:hover {
+            background: #d4e4f5;
+        }
+        
+        .accordion-order-header .toggle-icon {
+            font-size: 12px;
+            color: #1a5276;
+        }
+        
+        /* Family Level */
+        .accordion-family {
+            margin-left: 20px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border-left: 2px solid #10b981;
+        }
+        
+        .accordion-family-header {
+            background: #f0faf0;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            color: #10b981;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion-family-header:hover {
+            background: #e0f0e0;
+        }
+        
+        .accordion-family-header .toggle-icon {
+            font-size: 11px;
+            color: #10b981;
+        }
+        
+        /* Genus Level */
+        .accordion-genus {
+            margin-left: 20px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            border-left: 2px solid #f59e0b;
+        }
+        
+        .accordion-genus-header {
+            background: #fef8e8;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-style: italic;
+            font-size: 12px;
+            color: #d97706;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion-genus-header:hover {
+            background: #fef0d0;
+        }
+        
+        .accordion-genus-header .toggle-icon {
+            font-size: 10px;
+            color: #d97706;
+        }
+        
+        /* Species Level */
+        .accordion-species {
+            margin-left: 20px;
+            padding: 5px 0 5px 10px;
+        }
+        
+        .species-item {
+            padding: 5px 8px;
+            font-size: 11px;
+            font-style: italic;
+            color: #dc2626;
+            cursor: pointer;
+            border-left: 1px solid #ef4444;
+            transition: all 0.2s ease;
+        }
+        
+        .species-item:hover {
+            background: #fef2f2;
+            text-decoration: underline;
+            padding-left: 12px;
+        }
+        
+        /* Content containers (collapsible sections) */
+        .accordion-order-content,
+        .accordion-family-content,
+        .accordion-genus-content {
+            display: none;
+            padding: 5px 0 5px 0;
+        }
+        
+        .accordion-order-content.open,
+        .accordion-family-content.open,
+        .accordion-genus-content.open {
+            display: block;
         }
         
         .legend-box {
@@ -608,19 +669,18 @@
         
         <div class="tree-column">
             <div class="tree-header">
-                <h3>Taxonomic Tree</h3>
-                <p>Click Order/Family/Genus to focus | Click species name to see details and map</p>
+                <h3>Taxonomic Tree (Accordion)</h3>
+                <p>Click on any header to expand/collapse | Click on species name to see details on map</p>
             </div>
-            <div class="tree-breadcrumb" id="treeBreadcrumb"></div>
             <div class="tree-wrapper" id="treeWrapper">
-                <div id="phylogenetic-tree"></div>
+                <div id="accordionTree" class="accordion-tree"></div>
             </div>
-            <div class="current-focus" id="currentFocus">All Orders</div>
+            <div class="current-focus" id="currentFocus">All Taxa - Click headers to expand</div>
             <div class="legend-box">
-                <div><span class="legend-color" style="background:#3b82f6;"></span> Order</div>
-                <div><span class="legend-color" style="background:#10b981;"></span> Family</div>
-                <div><span class="legend-color" style="background:#f59e0b;"></span> Genus</div>
-                <div><span class="legend-color" style="background:#ef4444;"></span> Species</div>
+                <div><span class="legend-color" style="background:#3b82f6;"></span> Order (click to expand)</div>
+                <div><span class="legend-color" style="background:#10b981;"></span> Family (click to expand)</div>
+                <div><span class="legend-color" style="background:#f59e0b;"></span> Genus (click to expand)</div>
+                <div><span class="legend-color" style="background:#ef4444;"></span> Species (click to view)</div>
             </div>
         </div>
     </div>
@@ -743,9 +803,6 @@
     let satelliteLayer = null;
     let currentLayer = 'street';
     
-    let fullTreeData = null;
-    let currentTreeData = null;
-    let focusStack = [];
     let speciesLookupMap = new Map();
 
     function initMap() {
@@ -824,7 +881,7 @@
         initMap();
         document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
         displayResults(speciesData);
-        buildFullTree();
+        buildAccordionTree();
         addMapControls();
     }
 
@@ -1001,241 +1058,179 @@
         return speciesLookupMap.get(species.toLowerCase()) || null;
     }
 
-    let treeHierarchy = {};
-    if (typeof millipedePoints !== 'undefined' && millipedePoints.length) {
-        millipedePoints.forEach(p => {
-            if (!p.order || !p.family || !p.genus || !p.species) return;
-            if (!treeHierarchy[p.order]) treeHierarchy[p.order] = {};
-            if (!treeHierarchy[p.order][p.family]) treeHierarchy[p.order][p.family] = {};
-            if (!treeHierarchy[p.order][p.family][p.genus]) treeHierarchy[p.order][p.family][p.genus] = {};
-            if (!treeHierarchy[p.order][p.family][p.genus][p.species]) treeHierarchy[p.order][p.family][p.genus][p.species] = [];
-            treeHierarchy[p.order][p.family][p.genus][p.species].push(p);
-        });
-    }
-
-    function buildFullTreeStructure() {
-        const children = [];
-        for (let [order, families] of Object.entries(treeHierarchy)) {
-            const familyChildren = [];
-            for (let [family, genera] of Object.entries(families)) {
-                const genusChildren = [];
-                for (let [genus, speciesMap] of Object.entries(genera)) {
-                    const speciesChildren = [];
-                    for (let [species, points] of Object.entries(speciesMap)) {
-                        speciesChildren.push({ 
-                            name: species, 
-                            type: 'species', 
-                            points: points, 
-                            genus: genus,
-                            family: family,
-                            order: order
-                        });
-                    }
-                    genusChildren.push({ name: genus, type: 'genus', children: speciesChildren });
-                }
-                familyChildren.push({ name: family, type: 'family', children: genusChildren });
+    // ============ ACCORDION TREE BUILDER ============
+    function buildAccordionTree() {
+        const container = document.getElementById('accordionTree');
+        container.innerHTML = '';
+        
+        // Group by order
+        const orders = {};
+        speciesData.forEach(s => {
+            if (!orders[s.order]) {
+                orders[s.order] = {};
             }
-            children.push({ name: order, type: 'order', children: familyChildren });
-        }
-        return { name: "Diplopoda (Millipedes)", type: 'root', children: children };
-    }
-    
-    function focusOnNode(nodeData) {
-        currentTreeData = { name: nodeData.name, type: nodeData.type, children: nodeData.children ? [...nodeData.children] : [] };
-        focusStack.push({ name: nodeData.name, type: nodeData.type });
-        drawTree(currentTreeData);
-        updateBreadcrumb();
-        document.getElementById('currentFocus').innerHTML = 'Target: ' + nodeData.name + ' (' + nodeData.type + ')';
-    }
-    
-    function resetToFullTree() {
-        currentTreeData = JSON.parse(JSON.stringify(fullTreeData));
-        focusStack = [];
-        drawTree(currentTreeData);
-        updateBreadcrumb();
-        document.getElementById('currentFocus').innerHTML = 'All Orders';
-        document.getElementById('speciesDetails').style.display = 'none';
-        document.getElementById('mapStatus').innerHTML = 'Click on a species in the tree or list to view details and location';
-        clearMarkers();
-        if (currentActiveCard) { currentActiveCard.classList.remove('active'); currentActiveCard = null; }
-    }
-    
-    function goBack() {
-        if (focusStack.length <= 1) { resetToFullTree(); return; }
-        focusStack.pop();
-        let target = fullTreeData;
-        for (let f of focusStack) {
-            const found = target.children?.find(c => c.name === f.name && c.type === f.type);
-            if (found) target = found;
-            else break;
-        }
-        if (target && target !== fullTreeData) {
-            currentTreeData = { name: target.name, type: target.type, children: target.children ? [...target.children] : [] };
-            drawTree(currentTreeData);
-            updateBreadcrumb();
-            document.getElementById('currentFocus').innerHTML = 'Target: ' + target.name + ' (' + target.type + ')';
-        } else { resetToFullTree(); }
-    }
-    
-    function updateBreadcrumb() {
-        const bc = document.getElementById("treeBreadcrumb");
-        bc.innerHTML = "";
-        const resetBtn = document.createElement("button"); 
-        resetBtn.className = "tree-nav-btn tree-reset-btn"; 
-        resetBtn.innerText = "Reset"; 
-        resetBtn.onclick = () => resetToFullTree(); 
-        bc.appendChild(resetBtn);
-        if (focusStack.length > 0) {
-            const backBtn = document.createElement("button"); 
-            backBtn.className = "tree-nav-btn tree-back-btn"; 
-            backBtn.innerText = "Back"; 
-            backBtn.onclick = () => goBack(); 
-            bc.appendChild(backBtn);
-        }
-    }
-    
-    function drawTree(data) {
-        const container = document.getElementById("phylogenetic-tree");
-        if (!container) return;
-        container.innerHTML = "";
-        const wrapper = document.getElementById("treeWrapper");
-        // Use the full width and height of the wrapper
-        const wrapperWidth = wrapper.clientWidth - 20;
-        const wrapperHeight = wrapper.clientHeight - 20;
+            if (!orders[s.order][s.family]) {
+                orders[s.order][s.family] = {};
+            }
+            if (!orders[s.order][s.family][s.genus]) {
+                orders[s.order][s.family][s.genus] = [];
+            }
+            orders[s.order][s.family][s.genus].push(s);
+        });
         
-        // Count total nodes to ensure all fit vertically
-        const nodeCount = countNodes(data);
-        // Calculate vertical spacing based on available height
-        const verticalSpacing = Math.max(35, Math.min(50, wrapperHeight / nodeCount));
-        // Calculate total needed height
-        const neededHeight = nodeCount * verticalSpacing + 60;
-        // Use the wrapper height for the SVG (fit inside the box)
-        const svgHeight = Math.max(wrapperHeight, neededHeight);
+        // Sort orders alphabetically
+        const sortedOrders = Object.keys(orders).sort();
         
-        const svg = d3.select("#phylogenetic-tree")
-            .append("svg")
-            .attr("width", wrapperWidth)
-            .attr("height", svgHeight)
-            .attr("viewBox", "0 0 " + wrapperWidth + " " + svgHeight)
-            .style("background", "#fafbfc");
-        
-        const g = svg.append("g").attr("transform", "translate(20, 30)");
-        
-        const root = d3.hierarchy(data);
-        // Use nodeSize with calculated vertical spacing
-        const treeLayout = d3.tree().nodeSize([verticalSpacing, 100]);
-        treeLayout(root);
-        
-        g.selectAll(".link")
-            .data(root.links())
-            .enter()
-            .append("path")
-            .attr("class", "link")
-            .attr("d", d3.linkHorizontal().x(d => d.y).y(d => d.x));
-        
-        const nodes = g.selectAll(".node")
-            .data(root.descendants())
-            .enter()
-            .append("g")
-            .attr("transform", d => "translate(" + d.y + ", " + d.x + ")");
-        
-        nodes.append("circle")
-            .attr("r", d => {
-                if (d.data.type === 'root') return 5;
-                if (d.data.type === 'order') return 4.5;
-                if (d.data.type === 'family') return 4;
-                if (d.data.type === 'genus') return 3.5;
-                return 3;
-            })
-            .attr("fill", d => {
-                if (d.data.type === 'order') return "#3b82f6";
-                if (d.data.type === 'family') return "#10b981";
-                if (d.data.type === 'genus') return "#f59e0b";
-                if (d.data.type === 'species') return "#ef4444";
-                return "#1a5276";
-            })
-            .attr("stroke", "white")
-            .attr("stroke-width", 1);
-        
-        nodes.append("text")
-            .attr("dx", 10)
-            .attr("dy", 3)
-            .style("font-size", d => {
-                if (d.data.type === 'order') return "11px";
-                if (d.data.type === 'family') return "10px";
-                if (d.data.type === 'genus') return "9px";
-                return "8px";
-            })
-            .style("font-weight", d => (d.data.type === 'order' || d.data.type === 'root') ? "bold" : "normal")
-            .style("font-style", d => (d.data.type === 'genus' || d.data.type === 'species') ? "italic" : "normal")
-            .style("fill", d => {
-                if (d.data.type === 'order') return "#3b82f6";
-                if (d.data.type === 'family') return "#10b981";
-                if (d.data.type === 'genus') return "#d97706";
-                if (d.data.type === 'species') return "#dc2626";
-                return "#1a5276";
-            })
-            .style("cursor", "pointer")
-            .style("font-family", "'Times New Roman', Times, serif")
-            .text(d => {
-                if (d.data.type === 'root') return d.data.name;
-                let name = d.data.name;
-                if (name.length > 18) name = name.slice(0, 15) + "...";
-                return name;
-            })
-            .on("click", function(e, d) {
-                e.stopPropagation();
-                if (d.data.type === 'species') {
-                    let matched = null;
-                    for (let s of speciesData) {
-                        if (s.genus === d.data.genus && s.species === d.data.name) {
-                            matched = s;
-                            break;
-                        }
-                    }
+        sortedOrders.forEach(order => {
+            // Create Order container
+            const orderDiv = document.createElement('div');
+            orderDiv.className = 'accordion-order';
+            
+            // Order Header
+            const orderHeader = document.createElement('div');
+            orderHeader.className = 'accordion-order-header';
+            orderHeader.innerHTML = `
+                <span>${order}</span>
+                <span class="toggle-icon">▼</span>
+            `;
+            
+            // Order Content
+            const orderContent = document.createElement('div');
+            orderContent.className = 'accordion-order-content';
+            
+            // Sort families alphabetically
+            const sortedFamilies = Object.keys(orders[order]).sort();
+            
+            sortedFamilies.forEach(family => {
+                // Family container
+                const familyDiv = document.createElement('div');
+                familyDiv.className = 'accordion-family';
+                
+                // Family Header
+                const familyHeader = document.createElement('div');
+                familyHeader.className = 'accordion-family-header';
+                familyHeader.innerHTML = `
+                    <span>${family}</span>
+                    <span class="toggle-icon">▼</span>
+                `;
+                
+                // Family Content
+                const familyContent = document.createElement('div');
+                familyContent.className = 'accordion-family-content';
+                
+                // Sort genera alphabetically
+                const sortedGenera = Object.keys(orders[order][family]).sort();
+                
+                sortedGenera.forEach(genus => {
+                    // Genus container
+                    const genusDiv = document.createElement('div');
+                    genusDiv.className = 'accordion-genus';
                     
-                    if (matched) {
-                        let points = [];
-                        if (typeof millipedePoints !== 'undefined') {
-                            points = millipedePoints.filter(p => 
-                                p.genus === d.data.genus && p.species === d.data.name
-                            ).filter(p => p.lat && p.lon);
-                        }
+                    // Genus Header
+                    const genusHeader = document.createElement('div');
+                    genusHeader.className = 'accordion-genus-header';
+                    genusHeader.innerHTML = `
+                        <span><i>${genus}</i></span>
+                        <span class="toggle-icon">▼</span>
+                    `;
+                    
+                    // Genus Content
+                    const genusContent = document.createElement('div');
+                    genusContent.className = 'accordion-genus-content';
+                    
+                    // Sort species alphabetically
+                    const speciesList = orders[order][family][genus];
+                    speciesList.sort((a, b) => a.species.localeCompare(b.species));
+                    
+                    speciesList.forEach(species => {
+                        const speciesDiv = document.createElement('div');
+                        speciesDiv.className = 'accordion-species';
                         
-                        showSpeciesDetailsAndMap(matched, points);
+                        const speciesItem = document.createElement('div');
+                        speciesItem.className = 'species-item';
+                        speciesItem.textContent = `${species.genus} ${species.species}`;
                         
-                        const cards = document.querySelectorAll('.species-card');
-                        for (let card of cards) {
-                            const cardText = card.querySelector('.species-name').innerText;
-                            if (cardText.includes(d.data.genus) && cardText.includes(d.data.name)) {
-                                if (currentActiveCard) { currentActiveCard.classList.remove('active'); }
-                                card.classList.add('active');
-                                currentActiveCard = card;
-                                break;
+                        // Add click event for species
+                        speciesItem.onclick = (e) => {
+                            e.stopPropagation();
+                            
+                            // Find points for this species
+                            let points = [];
+                            if (typeof millipedePoints !== 'undefined') {
+                                points = millipedePoints.filter(p => 
+                                    p.genus === species.genus && p.species === species.species
+                                ).filter(p => p.lat && p.lon);
                             }
+                            
+                            showSpeciesDetailsAndMap(species, points);
+                            
+                            // Highlight the corresponding card in the list
+                            const cards = document.querySelectorAll('.species-card');
+                            for (let card of cards) {
+                                const cardText = card.querySelector('.species-name').innerText;
+                                if (cardText.includes(species.genus) && cardText.includes(species.species)) {
+                                    if (currentActiveCard) { currentActiveCard.classList.remove('active'); }
+                                    card.classList.add('active');
+                                    currentActiveCard = card;
+                                    break;
+                                }
+                            }
+                        };
+                        
+                        speciesDiv.appendChild(speciesItem);
+                        genusContent.appendChild(speciesDiv);
+                    });
+                    
+                    genusDiv.appendChild(genusHeader);
+                    genusDiv.appendChild(genusContent);
+                    familyContent.appendChild(genusDiv);
+                    
+                    // Genus header click to toggle
+                    genusHeader.onclick = (e) => {
+                        e.stopPropagation();
+                        genusContent.classList.toggle('open');
+                        const icon = genusHeader.querySelector('.toggle-icon');
+                        if (genusContent.classList.contains('open')) {
+                            icon.textContent = '▲';
+                        } else {
+                            icon.textContent = '▼';
                         }
+                    };
+                });
+                
+                familyDiv.appendChild(familyHeader);
+                familyDiv.appendChild(familyContent);
+                orderContent.appendChild(familyDiv);
+                
+                // Family header click to toggle
+                familyHeader.onclick = (e) => {
+                    e.stopPropagation();
+                    familyContent.classList.toggle('open');
+                    const icon = familyHeader.querySelector('.toggle-icon');
+                    if (familyContent.classList.contains('open')) {
+                        icon.textContent = '▲';
+                    } else {
+                        icon.textContent = '▼';
                     }
-                } else if (d.data.type !== 'root') {
-                    focusOnNode(d.data);
-                }
+                };
             });
-    }
-    
-    function countNodes(node) {
-        let count = 1;
-        if (node.children) {
-            for (let child of node.children) count += countNodes(child);
-        }
-        return count;
-    }
-    
-    function buildFullTree() {
-        fullTreeData = buildFullTreeStructure();
-        currentTreeData = JSON.parse(JSON.stringify(fullTreeData));
-        focusStack = [];
-        drawTree(currentTreeData);
-        updateBreadcrumb();
-        document.getElementById('currentFocus').innerHTML = 'All Orders';
+            
+            orderDiv.appendChild(orderHeader);
+            orderDiv.appendChild(orderContent);
+            container.appendChild(orderDiv);
+            
+            // Order header click to toggle
+            orderHeader.onclick = (e) => {
+                e.stopPropagation();
+                orderContent.classList.toggle('open');
+                const icon = orderHeader.querySelector('.toggle-icon');
+                if (orderContent.classList.contains('open')) {
+                    icon.textContent = '▲';
+                } else {
+                    icon.textContent = '▼';
+                }
+            };
+        });
     }
     
     function addMapControls() {
@@ -1252,8 +1247,6 @@
             updateMapButtonStyles('street');
         }
     }
-    
-    window.addEventListener('resize', () => { if (currentTreeData) drawTree(currentTreeData); });
     
     loadSpeciesData();
 </script>
