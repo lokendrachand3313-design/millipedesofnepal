@@ -295,11 +295,13 @@
             border-radius: 8px;
             padding: 10px;
             border: 1px solid #e0e0e0;
+            position: relative;
         }
         
         .phylogenetic-tree {
             font-family: 'Times New Roman', Times, serif;
             width: 100%;
+            min-height: 100%;
         }
         
         .node circle {
@@ -1099,23 +1101,25 @@
         const wrapper = document.getElementById("treeWrapper");
         const width = wrapper.clientWidth - 15;
         
-        // Count total nodes to set appropriate height - allows full scrolling
+        // Count total nodes to set appropriate height
         const nodeCount = countNodes(data);
-        // Each node needs 45px of vertical space - no max limit so you can scroll
-        const height = nodeCount * 45;
+        // Each node needs 48px of vertical space
+        const treeHeight = nodeCount * 48;
+        // Add extra padding for better visibility
+        const totalHeight = treeHeight + 100;
         
         const svg = d3.select("#phylogenetic-tree")
             .append("svg")
             .attr("width", width)
-            .attr("height", height)
-            .attr("viewBox", "0 0 " + width + " " + height)
+            .attr("height", totalHeight)
+            .attr("viewBox", "0 0 " + width + " " + totalHeight)
             .style("background", "#fafbfc");
         
-        const g = svg.append("g").attr("transform", "translate(50, 30)");
+        const g = svg.append("g").attr("transform", "translate(50, 50)");
         
         const root = d3.hierarchy(data);
-        // Use nodeSize for consistent spacing - 45px vertical gap between nodes
-        const treeLayout = d3.tree().nodeSize([45, 160]);
+        // Use nodeSize for consistent spacing - 48px vertical gap
+        const treeLayout = d3.tree().nodeSize([48, 160]);
         treeLayout(root);
         
         g.selectAll(".link")
