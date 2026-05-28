@@ -527,7 +527,7 @@
         
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
-            <p>Nepalese Millipede Species Checklist</p>
+            <p>All about Nepalese Millipedes</p>
         </div>
         
         <div class="right-group">
@@ -654,7 +654,6 @@
 
 <!-- Data Files -->
 <script src="data.js"></script>
-<script src="checklist.json.js"></script>
 
 <script>
     // ============================================
@@ -843,7 +842,7 @@
         if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
     }
 
-    // Load Data - Using sample data if checklist.json not available
+    // Load Data - Using checklist.json
     async function loadSpeciesData() {
         try {
             const response = await fetch('checklist.json');
@@ -873,6 +872,48 @@
         displayResults(speciesData);
         buildFullTree();
         addMapControls();
+    }
+
+    // Function to show species details and update map (used by both list and tree)
+    function showSpeciesDetailsAndMap(item, points) {
+        // Clear previous active card
+        if (currentActiveCard) { 
+            currentActiveCard.classList.remove('active'); 
+        }
+        
+        // Show details panel
+        const detailsDiv = document.getElementById('speciesDetails');
+        const gridDiv = document.getElementById('detailsGrid');
+        detailsDiv.style.display = 'block';
+        const nepalDist = item.nepal_dist ? item.nepal_dist.replace(/;/g, ';<br>') : 'N/A';
+        
+        gridDiv.innerHTML = `
+            <div class="detail-item"><span class="detail-label">Scientific Name:</span><span class="detail-value"><i>${item.genus || '?'} ${item.species || '?'}</i> ${item.author || ''}</span></div>
+            <div class="detail-item"><span class="detail-label">Order:</span><span class="detail-value">${item.order || 'N/A'}</span></div>
+            <div class="detail-item"><span class="detail-label">Family:</span><span class="detail-value">${item.family || 'N/A'}</span></div>
+            <div class="detail-item"><span class="detail-label">Genus:</span><span class="detail-value"><i>${item.genus || 'N/A'}</i></span></div>
+            <div class="detail-item"><span class="detail-label">Species:</span><span class="detail-value"><i>${item.species || 'N/A'}</i></span></div>
+            <div class="detail-item"><span class="detail-label">Type Locality:</span><span class="detail-value">${item.type_locality || 'N/A'}</span></div>
+            <div class="detail-item"><span class="detail-label">Global Distribution:</span><span class="detail-value">${item.global_dist || 'N/A'}</span></div>
+            <div class="detail-item"><span class="detail-label">Nepal Distribution:</span><span class="detail-value">${nepalDist}</span></div>
+            <div class="detail-item"><span class="detail-label">Recorded Locations:</span><span class="detail-value">${points.length} location(s) on map</span></div>
+        `;
+        
+        // Update map with markers
+        clearMarkers();
+        if (points.length > 0) {
+            points.forEach(point => {
+                if (point.lat && point.lon) {
+                    const marker = L.marker([point.lat, point.lon]).addTo(map);
+                    marker.bindPopup(`<strong>${point.genus} ${point.species}</strong><br><em>${point.family}</em><br>${point.location || ''}`);
+                    markers.push(marker);
+                }
+            });
+            map.fitBounds(points.map(p => [p.lat, p.lon]), { padding: [50, 50] });
+            document.getElementById('mapStatus').innerHTML = points.length + ' location(s) displayed on map | Use mouse wheel to zoom';
+        } else {
+            document.getElementById('mapStatus').innerHTML = 'No GPS coordinates available for this species';
+        }
     }
 
     function initFilters() { 
@@ -987,21 +1028,10 @@
             `;
             
             card.onclick = () => {
-                if (hasCoordinates && typeof millipedePoints !== 'undefined') {
-                    if (currentActiveCard) { currentActiveCard.classList.remove('active'); }
-                    card.classList.add('active');
-                    currentActiveCard = card;
-                    clearMarkers();
-                    speciesPoints.forEach(point => {
-                        const marker = L.marker([point.lat, point.lon]).addTo(map);
-                        marker.bindPopup('<strong>' + point.genus + ' ' + point.species + '</strong><br><em>' + point.family + '</em>');
-                        markers.push(marker);
-                    });
-                    if (speciesPoints.length > 0) {
-                        map.fitBounds(speciesPoints.map(p => [p.lat, p.lon]), { padding: [50, 50] });
-                    }
-                    showSpeciesDetailsInPanel(item, speciesPoints);
-                }
+                if (currentActiveCard) { currentActiveCard.classList.remove('active'); }
+                card.classList.add('active');
+                currentActiveCard = card;
+                showSpeciesDetailsAndMap(item, speciesPoints);
             };
             container.appendChild(card);
         });
@@ -1015,26 +1045,6 @@
         if (speciesData.length > 0) populateDropdown('familyFilter', 'family');
         updateResults();
     };
-
-    function showSpeciesDetailsInPanel(item, points) {
-        const detailsDiv = document.getElementById('speciesDetails');
-        const gridDiv = document.getElementById('detailsGrid');
-        detailsDiv.style.display = 'block';
-        const nepalDist = item.nepal_dist ? item.nepal_dist.replace(/;/g, ';<br>') : 'N/A';
-        
-        gridDiv.innerHTML = `
-            <div class="detail-item"><span class="detail-label">Scientific Name:</span><span class="detail-value"><i>${item.genus || '?'} ${item.species || '?'}</i> ${item.author || ''}</span></div>
-            <div class="detail-item"><span class="detail-label">Order:</span><span class="detail-value">${item.order || 'N/A'}</span></div>
-            <div class="detail-item"><span class="detail-label">Family:</span><span class="detail-value">${item.family || 'N/A'}</span></div>
-            <div class="detail-item"><span class="detail-label">Genus:</span><span class="detail-value"><i>${item.genus || 'N/A'}</i></span></div>
-            <div class="detail-item"><span class="detail-label">Species:</span><span class="detail-value"><i>${item.species || 'N/A'}</i></span></div>
-            <div class="detail-item"><span class="detail-label">Type Locality:</span><span class="detail-value">${item.type_locality || 'N/A'}</span></div>
-            <div class="detail-item"><span class="detail-label">Global Distribution:</span><span class="detail-value">${item.global_dist || 'N/A'}</span></div>
-            <div class="detail-item"><span class="detail-label">Nepal Distribution:</span><span class="detail-value">${nepalDist}</span></div>
-            <div class="detail-item"><span class="detail-label">Recorded Locations:</span><span class="detail-value">${points.length} location(s) on map</span></div>
-        `;
-        document.getElementById('mapStatus').innerHTML = points.length + ' location(s) displayed on map | Use mouse wheel to zoom';
-    }
 
     function findSpeciesByNames(genus, species) {
         if (!species) return null;
@@ -1051,7 +1061,7 @@
             if (!treeHierarchy[p.order][p.family]) treeHierarchy[p.order][p.family] = {};
             if (!treeHierarchy[p.order][p.family][p.genus]) treeHierarchy[p.order][p.family][p.genus] = {};
             if (!treeHierarchy[p.order][p.family][p.genus][p.species]) treeHierarchy[p.order][p.family][p.genus][p.species] = [];
-            treeHierarchy[p.order][p.family][p.genus][p.species].push({ lat: p.lat, lon: p.lon });
+            treeHierarchy[p.order][p.family][p.genus][p.species].push(p);
         });
     }
 
@@ -1063,8 +1073,15 @@
                 const genusChildren = [];
                 for (let [genus, speciesMap] of Object.entries(genera)) {
                     const speciesChildren = [];
-                    for (let [species, coords] of Object.entries(speciesMap)) {
-                        speciesChildren.push({ name: species, type: 'species', points: coords, genus: genus });
+                    for (let [species, points] of Object.entries(speciesMap)) {
+                        speciesChildren.push({ 
+                            name: species, 
+                            type: 'species', 
+                            points: points, 
+                            genus: genus,
+                            family: family,
+                            order: order
+                        });
                     }
                     genusChildren.push({ name: genus, type: 'genus', children: speciesChildren });
                 }
@@ -1091,6 +1108,8 @@
         document.getElementById('currentFocus').innerHTML = 'All Orders';
         document.getElementById('speciesDetails').style.display = 'none';
         document.getElementById('mapStatus').innerHTML = 'Click on a species in the tree or list to view details and location';
+        clearMarkers();
+        if (currentActiveCard) { currentActiveCard.classList.remove('active'); currentActiveCard = null; }
     }
     
     function goBack() {
@@ -1209,23 +1228,37 @@
             .on("click", function(e, d) {
                 e.stopPropagation();
                 if (d.data.type === 'species') {
-                    let matched = findSpeciesByNames(d.data.genus, d.data.name);
+                    // Find the species data from our dataset
+                    let matched = null;
+                    for (let s of speciesData) {
+                        if (s.genus === d.data.genus && s.species === d.data.name) {
+                            matched = s;
+                            break;
+                        }
+                    }
+                    
                     if (matched) {
+                        // Get points for this species from millipedePoints
                         let points = [];
                         if (typeof millipedePoints !== 'undefined') {
-                            points = millipedePoints.filter(p => p.genus === d.data.genus && p.species === d.data.name).filter(p => p.lat && p.lon);
+                            points = millipedePoints.filter(p => 
+                                p.genus === d.data.genus && p.species === d.data.name
+                            ).filter(p => p.lat && p.lon);
                         }
-                        showSpeciesDetailsInPanel(matched, points);
-                        clearMarkers();
-                        points.forEach(point => {
-                            if (point.lat && point.lon) {
-                                const marker = L.marker([point.lat, point.lon]).addTo(map);
-                                marker.bindPopup('<strong>' + point.genus + ' ' + point.species + '</strong>');
-                                markers.push(marker);
+                        
+                        // Show details and update map
+                        showSpeciesDetailsAndMap(matched, points);
+                        
+                        // Also highlight the corresponding card in the list if it exists
+                        const cards = document.querySelectorAll('.species-card');
+                        for (let card of cards) {
+                            const cardText = card.querySelector('.species-name').innerText;
+                            if (cardText.includes(d.data.genus) && cardText.includes(d.data.name)) {
+                                if (currentActiveCard) { currentActiveCard.classList.remove('active'); }
+                                card.classList.add('active');
+                                currentActiveCard = card;
+                                break;
                             }
-                        });
-                        if (points.length > 0) {
-                            map.fitBounds(points.map(p => [p.lat, p.lon]), { padding: [50, 50] });
                         }
                     }
                 } else if (d.data.type !== 'root') {
