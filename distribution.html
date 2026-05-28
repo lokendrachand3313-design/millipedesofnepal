@@ -206,6 +206,100 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
+        /* Corrected Localities Table */
+        .corrected-table-section {
+            margin-top: 40px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .corrected-table-header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 15px 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .corrected-table-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .corrected-table-header p {
+            margin: 5px 0 0 0;
+            font-size: 0.85rem;
+            opacity: 0.9;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .table-wrapper::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 10px;
+        }
+        
+        .corrected-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Times New Roman', Times, serif;
+            min-width: 500px;
+        }
+        
+        .corrected-table th {
+            background: var(--blue-bg);
+            color: var(--primary-blue);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid var(--primary-blue);
+            font-size: 1rem;
+            position: sticky;
+            top: 0;
+            background: var(--blue-bg);
+            z-index: 10;
+        }
+        
+        .corrected-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        
+        .corrected-table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .corrected-table .locality-old {
+            color: #7b3f00;
+            font-style: italic;
+        }
+        
+        .corrected-table .locality-corrected {
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+        
         /* Leaflet Popup Customization */
         .leaflet-popup-content-wrapper {
             border-radius: 10px;
@@ -227,11 +321,24 @@
             .map-view-buttons { flex-direction: column; }
             .btn-view { width: 100%; text-align: center; }
             #map { height: 400px; }
+            
+            .corrected-table th, 
+            .corrected-table td {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+            .corrected-table-header h3 { font-size: 1.1rem; }
         }
         
         @media (max-width: 480px) {
             .stat-card { min-width: 100%; }
             .marker-count { font-size: 0.75rem; }
+            
+            .corrected-table th, 
+            .corrected-table td {
+                padding: 6px 8px;
+                font-size: 0.7rem;
+            }
         }
         
         @media (min-width: 1600px) {
@@ -248,7 +355,7 @@
         
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
-            <p>Mapping Millipedes Species Across Nepal</p>
+            <p>All about Nepalese Millipedes</p>
         </div>
         
         <div class="right-group">
@@ -322,38 +429,38 @@
     </div>
 
     <div class="map-view-buttons">
-        <button class="btn-view" onclick="zoomToNepal()">🇳🇵 Zoom to Nepal</button>
-        <button class="btn-view" onclick="zoomToAllPoints()">📍 Zoom to All Points</button>
-        <button class="btn-view" onclick="zoomToGlobal()">🌍 Global View</button>
+        <button class="btn-view" onclick="zoomToNepal()">Zoom to Nepal</button>
+        <button class="btn-view" onclick="zoomToAllPoints()">Zoom to All Points</button>
+        <button class="btn-view" onclick="zoomToGlobal()">Global View</button>
     </div>
 
     <div class="filter-section">
         <div class="filter-group">
-            <label>📋 Order</label>
+            <label>Order</label>
             <select id="orderFilter" onchange="onOrderChange()"></select>
         </div>
         <div class="filter-group">
-            <label>🏷️ Family</label>
+            <label>Family</label>
             <select id="familyFilter" onchange="onFamilyChange()"></select>
         </div>
         <div class="filter-group">
-            <label>🔬 Genus</label>
+            <label>Genus</label>
             <select id="genusFilter" onchange="onGenusChange()"></select>
         </div>
         <div class="filter-group">
-            <label>🐛 Species</label>
+            <label>Species</label>
             <select id="speciesFilter" onchange="handleFilterChange()"></select>
         </div>
         <div class="filter-group">
-            <label>🔍 Search Location</label>
+            <label>Search Location</label>
             <input type="text" id="locationSearch" placeholder="Enter location or species..." onkeyup="handleSearch()">
         </div>
         
         <div class="filter-info" id="filterInfo">
             <div class="filter-badge" id="activeFilters">
-                <span>📍</span> Showing: <span id="filterSummary">All Records</span>
+                Showing: <span id="filterSummary">All Records</span>
             </div>
-            <button class="reset-filters" onclick="resetAllFilters()">🗑️ Reset All Filters</button>
+            <button class="reset-filters" onclick="resetAllFilters()">Reset All Filters</button>
         </div>
     </div>
 
@@ -361,11 +468,96 @@
     <div style="text-align: center; margin-top: 10px;">
         <div class="marker-count" id="markerCount">0 points visible</div>
     </div>
+    
+    <!-- Corrected Localities Table -->
+    <div class="corrected-table-section">
+        <div class="corrected-table-header">
+            <h3>Table 2. Standardization of historical millipede collection localities in Nepal</h3>
+            <p>Locality names as written in original literature vs corrected standard names</p>
+        </div>
+        <div class="table-wrapper">
+            <table class="corrected-table">
+                <thead>
+                    <tr>
+                        <th>S.N.</th>
+                        <th>Locality in Paper</th>
+                        <th>Corrected Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td class="locality-old">Nagarjung</td><td class="locality-corrected">Nagarjun</td></tr>
+                    <tr><td>2</td><td class="locality-old">Jamacok</td><td class="locality-corrected">Jamacho</td></tr>
+                    <tr><td>3</td><td class="locality-old">Tinjura Dara</td><td class="locality-corrected">Tinjure Danda (Hill)</td></tr>
+                    <tr><td>4</td><td class="locality-old">Chitlong</td><td class="locality-corrected">Chitlang</td></tr>
+                    <tr><td>5</td><td class="locality-old">Dhumpus/Dhambush</td><td class="locality-corrected">Dhampus</td></tr>
+                    <tr><td>6</td><td class="locality-old">Sheopuri/ Shiwapuri Dara/ Sheopuri Mountain</td><td class="locality-corrected">Shivapuri/ Sivapuri Danda (Hill)</td></tr>
+                    <tr><td>7</td><td class="locality-old">Yamphuthin</td><td class="locality-corrected">Yamphudin</td></tr>
+                    <tr><td>8</td><td class="locality-old">Thaksang</td><td class="locality-corrected">Thasang</td></tr>
+                    <tr><td>9</td><td class="locality-old">Tukche</td><td class="locality-corrected">Tukuche</td></tr>
+                    <tr><td>10</td><td class="locality-old">Deorali</td><td class="locality-corrected">Deurali</td></tr>
+                    <tr><td>11</td><td class="locality-old">Gunsa</td><td class="locality-corrected">Ghunsa</td></tr>
+                    <tr><td>12</td><td class="locality-old">Paha Khola</td><td class="locality-corrected">Pawakhola</td></tr>
+                    <tr><td>13</td><td class="locality-old">Kyangin/ Kyangjin</td><td class="locality-corrected">Kyanjin</td></tr>
+                    <tr><td>14</td><td class="locality-old">Muri</td><td class="locality-corrected">Mudi</td></tr>
+                    <tr><td>15</td><td class="locality-old">Barabise</td><td class="locality-corrected">Bahrabise</td></tr>
+                    <tr><td>16</td><td class="locality-old">Chuling Khola</td><td class="locality-corrected">Chumling Khola</td></tr>
+                    <tr><td>17</td><td class="locality-old">Ghandrung</td><td class="locality-corrected">Ghandruk</td></tr>
+                    <tr><td>18</td><td class="locality-old">Bobang</td><td class="locality-corrected">Bowang</td></tr>
+                    <tr><td>19</td><td class="locality-old">Tomba Kosi/ Tomba-Kosi</td><td class="locality-corrected">Tamakoshi</td></tr>
+                    <tr><td>20</td><td class="locality-old">Lughla</td><td class="locality-corrected">Lukla</td></tr>
+                    <tr><td>21</td><td class="locality-old">Mansingma</td><td class="locality-corrected">Mangsima</td></tr>
+                    <tr><td>22</td><td class="locality-old">Gorapani</td><td class="locality-corrected">Ghodepani</td></tr>
+                    <tr><td>23</td><td class="locality-old">Simbua</td><td class="locality-corrected">Simbuwa</td></tr>
+                    <tr><td>24</td><td class="locality-old">Darondi</td><td class="locality-corrected">Daraudi</td></tr>
+                    <tr><td>25</td><td class="locality-old">Thanjok</td><td class="locality-corrected">Thanchok</td></tr>
+                    <tr><td>26</td><td class="locality-old">Chordung</td><td class="locality-corrected">Cherdung</td></tr>
+                    <tr><td>27</td><td class="locality-old">Pangum</td><td class="locality-corrected">Panggom</td></tr>
+                    <tr><td>28</td><td class="locality-old">Walungchung</td><td class="locality-corrected">Olangchung</td></tr>
+                    <tr><td>29</td><td class="locality-old">Lethe</td><td class="locality-corrected">Lete</td></tr>
+                    <tr><td>30</td><td class="locality-old">Thing Sang/ Ting Sang La</td><td class="locality-corrected">Thinsang La</td></tr>
+                    <tr><td>31</td><td class="locality-old">Cherakapti</td><td class="locality-corrected">Skhetrapa</td></tr>
+                    <tr><td>32</td><td class="locality-old">Bhichuk</td><td class="locality-corrected">Bhichok</td></tr>
+                    <tr><td>33</td><td class="locality-old">Dobang</td><td class="locality-corrected">Darwang</td></tr>
+                    <tr><td>34</td><td class="locality-old">Ghorlabesi</td><td class="locality-corrected">Khorlabesi</td></tr>
+                    <tr><td>35</td><td class="locality-old">Suteo</td><td class="locality-corrected">Soti</td></tr>
+                    <tr><td>36</td><td class="locality-old">Hyangja</td><td class="locality-corrected">Hemja</td></tr>
+                    <tr><td>37</td><td class="locality-old">Paniporua</td><td class="locality-corrected">Paniparuwa</td></tr>
+                    <tr><td>38</td><td class="locality-old">Naya Sangu</td><td class="locality-corrected">Nayasanghu</td></tr>
+                    <tr><td>39</td><td class="locality-old">Machapurche</td><td class="locality-corrected">Machhapurchhe</td></tr>
+                    <tr><td>40</td><td class="locality-old">Sallentar</td><td class="locality-corrected">Salyantar</td></tr>
+                    <tr><td>41</td><td class="locality-old">Rigmo</td><td class="locality-corrected">Ringmo</td></tr>
+                    <tr><td>42</td><td class="locality-old">Thimang</td><td class="locality-corrected">Timang/Temang</td></tr>
+                    <tr><td>43</td><td class="locality-old">Thankur</td><td class="locality-corrected">Thakur</td></tr>
+                    <tr><td>44</td><td class="locality-old">Sibuche</td><td class="locality-corrected">Sibuje</td></tr>
+                    <tr><td>45</td><td class="locality-old">Nabricot</td><td class="locality-corrected">Naurikot</td></tr>
+                    <tr><td>46</td><td class="locality-old">Siklis</td><td class="locality-corrected">Sikles</td></tr>
+                    <tr><td>47</td><td class="locality-old">Lassetham</td><td class="locality-corrected">Lase tham</td></tr>
+                    <tr><td>48</td><td class="locality-old">Bagar La Pass</td><td class="locality-corrected">Baga La Pass</td></tr>
+                    <tr><td>49</td><td class="locality-old">Syng Gyang</td><td class="locality-corrected">Sin Gompa</td></tr>
+                    <tr><td>50</td><td class="locality-old">Buri Gandaki</td><td class="locality-corrected">Budhi Gandaki</td></tr>
+                    <tr><td>51</td><td class="locality-old">Doreni</td><td class="locality-corrected">Dhodeni</td></tr>
+                    <tr><td>52</td><td class="locality-old">Motar</td><td class="locality-corrected">Mahatar</td></tr>
+                    <tr><td>53</td><td class="locality-old">Mure</td><td class="locality-corrected">Mudhe</td></tr>
+                    <tr><td>54</td><td class="locality-old">Hurure</td><td class="locality-corrected">Mururu</td></tr>
+                    <tr><td>55</td><td class="locality-old">Taplethok</td><td class="locality-corrected">Tapethok</td></tr>
+                    <tr><td>56</td><td class="locality-old">Kordunje</td><td class="locality-corrected">Kotunje</td></tr>
+                    <tr><td>57</td><td class="locality-old">Thorpu</td><td class="locality-corrected">Tharpu</td></tr>
+                    <tr><td>58</td><td class="locality-old">Senghe</td><td class="locality-corrected">Syange</td></tr>
+                    <tr><td>59</td><td class="locality-old">Tarke Ghyang</td><td class="locality-corrected">Tarkeyghyang</td></tr>
+                    <tr><td>60</td><td class="locality-old">Barahbise</td><td class="locality-corrected">Bahrabise</td></tr>
+                    <tr><td>61</td><td class="locality-old">Phulcoki/ Phulchauki/ Phulchoki</td><td class="locality-corrected">Phulchowki</td></tr>
+                    <tr><td>62</td><td class="locality-old">Tragsindo La/ Tragsindo-La</td><td class="locality-corrected">Taksindu La</td></tr>
+                    <tr><td>63</td><td class="locality-old">Thatepati/ Thadepati</td><td class="locality-corrected">Tharepati</td></tr>
+                    <tr><td>64</td><td class="locality-old">Syabru</td><td class="locality-corrected">Syaphru</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </main>
 
 <footer>
-    <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>Copyright <script>document.write(new Date().getFullYear());</script> Lokendra Chand | +977-9809733313 / +817090238470</p>
 </footer>
 
 <!-- Leaflet JS -->
@@ -482,7 +674,7 @@
 
     // Add tile layer with better styling
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors &copy; CartoDB',
+        attribution: 'OpenStreetMap contributors, CartoDB',
         subdomains: 'abcd',
         maxZoom: 19,
         minZoom: 2
@@ -540,7 +732,7 @@
     function populateOrders() {
         const select = document.getElementById('orderFilter');
         const orders = Array.from(filterCache.ordersSet).sort();
-        select.innerHTML = '<option value="all">📋 All Orders</option>';
+        select.innerHTML = '<option value="all">All Orders</option>';
         orders.forEach(order => {
             const option = document.createElement('option');
             option.value = order;
@@ -567,7 +759,7 @@
             families = Array.from(filterCache.familiesMap.get(selectedOrder) || new Set()).sort();
         }
         
-        familySelect.innerHTML = '<option value="all">🏷️ All Families</option>';
+        familySelect.innerHTML = '<option value="all">All Families</option>';
         families.forEach(family => {
             const option = document.createElement('option');
             option.value = family;
@@ -575,8 +767,8 @@
             familySelect.appendChild(option);
         });
         
-        genusSelect.innerHTML = '<option value="all">🔬 All Genera</option>';
-        speciesSelect.innerHTML = '<option value="all">🐛 All Species</option>';
+        genusSelect.innerHTML = '<option value="all">All Genera</option>';
+        speciesSelect.innerHTML = '<option value="all">All Species</option>';
         
         handleFilterChange();
     }
@@ -598,7 +790,7 @@
             genera = Array.from(filterCache.generaMap.get(selectedFamily) || new Set()).sort();
         }
         
-        genusSelect.innerHTML = '<option value="all">🔬 All Genera</option>';
+        genusSelect.innerHTML = '<option value="all">All Genera</option>';
         genera.forEach(genus => {
             const option = document.createElement('option');
             option.value = genus;
@@ -606,7 +798,7 @@
             genusSelect.appendChild(option);
         });
         
-        speciesSelect.innerHTML = '<option value="all">🐛 All Species</option>';
+        speciesSelect.innerHTML = '<option value="all">All Species</option>';
         
         handleFilterChange();
     }
@@ -627,7 +819,7 @@
             species = Array.from(filterCache.speciesMap.get(selectedGenus) || new Set()).sort();
         }
         
-        speciesSelect.innerHTML = '<option value="all">🐛 All Species</option>';
+        speciesSelect.innerHTML = '<option value="all">All Species</option>';
         species.forEach(sp => {
             const option = document.createElement('option');
             option.value = sp;
@@ -760,12 +952,12 @@
                         <h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">
                             <i>${pointGenus} ${pointSpecies}</i>
                         </h3>
-                        <p style="margin:5px 0;"><strong>📋 Order:</strong> ${pointOrder}</p>
-                        <p style="margin:5px 0;"><strong>🏷️ Family:</strong> ${pointFamily}</p>
-                        <p style="margin:5px 0;"><strong>📍 Location:</strong> ${point.location || 'Nepal'}</p>
-                        <p style="margin:5px 0;"><strong>🗺️ Coordinates:</strong><br>
+                        <p style="margin:5px 0;"><strong>Order:</strong> ${pointOrder}</p>
+                        <p style="margin:5px 0;"><strong>Family:</strong> ${pointFamily}</p>
+                        <p style="margin:5px 0;"><strong>Location:</strong> ${point.location || 'Nepal'}</p>
+                        <p style="margin:5px 0;"><strong>Coordinates:</strong><br>
                         ${point.lat.toFixed(4)}°N, ${point.lon.toFixed(4)}°E</p>
-                        ${point.notes ? `<p style="margin:5px 0; font-style: italic;">📝 ${point.notes}</p>` : ''}
+                        ${point.notes ? `<p style="margin:5px 0; font-style: italic;">Note: ${point.notes}</p>` : ''}
                     </div>
                 `);
                 
@@ -775,7 +967,7 @@
         });
         
         document.getElementById('markerCount').innerHTML = 
-            `📍 ${visibleCount} point${visibleCount !== 1 ? 's' : ''} visible (${visibleSpeciesSet.size} species)`;
+            `${visibleCount} point${visibleCount !== 1 ? 's' : ''} visible (${visibleSpeciesSet.size} species)`;
         document.getElementById('visiblePoints').textContent = visibleCount;
         
         if (bounds.length > 0 && bounds.length !== allPoints.length) {
