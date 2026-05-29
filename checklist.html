@@ -139,7 +139,7 @@
         
         .species-list-column {
             flex: 1;  /* 25% */
-            min-width: 280px;
+            min-width: 300px;
         }
         
         .results-container {
@@ -214,13 +214,33 @@
         .detail-label {
             font-weight: bold;
             color: var(--primary-blue);
-            display: inline-block;
-            width: 65px;
+            display: block;
+            margin-bottom: 2px;
+            font-size: 0.65rem;
         }
         
         .detail-text {
             color: #333;
-            display: inline;
+            font-size: 0.6rem;
+            word-break: break-word;
+            display: block;
+        }
+        
+        .nepal-dist-full {
+            font-size: 0.6rem;
+            color: #555;
+            margin-top: 4px;
+            padding: 4px;
+            background: #fff8e1;
+            border-radius: 4px;
+            border-left: 2px solid var(--gold);
+            word-break: break-word;
+            max-height: 80px;
+            overflow-y: auto;
+        }
+        
+        .nepal-dist-full strong {
+            color: var(--primary-blue);
         }
         
         .coordinates-badge {
@@ -671,14 +691,15 @@
         <!-- LEFT COLUMN: Phylogenetic Tree (75%) -->
         <div class="tree-column">
             <div class="tree-header">
-                <h3>Taxonomic Tree</h3>
+                <h3>Phylogenetic Tree</h3>
+                <p>Click on Order to see its Families | Click on Family to see its Genera | Click on Genus to see its Species</p>
             </div>
             <div class="tree-wrapper" id="treeWrapper">
                 <div id="phylogeneticTree"></div>
             </div>
             <div class="current-focus" id="currentFocus">Class: Diplopoda (Millipedes)</div>
             <div class="navigation-buttons">
-                <button class="nav-btn" id="resetTreeBtn">⟳ Reset Tree</button>
+                <button class="nav-btn" id="resetTreeBtn">Reset Tree</button>
             </div>
             <div class="legend-box">
                 <div><span class="legend-color" style="background:#8b5cf6;"></span> Class</div>
@@ -692,7 +713,7 @@
         <!-- RIGHT COLUMN: Species List with Full Details (25%) -->
         <div class="species-list-column">
             <div class="stats-box">
-                <h4>Statistics and species List</h4>
+                <h4>Statistics</h4>
                 <div class="stats-numbers">
                     <div class="stat-item">
                         <div class="stat-number" id="statTotalSpecies">0</div>
@@ -850,14 +871,14 @@
         } catch (error) {
             console.log('Using sample data. Please ensure checklist.json exists.');
             speciesData = [
-                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", author: "(Saussure,1860)", type_locality: "French Guiana", global_dist: "Pantropical", nepal_dist: "Nuwakot" },
-                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Oxidus", species: "gracilis", author: "(Koch,1847)", type_locality: "Europe", global_dist: "Cosmopolitan", nepal_dist: "Kathmandu" },
-                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Anoplodesmus", species: "cylindricus", author: "(Carl,1935)", type_locality: "Darjeeling", global_dist: "India,Nepal", nepal_dist: "East Nepal" },
-                { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", author: "(Carl,1909)", type_locality: "Java", global_dist: "SE Asia", nepal_dist: "Chitwan" },
-                { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "lindbergi", author: "Demange,1961", type_locality: "Darjeeling", global_dist: "India,Nepal", nepal_dist: "Jhapa" },
-                { order: "Julida", family: "Julidae", genus: "Nepalmatoiulus", species: "generalis", author: "Enghoff,1987", type_locality: "Mustang", global_dist: "Endemic", nepal_dist: "Mustang" },
-                { order: "Glomerida", family: "Glomeridae", genus: "Hyleoglomeris", species: "crassipes", author: "Golovatch,1987", type_locality: "Tehrathum", global_dist: "Endemic", nepal_dist: "Tehrathum" },
-                { order: "Chordeumatida", family: "Entomobielziidae", genus: "Tianella", species: "lughla", author: "Shear,1979", type_locality: "Solukhumbu", global_dist: "Endemic", nepal_dist: "Solukhumbu" }
+                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", author: "(Saussure,1860)", type_locality: "French Guiana", global_dist: "Pantropical", nepal_dist: "Nuwakot District, Kathmandu Valley" },
+                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Oxidus", species: "gracilis", author: "(Koch,1847)", type_locality: "Europe", global_dist: "Cosmopolitan", nepal_dist: "Kathmandu, Pokhara, Chitwan" },
+                { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Anoplodesmus", species: "cylindricus", author: "(Carl,1935)", type_locality: "Darjeeling", global_dist: "India,Nepal", nepal_dist: "Ilam, Panchthar, Taplejung" },
+                { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", author: "(Carl,1909)", type_locality: "Java", global_dist: "SE Asia", nepal_dist: "Chitwan, Dang, Kathmandu" },
+                { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "lindbergi", author: "Demange,1961", type_locality: "Darjeeling", global_dist: "India,Nepal", nepal_dist: "Jhapa, Morang, Sunsari" },
+                { order: "Julida", family: "Julidae", genus: "Nepalmatoiulus", species: "generalis", author: "Enghoff,1987", type_locality: "Mustang", global_dist: "Endemic to Nepal", nepal_dist: "Mustang, Manang, Kaski, Parbat" },
+                { order: "Glomerida", family: "Glomeridae", genus: "Hyleoglomeris", species: "crassipes", author: "Golovatch,1987", type_locality: "Tehrathum", global_dist: "Endemic to Nepal", nepal_dist: "Tehrathum District, Tinjure Danda" },
+                { order: "Chordeumatida", family: "Entomobielziidae", genus: "Tianella", species: "lughla", author: "Shear,1979", type_locality: "Solukhumbu", global_dist: "Endemic to Nepal", nepal_dist: "Solukhumbu District, Lukla area" }
             ];
         }
         
@@ -884,11 +905,11 @@
     function initMap() {
         map = L.map('map').setView([28.3949, 84.1240], 7);
         streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors',
+            attribution: 'OpenStreetMap contributors',
             maxZoom: 19
         });
         satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri',
+            attribution: 'Tiles Esri',
             maxZoom: 18
         });
         streetLayer.addTo(map);
@@ -938,7 +959,7 @@
         return text;
     }
     
-    // Build FULL Tree (Class → Order → Family → Genus → Species)
+    // Build FULL Tree
     function buildFullTree() {
         const treeData = {
             name: "Diplopoda",
@@ -946,7 +967,6 @@
             children: []
         };
         
-        // Group by Order
         const ordersMap = new Map();
         speciesData.forEach(s => {
             if (!ordersMap.has(s.order)) {
@@ -959,7 +979,6 @@
             }
         });
         
-        // For each order, add its families, genera, and species
         ordersMap.forEach((orderNode, orderName) => {
             const familiesMap = new Map();
             speciesData.filter(s => s.order === orderName).forEach(s => {
@@ -1009,7 +1028,7 @@
         document.getElementById('currentFocus').innerHTML = 'Class: Diplopoda (Millipedes) - All taxa';
     }
     
-    // Filter by Order - show ONLY that Order's tree
+    // Filter by Order
     function filterTreeByOrder(orderName) {
         const orderSpecies = speciesData.filter(s => s.order === orderName);
         
@@ -1064,7 +1083,6 @@
         renderTree(currentTreeData);
         document.getElementById('currentFocus').innerHTML = 'Order: ' + orderName;
         
-        // Update species list
         filteredSpeciesData = orderSpecies;
         document.getElementById('resultsCount').innerText = orderName + ' (' + filteredSpeciesData.length + ' spp)';
         displayResults(filteredSpeciesData);
@@ -1079,7 +1097,7 @@
         document.getElementById('speciesDetails').style.display = 'none';
     }
     
-    // Filter by Family - show ONLY that Family's tree
+    // Filter by Family
     function filterTreeByFamily(familyName) {
         const familySpecies = speciesData.filter(s => s.family === familyName);
         
@@ -1133,7 +1151,7 @@
         document.getElementById('speciesDetails').style.display = 'none';
     }
     
-    // Filter by Genus - show ONLY that Genus's tree
+    // Filter by Genus
     function filterTreeByGenus(genusName) {
         const genusSpecies = speciesData.filter(s => s.genus === genusName);
         
@@ -1282,7 +1300,7 @@
                             break;
                         }
                     }
-                    document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.fullName}`;
+                    document.getElementById('currentFocus').innerHTML = 'Selected: ' + d.data.fullName;
                 }
             })
             .on("mouseover", function() { d3.select(this).attr("r", 6); })
@@ -1346,7 +1364,7 @@
                             break;
                         }
                     }
-                    document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.fullName}`;
+                    document.getElementById('currentFocus').innerHTML = 'Selected: ' + d.data.fullName;
                 }
             })
             .on("mouseover", function() { d3.select(this).style("font-weight", "bold").style("text-decoration", "underline"); })
@@ -1371,17 +1389,17 @@
         const detailsDiv = document.getElementById('speciesDetails');
         const gridDiv = document.getElementById('detailsGrid');
         detailsDiv.style.display = 'block';
-        const nepalDist = item.nepal_dist ? item.nepal_dist.replace(/;/g, ';<br>') : 'N/A';
+        const nepalDist = item.nepal_dist ? item.nepal_dist : 'N/A';
         
         gridDiv.innerHTML = `
             <div class="detail-item"><span class="detail-label">Scientific Name:</span><span class="detail-value"><i>${item.genus || '?'} ${item.species || '?'}</i> ${item.author || ''}</span></div>
-            <div class="detail-item"><span class="detail-label">Order:</span><span class="detail-value">${shortenText(item.order || 'N/A', 22)}</span></div>
-            <div class="detail-item"><span class="detail-label">Family:</span><span class="detail-value">${shortenText(item.family || 'N/A', 22)}</span></div>
+            <div class="detail-item"><span class="detail-label">Order:</span><span class="detail-value">${item.order || 'N/A'}</span></div>
+            <div class="detail-item"><span class="detail-label">Family:</span><span class="detail-value">${item.family || 'N/A'}</span></div>
             <div class="detail-item"><span class="detail-label">Genus:</span><span class="detail-value"><i>${item.genus || 'N/A'}</i></span></div>
-            <div class="detail-item"><span class="detail-label">Type Locality:</span><span class="detail-value">${shortenText(item.type_locality || 'N/A', 28)}</span></div>
-            <div class="detail-item"><span class="detail-label">Global Dist:</span><span class="detail-value">${shortenText(item.global_dist || 'N/A', 28)}</span></div>
-            <div class="detail-item"><span class="detail-label">Nepal Dist:</span><span class="detail-value">${shortenText(nepalDist, 28)}</span></div>
-            <div class="detail-item"><span class="detail-label">Locations:</span><span class="detail-value">${points.length} point(s) on map</span></div>
+            <div class="detail-item"><span class="detail-label">Type Locality:</span><span class="detail-value">${item.type_locality || 'N/A'}</span></div>
+            <div class="detail-item"><span class="detail-label">Global Distribution:</span><span class="detail-value">${item.global_dist || 'N/A'}</span></div>
+            <div class="detail-item"><span class="detail-label">Nepal Distribution:</span><span class="detail-value">${nepalDist}</span></div>
+            <div class="detail-item"><span class="detail-label">Recorded Locations:</span><span class="detail-value">${points.length} point(s) on map</span></div>
         `;
         
         clearMarkers();
@@ -1590,12 +1608,15 @@
             const card = document.createElement('div');
             card.className = 'species-card';
             card.innerHTML = `
-                <div class="taxa-path">${shortenText(item.order || 'N/A', 14)} > ${shortenText(item.family || 'N/A', 14)}</div>
+                <div class="taxa-path">${item.order || 'N/A'} > ${item.family || 'N/A'}</div>
                 <div class="species-name"><i>${item.genus || '?'} ${item.species || '?'}</i> ${item.author || ''}</div>
-                <div class="detail-row"><span class="detail-label">Type Locality:</span> <span class="detail-text">${shortenText(item.type_locality || 'N/A', 35)}</span></div>
-                <div class="detail-row"><span class="detail-label">Global Dist:</span> <span class="detail-text">${shortenText(item.global_dist || 'N/A', 35)}</span></div>
-                <div class="detail-row"><span class="detail-label">Nepal Dist:</span> <span class="detail-text">${shortenText(item.nepal_dist || 'N/A', 35)}</span></div>
-                ${hasCoordinates ? '<div class="coordinates-badge">📍 ' + speciesPoints.length + ' location(s) on map</div>' : ''}
+                <div class="detail-row"><span class="detail-label">Type Locality:</span></div>
+                <div class="detail-text">${item.type_locality || 'N/A'}</div>
+                <div class="detail-row" style="margin-top:5px;"><span class="detail-label">Global Distribution:</span></div>
+                <div class="detail-text">${item.global_dist || 'N/A'}</div>
+                <div class="detail-row" style="margin-top:5px;"><span class="detail-label">Nepal Distribution:</span></div>
+                <div class="nepal-dist-full"><strong>Locations:</strong> ${item.nepal_dist || 'N/A'}</div>
+                ${hasCoordinates ? '<div class="coordinates-badge">' + speciesPoints.length + ' location(s) on map</div>' : ''}
             `;
             
             card.onclick = () => {
@@ -1632,7 +1653,6 @@
         document.getElementById('speciesDetails').style.display = 'none';
         document.getElementById('mapStatus').innerHTML = 'Click on a species to view location';
         
-        // Reset tree to full view
         buildFullTree();
     }
     
