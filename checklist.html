@@ -125,7 +125,7 @@
             transform: translateY(-2px);
         }
         
-        /* Two column layout - 80% Tree / 20% Species List */
+        /* Two column layout */
         .checklist-layout {
             display: flex;
             gap: 20px;
@@ -133,17 +133,17 @@
         }
         
         .tree-column {
-            flex: 4;  /* 80% width */
+            flex: 4;
             min-width: 0;
         }
         
         .species-list-column {
-            flex: 1;  /* 20% width */
+            flex: 1;
             min-width: 0;
         }
         
         .results-container {
-            max-height: 780px;  /* Increased by 1.3x (600px * 1.3 = 780px) */
+            max-height: 780px;
             overflow-y: auto;
             padding-right: 5px;
         }
@@ -236,7 +236,7 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Phylogenetic Tree Styles - Height increased 1.3x */
+        /* Phylogenetic Tree Styles */
         .tree-header {
             text-align: center;
             margin-bottom: 15px;
@@ -257,7 +257,7 @@
         
         .tree-wrapper {
             width: 100%;
-            height: 780px;  /* Increased by 1.3x (600px * 1.3 = 780px) */
+            height: 780px;
             overflow: auto;
             background: #fafbfc;
             border-radius: 12px;
@@ -333,7 +333,7 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Stats Box - Compact for 20% width */
+        /* Stats Box */
         .stats-box {
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
             border-radius: 10px;
@@ -518,6 +518,39 @@
             background: #e67e22;
         }
         
+        /* Navigation buttons for tree hierarchy */
+        .tree-navigation {
+            background: #eef2fa;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+        
+        .tree-nav-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .tree-nav-btn:hover {
+            background: var(--primary-blue-dark);
+        }
+        
+        .tree-nav-path {
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+        
         @media (max-width: 1000px) {
             .checklist-layout {
                 flex-direction: column;
@@ -643,20 +676,28 @@
         <button class="reset-view-btn" onclick="resetToFullView()">Show All</button>
     </div>
     
+    <!-- Tree Navigation Breadcrumb -->
+    <div id="treeNavigation" class="tree-navigation" style="display: none;">
+        <span>Navigation: </span>
+        <span id="navPath" class="tree-nav-path"></span>
+        <button id="navUpBtn" class="tree-nav-btn">Go Up</button>
+        <button id="navResetBtn" class="tree-nav-btn">Reset Tree</button>
+    </div>
+    
     <div class="checklist-layout">
         <div class="tree-column">
             <div class="tree-header">
                 <h3>Phylogenetic Tree</h3>
-                <p>Click on Family → shows its Genera/Species | Click on Genus → shows its Species | Click on Species → shows on map</p>
+                <p>Click Order → shows Families | Click Family → shows Genera | Click Genus → shows Species | Click Species → shows on map</p>
             </div>
             <div class="tree-wrapper" id="treeWrapper">
                 <div id="phylogeneticTree"></div>
             </div>
             <div class="current-focus" id="currentFocus">Root: Diplopoda (Millipedes)</div>
             <div class="legend-box">
-                <div><span class="legend-color" style="background:#3b82f6;"></span> Order</div>
-                <div><span class="legend-color" style="background:#10b981;"></span> Family (click to filter)</div>
-                <div><span class="legend-color" style="background:#f59e0b;"></span> Genus (click to filter)</div>
+                <div><span class="legend-color" style="background:#3b82f6;"></span> Order (click to expand)</div>
+                <div><span class="legend-color" style="background:#10b981;"></span> Family (click to expand)</div>
+                <div><span class="legend-color" style="background:#f59e0b;"></span> Genus (click to expand)</div>
                 <div><span class="legend-color" style="background:#ef4444;"></span> Species (click for map)</div>
             </div>
         </div>
@@ -695,7 +736,7 @@
             <h3 style="color: #1a5276; margin-bottom: 10px; font-size: 1rem;">Species Details</h3>
             <div class="details-grid" id="detailsGrid"></div>
         </div>
-        <div class="map-status" id="mapStatus">Click on a species in the tree or list to view details and location</div>
+        <div class="map-status" id="mapStatus">Click on a species in the tree to view details and location</div>
     </div>
 </main>
 
@@ -805,8 +846,10 @@
     let streetLayer = null;
     let satelliteLayer = null;
     let currentLayer = 'street';
-    let currentFilterFamily = null;
-    let currentFilterGenus = null;
+    
+    // Tree navigation state
+    let currentTreeRoot = null;
+    let treeHistory = [];
     
     function initMap() {
         map = L.map('map').setView([28.3949, 84.1240], 7);
@@ -898,71 +941,445 @@
         initMap();
         document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
         displayResults(filteredSpeciesData);
-        buildPhylogeneticTree();
+        buildInitialTree();
         addMapControls();
+        
+        // Setup navigation buttons
+        document.getElementById('navUpBtn').addEventListener('click', goUpInTree);
+        document.getElementById('navResetBtn').addEventListener('click', resetTree);
     }
     
-    // Filter by Family
-    function filterByFamily(familyName) {
-        currentFilterFamily = familyName;
-        currentFilterGenus = null;
+    // Build initial full tree
+    function buildInitialTree() {
+        const rootNode = {
+            name: "Diplopoda",
+            type: "root",
+            children: []
+        };
+        
+        // Group by Order
+        const ordersMap = new Map();
+        speciesData.forEach(s => {
+            if (!ordersMap.has(s.order)) {
+                ordersMap.set(s.order, {
+                    name: s.order,
+                    type: "order",
+                    children: []
+                });
+            }
+        });
+        
+        // Add orders to root
+        Array.from(ordersMap.keys()).sort().forEach(orderName => {
+            rootNode.children.push(ordersMap.get(orderName));
+        });
+        
+        currentTreeRoot = rootNode;
+        treeHistory = [];
+        renderTree(currentTreeRoot);
+        document.getElementById('treeNavigation').style.display = 'none';
+    }
+    
+    // Filter by Order - show only families of that order
+    function filterByOrder(orderName) {
+        // Find all families in this order
+        const families = new Set();
+        speciesData.filter(s => s.order === orderName).forEach(s => {
+            if (s.family) families.add(s.family);
+        });
+        
+        // Create new tree node for this order
+        const orderNode = {
+            name: orderName,
+            type: "order",
+            children: []
+        };
+        
+        // Add families as children
+        Array.from(families).sort().forEach(familyName => {
+            const familyNode = {
+                name: familyName,
+                type: "family",
+                children: []
+            };
+            orderNode.children.push(familyNode);
+        });
+        
+        // Save current state to history
+        treeHistory.push(currentTreeRoot);
+        currentTreeRoot = orderNode;
+        renderTree(currentTreeRoot);
+        
+        // Show navigation bar
+        document.getElementById('treeNavigation').style.display = 'flex';
+        updateNavPath(orderName);
+        
+        // Update species list to show species in this order
+        filteredSpeciesData = speciesData.filter(s => s.order === orderName);
+        document.getElementById('resultsCount').innerText = 'Showing ' + filteredSpeciesData.length + ' species in Order: ' + orderName;
+        displayResults(filteredSpeciesData);
+        document.getElementById('filterInfo').style.display = 'block';
+        document.getElementById('filterMessage').innerHTML = 'Showing Order: <strong>' + orderName + '</strong> (' + filteredSpeciesData.length + ' species)';
+        document.getElementById('currentFocus').innerHTML = 'Order: ' + orderName + ' (' + filteredSpeciesData.length + ' species)';
+    }
+    
+    // Filter by Family - show only genera of that family
+    function filterByFamily(familyName, orderName) {
+        // Find all genera in this family
+        const genera = new Set();
+        speciesData.filter(s => s.family === familyName).forEach(s => {
+            if (s.genus) genera.add(s.genus);
+        });
+        
+        // Create new tree node for this family
+        const familyNode = {
+            name: familyName,
+            type: "family",
+            children: []
+        };
+        
+        // Add genera as children
+        Array.from(genera).sort().forEach(genusName => {
+            const genusNode = {
+                name: genusName,
+                type: "genus",
+                children: []
+            };
+            familyNode.children.push(genusNode);
+        });
+        
+        // Save current state to history
+        treeHistory.push(currentTreeRoot);
+        currentTreeRoot = familyNode;
+        renderTree(currentTreeRoot);
+        
+        // Update navigation
+        updateNavPath(familyName);
+        
+        // Update species list to show species in this family
         filteredSpeciesData = speciesData.filter(s => s.family === familyName);
         document.getElementById('resultsCount').innerText = 'Showing ' + filteredSpeciesData.length + ' species in Family: ' + familyName;
         displayResults(filteredSpeciesData);
-        
-        // Show filter info
-        const filterInfo = document.getElementById('filterInfo');
-        const filterMessage = document.getElementById('filterMessage');
-        filterMessage.innerHTML = 'Showing <strong>' + familyName + '</strong> family (' + filteredSpeciesData.length + ' species)';
-        filterInfo.style.display = 'block';
-        
-        // Update current focus
-        document.getElementById('currentFocus').innerHTML = 'Filtered: Family ' + familyName + ' (' + filteredSpeciesData.length + ' species)';
-        
-        // Clear any active card
-        if (currentActiveCard) {
-            currentActiveCard.classList.remove('active');
-            currentActiveCard = null;
-        }
+        document.getElementById('filterInfo').style.display = 'block';
+        document.getElementById('filterMessage').innerHTML = 'Showing Family: <strong>' + familyName + '</strong> (' + filteredSpeciesData.length + ' species)';
+        document.getElementById('currentFocus').innerHTML = 'Family: ' + familyName + ' (' + filteredSpeciesData.length + ' species)';
     }
     
-    // Filter by Genus
-    function filterByGenus(genusName) {
-        currentFilterGenus = genusName;
-        filteredSpeciesData = speciesData.filter(s => s.genus === genusName);
+    // Filter by Genus - show only species of that genus
+    function filterByGenus(genusName, familyName) {
+        // Find all species in this genus
+        const speciesList = speciesData.filter(s => s.genus === genusName);
+        
+        // Create new tree node for this genus
+        const genusNode = {
+            name: genusName,
+            type: "genus",
+            children: []
+        };
+        
+        // Add species as children
+        speciesList.sort((a,b) => a.species.localeCompare(b.species)).forEach(s => {
+            const speciesNode = {
+                name: s.species,
+                fullName: `${s.genus} ${s.species}`,
+                type: "species",
+                genus: s.genus,
+                speciesData: s
+            };
+            genusNode.children.push(speciesNode);
+        });
+        
+        // Save current state to history
+        treeHistory.push(currentTreeRoot);
+        currentTreeRoot = genusNode;
+        renderTree(currentTreeRoot);
+        
+        // Update navigation
+        updateNavPath(genusName);
+        
+        // Update species list to show species in this genus
+        filteredSpeciesData = speciesList;
         document.getElementById('resultsCount').innerText = 'Showing ' + filteredSpeciesData.length + ' species in Genus: ' + genusName;
         displayResults(filteredSpeciesData);
-        
-        // Show filter info
-        const filterInfo = document.getElementById('filterInfo');
-        const filterMessage = document.getElementById('filterMessage');
-        filterMessage.innerHTML = 'Showing <strong>' + genusName + '</strong> genus (' + filteredSpeciesData.length + ' species)';
-        filterInfo.style.display = 'block';
-        
-        // Update current focus
-        document.getElementById('currentFocus').innerHTML = 'Filtered: Genus ' + genusName + ' (' + filteredSpeciesData.length + ' species)';
-        
-        // Clear any active card
-        if (currentActiveCard) {
-            currentActiveCard.classList.remove('active');
-            currentActiveCard = null;
+        document.getElementById('filterInfo').style.display = 'block';
+        document.getElementById('filterMessage').innerHTML = 'Showing Genus: <strong>' + genusName + '</strong> (' + filteredSpeciesData.length + ' species)';
+        document.getElementById('currentFocus').innerHTML = 'Genus: ' + genusName + ' (' + filteredSpeciesData.length + ' species)';
+    }
+    
+    // Go back to previous tree level
+    function goUpInTree() {
+        if (treeHistory.length > 0) {
+            currentTreeRoot = treeHistory.pop();
+            renderTree(currentTreeRoot);
+            
+            // Update navigation path
+            if (treeHistory.length === 0) {
+                document.getElementById('treeNavigation').style.display = 'none';
+                document.getElementById('currentFocus').innerHTML = 'Root: Diplopoda (Millipedes)';
+                // Reset species list
+                resetToFullView();
+            } else {
+                updateNavPathFromHistory();
+            }
         }
     }
     
-    // Reset to full view
-    function resetToFullView() {
-        currentFilterFamily = null;
-        currentFilterGenus = null;
-        filteredSpeciesData = [...speciesData];
-        document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
-        displayResults(filteredSpeciesData);
-        document.getElementById('filterInfo').style.display = 'none';
-        document.getElementById('currentFocus').innerHTML = 'Root: Diplopoda (Millipedes) - All species';
+    // Reset tree to full view
+    function resetTree() {
+        currentTreeRoot = {
+            name: "Diplopoda",
+            type: "root",
+            children: []
+        };
         
-        if (currentActiveCard) {
-            currentActiveCard.classList.remove('active');
-            currentActiveCard = null;
+        // Rebuild orders
+        const ordersMap = new Map();
+        speciesData.forEach(s => {
+            if (!ordersMap.has(s.order)) {
+                ordersMap.set(s.order, {
+                    name: s.order,
+                    type: "order",
+                    children: []
+                });
+            }
+        });
+        
+        Array.from(ordersMap.keys()).sort().forEach(orderName => {
+            currentTreeRoot.children.push(ordersMap.get(orderName));
+        });
+        
+        treeHistory = [];
+        renderTree(currentTreeRoot);
+        document.getElementById('treeNavigation').style.display = 'none';
+        resetToFullView();
+    }
+    
+    function updateNavPath(currentName) {
+        const navPath = document.getElementById('navPath');
+        let path = '';
+        for (let i = 0; i < treeHistory.length; i++) {
+            path += treeHistory[i].name + ' > ';
         }
+        path += currentName;
+        navPath.innerHTML = path;
+    }
+    
+    function updateNavPathFromHistory() {
+        const navPath = document.getElementById('navPath');
+        let path = '';
+        for (let i = 0; i < treeHistory.length; i++) {
+            path += treeHistory[i].name + ' > ';
+        }
+        path += currentTreeRoot.name;
+        navPath.innerHTML = path;
+    }
+    
+    function renderTree(data) {
+        const container = document.getElementById("phylogeneticTree");
+        container.innerHTML = "";
+        const wrapper = document.getElementById("treeWrapper");
+        
+        const availableWidth = wrapper.clientWidth - 20;
+        const availableHeight = wrapper.clientHeight - 20;
+        
+        const countNodes = (node) => {
+            let count = 1;
+            if (node.children && node.children.length > 0) {
+                for (let child of node.children) {
+                    count += countNodes(child);
+                }
+            }
+            return count;
+        };
+        
+        const nodeCount = countNodes(data);
+        const treeHeight = Math.min(availableHeight, Math.max(200, nodeCount * 35));
+        
+        const svg = d3.select("#phylogeneticTree")
+            .append("svg")
+            .attr("width", availableWidth)
+            .attr("height", treeHeight)
+            .attr("viewBox", `0 0 ${availableWidth} ${treeHeight}`)
+            .style("background", "#fafbfc")
+            .style("border-radius", "8px");
+        
+        const g = svg.append("g").attr("transform", "translate(30, 20)");
+        
+        const root = d3.hierarchy(data);
+        const treeLayout = d3.tree().size([treeHeight - 40, availableWidth - 60]);
+        treeLayout(root);
+        
+        g.selectAll(".link")
+            .data(root.links())
+            .enter()
+            .append("path")
+            .attr("class", "link")
+            .attr("d", d3.linkHorizontal().x(d => d.y).y(d => d.x))
+            .style("stroke", d => {
+                if (d.source.data.type === 'order') return "#3b82f6";
+                if (d.source.data.type === 'family') return "#10b981";
+                if (d.source.data.type === 'genus') return "#f59e0b";
+                return "#bbb";
+            });
+        
+        const nodes = g.selectAll(".node")
+            .data(root.descendants())
+            .enter()
+            .append("g")
+            .attr("transform", d => `translate(${d.y}, ${d.x})`)
+            .attr("class", "node");
+        
+        nodes.append("circle")
+            .attr("r", d => {
+                if (d.data.type === 'root') return 6;
+                if (d.data.type === 'order') return 5;
+                if (d.data.type === 'family') return 4.5;
+                if (d.data.type === 'genus') return 4;
+                return 3.5;
+            })
+            .attr("fill", d => {
+                if (d.data.type === 'order') return "#3b82f6";
+                if (d.data.type === 'family') return "#10b981";
+                if (d.data.type === 'genus') return "#f59e0b";
+                if (d.data.type === 'species') return "#ef4444";
+                return "#1a5276";
+            })
+            .attr("stroke", "white")
+            .attr("stroke-width", "1.2px")
+            .on("click", function(event, d) {
+                if (d.data.type === 'order') {
+                    filterByOrder(d.data.name);
+                } else if (d.data.type === 'family') {
+                    // Need to get the order name from parent
+                    let orderName = null;
+                    let parent = d.parent;
+                    while (parent) {
+                        if (parent.data.type === 'order') {
+                            orderName = parent.data.name;
+                            break;
+                        }
+                        parent = parent.parent;
+                    }
+                    filterByFamily(d.data.name, orderName);
+                } else if (d.data.type === 'genus') {
+                    filterByGenus(d.data.name);
+                } else if (d.data.type === 'species') {
+                    const species = d.data.speciesData;
+                    let points = [];
+                    if (typeof millipedePoints !== 'undefined') {
+                        points = millipedePoints.filter(p => 
+                            p.genus === species.genus && p.species === species.species
+                        ).filter(p => p.lat && p.lon);
+                    }
+                    showSpeciesDetailsAndMap(species, points);
+                    
+                    // Highlight the species card
+                    const cards = document.querySelectorAll('.species-card');
+                    for (let card of cards) {
+                        const cardText = card.querySelector('.species-name').innerText;
+                        if (cardText.includes(species.genus) && cardText.includes(species.species)) {
+                            if (currentActiveCard) { currentActiveCard.classList.remove('active'); }
+                            card.classList.add('active');
+                            currentActiveCard = card;
+                            break;
+                        }
+                    }
+                    document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.fullName}`;
+                    
+                    // Flash effect
+                    d3.select(this).attr("stroke", "#f39c12").attr("stroke-width", "3px");
+                    setTimeout(() => {
+                        d3.select(this).attr("stroke", "white").attr("stroke-width", "1.2px");
+                    }, 500);
+                }
+            })
+            .on("mouseover", function() { d3.select(this).attr("r", d => (d.data.type === 'root' ? 8 : 7)); })
+            .on("mouseout", function(event, d) {
+                d3.select(this).attr("r", d => {
+                    if (d.data.type === 'root') return 6;
+                    if (d.data.type === 'order') return 5;
+                    if (d.data.type === 'family') return 4.5;
+                    if (d.data.type === 'genus') return 4;
+                    return 3.5;
+                });
+            });
+        
+        nodes.append("text")
+            .attr("dx", 10)
+            .attr("dy", 3)
+            .style("font-size", d => {
+                if (d.data.type === 'root') return "12px";
+                if (d.data.type === 'order') return "11px";
+                if (d.data.type === 'family') return "10px";
+                if (d.data.type === 'genus') return "9px";
+                return "8px";
+            })
+            .style("font-weight", d => (d.data.type === 'root' || d.data.type === 'order') ? "bold" : "normal")
+            .style("font-style", d => (d.data.type === 'genus' || d.data.type === 'species') ? "italic" : "normal")
+            .style("fill", d => {
+                if (d.data.type === 'order') return "#3b82f6";
+                if (d.data.type === 'family') return "#10b981";
+                if (d.data.type === 'genus') return "#d97706";
+                if (d.data.type === 'species') return "#dc2626";
+                return "#1a5276";
+            })
+            .style("cursor", "pointer")
+            .style("font-family", "'Times New Roman', Times, serif")
+            .text(d => {
+                if (d.data.type === 'root') return d.data.name;
+                if (d.data.type === 'species') {
+                    let name = d.data.fullName;
+                    if (name.length > 22) name = name.slice(0, 19) + "...";
+                    return name;
+                }
+                let name = d.data.name;
+                if (name.length > 20) name = name.slice(0, 17) + "...";
+                return name;
+            })
+            .on("click", function(event, d) {
+                if (d.data.type === 'order') {
+                    filterByOrder(d.data.name);
+                } else if (d.data.type === 'family') {
+                    let orderName = null;
+                    let parent = d.parent;
+                    while (parent) {
+                        if (parent.data.type === 'order') {
+                            orderName = parent.data.name;
+                            break;
+                        }
+                        parent = parent.parent;
+                    }
+                    filterByFamily(d.data.name, orderName);
+                } else if (d.data.type === 'genus') {
+                    filterByGenus(d.data.name);
+                } else if (d.data.type === 'species') {
+                    const species = d.data.speciesData;
+                    let points = [];
+                    if (typeof millipedePoints !== 'undefined') {
+                        points = millipedePoints.filter(p => 
+                            p.genus === species.genus && p.species === species.species
+                        ).filter(p => p.lat && p.lon);
+                    }
+                    showSpeciesDetailsAndMap(species, points);
+                    
+                    const cards = document.querySelectorAll('.species-card');
+                    for (let card of cards) {
+                        const cardText = card.querySelector('.species-name').innerText;
+                        if (cardText.includes(species.genus) && cardText.includes(species.species)) {
+                            if (currentActiveCard) { currentActiveCard.classList.remove('active'); }
+                            card.classList.add('active');
+                            currentActiveCard = card;
+                            break;
+                        }
+                    }
+                    document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.fullName}`;
+                }
+            })
+            .on("mouseover", function() { d3.select(this).style("font-weight", "bold").style("text-decoration", "underline"); })
+            .on("mouseout", function(event, d) {
+                d3.select(this).style("font-weight", d => (d.data.type === 'root' || d.data.type === 'order') ? "bold" : "normal")
+                    .style("text-decoration", "none");
+            });
     }
 
     function showSpeciesDetailsAndMap(item, points) {
@@ -1220,244 +1637,22 @@
         resetToFullView();
     };
     
-    window.resetToFullView = resetToFullView;
-
-    // ============ PHYLOGENETIC TREE ============
-    function buildPhylogeneticTree() {
-        const hierarchy = {};
-        speciesData.forEach(s => {
-            if (!hierarchy[s.order]) hierarchy[s.order] = {};
-            if (!hierarchy[s.order][s.family]) hierarchy[s.order][s.family] = {};
-            if (!hierarchy[s.order][s.family][s.genus]) hierarchy[s.order][s.family][s.genus] = [];
-            hierarchy[s.order][s.family][s.genus].push(s);
-        });
+    function resetToFullView() {
+        currentFilterFamily = null;
+        currentFilterGenus = null;
+        filteredSpeciesData = [...speciesData];
+        document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
+        displayResults(filteredSpeciesData);
+        document.getElementById('filterInfo').style.display = 'none';
+        document.getElementById('currentFocus').innerHTML = 'Root: Diplopoda (Millipedes) - All species';
         
-        const treeData = {
-            name: "Diplopoda",
-            type: "root",
-            children: Object.keys(hierarchy).sort().map(order => ({
-                name: order,
-                type: "order",
-                children: Object.keys(hierarchy[order]).sort().map(family => ({
-                    name: family,
-                    type: "family",
-                    children: Object.keys(hierarchy[order][family]).sort().map(genus => ({
-                        name: genus,
-                        type: "genus",
-                        children: hierarchy[order][family][genus].sort((a,b) => a.species.localeCompare(b.species)).map(species => ({
-                            name: species.species,
-                            fullName: `${species.genus} ${species.species}`,
-                            type: "species",
-                            genus: species.genus,
-                            speciesData: species
-                        }))
-                    }))
-                }))
-            }))
-        };
-        
-        const container = document.getElementById("phylogeneticTree");
-        container.innerHTML = "";
-        const wrapper = document.getElementById("treeWrapper");
-        
-        const availableWidth = wrapper.clientWidth - 20;
-        const availableHeight = wrapper.clientHeight - 20;
-        
-        const countNodes = (node) => {
-            let count = 1;
-            if (node.children) {
-                for (let child of node.children) count += countNodes(child);
-            }
-            return count;
-        };
-        
-        const nodeCount = countNodes(treeData);
-        const treeHeight = Math.min(availableHeight, Math.max(300, nodeCount * 28));
-        
-        const svg = d3.select("#phylogeneticTree")
-            .append("svg")
-            .attr("width", availableWidth)
-            .attr("height", treeHeight)
-            .attr("viewBox", `0 0 ${availableWidth} ${treeHeight}`)
-            .style("background", "#fafbfc")
-            .style("border-radius", "8px");
-        
-        const g = svg.append("g").attr("transform", "translate(40, 25)");
-        
-        const root = d3.hierarchy(treeData);
-        const treeLayout = d3.tree().size([treeHeight - 50, availableWidth - 80]);
-        treeLayout(root);
-        
-        g.selectAll(".link")
-            .data(root.links())
-            .enter()
-            .append("path")
-            .attr("class", "link")
-            .attr("d", d3.linkHorizontal().x(d => d.y).y(d => d.x))
-            .style("stroke", d => {
-                if (d.source.data.type === 'order') return "#3b82f6";
-                if (d.source.data.type === 'family') return "#10b981";
-                if (d.source.data.type === 'genus') return "#f59e0b";
-                return "#bbb";
-            });
-        
-        const nodes = g.selectAll(".node")
-            .data(root.descendants())
-            .enter()
-            .append("g")
-            .attr("transform", d => `translate(${d.y}, ${d.x})`)
-            .attr("class", "node");
-        
-        nodes.append("circle")
-            .attr("r", d => {
-                if (d.data.type === 'root') return 5;
-                if (d.data.type === 'order') return 4.5;
-                if (d.data.type === 'family') return 4;
-                if (d.data.type === 'genus') return 3.5;
-                return 3;
-            })
-            .attr("fill", d => {
-                if (d.data.type === 'order') return "#3b82f6";
-                if (d.data.type === 'family') return "#10b981";
-                if (d.data.type === 'genus') return "#f59e0b";
-                if (d.data.type === 'species') return "#ef4444";
-                return "#1a5276";
-            })
-            .attr("stroke", "white")
-            .attr("stroke-width", "1px")
-            .on("click", function(event, d) {
-                if (d.data.type === 'family') {
-                    // Click on Family - filter to show only its genera and species
-                    filterByFamily(d.data.name);
-                    // Highlight the clicked node
-                    d3.select(this).attr("stroke", "#f39c12").attr("stroke-width", "2px");
-                    setTimeout(() => {
-                        d3.select(this).attr("stroke", "white").attr("stroke-width", "1px");
-                    }, 500);
-                } else if (d.data.type === 'genus') {
-                    // Click on Genus - filter to show only its species
-                    filterByGenus(d.data.name);
-                    d3.select(this).attr("stroke", "#f39c12").attr("stroke-width", "2px");
-                    setTimeout(() => {
-                        d3.select(this).attr("stroke", "white").attr("stroke-width", "1px");
-                    }, 500);
-                } else if (d.data.type === 'species') {
-                    // Click on Species - show on map
-                    const species = d.data.speciesData;
-                    let points = [];
-                    if (typeof millipedePoints !== 'undefined') {
-                        points = millipedePoints.filter(p => 
-                            p.genus === species.genus && p.species === species.species
-                        ).filter(p => p.lat && p.lon);
-                    }
-                    showSpeciesDetailsAndMap(species, points);
-                    
-                    const cards = document.querySelectorAll('.species-card');
-                    for (let card of cards) {
-                        const cardText = card.querySelector('.species-name').innerText;
-                        if (cardText.includes(species.genus) && cardText.includes(species.species)) {
-                            if (currentActiveCard) { currentActiveCard.classList.remove('active'); }
-                            card.classList.add('active');
-                            currentActiveCard = card;
-                            break;
-                        }
-                    }
-                    document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.fullName}`;
-                    d3.select(this).attr("stroke", "#f39c12").attr("stroke-width", "2px");
-                    setTimeout(() => {
-                        d3.select(this).attr("stroke", "white").attr("stroke-width", "1px");
-                    }, 500);
-                } else if (d.data.type !== 'root') {
-                    document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.name} (${d.data.type})`;
-                }
-            })
-            .on("mouseover", function() { d3.select(this).attr("r", d => (d.data.type === 'root' ? 7 : 6)); })
-            .on("mouseout", function(event, d) {
-                d3.select(this).attr("r", d => {
-                    if (d.data.type === 'root') return 5;
-                    if (d.data.type === 'order') return 4.5;
-                    if (d.data.type === 'family') return 4;
-                    if (d.data.type === 'genus') return 3.5;
-                    return 3;
-                });
-            });
-        
-        nodes.append("text")
-            .attr("dx", 8)
-            .attr("dy", 3)
-            .style("font-size", d => {
-                if (d.data.type === 'root') return "11px";
-                if (d.data.type === 'order') return "10px";
-                if (d.data.type === 'family') return "9px";
-                if (d.data.type === 'genus') return "8px";
-                return "7px";
-            })
-            .style("font-weight", d => (d.data.type === 'root' || d.data.type === 'order') ? "bold" : "normal")
-            .style("font-style", d => (d.data.type === 'genus' || d.data.type === 'species') ? "italic" : "normal")
-            .style("fill", d => {
-                if (d.data.type === 'order') return "#3b82f6";
-                if (d.data.type === 'family') return "#10b981";
-                if (d.data.type === 'genus') return "#d97706";
-                if (d.data.type === 'species') return "#dc2626";
-                return "#1a5276";
-            })
-            .style("cursor", "pointer")
-            .style("font-family", "'Times New Roman', Times, serif")
-            .text(d => {
-                if (d.data.type === 'root') return d.data.name;
-                if (d.data.type === 'species') {
-                    let name = d.data.fullName;
-                    if (name.length > 20) name = name.slice(0, 17) + "...";
-                    return name;
-                }
-                let name = d.data.name;
-                if (name.length > 18) name = name.slice(0, 15) + "...";
-                return name;
-            })
-            .on("click", function(event, d) {
-                if (d.data.type === 'family') {
-                    filterByFamily(d.data.name);
-                    d3.select(this).style("font-weight", "bold");
-                    setTimeout(() => {
-                        d3.select(this).style("font-weight", "normal");
-                    }, 500);
-                } else if (d.data.type === 'genus') {
-                    filterByGenus(d.data.name);
-                    d3.select(this).style("font-weight", "bold");
-                    setTimeout(() => {
-                        d3.select(this).style("font-weight", "normal");
-                    }, 500);
-                } else if (d.data.type === 'species') {
-                    const species = d.data.speciesData;
-                    let points = [];
-                    if (typeof millipedePoints !== 'undefined') {
-                        points = millipedePoints.filter(p => 
-                            p.genus === species.genus && p.species === species.species
-                        ).filter(p => p.lat && p.lon);
-                    }
-                    showSpeciesDetailsAndMap(species, points);
-                    
-                    const cards = document.querySelectorAll('.species-card');
-                    for (let card of cards) {
-                        const cardText = card.querySelector('.species-name').innerText;
-                        if (cardText.includes(species.genus) && cardText.includes(species.species)) {
-                            if (currentActiveCard) { currentActiveCard.classList.remove('active'); }
-                            card.classList.add('active');
-                            currentActiveCard = card;
-                            break;
-                        }
-                    }
-                    document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.fullName}`;
-                } else if (d.data.type !== 'root') {
-                    document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.name} (${d.data.type})`;
-                }
-            })
-            .on("mouseover", function() { d3.select(this).style("font-weight", "bold").style("text-decoration", "underline"); })
-            .on("mouseout", function(event, d) {
-                d3.select(this).style("font-weight", d => (d.data.type === 'root' || d.data.type === 'order') ? "bold" : "normal")
-                    .style("text-decoration", "none");
-            });
+        if (currentActiveCard) {
+            currentActiveCard.classList.remove('active');
+            currentActiveCard = null;
+        }
     }
+    
+    window.resetToFullView = resetToFullView;
     
     function addMapControls() {
         const mapDiv = document.getElementById('map');
@@ -1475,8 +1670,11 @@
     }
     
     window.addEventListener('resize', () => {
-        if (speciesData.length > 0) buildPhylogeneticTree();
+        if (currentTreeRoot) renderTree(currentTreeRoot);
     });
+    
+    let currentFilterFamily = null;
+    let currentFilterGenus = null;
     
     loadSpeciesData();
 </script>
