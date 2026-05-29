@@ -143,7 +143,7 @@
         }
         
         .results-container {
-            max-height: 600px;
+            max-height: 780px;  /* Increased by 1.3x (600px * 1.3 = 780px) */
             overflow-y: auto;
             padding-right: 5px;
         }
@@ -236,7 +236,7 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Phylogenetic Tree Styles */
+        /* Phylogenetic Tree Styles - Height increased 1.3x */
         .tree-header {
             text-align: center;
             margin-bottom: 15px;
@@ -257,7 +257,7 @@
         
         .tree-wrapper {
             width: 100%;
-            height: 600px;
+            height: 780px;  /* Increased by 1.3x (600px * 1.3 = 780px) */
             overflow: auto;
             background: #fafbfc;
             border-radius: 12px;
@@ -487,6 +487,37 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
+        /* Filter info display */
+        .filter-info {
+            background: #e8f0fe;
+            padding: 8px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--primary-blue);
+        }
+        
+        .filter-info strong {
+            color: var(--gold);
+        }
+        
+        .reset-view-btn {
+            background: var(--orange);
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            margin-left: 10px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .reset-view-btn:hover {
+            background: #e67e22;
+        }
+        
         @media (max-width: 1000px) {
             .checklist-layout {
                 flex-direction: column;
@@ -496,7 +527,10 @@
                 min-width: auto;
             }
             .tree-wrapper {
-                height: 450px;
+                height: 500px;
+            }
+            .results-container {
+                max-height: 400px;
             }
         }
         
@@ -508,11 +542,13 @@
             .details-grid { grid-template-columns: 1fr; }
             .checklist-page-header h2 { font-size: 1.5rem; }
             .tree-wrapper { height: 400px; }
+            .results-container { max-height: 350px; }
         }
         
         @media (min-width: 1600px) {
             #map { height: 500px; }
-            .tree-wrapper { height: 700px; }
+            .tree-wrapper { height: 900px; }
+            .results-container { max-height: 900px; }
         }
     </style>
 </head>
@@ -601,11 +637,17 @@
 
     <div id="resultsCount">Loading species data...</div>
     
+    <!-- Filter Info Display -->
+    <div id="filterInfo" class="filter-info" style="display: none;">
+        <span id="filterMessage"></span>
+        <button class="reset-view-btn" onclick="resetToFullView()">Show All</button>
+    </div>
+    
     <div class="checklist-layout">
         <div class="tree-column">
             <div class="tree-header">
                 <h3>Phylogenetic Tree</h3>
-                <p>Click on any node | Scroll to view full tree</p>
+                <p>Click on Family → shows its Genera/Species | Click on Genus → shows its Species | Click on Species → shows on map</p>
             </div>
             <div class="tree-wrapper" id="treeWrapper">
                 <div id="phylogeneticTree"></div>
@@ -613,9 +655,9 @@
             <div class="current-focus" id="currentFocus">Root: Diplopoda (Millipedes)</div>
             <div class="legend-box">
                 <div><span class="legend-color" style="background:#3b82f6;"></span> Order</div>
-                <div><span class="legend-color" style="background:#10b981;"></span> Family</div>
-                <div><span class="legend-color" style="background:#f59e0b;"></span> Genus</div>
-                <div><span class="legend-color" style="background:#ef4444;"></span> Species</div>
+                <div><span class="legend-color" style="background:#10b981;"></span> Family (click to filter)</div>
+                <div><span class="legend-color" style="background:#f59e0b;"></span> Genus (click to filter)</div>
+                <div><span class="legend-color" style="background:#ef4444;"></span> Species (click for map)</div>
             </div>
         </div>
         
@@ -756,12 +798,15 @@
     
     // Checklist Functionality
     let speciesData = [];
+    let filteredSpeciesData = [];
     let map = null;
     let markers = [];
     let currentActiveCard = null;
     let streetLayer = null;
     let satelliteLayer = null;
     let currentLayer = 'street';
+    let currentFilterFamily = null;
+    let currentFilterGenus = null;
     
     function initMap() {
         map = L.map('map').setView([28.3949, 84.1240], 7);
@@ -848,12 +893,76 @@
         document.getElementById('statTotalFamilies').innerHTML = uniqueFamilies.size;
         document.getElementById('statTotalGenera').innerHTML = uniqueGenera.size;
         
+        filteredSpeciesData = [...speciesData];
         initFilters();
         initMap();
         document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
-        displayResults(speciesData);
+        displayResults(filteredSpeciesData);
         buildPhylogeneticTree();
         addMapControls();
+    }
+    
+    // Filter by Family
+    function filterByFamily(familyName) {
+        currentFilterFamily = familyName;
+        currentFilterGenus = null;
+        filteredSpeciesData = speciesData.filter(s => s.family === familyName);
+        document.getElementById('resultsCount').innerText = 'Showing ' + filteredSpeciesData.length + ' species in Family: ' + familyName;
+        displayResults(filteredSpeciesData);
+        
+        // Show filter info
+        const filterInfo = document.getElementById('filterInfo');
+        const filterMessage = document.getElementById('filterMessage');
+        filterMessage.innerHTML = 'Showing <strong>' + familyName + '</strong> family (' + filteredSpeciesData.length + ' species)';
+        filterInfo.style.display = 'block';
+        
+        // Update current focus
+        document.getElementById('currentFocus').innerHTML = 'Filtered: Family ' + familyName + ' (' + filteredSpeciesData.length + ' species)';
+        
+        // Clear any active card
+        if (currentActiveCard) {
+            currentActiveCard.classList.remove('active');
+            currentActiveCard = null;
+        }
+    }
+    
+    // Filter by Genus
+    function filterByGenus(genusName) {
+        currentFilterGenus = genusName;
+        filteredSpeciesData = speciesData.filter(s => s.genus === genusName);
+        document.getElementById('resultsCount').innerText = 'Showing ' + filteredSpeciesData.length + ' species in Genus: ' + genusName;
+        displayResults(filteredSpeciesData);
+        
+        // Show filter info
+        const filterInfo = document.getElementById('filterInfo');
+        const filterMessage = document.getElementById('filterMessage');
+        filterMessage.innerHTML = 'Showing <strong>' + genusName + '</strong> genus (' + filteredSpeciesData.length + ' species)';
+        filterInfo.style.display = 'block';
+        
+        // Update current focus
+        document.getElementById('currentFocus').innerHTML = 'Filtered: Genus ' + genusName + ' (' + filteredSpeciesData.length + ' species)';
+        
+        // Clear any active card
+        if (currentActiveCard) {
+            currentActiveCard.classList.remove('active');
+            currentActiveCard = null;
+        }
+    }
+    
+    // Reset to full view
+    function resetToFullView() {
+        currentFilterFamily = null;
+        currentFilterGenus = null;
+        filteredSpeciesData = [...speciesData];
+        document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
+        displayResults(filteredSpeciesData);
+        document.getElementById('filterInfo').style.display = 'none';
+        document.getElementById('currentFocus').innerHTML = 'Root: Diplopoda (Millipedes) - All species';
+        
+        if (currentActiveCard) {
+            currentActiveCard.classList.remove('active');
+            currentActiveCard = null;
+        }
     }
 
     function showSpeciesDetailsAndMap(item, points) {
@@ -930,23 +1039,23 @@
             genusSel.innerHTML = '<option value="all">Select Genus</option>'; 
             speciesSel.innerHTML = '<option value="all">Select Species</option>'; 
             if (orderSel.value !== 'all') updateFamilies(); 
-            updateResults(); 
+            updateResultsFromDropdown(); 
         };
         
         familySel.onchange = () => { 
             genusSel.innerHTML = '<option value="all">Select Genus</option>'; 
             speciesSel.innerHTML = '<option value="all">Select Species</option>'; 
             if (familySel.value !== 'all') updateGenera(); 
-            updateResults(); 
+            updateResultsFromDropdown(); 
         };
         
         genusSel.onchange = () => { 
             speciesSel.innerHTML = '<option value="all">Select Species</option>'; 
             if (genusSel.value !== 'all') updateSpecies(); 
-            updateResults(); 
+            updateResultsFromDropdown(); 
         };
         
-        speciesSel.onchange = updateResults;
+        speciesSel.onchange = updateResultsFromDropdown;
     }
 
     function updateFamilies() {
@@ -1031,7 +1140,7 @@
         });
     }
 
-    function updateResults() {
+    function updateResultsFromDropdown() {
         const order = document.getElementById('orderFilter').value;
         const family = document.getElementById('familyFilter').value;
         const genus = document.getElementById('genusFilter').value;
@@ -1044,6 +1153,7 @@
             (species === 'all' || item.species === species)
         );
         
+        filteredSpeciesData = filtered;
         displayResults(filtered);
         
         const filterStatus = [];
@@ -1052,9 +1162,14 @@
         if (genus !== 'all') filterStatus.push(genus);
         if (species !== 'all') filterStatus.push(species);
         
-        document.getElementById('resultsCount').innerText = filterStatus.length > 0 ? 
-            'Showing ' + filtered.length + ' species matching: ' + filterStatus.join(' > ') : 
-            'Showing all ' + filtered.length + ' species';
+        if (filterStatus.length > 0) {
+            document.getElementById('resultsCount').innerText = 'Showing ' + filtered.length + ' species matching: ' + filterStatus.join(' > ');
+            document.getElementById('filterInfo').style.display = 'block';
+            document.getElementById('filterMessage').innerHTML = 'Filtered: ' + filterStatus.join(' > ') + ' (' + filtered.length + ' species)';
+        } else {
+            document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
+            document.getElementById('filterInfo').style.display = 'none';
+        }
     }
 
     function displayResults(results) {
@@ -1102,8 +1217,10 @@
         document.getElementById('genusFilter').innerHTML = '<option value="all">Select Genus</option>';
         document.getElementById('speciesFilter').innerHTML = '<option value="all">Select Species</option>';
         updateFamilies();
-        updateResults();
+        resetToFullView();
     };
+    
+    window.resetToFullView = resetToFullView;
 
     // ============ PHYLOGENETIC TREE ============
     function buildPhylogeneticTree() {
@@ -1209,7 +1326,23 @@
             .attr("stroke", "white")
             .attr("stroke-width", "1px")
             .on("click", function(event, d) {
-                if (d.data.type === 'species') {
+                if (d.data.type === 'family') {
+                    // Click on Family - filter to show only its genera and species
+                    filterByFamily(d.data.name);
+                    // Highlight the clicked node
+                    d3.select(this).attr("stroke", "#f39c12").attr("stroke-width", "2px");
+                    setTimeout(() => {
+                        d3.select(this).attr("stroke", "white").attr("stroke-width", "1px");
+                    }, 500);
+                } else if (d.data.type === 'genus') {
+                    // Click on Genus - filter to show only its species
+                    filterByGenus(d.data.name);
+                    d3.select(this).attr("stroke", "#f39c12").attr("stroke-width", "2px");
+                    setTimeout(() => {
+                        d3.select(this).attr("stroke", "white").attr("stroke-width", "1px");
+                    }, 500);
+                } else if (d.data.type === 'species') {
+                    // Click on Species - show on map
                     const species = d.data.speciesData;
                     let points = [];
                     if (typeof millipedePoints !== 'undefined') {
@@ -1230,6 +1363,10 @@
                         }
                     }
                     document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.fullName}`;
+                    d3.select(this).attr("stroke", "#f39c12").attr("stroke-width", "2px");
+                    setTimeout(() => {
+                        d3.select(this).attr("stroke", "white").attr("stroke-width", "1px");
+                    }, 500);
                 } else if (d.data.type !== 'root') {
                     document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.name} (${d.data.type})`;
                 }
@@ -1278,7 +1415,19 @@
                 return name;
             })
             .on("click", function(event, d) {
-                if (d.data.type === 'species') {
+                if (d.data.type === 'family') {
+                    filterByFamily(d.data.name);
+                    d3.select(this).style("font-weight", "bold");
+                    setTimeout(() => {
+                        d3.select(this).style("font-weight", "normal");
+                    }, 500);
+                } else if (d.data.type === 'genus') {
+                    filterByGenus(d.data.name);
+                    d3.select(this).style("font-weight", "bold");
+                    setTimeout(() => {
+                        d3.select(this).style("font-weight", "normal");
+                    }, 500);
+                } else if (d.data.type === 'species') {
                     const species = d.data.speciesData;
                     let points = [];
                     if (typeof millipedePoints !== 'undefined') {
@@ -1301,11 +1450,6 @@
                     document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.fullName}`;
                 } else if (d.data.type !== 'root') {
                     document.getElementById('currentFocus').innerHTML = `Selected: ${d.data.name} (${d.data.type})`;
-                    if (d.data.type === 'order') {
-                        document.getElementById('orderFilter').value = d.data.name;
-                        updateFamilies();
-                        updateResults();
-                    }
                 }
             })
             .on("mouseover", function() { d3.select(this).style("font-weight", "bold").style("text-decoration", "underline"); })
