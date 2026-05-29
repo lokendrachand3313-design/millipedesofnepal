@@ -125,7 +125,7 @@
             transform: translateY(-2px);
         }
         
-        /* TWO COLUMN LAYOUT */
+        /* TWO COLUMN LAYOUT - 75% Tree / 25% Species List */
         .checklist-layout {
             display: flex;
             gap: 20px;
@@ -133,13 +133,13 @@
         }
         
         .tree-column {
-            flex: 3;
+            flex: 3;  /* 75% */
             min-width: 0;
         }
         
         .species-list-column {
-            flex: 2;
-            min-width: 0;
+            flex: 1;  /* 25% */
+            min-width: 280px;
         }
         
         .results-container {
@@ -165,12 +165,12 @@
         .species-card {
             background: #f5f5f5;
             border-left: 3px solid var(--primary-blue);
-            padding: 8px;
-            margin-bottom: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
             border-radius: 0 5px 5px 0;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
         
         .species-card:hover {
@@ -187,16 +187,16 @@
         .taxa-path {
             font-size: 0.6rem;
             color: #666;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             text-transform: uppercase;
             font-family: 'Times New Roman', Times, serif;
         }
         
         .species-name {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: bold;
             color: var(--primary-blue);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             font-family: 'Times New Roman', Times, serif;
         }
         
@@ -206,15 +206,21 @@
         
         .detail-row {
             font-size: 0.6rem;
-            margin: 2px 0;
+            margin: 3px 0;
+            line-height: 1.3;
             font-family: 'Times New Roman', Times, serif;
         }
         
         .detail-label {
             font-weight: bold;
-            min-width: 40px;
-            display: inline-block;
             color: var(--primary-blue);
+            display: inline-block;
+            width: 65px;
+        }
+        
+        .detail-text {
+            color: #333;
+            display: inline;
         }
         
         .coordinates-badge {
@@ -224,7 +230,7 @@
             padding: 2px 5px;
             font-size: 0.55rem;
             display: inline-block;
-            margin-top: 4px;
+            margin-top: 5px;
         }
         
         #resultsCount {
@@ -660,12 +666,13 @@
         <button class="reset-view-btn" onclick="resetToFullView()">Show All</button>
     </div>
     
-    <!-- TWO COLUMN LAYOUT -->
+    <!-- TWO COLUMN LAYOUT - 75% Tree / 25% Species List -->
     <div class="checklist-layout">
-        <!-- LEFT COLUMN: Taxonomic Tree -->
+        <!-- LEFT COLUMN: Phylogenetic Tree (75%) -->
         <div class="tree-column">
             <div class="tree-header">
-                <h3>Taxonomic Tree</h3>
+                <h3>🌳 Phylogenetic Tree</h3>
+                <p>Click on Order → shows its Families | Click on Family → shows its Genera | Click on Genus → shows its Species</p>
             </div>
             <div class="tree-wrapper" id="treeWrapper">
                 <div id="phylogeneticTree"></div>
@@ -683,10 +690,10 @@
             </div>
         </div>
         
-        <!-- RIGHT COLUMN: Species List -->
+        <!-- RIGHT COLUMN: Species List with Full Details (25%) -->
         <div class="species-list-column">
             <div class="stats-box">
-                <h4>Statistics</h4>
+                <h4>📊 Statistics</h4>
                 <div class="stats-numbers">
                     <div class="stat-item">
                         <div class="stat-number" id="statTotalSpecies">0</div>
@@ -712,11 +719,11 @@
     
     <!-- BOTTOM SECTION: Map + Species Details -->
     <div class="bottom-section">
-        <div class="bottom-header">Locality Map</div>
+        <div class="bottom-header">🗺️ Locality Map</div>
         <div id="map" style="position: relative;"></div>
         
         <div class="species-details-section" id="speciesDetails">
-            <h3 style="color: #1a5276; margin-bottom: 8px; font-size: 0.85rem;">Species Details</h3>
+            <h3 style="color: #1a5276; margin-bottom: 8px; font-size: 0.85rem;">📋 Species Details</h3>
             <div class="details-grid" id="detailsGrid"></div>
         </div>
         <div class="map-status" id="mapStatus">Click on a species in the tree or list to view location and details</div>
@@ -955,7 +962,6 @@
         
         // For each order, add its families, genera, and species
         ordersMap.forEach((orderNode, orderName) => {
-            // Get all families in this order
             const familiesMap = new Map();
             speciesData.filter(s => s.order === orderName).forEach(s => {
                 if (!familiesMap.has(s.family)) {
@@ -968,7 +974,6 @@
                 }
             });
             
-            // For each family, add its genera and species
             familiesMap.forEach((familyNode, familyName) => {
                 const generaMap = new Map();
                 speciesData.filter(s => s.order === orderName && s.family === familyName).forEach(s => {
@@ -982,7 +987,6 @@
                     }
                 });
                 
-                // For each genus, add its species
                 generaMap.forEach((genusNode, genusName) => {
                     const speciesList = speciesData.filter(s => s.order === orderName && s.family === familyName && s.genus === genusName);
                     speciesList.sort((a,b) => a.species.localeCompare(b.species)).forEach(s => {
@@ -1010,7 +1014,6 @@
     function filterTreeByOrder(orderName) {
         const orderSpecies = speciesData.filter(s => s.order === orderName);
         
-        // Build tree for this order only
         const treeData = {
             name: orderName,
             type: "order",
@@ -1078,7 +1081,7 @@
     }
     
     // Filter by Family - show ONLY that Family's tree
-    function filterTreeByFamily(familyName, orderName) {
+    function filterTreeByFamily(familyName) {
         const familySpecies = speciesData.filter(s => s.family === familyName);
         
         const treeData = {
@@ -1377,6 +1380,7 @@
             <div class="detail-item"><span class="detail-label">Family:</span><span class="detail-value">${shortenText(item.family || 'N/A', 22)}</span></div>
             <div class="detail-item"><span class="detail-label">Genus:</span><span class="detail-value"><i>${item.genus || 'N/A'}</i></span></div>
             <div class="detail-item"><span class="detail-label">Type Locality:</span><span class="detail-value">${shortenText(item.type_locality || 'N/A', 28)}</span></div>
+            <div class="detail-item"><span class="detail-label">Global Dist:</span><span class="detail-value">${shortenText(item.global_dist || 'N/A', 28)}</span></div>
             <div class="detail-item"><span class="detail-label">Nepal Dist:</span><span class="detail-value">${shortenText(nepalDist, 28)}</span></div>
             <div class="detail-item"><span class="detail-label">Locations:</span><span class="detail-value">${points.length} point(s) on map</span></div>
         `;
@@ -1588,10 +1592,11 @@
             card.className = 'species-card';
             card.innerHTML = `
                 <div class="taxa-path">${shortenText(item.order || 'N/A', 14)} > ${shortenText(item.family || 'N/A', 14)}</div>
-                <div class="species-name"><i>${item.genus || '?'} ${item.species || '?'}</i></div>
-                <div class="detail-row"><span class="detail-label">Type:</span> ${shortenText(item.type_locality || 'N/A', 28)}</div>
-                <div class="detail-row"><span class="detail-label">Nepal:</span> ${shortenText(item.nepal_dist || 'N/A', 28)}</div>
-                ${hasCoordinates ? '<div class="coordinates-badge">📍 ' + speciesPoints.length + '</div>' : ''}
+                <div class="species-name"><i>${item.genus || '?'} ${item.species || '?'}</i> ${item.author || ''}</div>
+                <div class="detail-row"><span class="detail-label">Type Locality:</span> <span class="detail-text">${shortenText(item.type_locality || 'N/A', 35)}</span></div>
+                <div class="detail-row"><span class="detail-label">Global Dist:</span> <span class="detail-text">${shortenText(item.global_dist || 'N/A', 35)}</span></div>
+                <div class="detail-row"><span class="detail-label">Nepal Dist:</span> <span class="detail-text">${shortenText(item.nepal_dist || 'N/A', 35)}</span></div>
+                ${hasCoordinates ? '<div class="coordinates-badge">📍 ' + speciesPoints.length + ' location(s) on map</div>' : ''}
             `;
             
             card.onclick = () => {
