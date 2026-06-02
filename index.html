@@ -10,20 +10,237 @@
     <!-- Leaflet CSS for Map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="style.css">
-    
     <style>
-        /* ============ INDEX.HTML SPECIFIC STYLES ============ */
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: #f0f4f8;
+            color: #1e2a3a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 20px 5%;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-logo {
+            height: 90px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .header-text p {
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .millipede-icon {
+            height: 90px;
+            width: auto;
+            max-width: 150px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s ease;
+        }
+
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+        }
+
+        .clock-container {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 8px 12px;
+            text-align: center;
+            min-width: 160px;
+        }
+
+        .analog-clock {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 5px;
+            position: relative;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+        }
+
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .clock-center {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #f39c12;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 2px;
+        }
+
+        .hour-hand {
+            width: 3px;
+            height: 20px;
+            background: #f39c12;
+            transform: translateX(-50%) rotate(0deg);
+        }
+
+        .minute-hand {
+            width: 2px;
+            height: 28px;
+            background: #ecf0f1;
+            transform: translateX(-50%) rotate(0deg);
+        }
+
+        .second-hand {
+            width: 1px;
+            height: 32px;
+            background: #e74c3c;
+            transform: translateX(-50%) rotate(0deg);
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 8px;
+            font-weight: bold;
+            color: #f39c12;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 2px rgba(0,0,0,0.5);
+        }
+
+        .number-12 { top: 8%; left: 50%; }
+        .number-3 { top: 50%; left: 92%; }
+        .number-6 { top: 92%; left: 50%; }
+        .number-9 { top: 50%; left: 8%; }
+
+        .clock-time-digital {
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            font-family: monospace;
+            background: rgba(0,0,0,0.5);
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .clock-date {
+            font-size: 7px;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 3px;
+        }
+
+        .clock-nepali-date {
+            font-size: 8px;
+            color: #ecf0f1;
+            text-align: center;
+            font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
+            background: rgba(0,0,0,0.3);
+            padding: 2px 5px;
+            border-radius: 10px;
+            margin-top: 2px;
+        }
+
+        nav {
+            background: var(--primary-blue);
+            padding: 12px 5%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background: var(--gold);
+            color: var(--primary-blue);
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 5%;
+        }
+
         .featured h3 {
             font-size: 2rem;
             margin-bottom: 20px;
             text-align: center;
             color: var(--primary-blue);
-            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .image-row {
             display: flex;
             gap: 20px;
@@ -31,12 +248,12 @@
             flex-wrap: wrap;
             width: 100%;
         }
-        
+
         .image-col {
             flex: 1;
             min-width: 280px;
         }
-        
+
         .featured-img {
             width: 100%;
             aspect-ratio: 4/3;
@@ -45,31 +262,27 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             transition: all 0.5s ease;
         }
-        
+
         .featured-img:hover {
             transform: scale(1.02);
         }
-        
+
         .image-col p {
             text-align: center;
             margin-top: 15px;
-            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .scientific-name {
             font-style: italic;
             font-weight: 600;
             font-size: 1.3rem;
-            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .location {
             font-size: 0.9rem;
             color: #666;
-            font-family: 'Times New Roman', Times, serif;
         }
-        
-        /* Nepali text styling */
+
         .nepali-names {
             font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
             background: var(--blue-bg);
@@ -83,81 +296,68 @@
             margin-top: 15px;
             width: 100%;
         }
-        
+
         .nepali-names:hover {
             background: #d4e6f1;
             border-left-width: 8px;
         }
-        
-        /* Content blocks */
+
         .content-block {
             margin-bottom: 35px;
             padding: 0;
             background: transparent;
             border: none;
             box-shadow: none;
-            animation: fadeInUp 0.8s ease-out;
             width: 100%;
         }
-        
-        .content-block:hover {
-            transform: none;
-            box-shadow: none;
-        }
-        
+
         .content-block h2 {
             color: var(--primary-blue);
             border-bottom: 3px solid var(--primary-blue);
             padding-bottom: 12px;
             margin-bottom: 20px;
             font-size: 2rem;
-            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .content-block p {
             font-size: 1.2rem;
             margin-bottom: 15px;
             color: #333;
-            font-family: 'Times New Roman', Times, serif;
         }
-        
-        /* Altitude section */
+
         .altitude-container {
             text-align: center;
             margin: 20px 0;
         }
-        
+
         .altitude-img {
             max-width: 100%;
             height: auto;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        
+
         .altitude-caption {
             font-size: 0.9rem;
             color: #666;
             margin-top: 10px;
             font-style: italic;
-            font-family: 'Times New Roman', Times, serif;
         }
-        
-        /* Video section */
+
         .video-section {
             margin-top: 30px;
             padding-top: 20px;
             border-top: 2px dashed #ddd;
             width: 100%;
         }
-        
+
         .video-section h4 {
             font-size: 1.5rem;
             color: var(--primary-blue);
             margin-bottom: 20px;
             text-align: center;
-            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .video-row {
             display: flex;
             gap: 20px;
@@ -165,7 +365,7 @@
             justify-content: center;
             width: 100%;
         }
-        
+
         .video-col {
             flex: 1;
             min-width: 280px;
@@ -174,14 +374,14 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
         }
-        
+
         .video-col:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-        
+
         .video-col video {
             width: 100%;
             height: auto;
@@ -191,32 +391,19 @@
             background-color: #000;
             cursor: pointer;
         }
-        
+
         .video-caption {
             padding: 12px;
             text-align: center;
             background: white;
         }
-        
+
         .video-caption p {
             margin: 0;
             font-size: 0.9rem;
             color: #555;
-            font-family: 'Times New Roman', Times, serif;
         }
-        
-        .video-caption .scientific-name {
-            font-size: 0.9rem;
-            display: inline;
-        }
-        
-        .video-caption .location {
-            font-size: 0.85rem;
-            display: block;
-            margin-top: 5px;
-        }
-        
-        /* World Map Section */
+
         .world-map-section {
             margin-top: 20px;
             margin-bottom: 40px;
@@ -227,15 +414,14 @@
             border: 1px solid #e0e0e0;
             width: 100%;
         }
-        
+
         .world-map-section h4 {
             font-size: 1.5rem;
             color: var(--primary-blue);
             margin-bottom: 20px;
             text-align: center;
-            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         #worldMap {
             height: 500px;
             width: 100%;
@@ -244,37 +430,42 @@
             background-color: #e6f0fa;
             transition: all 0.3s ease;
         }
-        
+
         #worldMap:hover {
             border-color: var(--primary-blue);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-        
+
         .map-caption {
             text-align: center;
             margin-top: 10px;
             color: #666;
             font-style: italic;
-            font-family: 'Times New Roman', Times, serif;
         }
-        
-        /* Responsive adjustments */
+
+        footer {
+            background: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 30px 5%;
+            margin-top: 30px;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
         @media (max-width: 768px) {
-            .content-block h2 { font-size: 1.7rem; }
+            .header-text h1 { font-size: 1.8rem; }
+            .header-text p { font-size: 1rem; }
+            .header-logo { height: 60px; }
+            .millipede-icon { height: 50px; }
+            .clock-container { min-width: 130px; padding: 5px 8px; }
             .video-row .video-col { min-width: 100%; max-width: 100%; }
             .image-row { flex-direction: column; }
-            .featured-img { aspect-ratio: 4/3; }
             #worldMap { height: 400px; }
-        }
-        
-        @media (max-width: 480px) {
-            .featured-img { aspect-ratio: 4/3; }
-            .nepali-names { font-size: 1rem; padding: 20px; }
-        }
-        
-        @media (min-width: 1600px) {
-            .featured-img { aspect-ratio: 16/9; }
-            #worldMap { height: 750px; }
         }
     </style>
 </head>
@@ -283,7 +474,7 @@
 <header>
     <div class="header-container">
         <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
-             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
+             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
         
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
@@ -297,24 +488,15 @@
             <div class="clock-container">
                 <div class="analog-clock">
                     <div class="clock-face">
-                        <div class="clock-ring"></div>
                         <div class="hand hour-hand" id="hourHand"></div>
                         <div class="hand minute-hand" id="minuteHand"></div>
                         <div class="hand second-hand" id="secondHand"></div>
                         <div class="clock-center"></div>
                         <div class="clock-numbers">
                             <div class="number number-12">12</div>
-                            <div class="number number-1">1</div>
-                            <div class="number number-2">2</div>
                             <div class="number number-3">3</div>
-                            <div class="number number-4">4</div>
-                            <div class="number number-5">5</div>
                             <div class="number number-6">6</div>
-                            <div class="number number-7">7</div>
-                            <div class="number number-8">8</div>
                             <div class="number number-9">9</div>
-                            <div class="number number-10">10</div>
-                            <div class="number number-11">11</div>
                         </div>
                     </div>
                 </div>
@@ -340,7 +522,6 @@
 </nav>
 
 <main>
-    <!-- Featured section with images and videos -->
     <section class="featured">
         <h3>Beautiful Millipedes from Nepal</h3>
         
@@ -416,17 +597,15 @@
         </div>
     </section>
 
-    <!-- CONTENT BLOCKS -->
     <div class="content-block">
         <h2>Our Mission</h2>
         <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts. Our mission is to advance the understanding of millipede biodiversity in Nepal through comprehensive field collection from diverse geographical regions, followed by accurate species-level identification using integrated morphological and molecular analysis, detailed documentation, and long-term specimen preservation.</p>
     </div>
 
-    <!-- Altitude Profile Section -->
     <div class="content-block">
         <h2>Nepal's Elevation Gradient: From Terai to Everest</h2>
         <div class="altitude-container">
-            <img src="altitude1.png" alt="Nepal altitude profile from Terai to Mount Everest" class="altitude-img" loading="lazy"
+            <img src="altitude1.png" alt="Nepal altitude profile" class="altitude-img" loading="lazy"
                  onerror="this.src='https://via.placeholder.com/1000x400?text=Nepal+Elevation+Profile'">
             <p class="altitude-caption">Nepal's diverse topography creates unique microhabitats for millipede species across different elevations.</p>
         </div>
@@ -439,7 +618,6 @@
         </div>
     </div>
 
-    <!-- World Map Section -->
     <div class="world-map-section">
         <h4>Nepal in the World Map</h4>
         <div id="worldMap"></div>
@@ -452,202 +630,128 @@
     <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
-<!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-<script>
-    // ============================================
-    // NEPAL TIME AND DATE - ACCURATE VERSION
-    // ============================================
+// ============================================
+// CLOCK AND DATE FUNCTIONS - WORKING VERSION
+// ============================================
+
+// Get Nepal time (UTC+5:45)
+function getNepalTime() {
+    const now = new Date();
+    const nepalOffset = 5.75 * 60 * 60 * 1000;
+    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+    return new Date(utcTime + nepalOffset);
+}
+
+// Nepali month names
+const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
+
+// Nepali weekday names
+const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
+
+// Days in each Nepali month
+const nepaliMonthDays = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
+
+// Check if Nepali year is leap
+function isNepaliLeapYear(bsYear) {
+    const leapYears = [1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011, 2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028, 2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046, 2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063, 2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081, 2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098];
+    return leapYears.includes(bsYear);
+}
+
+// Get days in Nepali month
+function getNepaliMonthDays(bsYear, bsMonth) {
+    if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
+    return nepaliMonthDays[bsMonth];
+}
+
+// Convert AD to BS
+function adToBs(adDate) {
+    const referenceAD = new Date(2026, 3, 14);
+    const referenceBS = { year: 2083, month: 0, day: 1 };
     
-    function getNepalTime() {
-        const now = new Date();
-        const nepalOffset = 5.75 * 60 * 60 * 1000;
-        const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-        return new Date(utcTime + nepalOffset);
+    const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
+    let diffDays = Math.round((targetAD - referenceAD) / (1000 * 60 * 60 * 24));
+    
+    let bsYear = referenceBS.year;
+    let bsMonth = referenceBS.month;
+    let bsDay = referenceBS.day + diffDays;
+    
+    while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
+        bsDay -= getNepaliMonthDays(bsYear, bsMonth);
+        bsMonth++;
+        if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
     }
     
-    const NEPALI_MONTHS = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
-    const NEPALI_WEEKDAYS = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
-    const NEPALI_MONTH_DAYS = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
-    
-    function isNepaliLeapYear(bsYear) {
-        const leapYears = new Set([
-            1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011,
-            2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028,
-            2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046,
-            2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063,
-            2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081,
-            2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098
-        ]);
-        return leapYears.has(bsYear);
+    while (bsDay < 1) {
+        bsMonth--;
+        if (bsMonth < 0) { bsMonth = 11; bsYear--; }
+        bsDay += getNepaliMonthDays(bsYear, bsMonth);
     }
     
-    function getNepaliMonthDays(bsYear, bsMonth) {
-        if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
-        return NEPALI_MONTH_DAYS[bsMonth];
-    }
+    return { year: bsYear, month: bsMonth, day: bsDay };
+}
+
+// Convert to Nepali digits
+function toNepaliDigits(num) {
+    const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+    return String(num).split('').map(d => digits[parseInt(d)] || d).join('');
+}
+
+// Get Nepali date string
+function getNepaliDateString(date) {
+    const bs = adToBs(date);
+    return `${nepaliWeekdays[date.getDay()]}, ${nepaliMonths[bs.month]} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
+}
+
+// Update all clock displays
+function updateClock() {
+    const now = getNepalTime();
     
-    // Reference: April 14, 2026 = Baisakh 1, 2083
-    const REFERENCE_AD = new Date(2026, 3, 14);
-    const REFERENCE_BS = { year: 2083, month: 0, day: 1 };
+    // Update analog hands
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
     
-    function adToBs(adDate) {
-        const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
-        let diffDays = Math.round((targetAD - REFERENCE_AD) / (1000 * 60 * 60 * 24));
-        
-        let bsYear = REFERENCE_BS.year;
-        let bsMonth = REFERENCE_BS.month;
-        let bsDay = REFERENCE_BS.day + diffDays;
-        
-        while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
-            bsDay -= getNepaliMonthDays(bsYear, bsMonth);
-            bsMonth++;
-            if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
-        }
-        
-        while (bsDay < 1) {
-            bsMonth--;
-            if (bsMonth < 0) { bsMonth = 11; bsYear--; }
-            bsDay += getNepaliMonthDays(bsYear, bsMonth);
-        }
-        
-        return { year: bsYear, month: bsMonth, day: bsDay };
-    }
+    const hourHand = document.getElementById('hourHand');
+    const minuteHand = document.getElementById('minuteHand');
+    const secondHand = document.getElementById('secondHand');
     
-    function toNepaliDigits(number) {
-        const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-        return String(number).split('').map(d => digits[parseInt(d)] || d).join('');
-    }
+    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
+    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
+    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
     
-    function getNepaliDateString(adDate) {
-        const bs = adToBs(adDate);
-        const monthName = NEPALI_MONTHS[bs.month];
-        const weekday = NEPALI_WEEKDAYS[adDate.getDay()];
-        return `${weekday}, ${monthName} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
-    }
+    // Update digital time
+    const digitalTime = document.getElementById('digitalTime');
+    if (digitalTime) digitalTime.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     
-    function getEnglishDateString(date) {
-        return date.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
-        });
-    }
+    // Update English date
+    const englishDate = document.getElementById('englishDate');
+    if (englishDate) englishDate.innerHTML = now.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     
-    function updateClock() {
-        const now = getNepalTime();
-        
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        const seconds = now.getSeconds();
-        
-        const hourAngle = (hours % 12) * 30 + minutes * 0.5;
-        const minuteAngle = minutes * 6;
-        const secondAngle = seconds * 6;
-        
-        const hourHand = document.getElementById('hourHand');
-        const minuteHand = document.getElementById('minuteHand');
-        const secondHand = document.getElementById('secondHand');
-        
-        if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${hourAngle}deg)`;
-        if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minuteAngle}deg)`;
-        if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${secondAngle}deg)`;
-        
-        const digitalTimeElem = document.getElementById('digitalTime');
-        if (digitalTimeElem) digitalTimeElem.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        
-        const englishDateElem = document.getElementById('englishDate');
-        if (englishDateElem) englishDateElem.innerHTML = getEnglishDateString(now);
-        
-        const nepaliDateElem = document.getElementById('nepaliDate');
-        if (nepaliDateElem) nepaliDateElem.innerHTML = getNepaliDateString(now);
-    }
-    
-    // Initialize world map and clock AFTER page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        // Start clock
-        updateClock();
-        setInterval(updateClock, 1000);
-        
-        // Initialize world map
-        var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap contributors',
-            subdomains: 'abcd',
-            maxZoom: 19
-        }).addTo(worldMap);
-        
-        L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 नेपाल (Nepal)</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
-        L.circle([28.3949, 84.1240], { 
-            color: '#1a5276', 
-            fillColor: '#2980b9', 
-            fillOpacity: 0.2, 
-            radius: 300000 
-        }).addTo(worldMap);
-    });
-    
-    // Handle image loading errors
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-        img.addEventListener('error', function() {
-            console.log('Image failed to load:', this.src);
-        });
-    });
-</script>
-    // Initialize world map
-    document.addEventListener('DOMContentLoaded', function() {
-        var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap contributors',
-            subdomains: 'abcd',
-            maxZoom: 19
-        }).addTo(worldMap);
-        
-        L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 नेपाल (Nepal)</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
-        L.circle([28.3949, 84.1240], { 
-            color: '#1a5276', 
-            fillColor: '#2980b9', 
-            fillOpacity: 0.2, 
-            radius: 300000 
-        }).addTo(worldMap);
-    });
-    
-    // Handle image loading errors
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-        img.addEventListener('error', function() {
-            console.log('Image failed to load:', this.src);
-        });
-    });
+    // Update Nepali date
+    const nepaliDate = document.getElementById('nepaliDate');
+    if (nepaliDate) nepaliDate.innerHTML = getNepaliDateString(now);
+}
+
+// Wait for page to load completely
+window.addEventListener('DOMContentLoaded', function() {
+    // Start the clock
+    updateClock();
+    setInterval(updateClock, 1000);
     
     // Initialize world map
-    document.addEventListener('DOMContentLoaded', function() {
-        var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap contributors',
-            subdomains: 'abcd',
-            maxZoom: 19
-        }).addTo(worldMap);
-        
-        L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 नेपाल (Nepal)</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
-        L.circle([28.3949, 84.1240], { 
-            color: '#1a5276', 
-            fillColor: '#2980b9', 
-            fillOpacity: 0.2, 
-            radius: 300000 
-        }).addTo(worldMap);
-    });
+    const worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: 'OpenStreetMap contributors',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(worldMap);
     
-    // Handle image loading errors
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-        img.addEventListener('error', function() {
-            console.log('Image failed to load:', this.src);
-        });
-    });
+    L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 नेपाल (Nepal)</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
+    L.circle([28.3949, 84.1240], { color: '#1a5276', fillColor: '#2980b9', fillOpacity: 0.2, radius: 300000 }).addTo(worldMap);
+});
 </script>
 
 </body>
