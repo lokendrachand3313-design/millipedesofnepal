@@ -693,523 +693,544 @@
 </footer>
 
 <script>
-    // ============================================
-    // NEPAL TIME ZONE FUNCTIONS
-    // ============================================
+// ============================================
+// CLOCK AND DATE FUNCTIONS - ACCURATE VERSION
+// ============================================
+
+// Get Nepal time (UTC+5:45)
+function getNepalTime() {
+    const now = new Date();
+    const nepalOffset = 5.75 * 60 * 60 * 1000;
+    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+    return new Date(utcTime + nepalOffset);
+}
+
+// Nepali month names
+const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
+
+// Nepali weekday names
+const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
+
+// Days in each Nepali month
+const nepaliMonthDays = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
+
+// Check if Nepali year is leap
+function isNepaliLeapYear(bsYear) {
+    const leapYears = [1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011, 2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028, 2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046, 2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063, 2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081, 2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098];
+    return leapYears.includes(bsYear);
+}
+
+// Get days in Nepali month
+function getNepaliMonthDays(bsYear, bsMonth) {
+    if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
+    return nepaliMonthDays[bsMonth];
+}
+
+// Convert AD to BS
+function adToBs(adDate) {
+    const referenceAD = new Date(2026, 3, 14);
+    const referenceBS = { year: 2083, month: 0, day: 1 };
     
-    function getNepalTime() {
-        const now = new Date();
-        const nepalOffset = 5.75 * 60 * 60 * 1000;
-        const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-        return new Date(utcTime + nepalOffset);
+    const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
+    let diffDays = Math.round((targetAD - referenceAD) / (1000 * 60 * 60 * 24));
+    
+    let bsYear = referenceBS.year;
+    let bsMonth = referenceBS.month;
+    let bsDay = referenceBS.day + diffDays;
+    
+    while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
+        bsDay -= getNepaliMonthDays(bsYear, bsMonth);
+        bsMonth++;
+        if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
     }
     
-    function toNepaliDigits(number) {
-        const nepaliDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-        return String(number).split('').map(d => nepaliDigits[parseInt(d)] || d).join('');
+    while (bsDay < 1) {
+        bsMonth--;
+        if (bsMonth < 0) { bsMonth = 11; bsYear--; }
+        bsDay += getNepaliMonthDays(bsYear, bsMonth);
     }
     
-    function getNepaliMonthName(month) {
-        const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'श्रावण', 'भाद्र', 'आश्विन', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फाल्गुन', 'चैत्र'];
-        return nepaliMonths[month];
-    }
+    return { year: bsYear, month: bsMonth, day: bsDay };
+}
+
+// Convert to Nepali digits
+function toNepaliDigits(num) {
+    const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+    return String(num).split('').map(d => digits[parseInt(d)] || d).join('');
+}
+
+// Get Nepali date string
+function getNepaliDateString(date) {
+    const bs = adToBs(date);
+    return `${nepaliWeekdays[date.getDay()]}, ${nepaliMonths[bs.month]} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
+}
+
+// Format English date
+function getEnglishDateString(date) {
+    return date.toLocaleDateString('en-US', { 
+        weekday: 'short', 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+    });
+}
+
+// Update all clock displays
+function updateClock() {
+    const now = getNepalTime();
     
-    function getNepaliWeekday(day) {
-        const nepaliWeekdays = ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'];
-        return nepaliWeekdays[day];
-    }
+    // Update analog hands
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
     
-    function getNepaliDate(gregorianDate) {
-        let bsYear = gregorianDate.getFullYear() + 57;
-        let bsMonth = gregorianDate.getMonth();
-        let bsDay = gregorianDate.getDate();
-        
-        if (bsMonth < 3) {
-            bsYear--;
-            bsMonth += 9;
-        } else {
-            bsMonth -= 3;
-        }
-        
-        bsDay = bsDay + 15;
-        if (bsDay > 32) {
-            bsDay -= 32;
-            bsMonth++;
-            if (bsMonth > 11) {
-                bsMonth = 0;
-                bsYear++;
-            }
-        }
-        
-        return { year: bsYear, month: bsMonth, day: bsDay };
-    }
+    const hourHand = document.getElementById('hourHand');
+    const minuteHand = document.getElementById('minuteHand');
+    const secondHand = document.getElementById('secondHand');
     
-    function updateClock() {
-        const now = getNepalTime();
-        
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        const seconds = now.getSeconds();
-        
-        const hourAngle = (hours % 12) * 30 + minutes * 0.5;
-        const minuteAngle = minutes * 6;
-        const secondAngle = seconds * 6;
-        
-        const hourHand = document.getElementById('hourHand');
-        const minuteHand = document.getElementById('minuteHand');
-        const secondHand = document.getElementById('secondHand');
-        
-        if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${hourAngle}deg)`;
-        if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minuteAngle}deg)`;
-        if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${secondAngle}deg)`;
-        
-        const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        const digitalTimeElem = document.getElementById('digitalTime');
-        if (digitalTimeElem) digitalTimeElem.innerHTML = timeString;
-        
-        const englishDateStr = now.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
-        });
-        const englishDateElem = document.getElementById('englishDate');
-        if (englishDateElem) englishDateElem.innerHTML = englishDateStr;
-        
-        const nepaliDate = getNepaliDate(now);
-        const nepaliYearDigits = toNepaliDigits(nepaliDate.year);
-        const nepaliDayDigits = toNepaliDigits(nepaliDate.day);
-        const nepaliMonthName = getNepaliMonthName(nepaliDate.month);
-        const nepaliWeekday = getNepaliWeekday(now.getDay());
-        
-        const nepaliDateString = `${nepaliWeekday}, ${nepaliMonthName} ${nepaliDayDigits}, ${nepaliYearDigits}`;
-        const nepaliDateElem = document.getElementById('nepaliDate');
-        if (nepaliDateElem) nepaliDateElem.innerHTML = nepaliDateString;
-    }
+    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
+    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
+    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
     
-    setInterval(updateClock, 1000);
+    // Update digital time
+    const digitalTime = document.getElementById('digitalTime');
+    if (digitalTime) digitalTime.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    
+    // Update English date
+    const englishDate = document.getElementById('englishDate');
+    if (englishDate) englishDate.innerHTML = getEnglishDateString(now);
+    
+    // Update Nepali date
+    const nepaliDate = document.getElementById('nepaliDate');
+    if (nepaliDate) nepaliDate.innerHTML = getNepaliDateString(now);
+}
+
+// Wait for page to load completely
+window.addEventListener('DOMContentLoaded', function() {
     updateClock();
-    
-    // ============================================
-    // UPLOAD FUNCTIONALITY WITH YOUR CONFIGURATION
-    // ============================================
-    
-    // YOUR CONFIGURATION
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxumzLE7MXLIP60npssxqFFibSrUUe-IgB9h0xopqQhaWqbceCDb1OTidui9T3zTBm2hA/exec';
-    const CLOUD_NAME = 'dmvqby8np';
-    const UPLOAD_PRESET = 'millipede_uploads';
-    const ADMIN_PASSWORD = 'yamuna@3313';
-    const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+    setInterval(updateClock, 1000);
+});
 
-    let isAdmin = false;
-    let allObservations = [];
-    let selectedPhoto = null;
+// ============================================
+// UPLOAD FUNCTIONALITY WITH YOUR CONFIGURATION
+// ============================================
 
-    // Extract GPS from text
-    function extractGPS(text) {
-        if (!text) return null;
-        let match = text.match(/GPS:\s*([-\d.]+),\s*([-\d.]+)/i);
-        if (match) return { lat: parseFloat(match[1]), lon: parseFloat(match[2]) };
-        match = text.match(/([-\d.]+),\s*([-\d.]+)/);
-        if (match) {
-            let lat = parseFloat(match[1]), lon = parseFloat(match[2]);
-            if (lat >= 26 && lat <= 31 && lon >= 80 && lon <= 89) return { lat, lon };
-        }
-        return null;
+// YOUR CONFIGURATION
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxumzLE7MXLIP60npssxqFFibSrUUe-IgB9h0xopqQhaWqbceCDb1OTidui9T3zTBm2hA/exec';
+const CLOUD_NAME = 'dmvqby8np';
+const UPLOAD_PRESET = 'millipede_uploads';
+const ADMIN_PASSWORD = 'yamuna@3313';
+const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+let isAdmin = false;
+let allObservations = [];
+let selectedPhoto = null;
+
+// Extract GPS from text
+function extractGPS(text) {
+    if (!text) return null;
+    let match = text.match(/GPS:\s*([-\d.]+),\s*([-\d.]+)/i);
+    if (match) return { lat: parseFloat(match[1]), lon: parseFloat(match[2]) };
+    match = text.match(/([-\d.]+),\s*([-\d.]+)/);
+    if (match) {
+        let lat = parseFloat(match[1]), lon = parseFloat(match[2]);
+        if (lat >= 26 && lat <= 31 && lon >= 80 && lon <= 89) return { lat, lon };
     }
+    return null;
+}
 
-    // Load all observations from Google Sheets
-    async function loadObservations() {
-        try {
-            const response = await fetch(GOOGLE_SCRIPT_URL);
-            const result = await response.json();
-            
-            if (result.success && result.data && result.data.length > 1) {
-                const rows = result.data.slice(1);
-                allObservations = rows.map(row => ({
-                    photoId: row[0], timestamp: row[1], observer: row[2], location: row[3], date: row[4],
-                    order: row[5] || '', family: row[6] || '', genus: row[7] || '', species: row[8] || '',
-                    notes: row[9] || '', comments: row[10] || '',
-                    imageUrl: row[11], publicId: row[12], lat: row[13] || '', lon: row[14] || ''
-                }));
-                document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
-                renderGallery();
-            } else {
-                document.getElementById('galleryContainer').innerHTML = '<div style="text-align:center; padding:40px;">No observations yet. Be the first to upload!</div>';
-                document.getElementById('statsCount').innerHTML = 'Total: 0';
-            }
-        } catch (error) {
-            console.error(error);
-            document.getElementById('galleryContainer').innerHTML = '<div style="text-align:center; padding:40px; color:red;">Error loading gallery. Check connection.</div>';
-        }
-    }
-
-    // Upload to Cloudinary
-    async function uploadToCloudinary(file) {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', UPLOAD_PRESET);
-        formData.append('folder', 'millipedes_nepal');
+// Load all observations from Google Sheets
+async function loadObservations() {
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL);
+        const result = await response.json();
         
-        const response = await fetch(CLOUDINARY_URL, { 
-            method: 'POST', 
-            body: formData 
-        });
-        
-        if (!response.ok) throw new Error('Cloudinary upload failed');
-        const data = await response.json();
-        return { url: data.secure_url, publicId: data.public_id };
-    }
-
-    // Render gallery
-    function renderGallery() {
-        if (!allObservations.length) {
-            document.getElementById('galleryContainer').innerHTML = '<div style="text-align:center; padding:40px;">No observations yet. Be the first to upload!</div>';
-            return;
-        }
-        
-        const container = document.getElementById('galleryContainer');
-        container.innerHTML = '';
-        
-        for (let i = 0; i < allObservations.length; i++) {
-            const obs = allObservations[i];
-            const rowNum = allObservations.length - i + 1;
-            const hasGps = (obs.lat && obs.lat !== '') || extractGPS(obs.location);
-            
-            const card = document.createElement('div');
-            card.className = 'photo-card';
-            card.onclick = () => { 
-                const modal = document.querySelector('.modal');
-                const modalImg = document.getElementById('modalImage');
-                modal.style.display = 'block'; 
-                modalImg.src = obs.imageUrl; 
-            };
-            
-            const btnDiv = document.createElement('div');
-            btnDiv.className = 'admin-buttons';
-            
-            const gpsBtn = document.createElement('button');
-            gpsBtn.innerHTML = 'GPS';
-            gpsBtn.className = 'admin-btn gps-btn';
-            if (isAdmin) gpsBtn.classList.add('admin-visible');
-            gpsBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'gps'); };
-            
-            const taxBtn = document.createElement('button');
-            taxBtn.innerHTML = 'TAX';
-            taxBtn.className = 'admin-btn tax-btn';
-            if (isAdmin) taxBtn.classList.add('admin-visible');
-            taxBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'tax'); };
-            
-            const delBtn = document.createElement('button');
-            delBtn.innerHTML = 'DEL';
-            delBtn.className = 'admin-btn del-btn';
-            if (isAdmin) delBtn.classList.add('admin-visible');
-            delBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'del'); };
-            
-            btnDiv.appendChild(gpsBtn);
-            btnDiv.appendChild(taxBtn);
-            btnDiv.appendChild(delBtn);
-            
-            const img = document.createElement('img');
-            img.className = 'photo-img';
-            img.src = obs.imageUrl;
-            img.onerror = () => { img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ccc'/%3E%3Ctext x='50' y='55' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E"; };
-            
-            const info = document.createElement('div');
-            info.className = 'photo-info';
-            
-            let taxHtml = '';
-            if (obs.genus || obs.species) taxHtml = '<div class="taxonomy-box"><i>' + (obs.genus || '') + ' ' + (obs.species || '') + '</i>' + (obs.family ? ' (' + obs.family + ')' : '') + '</div>';
-            else if (obs.family) taxHtml = '<div class="taxonomy-box">Family: ' + obs.family + '</div>';
-            else if (obs.order) taxHtml = '<div class="taxonomy-box">Order: ' + obs.order + '</div>';
-            
-            if (obs.comments) taxHtml += '<div class="admin-comment">Admin: ' + obs.comments + '</div>';
-            
-            info.innerHTML = `
-                <b>Location: ${escapeHtml(obs.location.substring(0, 60))}</b><br>
-                <span class="badge">Date: ${escapeHtml(obs.date)}</span>
-                <span class="badge">By: ${escapeHtml(obs.observer)}</span>
-                ${hasGps ? '<span class="badge gps-yes">Has GPS</span>' : '<span class="badge gps-no">No GPS</span>'}
-                ${taxHtml}
-                <div style="font-size: 12px; margin-top: 5px;">Notes: ${escapeHtml(obs.notes.substring(0, 80))}</div>
-                <div class="photo-id-text">ID: ${escapeHtml(obs.photoId)}</div>
-            `;
-            
-            card.appendChild(btnDiv);
-            card.appendChild(img);
-            card.appendChild(info);
-            container.appendChild(card);
-        }
-    }
-
-    function selectPhoto(obs, rowNum, action) {
-        selectedPhoto = { ...obs, rowNum: rowNum };
-        document.getElementById('selectedName').innerHTML = obs.location.substring(0, 50);
-        document.getElementById('selectedId').innerHTML = obs.photoId;
-        
-        let gps = (obs.lat && obs.lat !== '') ? { lat: obs.lat, lon: obs.lon } : extractGPS(obs.location);
-        if (gps) {
-            document.getElementById('currentGps').innerHTML = gps.lat + ', ' + gps.lon;
-            document.getElementById('editLat').value = gps.lat;
-            document.getElementById('editLon').value = gps.lon;
-        } else {
-            document.getElementById('currentGps').innerHTML = 'Not set';
-            document.getElementById('editLat').value = '';
-            document.getElementById('editLon').value = '';
-        }
-        
-        document.getElementById('editOrder').value = obs.order || '';
-        document.getElementById('editFamily').value = obs.family || '';
-        document.getElementById('editGenus').value = obs.genus || '';
-        document.getElementById('editSpecies').value = obs.species || '';
-        document.getElementById('editComments').value = obs.comments || '';
-        
-        document.getElementById('selectedInfo').classList.add('show');
-        
-        if (action === 'del') {
-            if (confirm('Delete this observation? Cannot be undone!')) {
-                deletePhoto();
-            }
-        }
-    }
-
-    async function deletePhoto() {
-        if (!selectedPhoto) { alert('Select a photo first'); return; }
-        try {
-            const response = await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'deleteObservation', row: selectedPhoto.rowNum })
-            });
-            const result = await response.json();
-            if (result.success) {
-                showStatus('Photo deleted!', 'success');
-                await loadObservations();
-                document.getElementById('selectedInfo').classList.remove('show');
-                selectedPhoto = null;
-            } else {
-                showStatus('Delete failed: ' + result.message, 'error');
-            }
-        } catch (error) {
-            showStatus('Delete failed: ' + error.message, 'error');
-        }
-    }
-
-    function showStatus(msg, type) {
-        const div = document.getElementById('statusMsg');
-        div.innerHTML = msg;
-        div.style.display = 'block';
-        div.style.background = type === 'success' ? '#d4edda' : (type === 'error' ? '#f8d7da' : '#d1ecf1');
-        div.style.color = type === 'success' ? '#155724' : (type === 'error' ? '#721c24' : '#0c5460');
-        setTimeout(() => { div.style.display = 'none'; }, 5000);
-    }
-
-    // Event Listeners
-    document.getElementById('getGpsBtn').addEventListener('click', () => {
-        if (!navigator.geolocation) { alert('GPS not supported'); return; }
-        navigator.geolocation.getCurrentPosition(
-            (pos) => {
-                const lat = pos.coords.latitude.toFixed(6);
-                const lon = pos.coords.longitude.toFixed(6);
-                document.getElementById('location').value = `GPS: ${lat}, ${lon}`;
-                document.getElementById('gpsMsg').innerHTML = 'Location acquired';
-            },
-            (err) => { alert('GPS error: ' + err.message); }
-        );
-    });
-
-    document.getElementById('adminLoginBtn').addEventListener('click', () => {
-        const key = document.getElementById('adminKey').value.trim();
-        if (key === ADMIN_PASSWORD) {
-            isAdmin = true;
-            document.getElementById('adminStatus').innerHTML = 'Admin Active';
-            document.getElementById('adminStatus').style.background = '#28a745';
-            document.getElementById('adminBody').classList.add('show');
+        if (result.success && result.data && result.data.length > 1) {
+            const rows = result.data.slice(1);
+            allObservations = rows.map(row => ({
+                photoId: row[0], timestamp: row[1], observer: row[2], location: row[3], date: row[4],
+                order: row[5] || '', family: row[6] || '', genus: row[7] || '', species: row[8] || '',
+                notes: row[9] || '', comments: row[10] || '',
+                imageUrl: row[11], publicId: row[12], lat: row[13] || '', lon: row[14] || ''
+            }));
+            document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
             renderGallery();
-            showStatus('Admin mode activated', 'success');
         } else {
-            alert('Wrong password');
+            document.getElementById('galleryContainer').innerHTML = '<div style="text-align:center; padding:40px;">No observations yet. Be the first to upload!</div>';
+            document.getElementById('statsCount').innerHTML = 'Total: 0';
         }
-    });
+    } catch (error) {
+        console.error(error);
+        document.getElementById('galleryContainer').innerHTML = '<div style="text-align:center; padding:40px; color:red;">Error loading gallery. Check connection.</div>';
+    }
+}
 
-    document.getElementById('updateGpsBtn').addEventListener('click', async () => {
-        if (!isAdmin || !selectedPhoto) { alert('Select a photo first'); return; }
-        const lat = parseFloat(document.getElementById('editLat').value);
-        const lon = parseFloat(document.getElementById('editLon').value);
-        if (isNaN(lat) || isNaN(lon)) { alert('Enter valid coordinates'); return; }
+// Upload to Cloudinary
+async function uploadToCloudinary(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', UPLOAD_PRESET);
+    formData.append('folder', 'millipedes_nepal');
+    
+    const response = await fetch(CLOUDINARY_URL, { 
+        method: 'POST', 
+        body: formData 
+    });
+    
+    if (!response.ok) throw new Error('Cloudinary upload failed');
+    const data = await response.json();
+    return { url: data.secure_url, publicId: data.public_id };
+}
+
+// Render gallery
+function renderGallery() {
+    if (!allObservations.length) {
+        document.getElementById('galleryContainer').innerHTML = '<div style="text-align:center; padding:40px;">No observations yet. Be the first to upload!</div>';
+        return;
+    }
+    
+    const container = document.getElementById('galleryContainer');
+    container.innerHTML = '';
+    
+    for (let i = 0; i < allObservations.length; i++) {
+        const obs = allObservations[i];
+        const rowNum = allObservations.length - i + 1;
+        const hasGps = (obs.lat && obs.lat !== '') || extractGPS(obs.location);
         
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                action: 'updateGpsByPhotoId', 
-                photoId: selectedPhoto.photoId, 
-                lat: lat, 
-                lon: lon 
-            })
-        });
-        const result = await response.json();
-        if (result.success) {
-            showStatus('GPS updated!', 'success');
-            await loadObservations();
-            document.getElementById('selectedInfo').classList.remove('show');
-            selectedPhoto = null;
-        } else {
-            showStatus('Update failed: ' + result.message, 'error');
-        }
-    });
-
-    document.getElementById('updateTaxBtn').addEventListener('click', async () => {
-        if (!isAdmin || !selectedPhoto) { alert('Select a photo first'); return; }
+        const card = document.createElement('div');
+        card.className = 'photo-card';
+        card.onclick = () => { 
+            const modal = document.querySelector('.modal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block'; 
+            modalImg.src = obs.imageUrl; 
+        };
         
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                action: 'updateTaxonomyByPhotoId', 
-                photoId: selectedPhoto.photoId, 
-                order: document.getElementById('editOrder').value,
-                family: document.getElementById('editFamily').value,
-                genus: document.getElementById('editGenus').value,
-                species: document.getElementById('editSpecies').value,
-                comments: document.getElementById('editComments').value
-            })
-        });
-        const result = await response.json();
-        if (result.success) {
-            showStatus('Taxonomy updated!', 'success');
-            await loadObservations();
-            document.getElementById('selectedInfo').classList.remove('show');
-            selectedPhoto = null;
-        } else {
-            showStatus('Update failed: ' + result.message, 'error');
-        }
-    });
+        const btnDiv = document.createElement('div');
+        btnDiv.className = 'admin-buttons';
+        
+        const gpsBtn = document.createElement('button');
+        gpsBtn.innerHTML = 'GPS';
+        gpsBtn.className = 'admin-btn gps-btn';
+        if (isAdmin) gpsBtn.classList.add('admin-visible');
+        gpsBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'gps'); };
+        
+        const taxBtn = document.createElement('button');
+        taxBtn.innerHTML = 'TAX';
+        taxBtn.className = 'admin-btn tax-btn';
+        if (isAdmin) taxBtn.classList.add('admin-visible');
+        taxBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'tax'); };
+        
+        const delBtn = document.createElement('button');
+        delBtn.innerHTML = 'DEL';
+        delBtn.className = 'admin-btn del-btn';
+        if (isAdmin) delBtn.classList.add('admin-visible');
+        delBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'del'); };
+        
+        btnDiv.appendChild(gpsBtn);
+        btnDiv.appendChild(taxBtn);
+        btnDiv.appendChild(delBtn);
+        
+        const img = document.createElement('img');
+        img.className = 'photo-img';
+        img.src = obs.imageUrl;
+        img.onerror = () => { img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ccc'/%3E%3Ctext x='50' y='55' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E"; };
+        
+        const info = document.createElement('div');
+        info.className = 'photo-info';
+        
+        let taxHtml = '';
+        if (obs.genus || obs.species) taxHtml = '<div class="taxonomy-box"><i>' + (obs.genus || '') + ' ' + (obs.species || '') + '</i>' + (obs.family ? ' (' + obs.family + ')' : '') + '</div>';
+        else if (obs.family) taxHtml = '<div class="taxonomy-box">Family: ' + obs.family + '</div>';
+        else if (obs.order) taxHtml = '<div class="taxonomy-box">Order: ' + obs.order + '</div>';
+        
+        if (obs.comments) taxHtml += '<div class="admin-comment">Admin: ' + obs.comments + '</div>';
+        
+        info.innerHTML = `
+            <b>Location: ${escapeHtml(obs.location.substring(0, 60))}</b><br>
+            <span class="badge">Date: ${escapeHtml(obs.date)}</span>
+            <span class="badge">By: ${escapeHtml(obs.observer)}</span>
+            ${hasGps ? '<span class="badge gps-yes">Has GPS</span>' : '<span class="badge gps-no">No GPS</span>'}
+            ${taxHtml}
+            <div style="font-size: 12px; margin-top: 5px;">Notes: ${escapeHtml(obs.notes.substring(0, 80))}</div>
+            <div class="photo-id-text">ID: ${escapeHtml(obs.photoId)}</div>
+        `;
+        
+        card.appendChild(btnDiv);
+        card.appendChild(img);
+        card.appendChild(info);
+        container.appendChild(card);
+    }
+}
 
-    document.getElementById('deletePhotoBtn').addEventListener('click', () => {
-        if (!selectedPhoto) { alert('Select a photo first'); return; }
-        if (confirm('Permanently delete this photo? Cannot be undone!')) {
+function selectPhoto(obs, rowNum, action) {
+    selectedPhoto = { ...obs, rowNum: rowNum };
+    document.getElementById('selectedName').innerHTML = obs.location.substring(0, 50);
+    document.getElementById('selectedId').innerHTML = obs.photoId;
+    
+    let gps = (obs.lat && obs.lat !== '') ? { lat: obs.lat, lon: obs.lon } : extractGPS(obs.location);
+    if (gps) {
+        document.getElementById('currentGps').innerHTML = gps.lat + ', ' + gps.lon;
+        document.getElementById('editLat').value = gps.lat;
+        document.getElementById('editLon').value = gps.lon;
+    } else {
+        document.getElementById('currentGps').innerHTML = 'Not set';
+        document.getElementById('editLat').value = '';
+        document.getElementById('editLon').value = '';
+    }
+    
+    document.getElementById('editOrder').value = obs.order || '';
+    document.getElementById('editFamily').value = obs.family || '';
+    document.getElementById('editGenus').value = obs.genus || '';
+    document.getElementById('editSpecies').value = obs.species || '';
+    document.getElementById('editComments').value = obs.comments || '';
+    
+    document.getElementById('selectedInfo').classList.add('show');
+    
+    if (action === 'del') {
+        if (confirm('Delete this observation? Cannot be undone!')) {
             deletePhoto();
         }
-    });
-
-    document.getElementById('findPlaceBtn').addEventListener('click', async () => {
-        const place = document.getElementById('placeName').value.trim();
-        if (!place) return;
-        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place)}, Nepal&limit=1`;
-        const response = await fetch(url);
-        const data = await response.json();
-        if (data && data.length > 0) {
-            const lat = data[0].lat;
-            const lon = data[0].lon;
-            document.getElementById('placeResult').innerHTML = `Found: ${lat}, ${lon}`;
-            document.getElementById('editLat').value = lat;
-            document.getElementById('editLon').value = lon;
-        } else {
-            document.getElementById('placeResult').innerHTML = 'Not found';
-        }
-    });
-
-    document.getElementById('uploadBtn').addEventListener('click', async () => {
-        const file = document.getElementById('photoInput').files[0];
-        if (!file) { alert('Select a photo'); return; }
-        
-        const location = document.getElementById('location').value.trim();
-        const date = document.getElementById('obsDate').value;
-        const observer = document.getElementById('observerName').value.trim();
-        const notes = document.getElementById('notes').value.trim();
-        const order = document.getElementById('order').value.trim();
-        const family = document.getElementById('family').value.trim();
-        const genus = document.getElementById('genus').value.trim();
-        const species = document.getElementById('species').value.trim();
-        
-        if (!location || !date || !observer) { alert('Fill required fields'); return; }
-        
-        document.getElementById('uploadBtn').disabled = true;
-        document.getElementById('uploadBtn').innerHTML = 'Uploading...';
-        
-        try {
-            const cloud = await uploadToCloudinary(file);
-            const photoId = Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-            
-            await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'saveObservation',
-                    photoId: photoId,
-                    observer: observer,
-                    location: location,
-                    date: date,
-                    order: order,
-                    family: family,
-                    genus: genus,
-                    species: species,
-                    notes: notes,
-                    imageUrl: cloud.url,
-                    publicId: cloud.publicId
-                })
-            });
-            
-            showStatus('Upload successful!', 'success');
-            document.getElementById('photoInput').value = '';
-            document.getElementById('preview').style.display = 'none';
-            document.getElementById('fileLabel').innerHTML = 'Click to select image';
-            document.getElementById('location').value = '';
-            document.getElementById('observerName').value = '';
-            document.getElementById('notes').value = '';
-            document.getElementById('order').value = '';
-            document.getElementById('family').value = '';
-            document.getElementById('genus').value = '';
-            document.getElementById('species').value = '';
-            document.getElementById('obsDate').valueAsDate = new Date();
-            
-            await loadObservations();
-        } catch (error) {
-            showStatus('Upload failed: ' + error.message, 'error');
-        } finally {
-            document.getElementById('uploadBtn').disabled = false;
-            document.getElementById('uploadBtn').innerHTML = 'Upload to Gallery';
-        }
-    });
-
-    // Preview image
-    document.getElementById('photoInput').addEventListener('change', function(e) {
-        if (e.target.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                document.getElementById('preview').src = ev.target.result;
-                document.getElementById('preview').style.display = 'block';
-                document.getElementById('fileLabel').innerHTML = 'Image selected';
-            };
-            reader.readAsDataURL(e.target.files[0]);
-        }
-    });
-    document.getElementById('fileLabel').addEventListener('click', () => document.getElementById('photoInput').click());
-
-    // Refresh
-    document.getElementById('refreshBtn').addEventListener('click', () => loadObservations());
-
-    // Modal close
-    document.querySelector('.modal-close').addEventListener('click', () => document.querySelector('.modal').style.display = 'none');
-    document.querySelector('.modal').addEventListener('click', (e) => { if (e.target === document.querySelector('.modal')) document.querySelector('.modal').style.display = 'none'; });
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
     }
+}
 
-    // Set default date
-    document.getElementById('obsDate').valueAsDate = new Date();
+async function deletePhoto() {
+    if (!selectedPhoto) { alert('Select a photo first'); return; }
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'deleteObservation', row: selectedPhoto.rowNum })
+        });
+        const result = await response.json();
+        if (result.success) {
+            showStatus('Photo deleted!', 'success');
+            await loadObservations();
+            document.getElementById('selectedInfo').classList.remove('show');
+            selectedPhoto = null;
+        } else {
+            showStatus('Delete failed: ' + result.message, 'error');
+        }
+    } catch (error) {
+        showStatus('Delete failed: ' + error.message, 'error');
+    }
+}
 
-    // Initialize
-    loadObservations();
+function showStatus(msg, type) {
+    const div = document.getElementById('statusMsg');
+    div.innerHTML = msg;
+    div.style.display = 'block';
+    div.style.background = type === 'success' ? '#d4edda' : (type === 'error' ? '#f8d7da' : '#d1ecf1');
+    div.style.color = type === 'success' ? '#155724' : (type === 'error' ? '#721c24' : '#0c5460');
+    setTimeout(() => { div.style.display = 'none'; }, 5000);
+}
+
+// Event Listeners
+document.getElementById('getGpsBtn').addEventListener('click', () => {
+    if (!navigator.geolocation) { alert('GPS not supported'); return; }
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            const lat = pos.coords.latitude.toFixed(6);
+            const lon = pos.coords.longitude.toFixed(6);
+            document.getElementById('location').value = `GPS: ${lat}, ${lon}`;
+            document.getElementById('gpsMsg').innerHTML = 'Location acquired';
+        },
+        (err) => { alert('GPS error: ' + err.message); }
+    );
+});
+
+document.getElementById('adminLoginBtn').addEventListener('click', () => {
+    const key = document.getElementById('adminKey').value.trim();
+    if (key === ADMIN_PASSWORD) {
+        isAdmin = true;
+        document.getElementById('adminStatus').innerHTML = 'Admin Active';
+        document.getElementById('adminStatus').style.background = '#28a745';
+        document.getElementById('adminBody').classList.add('show');
+        renderGallery();
+        showStatus('Admin mode activated', 'success');
+    } else {
+        alert('Wrong password');
+    }
+});
+
+document.getElementById('updateGpsBtn').addEventListener('click', async () => {
+    if (!isAdmin || !selectedPhoto) { alert('Select a photo first'); return; }
+    const lat = parseFloat(document.getElementById('editLat').value);
+    const lon = parseFloat(document.getElementById('editLon').value);
+    if (isNaN(lat) || isNaN(lon)) { alert('Enter valid coordinates'); return; }
+    
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            action: 'updateGpsByPhotoId', 
+            photoId: selectedPhoto.photoId, 
+            lat: lat, 
+            lon: lon 
+        })
+    });
+    const result = await response.json();
+    if (result.success) {
+        showStatus('GPS updated!', 'success');
+        await loadObservations();
+        document.getElementById('selectedInfo').classList.remove('show');
+        selectedPhoto = null;
+    } else {
+        showStatus('Update failed: ' + result.message, 'error');
+    }
+});
+
+document.getElementById('updateTaxBtn').addEventListener('click', async () => {
+    if (!isAdmin || !selectedPhoto) { alert('Select a photo first'); return; }
+    
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            action: 'updateTaxonomyByPhotoId', 
+            photoId: selectedPhoto.photoId, 
+            order: document.getElementById('editOrder').value,
+            family: document.getElementById('editFamily').value,
+            genus: document.getElementById('editGenus').value,
+            species: document.getElementById('editSpecies').value,
+            comments: document.getElementById('editComments').value
+        })
+    });
+    const result = await response.json();
+    if (result.success) {
+        showStatus('Taxonomy updated!', 'success');
+        await loadObservations();
+        document.getElementById('selectedInfo').classList.remove('show');
+        selectedPhoto = null;
+    } else {
+        showStatus('Update failed: ' + result.message, 'error');
+    }
+});
+
+document.getElementById('deletePhotoBtn').addEventListener('click', () => {
+    if (!selectedPhoto) { alert('Select a photo first'); return; }
+    if (confirm('Permanently delete this photo? Cannot be undone!')) {
+        deletePhoto();
+    }
+});
+
+document.getElementById('findPlaceBtn').addEventListener('click', async () => {
+    const place = document.getElementById('placeName').value.trim();
+    if (!place) return;
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place)}, Nepal&limit=1`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data && data.length > 0) {
+        const lat = data[0].lat;
+        const lon = data[0].lon;
+        document.getElementById('placeResult').innerHTML = `Found: ${lat}, ${lon}`;
+        document.getElementById('editLat').value = lat;
+        document.getElementById('editLon').value = lon;
+    } else {
+        document.getElementById('placeResult').innerHTML = 'Not found';
+    }
+});
+
+document.getElementById('uploadBtn').addEventListener('click', async () => {
+    const file = document.getElementById('photoInput').files[0];
+    if (!file) { alert('Select a photo'); return; }
+    
+    const location = document.getElementById('location').value.trim();
+    const date = document.getElementById('obsDate').value;
+    const observer = document.getElementById('observerName').value.trim();
+    const notes = document.getElementById('notes').value.trim();
+    const order = document.getElementById('order').value.trim();
+    const family = document.getElementById('family').value.trim();
+    const genus = document.getElementById('genus').value.trim();
+    const species = document.getElementById('species').value.trim();
+    
+    if (!location || !date || !observer) { alert('Fill required fields'); return; }
+    
+    document.getElementById('uploadBtn').disabled = true;
+    document.getElementById('uploadBtn').innerHTML = 'Uploading...';
+    
+    try {
+        const cloud = await uploadToCloudinary(file);
+        const photoId = Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+        
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'saveObservation',
+                photoId: photoId,
+                observer: observer,
+                location: location,
+                date: date,
+                order: order,
+                family: family,
+                genus: genus,
+                species: species,
+                notes: notes,
+                imageUrl: cloud.url,
+                publicId: cloud.publicId
+            })
+        });
+        
+        showStatus('Upload successful!', 'success');
+        document.getElementById('photoInput').value = '';
+        document.getElementById('preview').style.display = 'none';
+        document.getElementById('fileLabel').innerHTML = 'Click to select image';
+        document.getElementById('location').value = '';
+        document.getElementById('observerName').value = '';
+        document.getElementById('notes').value = '';
+        document.getElementById('order').value = '';
+        document.getElementById('family').value = '';
+        document.getElementById('genus').value = '';
+        document.getElementById('species').value = '';
+        document.getElementById('obsDate').valueAsDate = new Date();
+        
+        await loadObservations();
+    } catch (error) {
+        showStatus('Upload failed: ' + error.message, 'error');
+    } finally {
+        document.getElementById('uploadBtn').disabled = false;
+        document.getElementById('uploadBtn').innerHTML = 'Upload to Gallery';
+    }
+});
+
+// Preview image
+document.getElementById('photoInput').addEventListener('change', function(e) {
+    if (e.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            document.getElementById('preview').src = ev.target.result;
+            document.getElementById('preview').style.display = 'block';
+            document.getElementById('fileLabel').innerHTML = 'Image selected';
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    }
+});
+document.getElementById('fileLabel').addEventListener('click', () => document.getElementById('photoInput').click());
+
+// Refresh
+document.getElementById('refreshBtn').addEventListener('click', () => loadObservations());
+
+// Modal close
+document.querySelector('.modal-close').addEventListener('click', () => document.querySelector('.modal').style.display = 'none');
+document.querySelector('.modal').addEventListener('click', (e) => { if (e.target === document.querySelector('.modal')) document.querySelector('.modal').style.display = 'none'; });
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
+// Set default date
+document.getElementById('obsDate').valueAsDate = new Date();
+
+// Initialize
+loadObservations();
 </script>
 
 </body>
