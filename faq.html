@@ -430,131 +430,152 @@
 </footer>
 
 <script>
-    // ============================================
-    // NEPAL TIME ZONE FUNCTIONS
-    // ============================================
+// ============================================
+// CLOCK AND DATE FUNCTIONS - ACCURATE VERSION
+// ============================================
+
+// Get Nepal time (UTC+5:45)
+function getNepalTime() {
+    const now = new Date();
+    const nepalOffset = 5.75 * 60 * 60 * 1000;
+    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+    return new Date(utcTime + nepalOffset);
+}
+
+// Nepali month names
+const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
+
+// Nepali weekday names
+const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
+
+// Days in each Nepali month
+const nepaliMonthDays = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
+
+// Check if Nepali year is leap
+function isNepaliLeapYear(bsYear) {
+    const leapYears = [1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011, 2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028, 2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046, 2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063, 2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081, 2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098];
+    return leapYears.includes(bsYear);
+}
+
+// Get days in Nepali month
+function getNepaliMonthDays(bsYear, bsMonth) {
+    if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
+    return nepaliMonthDays[bsMonth];
+}
+
+// Convert AD to BS
+function adToBs(adDate) {
+    const referenceAD = new Date(2026, 3, 14);
+    const referenceBS = { year: 2083, month: 0, day: 1 };
     
-    function getNepalTime() {
-        const now = new Date();
-        const nepalOffset = 5.75 * 60 * 60 * 1000;
-        const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-        return new Date(utcTime + nepalOffset);
+    const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
+    let diffDays = Math.round((targetAD - referenceAD) / (1000 * 60 * 60 * 24));
+    
+    let bsYear = referenceBS.year;
+    let bsMonth = referenceBS.month;
+    let bsDay = referenceBS.day + diffDays;
+    
+    while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
+        bsDay -= getNepaliMonthDays(bsYear, bsMonth);
+        bsMonth++;
+        if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
     }
     
-    function toNepaliDigits(number) {
-        const nepaliDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-        return String(number).split('').map(d => nepaliDigits[parseInt(d)] || d).join('');
+    while (bsDay < 1) {
+        bsMonth--;
+        if (bsMonth < 0) { bsMonth = 11; bsYear--; }
+        bsDay += getNepaliMonthDays(bsYear, bsMonth);
     }
     
-    function getNepaliMonthName(month) {
-        const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'श्रावण', 'भाद्र', 'आश्विन', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फाल्गुन', 'चैत्र'];
-        return nepaliMonths[month];
-    }
+    return { year: bsYear, month: bsMonth, day: bsDay };
+}
+
+// Convert to Nepali digits
+function toNepaliDigits(num) {
+    const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+    return String(num).split('').map(d => digits[parseInt(d)] || d).join('');
+}
+
+// Get Nepali date string
+function getNepaliDateString(date) {
+    const bs = adToBs(date);
+    return `${nepaliWeekdays[date.getDay()]}, ${nepaliMonths[bs.month]} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
+}
+
+// Format English date
+function getEnglishDateString(date) {
+    return date.toLocaleDateString('en-US', { 
+        weekday: 'short', 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+    });
+}
+
+// Update all clock displays
+function updateClock() {
+    const now = getNepalTime();
     
-    function getNepaliWeekday(day) {
-        const nepaliWeekdays = ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'];
-        return nepaliWeekdays[day];
-    }
+    // Update analog hands
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
     
-    function getNepaliDate(gregorianDate) {
-        let bsYear = gregorianDate.getFullYear() + 57;
-        let bsMonth = gregorianDate.getMonth();
-        let bsDay = gregorianDate.getDate();
-        
-        if (bsMonth < 3) {
-            bsYear--;
-            bsMonth += 9;
-        } else {
-            bsMonth -= 3;
-        }
-        
-        bsDay = bsDay + 15;
-        if (bsDay > 32) {
-            bsDay -= 32;
-            bsMonth++;
-            if (bsMonth > 11) {
-                bsMonth = 0;
-                bsYear++;
-            }
-        }
-        
-        return { year: bsYear, month: bsMonth, day: bsDay };
-    }
+    const hourHand = document.getElementById('hourHand');
+    const minuteHand = document.getElementById('minuteHand');
+    const secondHand = document.getElementById('secondHand');
     
-    function updateClock() {
-        const now = getNepalTime();
-        
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        const seconds = now.getSeconds();
-        
-        const hourAngle = (hours % 12) * 30 + minutes * 0.5;
-        const minuteAngle = minutes * 6;
-        const secondAngle = seconds * 6;
-        
-        const hourHand = document.getElementById('hourHand');
-        const minuteHand = document.getElementById('minuteHand');
-        const secondHand = document.getElementById('secondHand');
-        
-        if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${hourAngle}deg)`;
-        if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minuteAngle}deg)`;
-        if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${secondAngle}deg)`;
-        
-        const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        const digitalTimeElem = document.getElementById('digitalTime');
-        if (digitalTimeElem) digitalTimeElem.innerHTML = timeString;
-        
-        const englishDateStr = now.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
-        });
-        const englishDateElem = document.getElementById('englishDate');
-        if (englishDateElem) englishDateElem.innerHTML = englishDateStr;
-        
-        const nepaliDate = getNepaliDate(now);
-        const nepaliYearDigits = toNepaliDigits(nepaliDate.year);
-        const nepaliDayDigits = toNepaliDigits(nepaliDate.day);
-        const nepaliMonthName = getNepaliMonthName(nepaliDate.month);
-        const nepaliWeekday = getNepaliWeekday(now.getDay());
-        
-        const nepaliDateString = `${nepaliWeekday}, ${nepaliMonthName} ${nepaliDayDigits}, ${nepaliYearDigits}`;
-        const nepaliDateElem = document.getElementById('nepaliDate');
-        if (nepaliDateElem) nepaliDateElem.innerHTML = nepaliDateString;
-    }
+    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
+    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
+    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
     
-    setInterval(updateClock, 1000);
+    // Update digital time
+    const digitalTime = document.getElementById('digitalTime');
+    if (digitalTime) digitalTime.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    
+    // Update English date
+    const englishDate = document.getElementById('englishDate');
+    if (englishDate) englishDate.innerHTML = getEnglishDateString(now);
+    
+    // Update Nepali date
+    const nepaliDate = document.getElementById('nepaliDate');
+    if (nepaliDate) nepaliDate.innerHTML = getNepaliDateString(now);
+}
+
+// Wait for page to load completely
+window.addEventListener('DOMContentLoaded', function() {
     updateClock();
-    
-    // Smooth scroll for anchor links with offset for fixed header
-    document.querySelectorAll('.jump-to a, a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const headerOffset = 100;
-                    const elementPosition = target.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                }
+    setInterval(updateClock, 1000);
+});
+
+// Smooth scroll for anchor links with offset for fixed header
+document.querySelectorAll('.jump-to a, a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                const headerOffset = 100;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
             }
-        });
+        }
     });
-    
-    // Handle image loading errors gracefully
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-        img.addEventListener('error', function() {
-            console.log('Image failed to load:', this.src);
-        });
+});
+
+// Handle image loading errors gracefully
+const images = document.querySelectorAll('img');
+images.forEach(img => {
+    img.addEventListener('error', function() {
+        console.log('Image failed to load:', this.src);
     });
+});
 </script>
 
 </body>
