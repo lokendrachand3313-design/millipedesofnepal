@@ -104,13 +104,14 @@
         .right-group {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 10px;
         }
 
+        /* Millipede Icon - INCREASED 2X (200px height) */
         .millipede-icon {
-            height: 100px;
+            height: 200px;
             width: auto;
-            max-width: 180px;
+            max-width: 350px;
             object-fit: contain;
             filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
             transition: all 0.4s ease;
@@ -118,6 +119,7 @@
 
         .millipede-icon:hover {
             transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
         }
 
         /* Clock Container - COMPLETELY TRANSPARENT */
@@ -527,17 +529,18 @@
         /* Responsive */
         @media (max-width: 1200px) {
             .header-logo { height: 95px; }
-            .millipede-icon { height: 85px; }
+            .millipede-icon { height: 170px; max-width: 300px; }
             .header-text h1 { font-size: 3rem; }
             .header-text p { font-size: 1.5rem; }
         }
 
         @media (max-width: 992px) {
             .header-logo { height: 80px; }
-            .millipede-icon { height: 75px; }
+            .millipede-icon { height: 140px; max-width: 250px; }
             .header-text h1 { font-size: 2.5rem; }
             .header-text p { font-size: 1.3rem; }
             .analog-clock { width: 80px; height: 80px; }
+            .right-group { gap: 8px; }
         }
 
         @media (max-width: 768px) {
@@ -547,7 +550,7 @@
                 padding: 20px;
             }
             .header-logo { height: 70px; }
-            .millipede-icon { height: 65px; }
+            .millipede-icon { height: 120px; max-width: 220px; }
             .header-text h1 { font-size: 2rem; }
             .header-text p { font-size: 1.1rem; }
             nav a { padding: 6px 10px; font-size: 0.85rem; }
@@ -556,6 +559,19 @@
             .image-row { flex-direction: column; }
             #worldMap { height: 400px; }
             .analog-clock { width: 70px; height: 70px; }
+            .right-group { gap: 5px; }
+        }
+
+        @media (max-width: 480px) {
+            .millipede-icon { height: 100px; max-width: 180px; }
+        }
+
+        @media (min-width: 1600px) {
+            .header-logo { height: 130px; max-width: 240px; }
+            .millipede-icon { height: 240px; max-width: 420px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
+            .analog-clock { width: 120px; height: 120px; }
         }
     </style>
 </head>
