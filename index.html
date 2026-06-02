@@ -39,35 +39,68 @@
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 20px 5%;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
         }
 
         .header-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
             flex-wrap: wrap;
-            gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
         }
 
         .header-logo {
-            height: 90px;
+            height: 110px;
             width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
         }
 
         .header-text h1 {
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
         }
 
         .header-text p {
-            font-size: 1.3rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
         }
 
+        /* Right side group */
         .right-group {
             display: flex;
             align-items: center;
@@ -75,9 +108,9 @@
         }
 
         .millipede-icon {
-            height: 90px;
+            height: 100px;
             width: auto;
-            max-width: 150px;
+            max-width: 180px;
             object-fit: contain;
             filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
             transition: all 0.4s ease;
@@ -87,21 +120,19 @@
             transform: scale(1.05) rotate(3deg);
         }
 
+        /* Clock Container - COMPLETELY TRANSPARENT */
         .clock-container {
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(5px);
-            border-radius: 15px;
-            padding: 8px 12px;
+            background: transparent;
             text-align: center;
-            min-width: 160px;
+            min-width: 200px;
         }
 
         .analog-clock {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 5px;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
             position: relative;
-            background: rgba(255,255,255,0.15);
+            background: transparent;
             border-radius: 50%;
         }
 
@@ -109,13 +140,26 @@
             width: 100%;
             height: 100%;
             position: relative;
+            border-radius: 50%;
+        }
+
+        /* Decorative ring around clock */
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            pointer-events: none;
         }
 
         .clock-center {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #f39c12;
+            width: 6px;
+            height: 6px;
+            background: #ff6b6b;
             border-radius: 50%;
             top: 50%;
             left: 50%;
@@ -128,27 +172,27 @@
             bottom: 50%;
             left: 50%;
             transform-origin: bottom center;
-            border-radius: 2px;
+            border-radius: 3px;
         }
 
         .hour-hand {
-            width: 3px;
-            height: 20px;
-            background: #f39c12;
+            width: 3.5px;
+            height: 28px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
             transform: translateX(-50%) rotate(0deg);
         }
 
         .minute-hand {
-            width: 2px;
-            height: 28px;
-            background: #ecf0f1;
+            width: 2.5px;
+            height: 38px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
             transform: translateX(-50%) rotate(0deg);
         }
 
         .second-hand {
-            width: 1px;
-            height: 32px;
-            background: #e74c3c;
+            width: 1.5px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
             transform: translateX(-50%) rotate(0deg);
         }
 
@@ -162,50 +206,59 @@
 
         .number {
             position: absolute;
-            font-size: 8px;
+            font-size: 11px;
             font-weight: bold;
             color: #f39c12;
             transform: translate(-50%, -50%);
-            text-shadow: 0 0 2px rgba(0,0,0,0.5);
+            text-shadow: 0 0 2px rgba(0,0,0,0.3);
         }
 
         .number-12 { top: 8%; left: 50%; }
+        .number-1 { top: 14%; left: 67%; }
+        .number-2 { top: 27%; left: 81%; }
         .number-3 { top: 50%; left: 92%; }
+        .number-4 { top: 73%; left: 81%; }
+        .number-5 { top: 86%; left: 67%; }
         .number-6 { top: 92%; left: 50%; }
+        .number-7 { top: 86%; left: 33%; }
+        .number-8 { top: 73%; left: 19%; }
         .number-9 { top: 50%; left: 8%; }
+        .number-10 { top: 27%; left: 19%; }
+        .number-11 { top: 14%; left: 33%; }
 
         .clock-time-digital {
-            font-size: 11px;
+            font-size: 16px;
             font-weight: bold;
             color: white;
             text-align: center;
-            font-family: monospace;
-            background: rgba(0,0,0,0.5);
-            padding: 2px 6px;
-            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            text-shadow: 0 0 2px rgba(0,0,0,0.5);
         }
 
         .clock-date {
-            font-size: 7px;
+            font-size: 9px;
             color: #f39c12;
             text-align: center;
-            margin-top: 3px;
+            margin-top: 5px;
+            font-weight: bold;
+            text-shadow: 0 0 2px rgba(0,0,0,0.3);
         }
 
         .clock-nepali-date {
-            font-size: 8px;
+            font-size: 11px;
             color: #ecf0f1;
             text-align: center;
             font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
-            background: rgba(0,0,0,0.3);
-            padding: 2px 5px;
-            border-radius: 10px;
-            margin-top: 2px;
+            font-weight: normal;
+            margin-top: 3px;
+            text-shadow: 0 0 2px rgba(0,0,0,0.3);
         }
 
+        /* Navigation */
         nav {
             background: var(--primary-blue);
-            padding: 12px 5%;
+            padding: 15px 5%;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -213,6 +266,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            width: 100%;
         }
 
         nav a {
@@ -228,10 +282,11 @@
             color: var(--primary-blue);
         }
 
+        /* Main Content - FULL WIDTH */
         main {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px 5%;
+            width: 100%;
+            padding: 40px 5%;
+            max-width: 100%;
         }
 
         .featured h3 {
@@ -447,8 +502,9 @@
             background: var(--primary-blue);
             color: white;
             text-align: center;
-            padding: 30px 5%;
-            margin-top: 30px;
+            padding: 40px 5%;
+            width: 100%;
+            margin-top: auto;
             border-top: 3px solid var(--gold);
         }
 
@@ -457,15 +513,49 @@
             text-decoration: none;
         }
 
+        /* Animations */
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .millipede-icon { height: 85px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .millipede-icon { height: 75px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .analog-clock { width: 80px; height: 80px; }
+        }
+
         @media (max-width: 768px) {
-            .header-text h1 { font-size: 1.8rem; }
-            .header-text p { font-size: 1rem; }
-            .header-logo { height: 60px; }
-            .millipede-icon { height: 50px; }
-            .clock-container { min-width: 130px; padding: 5px 8px; }
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-logo { height: 70px; }
+            .millipede-icon { height: 65px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            nav a { padding: 6px 10px; font-size: 0.85rem; }
+            main { padding: 30px 5%; }
             .video-row .video-col { min-width: 100%; max-width: 100%; }
             .image-row { flex-direction: column; }
             #worldMap { height: 400px; }
+            .analog-clock { width: 70px; height: 70px; }
         }
     </style>
 </head>
@@ -474,7 +564,7 @@
 <header>
     <div class="header-container">
         <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
-             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
+             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
         
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
@@ -488,15 +578,24 @@
             <div class="clock-container">
                 <div class="analog-clock">
                     <div class="clock-face">
+                        <div class="clock-ring"></div>
                         <div class="hand hour-hand" id="hourHand"></div>
                         <div class="hand minute-hand" id="minuteHand"></div>
                         <div class="hand second-hand" id="secondHand"></div>
                         <div class="clock-center"></div>
                         <div class="clock-numbers">
                             <div class="number number-12">12</div>
+                            <div class="number number-1">1</div>
+                            <div class="number number-2">2</div>
                             <div class="number number-3">3</div>
+                            <div class="number number-4">4</div>
+                            <div class="number number-5">5</div>
                             <div class="number number-6">6</div>
+                            <div class="number number-7">7</div>
+                            <div class="number number-8">8</div>
                             <div class="number number-9">9</div>
+                            <div class="number number-10">10</div>
+                            <div class="number number-11">11</div>
                         </div>
                     </div>
                 </div>
@@ -634,7 +733,7 @@
 
 <script>
 // ============================================
-// CLOCK AND DATE FUNCTIONS - WORKING VERSION
+// CLOCK AND DATE FUNCTIONS
 // ============================================
 
 // Get Nepal time (UTC+5:45)
