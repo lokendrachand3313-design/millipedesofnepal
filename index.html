@@ -457,7 +457,7 @@
 
 <script>
     // ============================================
-    // NEPAL TIME ZONE FUNCTIONS
+    // NEPAL TIME ZONE FUNCTIONS - ACCURATE VERSION
     // ============================================
     
     function getNepalTime() {
@@ -467,44 +467,89 @@
         return new Date(utcTime + nepalOffset);
     }
     
-    function toNepaliDigits(number) {
-        const nepaliDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-        return String(number).split('').map(d => nepaliDigits[parseInt(d)] || d).join('');
+    // Nepali month names
+    const NEPALI_MONTHS = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
+    
+    // Nepali weekday names
+    const NEPALI_WEEKDAYS = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
+    
+    // Accurate Nepali month days
+    const NEPALI_MONTH_DAYS = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
+    
+    // Leap year rule for Nepali calendar
+    function isNepaliLeapYear(bsYear) {
+        const leapYears = new Set([
+            1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011,
+            2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028,
+            2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046,
+            2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063,
+            2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081,
+            2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098
+        ]);
+        return leapYears.has(bsYear);
     }
     
-    function getNepaliMonthName(month) {
-        const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'श्रावण', 'भाद्र', 'आश्विन', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फाल्गुन', 'चैत्र'];
-        return nepaliMonths[month];
-    }
-    
-    function getNepaliWeekday(day) {
-        const nepaliWeekdays = ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'];
-        return nepaliWeekdays[day];
-    }
-    
-    function getNepaliDate(gregorianDate) {
-        let bsYear = gregorianDate.getFullYear() + 57;
-        let bsMonth = gregorianDate.getMonth();
-        let bsDay = gregorianDate.getDate();
-        
-        if (bsMonth < 3) {
-            bsYear--;
-            bsMonth += 9;
-        } else {
-            bsMonth -= 3;
+    // Get days in a specific Nepali month
+    function getNepaliMonthDays(bsYear, bsMonth) {
+        if (bsMonth === 11) {
+            return isNepaliLeapYear(bsYear) ? 30 : 29;
         }
+        return NEPALI_MONTH_DAYS[bsMonth];
+    }
+    
+    // Reference point: April 14, 2026 = Baisakh 1, 2083
+    const REFERENCE_AD = new Date(2026, 3, 14);
+    const REFERENCE_BS = { year: 2083, month: 0, day: 1 };
+    
+    // Convert AD to BS
+    function adToBs(adDate) {
+        const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
+        let diffDays = Math.round((targetAD - REFERENCE_AD) / (1000 * 60 * 60 * 24));
         
-        bsDay = bsDay + 15;
-        if (bsDay > 32) {
-            bsDay -= 32;
+        let bsYear = REFERENCE_BS.year;
+        let bsMonth = REFERENCE_BS.month;
+        let bsDay = REFERENCE_BS.day + diffDays;
+        
+        while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
+            bsDay -= getNepaliMonthDays(bsYear, bsMonth);
             bsMonth++;
-            if (bsMonth > 11) {
+            if (bsMonth >= 12) {
                 bsMonth = 0;
                 bsYear++;
             }
         }
         
+        while (bsDay < 1) {
+            bsMonth--;
+            if (bsMonth < 0) {
+                bsMonth = 11;
+                bsYear--;
+            }
+            bsDay += getNepaliMonthDays(bsYear, bsMonth);
+        }
+        
         return { year: bsYear, month: bsMonth, day: bsDay };
+    }
+    
+    function toNepaliDigits(number) {
+        const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+        return String(number).split('').map(d => digits[parseInt(d)] || d).join('');
+    }
+    
+    function getNepaliDateString(adDate) {
+        const bs = adToBs(adDate);
+        const monthName = NEPALI_MONTHS[bs.month];
+        const weekday = NEPALI_WEEKDAYS[adDate.getDay()];
+        return `${weekday}, ${monthName} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
+    }
+    
+    function getEnglishDateString(date) {
+        return date.toLocaleDateString('en-US', { 
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
     }
     
     function updateClock() {
@@ -526,32 +571,44 @@
         if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minuteAngle}deg)`;
         if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${secondAngle}deg)`;
         
-        const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         const digitalTimeElem = document.getElementById('digitalTime');
-        if (digitalTimeElem) digitalTimeElem.innerHTML = timeString;
+        if (digitalTimeElem) digitalTimeElem.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         
-        const englishDateStr = now.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
-        });
         const englishDateElem = document.getElementById('englishDate');
-        if (englishDateElem) englishDateElem.innerHTML = englishDateStr;
+        if (englishDateElem) englishDateElem.innerHTML = getEnglishDateString(now);
         
-        const nepaliDate = getNepaliDate(now);
-        const nepaliYearDigits = toNepaliDigits(nepaliDate.year);
-        const nepaliDayDigits = toNepaliDigits(nepaliDate.day);
-        const nepaliMonthName = getNepaliMonthName(nepaliDate.month);
-        const nepaliWeekday = getNepaliWeekday(now.getDay());
-        
-        const nepaliDateString = `${nepaliWeekday}, ${nepaliMonthName} ${nepaliDayDigits}, ${nepaliYearDigits}`;
         const nepaliDateElem = document.getElementById('nepaliDate');
-        if (nepaliDateElem) nepaliDateElem.innerHTML = nepaliDateString;
+        if (nepaliDateElem) nepaliDateElem.innerHTML = getNepaliDateString(now);
     }
     
     setInterval(updateClock, 1000);
     updateClock();
+    
+    // Initialize world map
+    document.addEventListener('DOMContentLoaded', function() {
+        var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(worldMap);
+        
+        L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 नेपाल (Nepal)</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
+        L.circle([28.3949, 84.1240], { 
+            color: '#1a5276', 
+            fillColor: '#2980b9', 
+            fillOpacity: 0.2, 
+            radius: 300000 
+        }).addTo(worldMap);
+    });
+    
+    // Handle image loading errors
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('error', function() {
+            console.log('Image failed to load:', this.src);
+        });
+    });
     
     // Initialize world map
     document.addEventListener('DOMContentLoaded', function() {
