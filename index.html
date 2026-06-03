@@ -10,19 +10,38 @@
     <!-- Leaflet CSS for Map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
+    <!-- Shared Styles - Embedded -->
     <style>
+        /* ============================================
+           Millipedes of Nepal - Unified Style Sheet
+           Version: 3.0 - Common styles for all pages
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Times New Roman', Times, serif;
-            background: #f0f4f8;
-            color: #1e2a3a;
             line-height: 1.6;
-            overflow-x: hidden;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            width: 100%;
         }
 
         :root {
@@ -31,17 +50,85 @@
             --blue-accent: #2980b9;
             --blue-bg: #ebf5fb;
             --gold: #f39c12;
-            --shadow: 0 8px 20px rgba(0,0,0,0.08);
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --green: #28a745;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --whatsapp: #25D366;
+            --gmail: #D44638;
         }
 
+        /* ============ UTILITY CLASSES ============ */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        .mt-1 { margin-top: 10px; }
+        .mt-2 { margin-top: 20px; }
+        .mt-3 { margin-top: 30px; }
+        .mb-1 { margin-bottom: 10px; }
+        .mb-2 { margin-bottom: 20px; }
+        .mb-3 { margin-bottom: 30px; }
+
+        .hide { display: none; }
+        .show { display: block; }
+
+        /* ============ REDUCED MOTION ============ */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============ PRINT STYLES ============ */
+        @media print {
+            header, nav, footer, .no-print, .gallery-filters, 
+            .map-controls, .admin-panel, .contact-buttons,
+            .jump-to, .full-video-section, .pdf-controls,
+            .map-view-buttons, .filter-section {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .article-card, .faq-item, .team-card, .gallery-item,
+            .species-card, .pdf-section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        /* ============ HEADER - STANDARD FOR ALL PAGES ============ */
         header {
-            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('home.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
             background-size: cover;
             background-position: center;
             color: white;
             padding: 0;
             width: 100%;
             max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
         }
 
         .header-container {
@@ -49,6 +136,7 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
+            max-width: 100%;
             padding: 20px 5%;
             gap: 30px;
             flex-wrap: wrap;
@@ -92,29 +180,31 @@
             text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
             animation: slideInLeft 1s ease-out;
             letter-spacing: 1px;
+            font-family: 'Times New Roman', Times, serif;
         }
 
         .header-text p {
             font-size: 1.8rem;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
             animation: slideInRight 1s ease-out;
+            font-family: 'Times New Roman', Times, serif;
         }
 
-        /* Right side group */
+        /* Right side group for clock and icon */
         .right-group {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 2px;
+            animation: fadeInRight 0.8s ease-out;
         }
 
-        /* Millipede Icon - INCREASED 2X (200px height) */
         .millipede-icon {
             height: 200px;
             width: auto;
             max-width: 350px;
             object-fit: contain;
             filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .millipede-icon:hover {
@@ -122,11 +212,16 @@
             filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
         }
 
-        /* Clock Container - COMPLETELY TRANSPARENT */
+        /* ============ CLOCK STYLES ============ */
         .clock-container {
             background: transparent;
-            text-align: center;
+            border-radius: 0;
+            padding: 0;
             min-width: 200px;
+            text-align: center;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
         }
 
         .analog-clock {
@@ -136,6 +231,7 @@
             position: relative;
             background: transparent;
             border-radius: 50%;
+            box-shadow: none;
         }
 
         .clock-face {
@@ -145,7 +241,6 @@
             border-radius: 50%;
         }
 
-        /* Decorative ring around clock */
         .clock-ring {
             position: absolute;
             top: -3px;
@@ -153,20 +248,33 @@
             right: -3px;
             bottom: -3px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 215, 0, 0.5);
+            border: 2px solid rgba(255, 215, 0, 0.6);
             pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
         }
 
         .clock-center {
             position: absolute;
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: #ff6b6b;
             border-radius: 50%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
+            box-shadow: 0 0 6px rgba(255,107,107,0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
+            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
         }
 
         .hand {
@@ -174,28 +282,35 @@
             bottom: 50%;
             left: 50%;
             transform-origin: bottom center;
-            border-radius: 3px;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
         }
 
         .hour-hand {
-            width: 3.5px;
+            width: 4.5px;
             height: 28px;
             background: linear-gradient(135deg, #f39c12, #e67e22);
             transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(243,156,18,0.6);
+            border-radius: 4px 4px 2px 2px;
         }
 
         .minute-hand {
-            width: 2.5px;
+            width: 3.5px;
             height: 38px;
             background: linear-gradient(135deg, #3498db, #2980b9);
             transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(52,152,219,0.6);
+            border-radius: 3px 3px 2px 2px;
         }
 
         .second-hand {
-            width: 1.5px;
+            width: 1.8px;
             height: 45px;
             background: linear-gradient(135deg, #ff6b6b, #ee5a24);
             transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 6px rgba(255,107,107,0.7);
+            border-radius: 2px;
         }
 
         .clock-numbers {
@@ -208,43 +323,50 @@
 
         .number {
             position: absolute;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
-            color: #f39c12;
             transform: translate(-50%, -50%);
-            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+            text-shadow: 0 0 3px rgba(0,0,0,0.4);
+            font-family: 'Times New Roman', Times, serif;
         }
 
-        .number-12 { top: 8%; left: 50%; }
-        .number-1 { top: 14%; left: 67%; }
-        .number-2 { top: 27%; left: 81%; }
-        .number-3 { top: 50%; left: 92%; }
-        .number-4 { top: 73%; left: 81%; }
-        .number-5 { top: 86%; left: 67%; }
-        .number-6 { top: 92%; left: 50%; }
-        .number-7 { top: 86%; left: 33%; }
-        .number-8 { top: 73%; left: 19%; }
-        .number-9 { top: 50%; left: 8%; }
-        .number-10 { top: 27%; left: 19%; }
-        .number-11 { top: 14%; left: 33%; }
+        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
+        .number-1 { color: #f39c12; top: 14%; left: 67%; }
+        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
+        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
+        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
+        .number-5 { color: #3498db; top: 86%; left: 67%; }
+        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
+        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
+        .number-8 { color: #e67e22; top: 73%; left: 19%; }
+        .number-9 { color: #f39c12; top: 50%; left: 8%; }
+        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
+        .number-11 { color: #3498db; top: 14%; left: 33%; }
 
         .clock-time-digital {
             font-size: 16px;
             font-weight: bold;
-            color: white;
+            color: #f39c12;
             text-align: center;
             font-family: 'Courier New', monospace;
             letter-spacing: 2px;
-            text-shadow: 0 0 2px rgba(0,0,0,0.5);
+            text-shadow: 0 0 4px rgba(243,156,18,0.5);
+            background: rgba(0,0,0,0.3);
+            padding: 4px 8px;
+            border-radius: 20px;
+            display: inline-block;
+            width: auto;
+            margin-top: 5px;
         }
 
         .clock-date {
             font-size: 9px;
-            color: #f39c12;
+            color: #3498db;
             text-align: center;
-            margin-top: 5px;
+            margin-top: 6px;
             font-weight: bold;
-            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+            text-shadow: 0 0 2px rgba(52,152,219,0.3);
+            font-family: 'Times New Roman', Times, serif;
         }
 
         .clock-nepali-date {
@@ -255,40 +377,141 @@
             font-weight: normal;
             margin-top: 3px;
             text-shadow: 0 0 2px rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.2);
+            padding: 2px 6px;
+            border-radius: 15px;
+            display: inline-block;
         }
 
-        /* Navigation */
+        /* ============ NAVIGATION BAR ============ */
         nav {
-            background: var(--primary-blue);
+            background-color: var(--primary-blue);
             padding: 15px 5%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
             position: sticky;
             top: 0;
             z-index: 100;
-            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
             padding: 8px 16px;
-            border-radius: 25px;
+            margin: 0 3px;
+            border-radius: 4px;
             transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
         }
 
-        nav a:hover, nav a.active {
-            background: var(--gold);
-            color: var(--primary-blue);
+        nav a:hover {
+            background-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
-        /* Main Content - FULL WIDTH */
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* ============ MAIN CONTENT ============ */
         main {
-            width: 100%;
+            flex: 1;
             padding: 40px 5%;
             max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Section Cards */
+        .featured {
+            background-color: var(--bg-white);
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            width: 100%;
+        }
+
+        .featured:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .content-block {
+            margin-bottom: 35px;
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            animation: fadeInUp 0.8s ease-out;
+            width: 100%;
+        }
+
+        .content-block:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .content-block h2 {
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .content-block p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #333;
+            font-family: 'Times New Roman', Times, serif;
         }
 
         .featured h3 {
@@ -296,8 +519,10 @@
             margin-bottom: 20px;
             text-align: center;
             color: var(--primary-blue);
+            font-family: 'Times New Roman', Times, serif;
         }
 
+        /* Image Row */
         .image-row {
             display: flex;
             gap: 20px;
@@ -313,8 +538,7 @@
 
         .featured-img {
             width: 100%;
-            aspect-ratio: 3/2;
-            max-height: 300px;
+            aspect-ratio: 4/3;
             object-fit: cover;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
@@ -328,19 +552,23 @@
         .image-col p {
             text-align: center;
             margin-top: 15px;
+            font-family: 'Times New Roman', Times, serif;
         }
 
         .scientific-name {
             font-style: italic;
             font-weight: 600;
             font-size: 1.3rem;
+            font-family: 'Times New Roman', Times, serif;
         }
 
         .location {
             font-size: 0.9rem;
             color: #666;
+            font-family: 'Times New Roman', Times, serif;
         }
 
+        /* Nepali text styling */
         .nepali-names {
             font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
             background: var(--blue-bg);
@@ -360,29 +588,20 @@
             border-left-width: 8px;
         }
 
-        .content-block {
-            margin-bottom: 35px;
-            padding: 0;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            width: 100%;
+        /* Attribution Note */
+        .attribution-note {
+            background: #fef9e6;
+            border-left: 5px solid var(--gold);
+            padding: 20px 25px;
+            margin: 25px 0 20px 0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.7;
+            font-family: 'Times New Roman', Times, serif;
         }
 
-        .content-block h2 {
-            color: var(--primary-blue);
-            border-bottom: 3px solid var(--primary-blue);
-            padding-bottom: 12px;
-            margin-bottom: 20px;
-            font-size: 2rem;
-        }
-
-        .content-block p {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
+        /* Altitude section */
         .altitude-container {
             text-align: center;
             margin: 20px 0;
@@ -400,8 +619,10 @@
             color: #666;
             margin-top: 10px;
             font-style: italic;
+            font-family: 'Times New Roman', Times, serif;
         }
 
+        /* Video section */
         .video-section {
             margin-top: 30px;
             padding-top: 20px;
@@ -414,6 +635,7 @@
             color: var(--primary-blue);
             margin-bottom: 20px;
             text-align: center;
+            font-family: 'Times New Roman', Times, serif;
         }
 
         .video-row {
@@ -432,7 +654,7 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .video-col:hover {
@@ -460,8 +682,21 @@
             margin: 0;
             font-size: 0.9rem;
             color: #555;
+            font-family: 'Times New Roman', Times, serif;
         }
 
+        .video-caption .scientific-name {
+            font-size: 0.9rem;
+            display: inline;
+        }
+
+        .video-caption .location {
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* World Map Section */
         .world-map-section {
             margin-top: 20px;
             margin-bottom: 40px;
@@ -478,6 +713,7 @@
             color: var(--primary-blue);
             margin-bottom: 20px;
             text-align: center;
+            font-family: 'Times New Roman', Times, serif;
         }
 
         #worldMap {
@@ -499,80 +735,244 @@
             margin-top: 10px;
             color: #666;
             font-style: italic;
+            font-family: 'Times New Roman', Times, serif;
         }
 
+        /* ============ BUTTONS ============ */
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            background-color: #e67e22;
+        }
+
+        /* ============ FOOTER ============ */
         footer {
-            background: var(--primary-blue);
+            background-color: var(--primary-blue);
             color: white;
             text-align: center;
             padding: 40px 5%;
             width: 100%;
+            max-width: 100%;
             margin-top: auto;
+            animation: fadeIn 1s ease-out;
             border-top: 3px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
         }
 
         footer a {
             color: var(--gold);
             text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
         }
 
-        /* Animations */
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        /* Responsive */
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ============ RESPONSIVE DESIGN ============ */
         @media (max-width: 1200px) {
             .header-logo { height: 95px; }
-            .millipede-icon { height: 170px; max-width: 300px; }
             .header-text h1 { font-size: 3rem; }
             .header-text p { font-size: 1.5rem; }
+            .millipede-icon { height: 160px; max-width: 280px; }
+            .featured-img { aspect-ratio: 4/3; }
+        }
+
+        @media (max-width: 1024px) {
+            nav { padding: 15px 5%; }
+            main { padding: 30px 5%; }
+            footer { padding: 30px 5%; }
         }
 
         @media (max-width: 992px) {
             .header-logo { height: 80px; }
-            .millipede-icon { height: 140px; max-width: 250px; }
             .header-text h1 { font-size: 2.5rem; }
             .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 5%; gap: 20px; }
+            .millipede-icon { height: 130px; max-width: 220px; }
             .analog-clock { width: 80px; height: 80px; }
-            .right-group { gap: 8px; }
+            .clock-container { min-width: 170px; }
+            .right-group { gap: 1px; }
+            .video-col { min-width: 300px; max-width: calc(33.33% - 14px); }
         }
 
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            nav a {
+                width: 100%;
+                text-align: center;
+            }
+            
             .header-container {
                 flex-direction: column;
                 text-align: center;
                 padding: 20px;
             }
-            .header-logo { height: 70px; }
-            .millipede-icon { height: 120px; max-width: 220px; }
+            .header-logo { height: 70px; margin-bottom: 5px; }
             .header-text h1 { font-size: 2rem; }
             .header-text p { font-size: 1.1rem; }
             nav a { padding: 6px 10px; font-size: 0.85rem; }
             main { padding: 30px 5%; }
+            .content-block h2 { font-size: 1.7rem; }
+            
+            .right-group { 
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .millipede-icon { height: 110px; max-width: 190px; }
+            .analog-clock { width: 70px; height: 70px; }
+            
             .video-row .video-col { min-width: 100%; max-width: 100%; }
             .image-row { flex-direction: column; }
+            .featured-img { aspect-ratio: 4/3; }
             #worldMap { height: 400px; }
-            .analog-clock { width: 70px; height: 70px; }
-            .right-group { gap: 5px; }
+            
+            footer p { font-size: 1rem; }
         }
 
         @media (max-width: 480px) {
-            .millipede-icon { height: 100px; max-width: 180px; }
+            .header-text h1 { font-size: 1.8rem; }
+            .header-text p { font-size: 1rem; }
+            .header-logo { height: 55px; }
+            .millipede-icon { height: 90px; max-width: 150px; }
+            .analog-clock { width: 60px; height: 60px; }
+            .clock-container { min-width: 150px; }
+            .right-group { gap: 0px; }
+            .clock-time-digital { font-size: 11px; }
+            .clock-nepali-date { font-size: 9px; }
+            .featured-img { aspect-ratio: 4/3; }
+            .video-caption-full h3 { font-size: 1.1rem; }
         }
 
         @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
             .header-logo { height: 130px; max-width: 240px; }
-            .millipede-icon { height: 240px; max-width: 420px; }
+            .millipede-icon { height: 220px; max-width: 380px; }
             .header-text h1 { font-size: 4rem; }
             .header-text p { font-size: 2rem; }
+            .featured-img { aspect-ratio: 16/9; }
+            #worldMap { height: 750px; }
             .analog-clock { width: 120px; height: 120px; }
+            .clock-container { min-width: 240px; }
+            .right-group { gap: 3px; }
         }
     </style>
 </head>
@@ -643,21 +1043,19 @@
         
         <div class="image-row">
             <div class="image-col">
-                <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img" loading="lazy"
-                     onerror="this.src='https://via.placeholder.com/600x450?text=Gonoplectus+malayus'">
+                <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img" loading="lazy">
                 <p><span class="scientific-name">Gonoplectus malayus</span>, Spirostreptida, Harpagophoridae<br>
                 <span class="location">Location: Dang Valley, Nepal</span></p>
             </div>
             <div class="image-col">
-                <img src="gono7.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img" loading="lazy"
-                     onerror="this.src='https://via.placeholder.com/600x450?text=Gonoplectus+sp.'">
+                <img src="gono7.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img" loading="lazy">
                 <p><span class="scientific-name">Gonoplectus</span> sp., Spirostreptida, Harpagophoridae<br>
                 <span class="location">Location: Dang Valley, Nepal</span></p>
             </div>
         </div>
         
         <div class="video-section">
-            <h4>Watch Millipedes in Action</h4>
+            <h4>🎥 Watch Millipedes in Action</h4>
             <div class="video-row">
                 <div class="video-col">
                     <video controls preload="metadata">
@@ -716,13 +1114,17 @@
     <div class="content-block">
         <h2>Our Mission</h2>
         <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts. Our mission is to advance the understanding of millipede biodiversity in Nepal through comprehensive field collection from diverse geographical regions, followed by accurate species-level identification using integrated morphological and molecular analysis, detailed documentation, and long-term specimen preservation.</p>
+        
+        <div class="attribution-note">
+            <strong>📌 Note on Name Correction:</strong><br>
+            Name correction was made on the basis of their original name mentioned in internet, government offices in those locations, photos uploaded on the Google Map of government or private signboard, searching vlogs on YouTube, and other reliable public sources. Every effort has been made to ensure accuracy and respect local naming conventions.
+        </div>
     </div>
 
     <div class="content-block">
         <h2>Nepal's Elevation Gradient: From Terai to Everest</h2>
         <div class="altitude-container">
-            <img src="altitude1.png" alt="Nepal altitude profile" class="altitude-img" loading="lazy"
-                 onerror="this.src='https://via.placeholder.com/1000x400?text=Nepal+Elevation+Profile'">
+            <img src="altitude1.png" alt="Nepal altitude profile" class="altitude-img" loading="lazy">
             <p class="altitude-caption">Nepal's diverse topography creates unique microhabitats for millipede species across different elevations.</p>
         </div>
     </div>
@@ -750,10 +1152,9 @@
 
 <script>
 // ============================================
-// CLOCK AND DATE FUNCTIONS
+// CLOCK AND DATE FUNCTIONS - ACCURATE VERSION
 // ============================================
 
-// Get Nepal time (UTC+5:45)
 function getNepalTime() {
     const now = new Date();
     const nepalOffset = 5.75 * 60 * 60 * 1000;
@@ -761,32 +1162,23 @@ function getNepalTime() {
     return new Date(utcTime + nepalOffset);
 }
 
-// Nepali month names
 const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
-
-// Nepali weekday names
 const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
-
-// Days in each Nepali month
 const nepaliMonthDays = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
 
-// Check if Nepali year is leap
 function isNepaliLeapYear(bsYear) {
     const leapYears = [1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011, 2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028, 2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046, 2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063, 2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081, 2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098];
     return leapYears.includes(bsYear);
 }
 
-// Get days in Nepali month
 function getNepaliMonthDays(bsYear, bsMonth) {
     if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
     return nepaliMonthDays[bsMonth];
 }
 
-// Convert AD to BS
 function adToBs(adDate) {
     const referenceAD = new Date(2026, 3, 14);
     const referenceBS = { year: 2083, month: 0, day: 1 };
-    
     const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
     let diffDays = Math.round((targetAD - referenceAD) / (1000 * 60 * 60 * 24));
     
@@ -799,33 +1191,30 @@ function adToBs(adDate) {
         bsMonth++;
         if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
     }
-    
     while (bsDay < 1) {
         bsMonth--;
         if (bsMonth < 0) { bsMonth = 11; bsYear--; }
         bsDay += getNepaliMonthDays(bsYear, bsMonth);
     }
-    
     return { year: bsYear, month: bsMonth, day: bsDay };
 }
 
-// Convert to Nepali digits
 function toNepaliDigits(num) {
     const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
     return String(num).split('').map(d => digits[parseInt(d)] || d).join('');
 }
 
-// Get Nepali date string
 function getNepaliDateString(date) {
     const bs = adToBs(date);
     return `${nepaliWeekdays[date.getDay()]}, ${nepaliMonths[bs.month]} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
 }
 
-// Update all clock displays
+function getEnglishDateString(date) {
+    return date.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+}
+
 function updateClock() {
     const now = getNepalTime();
-    
-    // Update analog hands
     const hours = now.getHours();
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
@@ -838,27 +1227,24 @@ function updateClock() {
     if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
     if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
     
-    // Update digital time
     const digitalTime = document.getElementById('digitalTime');
     if (digitalTime) digitalTime.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     
-    // Update English date
     const englishDate = document.getElementById('englishDate');
-    if (englishDate) englishDate.innerHTML = now.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    if (englishDate) englishDate.innerHTML = getEnglishDateString(now);
     
-    // Update Nepali date
     const nepaliDate = document.getElementById('nepaliDate');
     if (nepaliDate) nepaliDate.innerHTML = getNepaliDateString(now);
 }
 
-// Wait for page to load completely
 window.addEventListener('DOMContentLoaded', function() {
-    // Start the clock
     updateClock();
     setInterval(updateClock, 1000);
-    
-    // Initialize world map
-    const worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
+});
+
+// Initialize world map
+document.addEventListener('DOMContentLoaded', function() {
+    var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         attribution: 'OpenStreetMap contributors',
         subdomains: 'abcd',
@@ -867,6 +1253,14 @@ window.addEventListener('DOMContentLoaded', function() {
     
     L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 नेपाल (Nepal)</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
     L.circle([28.3949, 84.1240], { color: '#1a5276', fillColor: '#2980b9', fillOpacity: 0.2, radius: 300000 }).addTo(worldMap);
+});
+
+// Handle image loading errors
+const images = document.querySelectorAll('img');
+images.forEach(img => {
+    img.addEventListener('error', function() {
+        console.log('Image failed to load:', this.src);
+    });
 });
 </script>
 
