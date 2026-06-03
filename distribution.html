@@ -692,11 +692,10 @@ window.addEventListener('DOMContentLoaded', function() {
 // Initialize Map
 const map = L.map('map').setView([28.3949, 84.1240], 7);
 const markersLayer = L.layerGroup().addTo(map);
-
 // Add tile layer with better styling
-// Add satellite tile layer
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: 'OpenStreetMap contributors, CartoDB',
+    subdomains: 'abcd',
     maxZoom: 19,
     minZoom: 2
 }).addTo(map);
