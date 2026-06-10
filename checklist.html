@@ -133,12 +133,12 @@
         }
         
         .tree-column {
-            flex: 3;  /* 75% */
+            flex: 3;
             min-width: 0;
         }
         
         .species-list-column {
-            flex: 1;  /* 25% */
+            flex: 1;
             min-width: 300px;
         }
         
@@ -557,10 +557,29 @@
             cursor: pointer;
             font-size: 0.6rem;
             font-family: 'Times New Roman', Times, serif;
+            transition: all 0.3s ease;
         }
         
         .nav-btn:hover {
             background: var(--primary-blue-dark);
+            transform: translateY(-1px);
+        }
+        
+        /* Undo button specific styling */
+        .undo-btn {
+            background: var(--gold);
+            color: var(--primary-blue);
+        }
+        
+        .undo-btn:hover {
+            background: var(--gold-dark);
+            color: white;
+        }
+        
+        .undo-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
         }
         
         @media (max-width: 1000px) {
@@ -698,6 +717,7 @@
             </div>
             <div class="current-focus" id="currentFocus">Class: Diplopoda (Millipedes)</div>
             <div class="navigation-buttons">
+                <button class="nav-btn undo-btn" id="undoTreeBtn" disabled>↩ Undo</button>
                 <button class="nav-btn" id="resetTreeBtn">Reset Tree</button>
             </div>
             <div class="legend-box">
@@ -876,7 +896,10 @@ window.addEventListener('DOMContentLoaded', function() {
     setInterval(updateClock, 1000);
 });
 
-// Checklist Functionality
+// ============================================
+// CHECKLIST FUNCTIONALITY WITH UNDO
+// ============================================
+
 let speciesData = [];
 let filteredSpeciesData = [];
 let map = null;
@@ -886,6 +909,141 @@ let streetLayer = null;
 let satelliteLayer = null;
 let currentLayer = 'street';
 let currentTreeData = null;
+
+// UNDO FUNCTIONALITY - Navigation history stack
+let treeHistoryStack = [];
+let currentHistoryIndex = -1;
+
+// Save current tree state to history
+function saveToHistory(treeData, focusText, filteredData, filterMessageText, resultsCountText) {
+    // If we're not at the end of the history (meaning we undid and then made a new action),
+    // remove all future history entries
+    if (currentHistoryIndex < treeHistoryStack.length - 1) {
+        treeHistoryStack = treeHistoryStack.slice(0, currentHistoryIndex + 1);
+    }
+    
+    treeHistoryStack.push({
+        treeData: JSON.parse(JSON.stringify(treeData)),
+        focusText: focusText,
+        filteredData: filteredData ? [...filteredData] : null,
+        filterMessageText: filterMessageText,
+        resultsCountText: resultsCountText
+    });
+    currentHistoryIndex++;
+    
+    // Enable/disable undo button
+    const undoBtn = document.getElementById('undoTreeBtn');
+    if (undoBtn) {
+        undoBtn.disabled = (currentHistoryIndex <= 0);
+    }
+}
+
+// Undo last action
+function undoLastAction() {
+    if (currentHistoryIndex <= 0) {
+        console.log("Nothing to undo");
+        return;
+    }
+    
+    currentHistoryIndex--;
+    const previousState = treeHistoryStack[currentHistoryIndex];
+    
+    if (previousState) {
+        // Restore tree
+        currentTreeData = JSON.parse(JSON.stringify(previousState.treeData));
+        renderTree(currentTreeData);
+        
+        // Restore focus text
+        document.getElementById('currentFocus').innerHTML = previousState.focusText;
+        
+        // Restore species list
+        if (previousState.filteredData) {
+            filteredSpeciesData = [...previousState.filteredData];
+            displayResults(filteredSpeciesData);
+            
+            if (previousState.filterMessageText && previousState.filterMessageText !== 'All Records') {
+                document.getElementById('filterInfo').style.display = 'block';
+                document.getElementById('filterMessage').innerHTML = previousState.filterMessageText;
+                document.getElementById('resultsCount').innerText = previousState.resultsCountText;
+            } else {
+                document.getElementById('filterInfo').style.display = 'none';
+                document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
+            }
+        } else {
+            // Reset to full view
+            filteredSpeciesData = [...speciesData];
+            displayResults(filteredSpeciesData);
+            document.getElementById('filterInfo').style.display = 'none';
+            document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
+        }
+        
+        // Clear any active card and markers
+        if (currentActiveCard) {
+            currentActiveCard.classList.remove('active');
+            currentActiveCard = null;
+        }
+        clearMarkers();
+        document.getElementById('speciesDetails').style.display = 'none';
+        document.getElementById('mapStatus').innerHTML = 'Click on a species to view location';
+        
+        // Update undo button state
+        const undoBtn = document.getElementById('undoTreeBtn');
+        if (undoBtn) {
+            undoBtn.disabled = (currentHistoryIndex <= 0);
+        }
+    }
+}
+
+// Modified filter functions that save to history
+function filterTreeByOrderWithHistory(orderName) {
+    // Save current state before making changes
+    const currentFilterMsg = document.getElementById('filterInfo').style.display === 'block' 
+        ? document.getElementById('filterMessage').innerHTML 
+        : null;
+    const currentResultsCount = document.getElementById('resultsCount').innerText;
+    
+    saveToHistory(currentTreeData, document.getElementById('currentFocus').innerHTML, 
+                  filteredSpeciesData, currentFilterMsg, currentResultsCount);
+    
+    filterTreeByOrder(orderName);
+}
+
+function filterTreeByFamilyWithHistory(familyName) {
+    const currentFilterMsg = document.getElementById('filterInfo').style.display === 'block' 
+        ? document.getElementById('filterMessage').innerHTML 
+        : null;
+    const currentResultsCount = document.getElementById('resultsCount').innerText;
+    
+    saveToHistory(currentTreeData, document.getElementById('currentFocus').innerHTML, 
+                  filteredSpeciesData, currentFilterMsg, currentResultsCount);
+    
+    filterTreeByFamily(familyName);
+}
+
+function filterTreeByGenusWithHistory(genusName) {
+    const currentFilterMsg = document.getElementById('filterInfo').style.display === 'block' 
+        ? document.getElementById('filterMessage').innerHTML 
+        : null;
+    const currentResultsCount = document.getElementById('resultsCount').innerText;
+    
+    saveToHistory(currentTreeData, document.getElementById('currentFocus').innerHTML, 
+                  filteredSpeciesData, currentFilterMsg, currentResultsCount);
+    
+    filterTreeByGenus(genusName);
+}
+
+// Modified reset function that saves to history
+function resetTreeToFullWithHistory() {
+    const currentFilterMsg = document.getElementById('filterInfo').style.display === 'block' 
+        ? document.getElementById('filterMessage').innerHTML 
+        : null;
+    const currentResultsCount = document.getElementById('resultsCount').innerText;
+    
+    saveToHistory(currentTreeData, document.getElementById('currentFocus').innerHTML, 
+                  filteredSpeciesData, currentFilterMsg, currentResultsCount);
+    
+    resetTreeToFull();
+}
 
 async function loadSpeciesData() {
     try {
@@ -926,7 +1084,15 @@ async function loadSpeciesData() {
     buildFullTree();
     addMapControls();
     
-    document.getElementById('resetTreeBtn').addEventListener('click', resetTreeToFull);
+    // Initialize history with initial state
+    treeHistoryStack = [];
+    currentHistoryIndex = -1;
+    saveToHistory(currentTreeData, document.getElementById('currentFocus').innerHTML, 
+                  filteredSpeciesData, null, 'Total: ' + speciesData.length + ' species');
+    
+    // Set up undo button
+    document.getElementById('undoTreeBtn').addEventListener('click', undoLastAction);
+    document.getElementById('resetTreeBtn').addEventListener('click', resetTreeToFullWithHistory);
 }
 
 function initMap() {
@@ -1294,13 +1460,13 @@ function renderTree(data) {
         .attr("stroke-width", "1px")
         .on("click", function(event, d) {
             if (d.data.type === 'order') {
-                filterTreeByOrder(d.data.fullName);
+                filterTreeByOrderWithHistory(d.data.fullName);
                 highlightNode(this);
             } else if (d.data.type === 'family') {
-                filterTreeByFamily(d.data.fullName);
+                filterTreeByFamilyWithHistory(d.data.fullName);
                 highlightNode(this);
             } else if (d.data.type === 'genus') {
-                filterTreeByGenus(d.data.fullName);
+                filterTreeByGenusWithHistory(d.data.fullName);
                 highlightNode(this);
             } else if (d.data.type === 'species') {
                 const species = d.data.speciesData;
@@ -1362,11 +1528,11 @@ function renderTree(data) {
         .text(d => d.data.name)
         .on("click", function(event, d) {
             if (d.data.type === 'order') {
-                filterTreeByOrder(d.data.fullName);
+                filterTreeByOrderWithHistory(d.data.fullName);
             } else if (d.data.type === 'family') {
-                filterTreeByFamily(d.data.fullName);
+                filterTreeByFamilyWithHistory(d.data.fullName);
             } else if (d.data.type === 'genus') {
-                filterTreeByGenus(d.data.fullName);
+                filterTreeByGenusWithHistory(d.data.fullName);
             } else if (d.data.type === 'species') {
                 const species = d.data.speciesData;
                 let points = [];
