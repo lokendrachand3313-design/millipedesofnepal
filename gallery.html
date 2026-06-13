@@ -127,9 +127,14 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Scientific name italic style */
+        /* Scientific name italic style - only for genus and species */
         .scientific-name {
             font-style: italic;
+        }
+        
+        /* Normal text for sp. */
+        .normal-text {
+            font-style: normal;
         }
         
         .gallery-caption-static .gallery-location {
@@ -536,26 +541,33 @@ window.addEventListener('DOMContentLoaded', function() {
 // GALLERY SPECIFIC FUNCTIONS
 // ============================================
 
-// Function to convert scientific names to italic HTML
+// Function to convert genus and species to italic, but keep "sp." normal
 function formatScientificName(text) {
-    // Pattern to match scientific names (Genus species or Genus sp.)
-    // Matches words like: Gonoplectus malayus, Chondromorpha sp., Orthomorpha coarctata, etc.
-    const sciNamePattern = /\b([A-Z][a-z]+)\s+([a-z]+(?:\s+[a-z]+)?)\b/g;
-    const spPattern = /\b([A-Z][a-z]+)\s+sp\.\b/g;
+    // Pattern to match: Genus species (e.g., Gonoplectus malayus)
+    // Also matches Genus sp. but we want sp. to be normal
+    const genusSpeciesPattern = /\b([A-Z][a-z]+)\s+([a-z]+(?:\s+[a-z]+)?)\b/g;
+    const genusSpPattern = /\b([A-Z][a-z]+)\s+sp\.\b/g;
     
     let result = text;
-    result = result.replace(spPattern, '<i class="scientific-name">$1 sp.</i>');
-    result = result.replace(sciNamePattern, (match, genus, species) => {
-        // Don't replace if it's not a scientific name (like common words)
-        if (genus.length > 2 && species.length > 1) {
-            return `<i class="scientific-name">${genus} ${species}</i>`;
+    
+    // First handle "Genus sp." - make only genus italic, sp. normal
+    result = result.replace(genusSpPattern, '<i class="scientific-name">$1</i> sp.');
+    
+    // Then handle "Genus species" - make both italic
+    result = result.replace(genusSpeciesPattern, (match, genus, species) => {
+        // Skip if this match was already processed (contains sp.)
+        if (match.includes('sp.')) return match;
+        // Skip if it's not a proper scientific name (like common words)
+        if (genus.length > 2 && species.length > 1 && !species.includes('forest') && !species.includes('Leaf') && !species.includes('litter')) {
+            return `<i class="scientific-name">${genus}</i> <i class="scientific-name">${species}</i>`;
         }
         return match;
     });
+    
     return result;
 }
 
-// Gallery Data - All photos with categories (scientific names in plain text)
+// Gallery Data - All photos with categories
 const galleryData = [
     { id: 1, image: 'forest_dang.jpg', caption: 'Forest of Shorea robusta in Dang Valley', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
     { id: 2, image: 'habitat2.jpg', caption: 'Habitat of Chondromorpha sp. and Streptogonopus phipsoni', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
@@ -607,7 +619,7 @@ function renderGallery(filter = 'all') {
         : galleryData.filter(item => item.category === filter);
     
     galleryGrid.innerHTML = currentFilteredData.map((item, index) => {
-        // Format caption with italic scientific names
+        // Format caption with italic scientific names (only genus/species, not sp.)
         const formattedCaption = formatScientificName(item.caption);
         
         return `
