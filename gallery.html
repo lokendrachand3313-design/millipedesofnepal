@@ -107,7 +107,7 @@
             transform: scale(1.08);
         }
         
-        /* Caption styling */
+        /* Caption styling - all text normal */
         .gallery-caption-static {
             padding: 15px;
             background-color: #f5f5f5;
@@ -125,15 +125,6 @@
             color: #333;
             margin-bottom: 5px;
             font-family: 'Times New Roman', Times, serif;
-        }
-        
-        /* Scientific name italic style - only for genus and species */
-        .scientific-name {
-            font-style: italic;
-        }
-        
-        /* Normal text for sp. */
-        .normal-text {
             font-style: normal;
         }
         
@@ -144,6 +135,7 @@
             align-items: center;
             gap: 5px;
             font-family: 'Times New Roman', Times, serif;
+            font-style: normal;
         }
         
         .gallery-item:hover .gallery-caption-static .gallery-location {
@@ -200,6 +192,7 @@
             border-radius: 8px;
             border-left: 5px solid var(--gold);
             font-family: 'Times New Roman', Times, serif;
+            font-style: normal;
             animation: slideInUp 0.4s ease-out;
         }
         
@@ -218,10 +211,7 @@
             color: var(--gold);
             margin-top: 10px;
             font-size: 1rem;
-        }
-        
-        .modal-caption .scientific-name {
-            font-style: italic;
+            font-style: normal;
         }
         
         .close-modal {
@@ -541,59 +531,33 @@ window.addEventListener('DOMContentLoaded', function() {
 // GALLERY SPECIFIC FUNCTIONS
 // ============================================
 
-// Function to convert genus and species to italic, but keep "sp." normal
-function formatScientificName(text) {
-    // Pattern to match: Genus species (e.g., Gonoplectus malayus)
-    // Also matches Genus sp. but we want sp. to be normal
-    const genusSpeciesPattern = /\b([A-Z][a-z]+)\s+([a-z]+(?:\s+[a-z]+)?)\b/g;
-    const genusSpPattern = /\b([A-Z][a-z]+)\s+sp\.\b/g;
-    
-    let result = text;
-    
-    // First handle "Genus sp." - make only genus italic, sp. normal
-    result = result.replace(genusSpPattern, '<i class="scientific-name">$1</i> sp.');
-    
-    // Then handle "Genus species" - make both italic
-    result = result.replace(genusSpeciesPattern, (match, genus, species) => {
-        // Skip if this match was already processed (contains sp.)
-        if (match.includes('sp.')) return match;
-        // Skip if it's not a proper scientific name (like common words)
-        if (genus.length > 2 && species.length > 1 && !species.includes('forest') && !species.includes('Leaf') && !species.includes('litter')) {
-            return `<i class="scientific-name">${genus}</i> <i class="scientific-name">${species}</i>`;
-        }
-        return match;
-    });
-    
-    return result;
-}
-
-// Gallery Data - All photos with categories
+// Gallery Data - All photos with categories (all text normal)
 const galleryData = [
-    { id: 1, image: 'forest_dang.jpg', caption: 'Forest of Shorea robusta in Dang Valley', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
-    { id: 2, image: 'habitat2.jpg', caption: 'Habitat of Chondromorpha sp. and Streptogonopus phipsoni', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
+    { id: 1, image: 'forest_dang.jpg', caption: 'Forest of <i>Shorea robusta</i> in Dang Valley', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
+    { id: 2, image: 'habitat2.jpg', caption: 'Habitat of <i>Chondromorpha</i> sp. and Streptogonopus phipsoni', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
     { id: 3, image: 'habitat3.jpg', caption: 'Mixed Forest Leaf litter, perfect habitat for Millipede and other Invertebrates', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
-    { id: 4, image: 'habitat4.jpg', caption: 'Shorea robusta Forest', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
+    { id: 4, image: 'habitat4.jpg', caption: '<i>Shorea robusta</i> Forest', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
     { id: 5, image: 'lab1.jpg', caption: 'Lokendra Chand and Ayub Senchury in Lab', location: 'Central Department of Zoology, TU, Kathmandu', date: '2023', category: 'lab' },
     { id: 6, image: 'field1.jpg', caption: 'Lokendra Chand and other field workers', location: 'Nilbarahi Community Forest, Bhaktapur', date: '2022', category: 'fieldwork' },
-    { id: 7, image: 'gono_dead.jpg', caption: 'Gonoplectus malayus after death on forest floor', location: 'Dang Valley, Western Nepal', date: '2023', category: 'specimen' },
+    { id: 7, image: 'gono_dead.jpg', caption: '<i>Gonoplectus malayus</i> after death on forest floor', location: 'Dang Valley, Western Nepal', date: '2023', category: 'specimen' },
     { id: 8, image: 'bijan.jpg', caption: 'Mr. Bijan Basnet collecting centipede specimen', location: 'Ranibari Community Forest, Kathmandu', date: '2023', category: 'fieldwork' },
     { id: 9, image: 'me_field.jpg', caption: 'Collecting millipedes in the field', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork' },
-    { id: 10, image: 'siphono2.jpg', caption: 'Siphonorhinus sp.', location: 'Dang Valley, Western Nepal', date: '2024', category: 'specimen' },
+    { id: 10, image: 'siphono2.jpg', caption: '<i>Siphonorhinus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2024', category: 'specimen' },
     { id: 11, image: 'students2.jpg', caption: 'Students searching for soil invertebrates', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork' },
-    { id: 12, image: 'chon2.jpg', caption: 'Chondromorpha sp. under the soil, exposed after digging', location: 'Dang Valley, Western Nepal', date: '2024', category: 'specimen' },
-    { id: 13, image: 'chondro1.jpg', caption: 'Chondromorpha sp. in maize growing land', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 14, image: 'cmating3.jpg', caption: 'Chondromorpha sp. mating', location: 'Surrounding Hill, Dang Valley', date: '2025', category: 'specimen' },
-    { id: 15, image: 'crypto1.jpg', caption: 'Cryptocorypha sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 16, image: 'delarthrum.jpg', caption: 'Delarthrum elegans (Golovatch, 1992)', location: 'Kathmandu Valley, Nepal', date: '2023', category: 'specimen' },
-    { id: 17, image: 'gono2.jpg', caption: 'Gonoplectus sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 18, image: 'gono3.jpg', caption: 'Gonoplectus sp.', location: 'Salyan district, Western Nepal', date: '2024', category: 'specimen' },
-    { id: 19, image: 'gono4.jpg', caption: 'Gonoplectus sp.', location: 'Kathmandu Valley, Nepal', date: '2022', category: 'specimen' },
-    { id: 20, image: 'gono5.jpg', caption: 'Gonoplectus sp.', location: 'Kathmandu Valley, Nepal', date: '2022', category: 'specimen' },
-    { id: 21, image: 'gonopod_.jpg', caption: 'Gonopod of Gonoplectus sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 22, image: 'malayus.jpg', caption: 'Gonoplectus lindbergi Demange 1961', location: 'Jhapa district, Eastern Nepal', date: '2023', category: 'specimen' },
+    { id: 12, image: 'chon2.jpg', caption: '<i>Chondromorpha</i> sp. under the soil, exposed after digging', location: 'Dang Valley, Western Nepal', date: '2024', category: 'specimen' },
+    { id: 13, image: 'chondro1.jpg', caption: '<i>Chondromorpha</i> sp. in maize growing land', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
+    { id: 14, image: 'cmating3.jpg', caption: '<i>Chondromorpha</i> sp. mating', location: 'Surrounding Hill, Dang Valley', date: '2025', category: 'specimen' },
+    { id: 15, image: 'crypto1.jpg', caption: '<i>Cryptocorypha</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
+    { id: 16, image: 'delarthrum.jpg', caption: '<i>Delarthrum elegans</i> (Golovatch, 1992)', location: 'Kathmandu Valley, Nepal', date: '2023', category: 'specimen' },
+    { id: 17, image: 'gono2.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
+    { id: 18, image: 'gono3.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Salyan district, Western Nepal', date: '2024', category: 'specimen' },
+    { id: 19, image: 'gono4.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Kathmandu Valley, Nepal', date: '2022', category: 'specimen' },
+    { id: 20, image: 'gono5.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Kathmandu Valley, Nepal', date: '2022', category: 'specimen' },
+    { id: 21, image: 'gonopod_.jpg', caption: 'Gonopod of <i>Gonoplectus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
+    { id: 22, image: 'malayus.jpg', caption: '<i>Gonoplectus lindbergi</i> Demange 1961', location: 'Jhapa district, Eastern Nepal', date: '2023', category: 'specimen' },
     { id: 23, image: 'milli1.jpg', caption: 'Millipedes under leaf litter', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
     { id: 24, image: 'sphae2.jpg', caption: 'Giant pill millipede', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 25, image: 'orthomorpha1.jpg', caption: 'Orthomorpha coarctata (Saussure, 1860)', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' }
+    { id: 25, image: 'orthomorpha1.jpg', caption: '<i>Orthomorpha coarctata</i> (Saussure, 1860)', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' }
 ];
 
 // Get the gallery container
@@ -619,14 +583,11 @@ function renderGallery(filter = 'all') {
         : galleryData.filter(item => item.category === filter);
     
     galleryGrid.innerHTML = currentFilteredData.map((item, index) => {
-        // Format caption with italic scientific names (only genus/species, not sp.)
-        const formattedCaption = formatScientificName(item.caption);
-        
         return `
         <div class="gallery-item" data-index="${index}" data-filter="${filter}">
-            <img src="${item.image}" alt="${item.caption.replace(/<[^>]*>/g, '')}" class="gallery-image" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Not+Found'">
+            <img src="${item.image}" alt="${item.caption}" class="gallery-image" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Not+Found'">
             <div class="gallery-caption-static">
-                <p>${formattedCaption}</p>
+                <p>${item.caption}</p>
                 <div class="gallery-location">
                     <span>Location:</span> ${item.location} | ${item.date}
                 </div>
@@ -648,9 +609,8 @@ function renderGallery(filter = 'all') {
 function openModal(imageData) {
     modal.style.display = 'block';
     modalImg.src = imageData.image;
-    const formattedCaption = formatScientificName(imageData.caption);
     modalCaption.innerHTML = `
-        ${formattedCaption}<br>
+        ${imageData.caption}<br>
         <span class="modal-location">Location: ${imageData.location} | ${imageData.date}</span>
     `;
     
