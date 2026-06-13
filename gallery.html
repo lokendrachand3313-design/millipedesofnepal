@@ -127,6 +127,11 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
+        /* Scientific name italic style */
+        .scientific-name {
+            font-style: italic;
+        }
+        
         .gallery-caption-static .gallery-location {
             color: var(--primary-blue);
             font-size: 0.85rem;
@@ -208,6 +213,10 @@
             color: var(--gold);
             margin-top: 10px;
             font-size: 1rem;
+        }
+        
+        .modal-caption .scientific-name {
+            font-style: italic;
         }
         
         .close-modal {
@@ -527,7 +536,26 @@ window.addEventListener('DOMContentLoaded', function() {
 // GALLERY SPECIFIC FUNCTIONS
 // ============================================
 
-// Gallery Data - All photos with categories
+// Function to convert scientific names to italic HTML
+function formatScientificName(text) {
+    // Pattern to match scientific names (Genus species or Genus sp.)
+    // Matches words like: Gonoplectus malayus, Chondromorpha sp., Orthomorpha coarctata, etc.
+    const sciNamePattern = /\b([A-Z][a-z]+)\s+([a-z]+(?:\s+[a-z]+)?)\b/g;
+    const spPattern = /\b([A-Z][a-z]+)\s+sp\.\b/g;
+    
+    let result = text;
+    result = result.replace(spPattern, '<i class="scientific-name">$1 sp.</i>');
+    result = result.replace(sciNamePattern, (match, genus, species) => {
+        // Don't replace if it's not a scientific name (like common words)
+        if (genus.length > 2 && species.length > 1) {
+            return `<i class="scientific-name">${genus} ${species}</i>`;
+        }
+        return match;
+    });
+    return result;
+}
+
+// Gallery Data - All photos with categories (scientific names in plain text)
 const galleryData = [
     { id: 1, image: 'forest_dang.jpg', caption: 'Forest of Shorea robusta in Dang Valley', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
     { id: 2, image: 'habitat2.jpg', caption: 'Habitat of Chondromorpha sp. and Streptogonopus phipsoni', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
@@ -578,17 +606,21 @@ function renderGallery(filter = 'all') {
         ? galleryData 
         : galleryData.filter(item => item.category === filter);
     
-    galleryGrid.innerHTML = currentFilteredData.map((item, index) => `
+    galleryGrid.innerHTML = currentFilteredData.map((item, index) => {
+        // Format caption with italic scientific names
+        const formattedCaption = formatScientificName(item.caption);
+        
+        return `
         <div class="gallery-item" data-index="${index}" data-filter="${filter}">
             <img src="${item.image}" alt="${item.caption.replace(/<[^>]*>/g, '')}" class="gallery-image" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Not+Found'">
             <div class="gallery-caption-static">
-                <p>${item.caption}</p>
+                <p>${formattedCaption}</p>
                 <div class="gallery-location">
                     <span>Location:</span> ${item.location} | ${item.date}
                 </div>
             </div>
         </div>
-    `).join('');
+    `}).join('');
     
     // Add click event to each gallery item
     document.querySelectorAll('.gallery-item').forEach((item, idx) => {
@@ -604,8 +636,9 @@ function renderGallery(filter = 'all') {
 function openModal(imageData) {
     modal.style.display = 'block';
     modalImg.src = imageData.image;
+    const formattedCaption = formatScientificName(imageData.caption);
     modalCaption.innerHTML = `
-        ${imageData.caption}<br>
+        ${formattedCaption}<br>
         <span class="modal-location">Location: ${imageData.location} | ${imageData.date}</span>
     `;
     
