@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Introduction & Identification Keys - Millipedes of Nepal</title>
     <meta name="description" content="Learn about millipede identification with illustrated keys, video introduction, and PDF resources for Nepalese millipedes.">
     <meta name="keywords" content="millipedes, Nepal, identification, introduction, taxonomy, Diplopoda, key">
@@ -99,6 +99,12 @@
             border-radius: 10px;
             padding: 8px;
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 2px 5px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .book-container:active {
+            transform: scale(0.99);
         }
         
         .pdf-canvas-container {
@@ -110,19 +116,31 @@
             align-items: center;
             min-height: 500px;
             position: relative;
-            overflow-x: auto;
-            overflow-y: auto;
+            overflow: auto;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            touch-action: pan-x pan-y pinch-zoom;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Zoom wrapper for pinch-to-zoom */
+        .zoom-wrapper {
+            transform-origin: 0 0;
+            transition: transform 0.05s ease-out;
+            display: inline-block;
+            cursor: grab;
+        }
+        
+        .zoom-wrapper:active {
+            cursor: grabbing;
         }
         
         #pdf1Canvas, #pdf2Canvas, #pdf3Canvas {
-            max-width: 100%;
-            height: auto;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            background: white;
-            border-radius: 4px;
             display: block;
             margin: 0 auto;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
         }
         
         /* Simple Controls */
@@ -181,15 +199,40 @@
             background: #2ecc71;
         }
         
+        /* Zoom controls group */
+        .zoom-controls-group {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .zoom-control-btn {
+            background: var(--primary-blue-dark);
+            padding: 8px 16px;
+            min-width: 50px;
+            font-size: 1rem;
+        }
+        
+        .reset-zoom-btn {
+            background: #e67e22;
+        }
+        
+        .reset-zoom-btn:hover {
+            background: #d35400;
+        }
+        
         /* Fullscreen Mode */
         .book-container:fullscreen {
-            background: #2c2c2c;
+            background: #1a1a1a;
             padding: 20px;
+            cursor: default;
         }
         
         .book-container:fullscreen .pdf-canvas-container {
             min-height: calc(100vh - 160px);
             background: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .book-container:fullscreen #pdf1Canvas,
@@ -198,6 +241,13 @@
             max-height: calc(100vh - 180px);
             width: auto;
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            cursor: grab;
+        }
+        
+        .book-container:fullscreen #pdf1Canvas:active,
+        .book-container:fullscreen #pdf2Canvas:active,
+        .book-container:fullscreen #pdf3Canvas:active {
+            cursor: grabbing;
         }
         
         .book-container:fullscreen .book-controls {
@@ -220,6 +270,25 @@
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
+        }
+        
+        /* Fullscreen hint */
+        .fullscreen-hint {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 0.7rem;
+            color: #999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .fullscreen-hint span {
+            background: #e8e8e8;
+            padding: 4px 10px;
+            border-radius: 20px;
         }
         
         /* Security Notice - Small */
@@ -296,16 +365,10 @@
             
             .book-container { padding: 5px; }
             .pdf-canvas-container { 
-                min-height: 350px; 
+                min-height: 400px; 
                 padding: 3px;
-                overflow-x: auto;
+                overflow: auto;
                 -webkit-overflow-scrolling: touch;
-            }
-            
-            #pdf1Canvas, #pdf2Canvas, #pdf3Canvas {
-                max-width: 100%;
-                height: auto !important;
-                width: auto !important;
             }
             
             .book-controls { gap: 8px; }
@@ -319,7 +382,9 @@
                 font-size: 0.8rem;
                 min-width: 85px;
             }
+            .zoom-control-btn { padding: 6px 12px; font-size: 0.8rem; }
             
+            .fullscreen-hint { font-size: 0.6rem; }
             .security-notice { font-size: 0.6rem; }
             .source-box { padding: 20px; }
             .milli-peet-logo { font-size: 1.5rem; }
@@ -329,8 +394,9 @@
         @media (max-width: 480px) {
             .book-btn { padding: 6px 10px; font-size: 0.7rem; min-width: 60px; }
             .page-indicator { padding: 6px 10px; font-size: 0.7rem; min-width: 75px; }
-            .pdf-canvas-container { min-height: 280px; }
+            .pdf-canvas-container { min-height: 350px; }
             .book-controls { gap: 6px; }
+            .zoom-control-btn { padding: 5px 8px; font-size: 0.7rem; }
         }
         
         /* Disable selection on canvas */
@@ -345,7 +411,7 @@
             pointer-events: auto;
             user-select: none;
             -webkit-user-select: none;
-            touch-action: pan-x pan-y;
+            touch-action: pan-x pan-y pinch-zoom;
         }
     </style>
 </head>
@@ -443,6 +509,11 @@
                 <button class="book-btn" id="prev1Btn" disabled>◀ Previous</button>
                 <span class="page-indicator" id="page1Indicator">0 / 0</span>
                 <button class="book-btn" id="next1Btn" disabled>Next ▶</button>
+                <div class="zoom-controls-group">
+                    <button class="book-btn zoom-control-btn" id="zoomOut1Btn" title="Zoom Out">−</button>
+                    <button class="book-btn zoom-control-btn reset-zoom-btn" id="resetZoom1Btn" title="Reset Zoom">⟳</button>
+                    <button class="book-btn zoom-control-btn" id="zoomIn1Btn" title="Zoom In">+</button>
+                </div>
                 <button class="book-btn fullscreen-btn" id="fullscreen1Btn">🗖 Fullscreen</button>
             </div>
             <div class="security-notice">translated from MILLI-PEET Project by Petra Sierwald  <a href="https://www.fieldmuseum.org/" target="_blank" rel="noopener noreferrer">🔗 www.fieldmuseum.org</a></div>
@@ -464,6 +535,11 @@
                 <button class="book-btn" id="prev2Btn" disabled>◀ Previous</button>
                 <span class="page-indicator" id="page2Indicator">0 / 0</span>
                 <button class="book-btn" id="next2Btn" disabled>Next ▶</button>
+                <div class="zoom-controls-group">
+                    <button class="book-btn zoom-control-btn" id="zoomOut2Btn" title="Zoom Out">−</button>
+                    <button class="book-btn zoom-control-btn reset-zoom-btn" id="resetZoom2Btn" title="Reset Zoom">⟳</button>
+                    <button class="book-btn zoom-control-btn" id="zoomIn2Btn" title="Zoom In">+</button>
+                </div>
                 <button class="book-btn fullscreen-btn" id="fullscreen2Btn">🗖 Fullscreen</button>
             </div>
             <div class="security-notice">translated from MILLI-PEET Project by Petra Sierwald  <a href="https://www.fieldmuseum.org/" target="_blank" rel="noopener noreferrer">🔗 www.fieldmuseum.org</a></div>
@@ -485,6 +561,11 @@
                 <button class="book-btn" id="prev3Btn" disabled>◀ Previous</button>
                 <span class="page-indicator" id="page3Indicator">0 / 0</span>
                 <button class="book-btn" id="next3Btn" disabled>Next ▶</button>
+                <div class="zoom-controls-group">
+                    <button class="book-btn zoom-control-btn" id="zoomOut3Btn" title="Zoom Out">−</button>
+                    <button class="book-btn zoom-control-btn reset-zoom-btn" id="resetZoom3Btn" title="Reset Zoom">⟳</button>
+                    <button class="book-btn zoom-control-btn" id="zoomIn3Btn" title="Zoom In">+</button>
+                </div>
                 <button class="book-btn fullscreen-btn" id="fullscreen3Btn">🗖 Fullscreen</button>
             </div>
             <div class="security-notice"> Inspired by Shinohara (1999)</div>
@@ -588,25 +669,37 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// SIMPLE PDF BOOK VIEWER - Minimal Design
+// PDF BOOK VIEWER WITH CLICK FULLSCREEN & PINCH ZOOM
 // ============================================
 
-class SimplePDFBook {
-    constructor(pdfUrl, canvasId, loadingId, prevBtnId, nextBtnId, pageIndicatorId, fullscreenBtnId, containerId) {
+class PDFBookViewer {
+    constructor(pdfUrl, canvasId, loadingId, prevBtnId, nextBtnId, pageIndicatorId, 
+                zoomInBtnId, zoomOutBtnId, resetZoomBtnId, fullscreenBtnId, containerId, canvasContainerId) {
         this.pdfUrl = pdfUrl;
         this.canvas = document.getElementById(canvasId);
+        this.canvasContainer = document.getElementById(canvasContainerId);
         this.loadingDiv = document.getElementById(loadingId);
         this.prevBtn = document.getElementById(prevBtnId);
         this.nextBtn = document.getElementById(nextBtnId);
         this.pageIndicator = document.getElementById(pageIndicatorId);
+        this.zoomInBtn = document.getElementById(zoomInBtnId);
+        this.zoomOutBtn = document.getElementById(zoomOutBtnId);
+        this.resetZoomBtn = document.getElementById(resetZoomBtnId);
         this.fullscreenBtn = document.getElementById(fullscreenBtnId);
         this.container = document.getElementById(containerId);
         
         this.pdfDoc = null;
         this.currentPage = 1;
         this.totalPages = 0;
-        this.scale = 1.2;
+        this.baseScale = 1.5;
+        this.currentZoom = 1.0;
+        this.minZoom = 0.5;
+        this.maxZoom = 3.0;
         this.ctx = this.canvas.getContext('2d');
+        
+        // For pinch-to-zoom
+        this.initialDistance = 0;
+        this.initialZoom = 1;
         
         this.init();
     }
@@ -619,11 +712,11 @@ class SimplePDFBook {
         try {
             this.pdfDoc = await pdfjsLib.getDocument({
                 url: this.pdfUrl,
-                disableFontFace: true,
-                disableRange: true,
-                disableStream: true,
-                isEvalSupported: false,
-                useSystemFonts: false
+                disableFontFace: false,
+                disableRange: false,
+                disableStream: false,
+                isEvalSupported: true,
+                useSystemFonts: true
             }).promise;
             
             this.totalPages = this.pdfDoc.numPages;
@@ -635,6 +728,8 @@ class SimplePDFBook {
             this.hideLoading();
             
             this.setupEventListeners();
+            this.setupPinchToZoom();
+            this.setupClickFullscreen();
             this.setupSecurityFeatures();
             
         } catch (error) {
@@ -646,14 +741,18 @@ class SimplePDFBook {
     adjustScaleForScreen() {
         const screenWidth = window.innerWidth;
         if (screenWidth <= 480) {
-            this.scale = 0.7;
+            this.baseScale = 1.2;
         } else if (screenWidth <= 768) {
-            this.scale = 0.9;
+            this.baseScale = 1.4;
         } else if (screenWidth <= 1024) {
-            this.scale = 1.1;
+            this.baseScale = 1.6;
         } else {
-            this.scale = 1.2;
+            this.baseScale = 1.8;
         }
+    }
+    
+    getEffectiveScale() {
+        return this.baseScale * this.currentZoom;
     }
     
     showLoading() {
@@ -682,10 +781,12 @@ class SimplePDFBook {
         
         try {
             const page = await this.pdfDoc.getPage(this.currentPage);
-            const viewport = page.getViewport({ scale: this.scale });
+            const viewport = page.getViewport({ scale: this.getEffectiveScale() });
             
             this.canvas.width = viewport.width;
             this.canvas.height = viewport.height;
+            this.canvas.style.width = 'auto';
+            this.canvas.style.height = 'auto';
             
             const renderContext = {
                 canvasContext: this.ctx,
@@ -716,6 +817,15 @@ class SimplePDFBook {
         if (this.nextBtn) {
             this.nextBtn.disabled = false;
             this.nextBtn.onclick = () => this.nextPage();
+        }
+        if (this.zoomInBtn) {
+            this.zoomInBtn.onclick = () => this.zoomIn();
+        }
+        if (this.zoomOutBtn) {
+            this.zoomOutBtn.onclick = () => this.zoomOut();
+        }
+        if (this.resetZoomBtn) {
+            this.resetZoomBtn.onclick = () => this.resetZoom();
         }
         if (this.fullscreenBtn) {
             this.fullscreenBtn.onclick = () => this.toggleFullscreen();
@@ -748,6 +858,29 @@ class SimplePDFBook {
         }
     }
     
+    zoomIn() {
+        if (this.currentZoom < this.maxZoom) {
+            this.currentZoom = Math.min(this.maxZoom, this.currentZoom + 0.2);
+            this.renderPage();
+        }
+    }
+    
+    zoomOut() {
+        if (this.currentZoom > this.minZoom) {
+            this.currentZoom = Math.max(this.minZoom, this.currentZoom - 0.2);
+            this.renderPage();
+        }
+    }
+    
+    resetZoom() {
+        this.currentZoom = 1.0;
+        this.renderPage();
+        if (this.canvasContainer) {
+            this.canvasContainer.scrollLeft = 0;
+            this.canvasContainer.scrollTop = 0;
+        }
+    }
+    
     toggleFullscreen() {
         if (!this.container) return;
         
@@ -760,24 +893,90 @@ class SimplePDFBook {
         }
     }
     
+    setupClickFullscreen() {
+        // Click on canvas to go fullscreen
+        this.canvas.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggleFullscreen();
+        });
+        
+        // Also allow click on container background
+        this.canvasContainer.addEventListener('click', (e) => {
+            if (e.target === this.canvasContainer) {
+                this.toggleFullscreen();
+            }
+        });
+    }
+    
+    setupPinchToZoom() {
+        if (!this.canvasContainer) return;
+        
+        let initialPinchZoom = 1;
+        let initialDistance = 0;
+        
+        this.canvasContainer.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                initialDistance = Math.hypot(dx, dy);
+                initialPinchZoom = this.currentZoom;
+            }
+        }, { passive: false });
+        
+        this.canvasContainer.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                const distance = Math.hypot(dx, dy);
+                
+                if (initialDistance > 0) {
+                    const scale = distance / initialDistance;
+                    let newZoom = initialPinchZoom * scale;
+                    newZoom = Math.min(this.maxZoom, Math.max(this.minZoom, newZoom));
+                    
+                    if (newZoom !== this.currentZoom) {
+                        this.currentZoom = newZoom;
+                        this.renderPage();
+                    }
+                }
+            }
+        }, { passive: false });
+        
+        this.canvasContainer.addEventListener('touchend', (e) => {
+            initialDistance = 0;
+        });
+        
+        // Mouse wheel zoom with Ctrl key
+        this.canvasContainer.addEventListener('wheel', (e) => {
+            if (e.ctrlKey) {
+                e.preventDefault();
+                if (e.deltaY < 0) {
+                    this.zoomIn();
+                } else {
+                    this.zoomOut();
+                }
+            }
+        }, { passive: false });
+    }
+    
     setupEventListeners() {
         window.addEventListener('resize', () => {
-            const oldScale = this.scale;
+            const oldScale = this.baseScale;
             this.adjustScaleForScreen();
-            if (oldScale !== this.scale) {
+            if (oldScale !== this.baseScale) {
                 this.renderPage();
             }
         });
     }
     
     setupSecurityFeatures() {
-        // Disable right-click
         this.canvas.addEventListener('contextmenu', (e) => {
             e.preventDefault();
             return false;
         });
         
-        // Disable keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if ((e.ctrlKey && (e.key === 's' || e.key === 'p' || e.key === 'u' || e.key === 'i')) ||
                 (e.ctrlKey && e.shiftKey && e.key === 'I') ||
@@ -787,13 +986,11 @@ class SimplePDFBook {
             }
         });
         
-        // Disable drag
         this.canvas.addEventListener('dragstart', (e) => {
             e.preventDefault();
             return false;
         });
         
-        // Disable copy
         this.canvas.addEventListener('copy', (e) => {
             e.preventDefault();
             return false;
@@ -803,37 +1000,49 @@ class SimplePDFBook {
 
 // Initialize all PDF books
 document.addEventListener('DOMContentLoaded', function() {
-    new SimplePDFBook(
+    new PDFBookViewer(
         'intro.pdf',
         'pdf1Canvas',
         'pdf1Loading',
         'prev1Btn',
         'next1Btn',
         'page1Indicator',
+        'zoomIn1Btn',
+        'zoomOut1Btn',
+        'resetZoom1Btn',
         'fullscreen1Btn',
-        'book1Container'
+        'book1Container',
+        'pdf1Container'
     );
     
-    new SimplePDFBook(
+    new PDFBookViewer(
         'keys.pdf',
         'pdf2Canvas',
         'pdf2Loading',
         'prev2Btn',
         'next2Btn',
         'page2Indicator',
+        'zoomIn2Btn',
+        'zoomOut2Btn',
+        'resetZoom2Btn',
         'fullscreen2Btn',
-        'book2Container'
+        'book2Container',
+        'pdf2Container'
     );
     
-    new SimplePDFBook(
+    new PDFBookViewer(
         'keynepal.pdf',
         'pdf3Canvas',
         'pdf3Loading',
         'prev3Btn',
         'next3Btn',
         'page3Indicator',
+        'zoomIn3Btn',
+        'zoomOut3Btn',
+        'resetZoom3Btn',
         'fullscreen3Btn',
-        'book3Container'
+        'book3Container',
+        'pdf3Container'
     );
     
     // Disable video download
