@@ -133,6 +133,7 @@
             text-align: center;
         }
         
+        /* CRITICAL: Canvas centering */
         .pdf-canvas-container canvas {
             display: block;
             box-shadow: 0 2px 15px rgba(0,0,0,0.15);
@@ -141,6 +142,12 @@
             max-width: 100%;
             height: auto;
             margin: 0 auto;
+            position: relative;
+            left: auto;
+            right: auto;
+            top: auto;
+            bottom: auto;
+            transform: none;
         }
         
         /* Book Controls */
@@ -252,6 +259,7 @@
             max-height: calc(100vh - 200px);
             width: auto;
             cursor: pointer;
+            margin: 0 auto;
         }
         
         /* Fullscreen controls */
@@ -547,6 +555,7 @@
                 <span class="page-indicator" id="page1Indicator">Loading...</span>
                 <button class="book-btn" id="next1Btn">Next ▶</button>
             </div>
+            <div class="swipe-hint">👆 Tap on PDF to fullscreen | 👉 Swipe left/right to turn pages</div>
             <div class="book-notice">Adapted from MILLI-PEET Project by Petra Sierwald, <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
         </div>
     </div>
@@ -567,6 +576,7 @@
                 <span class="page-indicator" id="page2Indicator">Loading...</span>
                 <button class="book-btn" id="next2Btn">Next ▶</button>
             </div>
+            <div class="swipe-hint">👆 Tap on PDF to fullscreen | 👉 Swipe left/right to turn pages</div>
             <div class="book-notice">Adapted from MILLI-PEET Project by Petra Sierwald, <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
         </div>
     </div>
@@ -587,6 +597,7 @@
                 <span class="page-indicator" id="page3Indicator">Loading...</span>
                 <button class="book-btn" id="next3Btn">Next ▶</button>
             </div>
+            <div class="swipe-hint">👆 Tap on PDF to fullscreen | 👉 Swipe left/right to turn pages</div>
             <div class="book-notice">This work is inspired by Shinohara (1999)</div>
         </div>
     </div>
@@ -651,7 +662,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// PDF BOOK VIEWER - FULL WIDTH, CENTERED PAGE
+// PDF BOOK VIEWER - CENTERED PAGE
 // ============================================
 
 class PDFBookViewer {
@@ -752,12 +763,17 @@ class PDFBookViewer {
         const canvasWidth = this.canvas.width;
         const canvasHeight = this.canvas.height;
         
+        // Calculate center position - both horizontally and vertically
         const left = (containerRect.width - canvasWidth) / 2;
         const top = (containerRect.height - canvasHeight) / 2;
         
+        // Apply centering using CSS
         this.canvas.style.position = 'relative';
-        this.canvas.style.left = Math.max(0, left) + 'px';
-        this.canvas.style.top = Math.max(0, top) + 'px';
+        this.canvas.style.left = left + 'px';
+        this.canvas.style.top = top + 'px';
+        this.canvas.style.right = 'auto';
+        this.canvas.style.bottom = 'auto';
+        this.canvas.style.margin = '0';
     }
     
     updatePageIndicator() {
