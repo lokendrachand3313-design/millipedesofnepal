@@ -278,8 +278,6 @@ const millipedePoints = [
     
     // Polydesmida - Paradoxosomatidae - Chondromorpha
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Chondromorpha", species: "phipsoni", lat: 27.07843164, lon: 82.234269 },
-    // Polydesmida - Paradoxosomatidae- Streptogonous
-     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Xanthodesmini", genus: "Streptogonopus ", species: "greke", lat: 27.960222, lon: 87.93256612},
     
     // Polydesmida - Paradoxosomatidae - Delarthrum
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Alogolykinae", tribe: "Polydrepanani", genus: "Delarthrum", species: "aberrans", lat: 27.614824, lon: 86.228442 },
@@ -431,6 +429,9 @@ const millipedePoints = [
     
     // Polydesmida - Paradoxosomatidae - Pocockina
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Alogolykinae", tribe: "Alogolykini", genus: "Pocockina", species: "schawalleri", lat: 27.577376, lon: 84.504202 },
+
+    // Polydesmida - Paradoxosomatidae- Streptogonous
+     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Xanthodesmini", genus: "Streptogonopus ", species: "phipsoni", lat: 27.960222, lon: 87.93256612},
     
     // Polydesmida - Paradoxosomatidae - Substrongylosoma
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Paradoxosomatini", genus: "Substrongylosoma", species: "bifurcatum", lat: 27.578298, lon: 86.783743 },
