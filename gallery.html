@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery - Millipedes of Nepal</title>
-    <meta name="description" content="Explore fieldwork photos, specimen images, and habitat photographs from the Millipedes of Nepal research project.">
-    <meta name="keywords" content="millipedes, Nepal, gallery, fieldwork, specimens, habitat, photographs">
+    <meta name="description" content="Explore fieldwork photos, specimen images, and habitat photographs from the Millipedes of Nepal research project, plus live observations from iNaturalist.">
+    <meta name="keywords" content="millipedes, Nepal, gallery, fieldwork, specimens, iNaturalist, observations">
+    
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <!-- Shared Styles -->
     <link rel="stylesheet" href="style.css">
@@ -38,24 +41,6 @@
             overflow: hidden;
         }
         
-        .filter-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(26, 82, 118, 0.1);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .filter-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
         .filter-btn:hover {
             background-color: var(--primary-blue);
             color: white;
@@ -67,6 +52,45 @@
             background-color: var(--primary-blue);
             color: white;
             box-shadow: 0 4px 10px rgba(26, 82, 118, 0.4);
+        }
+        
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--blue-bg);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .stats-bar span {
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        
+        .refresh-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+            transition: all 0.3s ease;
+        }
+        
+        .refresh-btn:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+        }
+        
+        .last-updated {
+            font-size: 0.8rem;
+            color: #666;
         }
         
         /* Gallery Grid - Masonry style */
@@ -104,10 +128,10 @@
         }
         
         .gallery-item:hover .gallery-image {
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
         
-        /* Caption styling - all text normal */
+        /* Caption styling */
         .gallery-caption-static {
             padding: 15px;
             background-color: #f5f5f5;
@@ -125,7 +149,12 @@
             color: #333;
             margin-bottom: 5px;
             font-family: 'Times New Roman', Times, serif;
-            font-style: normal;
+        }
+        
+        .gallery-caption-static .scientific-name {
+            font-style: italic;
+            font-weight: bold;
+            color: var(--primary-blue);
         }
         
         .gallery-caption-static .gallery-location {
@@ -135,11 +164,20 @@
             align-items: center;
             gap: 5px;
             font-family: 'Times New Roman', Times, serif;
-            font-style: normal;
         }
         
-        .gallery-item:hover .gallery-caption-static .gallery-location {
-            color: var(--primary-blue-dark);
+        .inat-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: #77bb22;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 5;
+            backdrop-filter: blur(5px);
         }
         
         /* Lightbox Modal */
@@ -169,14 +207,8 @@
         }
         
         @keyframes zoomIn {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
         
         .modal-caption {
@@ -187,31 +219,16 @@
             text-align: center;
             color: white;
             padding: 20px;
-            font-size: 1.2rem;
             background: rgba(26, 82, 118, 0.95);
             border-radius: 8px;
             border-left: 5px solid var(--gold);
             font-family: 'Times New Roman', Times, serif;
-            font-style: normal;
-            animation: slideInUp 0.4s ease-out;
-        }
-        
-        @keyframes slideInUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
         }
         
         .modal-location {
             color: var(--gold);
             margin-top: 10px;
             font-size: 1rem;
-            font-style: normal;
         }
         
         .close-modal {
@@ -224,7 +241,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 1001;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
         
         .close-modal:hover {
@@ -245,72 +261,81 @@
             border-radius: 5px;
             transition: all 0.3s ease;
             z-index: 1001;
-            backdrop-filter: blur(5px);
         }
         
         .nav-btn:hover {
             background: var(--primary-blue);
             transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
         }
         
-        .prev-btn {
-            left: 20px;
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+        
+        /* Map Container */
+        .map-container {
+            margin-top: 40px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
         
-        .next-btn {
-            right: 20px;
+        .map-header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
         }
         
-        /* Responsive adjustments */
+        #inatMap {
+            height: 450px;
+            width: 100%;
+            z-index: 1;
+        }
+        
+        /* Loading */
+        .loading-spinner {
+            text-align: center;
+            padding: 50px;
+            color: var(--primary-blue);
+        }
+        
+        .loading-spinner::after {
+            content: "🔄 Loading observations from iNaturalist...";
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Responsive */
         @media (max-width: 1024px) {
-            .gallery-container {
-                column-count: 2;
-            }
+            .gallery-container { column-count: 2; }
         }
         
         @media (max-width: 768px) {
-            .gallery-container {
-                column-count: 1;
-            }
-            .filter-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-            .modal-content {
-                max-width: 95%;
-                max-height: 60vh;
-            }
-            .close-modal {
-                top: 15px;
-                right: 25px;
-                font-size: 40px;
-            }
-            .nav-btn {
-                font-size: 1.5rem;
-                padding: 10px;
-            }
+            .gallery-container { column-count: 1; }
+            .filter-btn { padding: 8px 16px; font-size: 0.9rem; }
+            .modal-content { max-width: 95%; max-height: 60vh; }
+            .close-modal { top: 15px; right: 25px; font-size: 40px; }
+            .nav-btn { font-size: 1.5rem; padding: 10px; }
+            #inatMap { height: 350px; }
+            .stats-bar { flex-direction: column; text-align: center; }
         }
         
         @media (max-width: 480px) {
-            .filter-btn {
-                width: 100%;
-                text-align: center;
-            }
-            .gallery-caption-static p {
-                font-size: 0.95rem;
-            }
-            .modal-caption {
-                font-size: 1rem;
-                padding: 15px;
-                width: 95%;
-            }
-        }
-        
-        @media (min-width: 1600px) {
-            .gallery-container {
-                column-count: 4;
-            }
+            .filter-btn { width: calc(50% - 5px); text-align: center; }
+            .gallery-caption-static p { font-size: 0.9rem; }
+            .modal-caption { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -323,7 +348,7 @@
         
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
-            <p>Fieldwork Gallery</p>
+            <p>Gallery - Fieldwork & iNaturalist Observations</p>
         </div>
         
         <div class="right-group">
@@ -377,21 +402,39 @@
 
 <main>
     <div class="page-header">
-        <h2>Fieldwork and Specimen Gallery</h2>
-        <p>Explore our collection of millipede photographs from field expeditions and laboratory work</p>
+        <h2>Fieldwork and iNaturalist Gallery</h2>
+        <p>Explore our collection + live observations from iNaturalist (updated every hour)</p>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div>
+            📸 <span id="photoCount">0</span> total observations
+            <span class="last-updated" id="lastUpdated">-</span>
+        </div>
+        <div>
+            🌍 <span id="locationCount">0</span> locations on map
+        </div>
+        <button class="refresh-btn" id="refreshBtn">🔄 Refresh from iNaturalist</button>
     </div>
 
     <!-- Filter Buttons -->
     <div class="gallery-filters">
         <button class="filter-btn active" data-filter="all">All Photos</button>
-        <button class="filter-btn" data-filter="habitat">Habitat</button>
-        <button class="filter-btn" data-filter="specimen">Specimens</button>
-        <button class="filter-btn" data-filter="fieldwork">Fieldwork</button>
-        <button class="filter-btn" data-filter="lab">Lab Work</button>
+        <button class="filter-btn" data-filter="fieldwork">Our Fieldwork</button>
+        <button class="filter-btn" data-filter="inat">iNaturalist</button>
     </div>
     
     <!-- Gallery Grid -->
-    <div class="gallery-container" id="gallery-grid"></div>
+    <div class="gallery-container" id="gallery-grid">
+        <div class="loading-spinner">Loading observations from iNaturalist...</div>
+    </div>
+    
+    <!-- Map Container -->
+    <div class="map-container">
+        <div class="map-header">📍 Observation Locations (iNaturalist + Fieldwork)</div>
+        <div id="inatMap"></div>
+    </div>
     
     <!-- Lightbox Modal -->
     <div id="imageModal" class="modal">
@@ -404,16 +447,18 @@
 </main>
 
 <footer>
-    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>Copyright <script>document.write(new Date().getFullYear());</script> Lokendra Chand | +977-9809733313 / +817090238470</p>
+    <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    <p style="font-size: 0.7rem; margin-top: 10px;">📷 iNaturalist observations are fetched live. Data © iNaturalist contributors under CC BY-NC 4.0</p>
 </footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 // ============================================
-// CLOCK AND DATE FUNCTIONS - ACCURATE VERSION
+// CLOCK AND DATE FUNCTIONS
 // ============================================
 
-// Get Nepal time (UTC+5:45)
 function getNepalTime() {
     const now = new Date();
     const nepalOffset = 5.75 * 60 * 60 * 1000;
@@ -421,81 +466,8 @@ function getNepalTime() {
     return new Date(utcTime + nepalOffset);
 }
 
-// Nepali month names
-const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
-
-// Nepali weekday names
-const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
-
-// Days in each Nepali month
-const nepaliMonthDays = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
-
-// Check if Nepali year is leap
-function isNepaliLeapYear(bsYear) {
-    const leapYears = [1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011, 2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028, 2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046, 2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063, 2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081, 2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098];
-    return leapYears.includes(bsYear);
-}
-
-// Get days in Nepali month
-function getNepaliMonthDays(bsYear, bsMonth) {
-    if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
-    return nepaliMonthDays[bsMonth];
-}
-
-// Convert AD to BS
-function adToBs(adDate) {
-    const referenceAD = new Date(2026, 3, 14);
-    const referenceBS = { year: 2083, month: 0, day: 1 };
-    
-    const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
-    let diffDays = Math.round((targetAD - referenceAD) / (1000 * 60 * 60 * 24));
-    
-    let bsYear = referenceBS.year;
-    let bsMonth = referenceBS.month;
-    let bsDay = referenceBS.day + diffDays;
-    
-    while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
-        bsDay -= getNepaliMonthDays(bsYear, bsMonth);
-        bsMonth++;
-        if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
-    }
-    
-    while (bsDay < 1) {
-        bsMonth--;
-        if (bsMonth < 0) { bsMonth = 11; bsYear--; }
-        bsDay += getNepaliMonthDays(bsYear, bsMonth);
-    }
-    
-    return { year: bsYear, month: bsMonth, day: bsDay };
-}
-
-// Convert to Nepali digits
-function toNepaliDigits(num) {
-    const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-    return String(num).split('').map(d => digits[parseInt(d)] || d).join('');
-}
-
-// Get Nepali date string
-function getNepaliDateString(date) {
-    const bs = adToBs(date);
-    return `${nepaliWeekdays[date.getDay()]}, ${nepaliMonths[bs.month]} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
-}
-
-// Format English date
-function getEnglishDateString(date) {
-    return date.toLocaleDateString('en-US', { 
-        weekday: 'short', 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric' 
-    });
-}
-
-// Update all clock displays
 function updateClock() {
     const now = getNepalTime();
-    
-    // Update analog hands
     const hours = now.getHours();
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
@@ -508,170 +480,320 @@ function updateClock() {
     if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
     if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
     
-    // Update digital time
     const digitalTime = document.getElementById('digitalTime');
     if (digitalTime) digitalTime.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     
-    // Update English date
     const englishDate = document.getElementById('englishDate');
-    if (englishDate) englishDate.innerHTML = getEnglishDateString(now);
+    if (englishDate) englishDate.innerHTML = now.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     
-    // Update Nepali date
     const nepaliDate = document.getElementById('nepaliDate');
-    if (nepaliDate) nepaliDate.innerHTML = getNepaliDateString(now);
+    if (nepaliDate) nepaliDate.innerHTML = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
 }
 
-// Wait for page to load completely
 window.addEventListener('DOMContentLoaded', function() {
     updateClock();
     setInterval(updateClock, 1000);
 });
 
 // ============================================
-// GALLERY SPECIFIC FUNCTIONS
+// INATURALIST API INTEGRATION
 // ============================================
 
-// Gallery Data - All photos with categories (all text normal)
-const galleryData = [
-    { id: 1, image: 'forest_dang.jpg', caption: 'Forest of <i>Shorea robusta</i> in Dang Valley', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
-    { id: 2, image: 'habitat2.jpg', caption: 'Habitat of <i>Chondromorpha</i> sp. and Streptogonopus phipsoni', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
-    { id: 3, image: 'habitat3.jpg', caption: 'Mixed Forest Leaf litter, perfect habitat for Millipede and other Invertebrates', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
-    { id: 4, image: 'habitat4.jpg', caption: '<i>Shorea robusta</i> Forest', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
-    { id: 5, image: 'lab1.jpg', caption: 'Lokendra Chand and Ayub Senchury in Lab', location: 'Central Department of Zoology, TU, Kathmandu', date: '2023', category: 'lab' },
-    { id: 6, image: 'field1.jpg', caption: 'Lokendra Chand and other field workers', location: 'Nilbarahi Community Forest, Bhaktapur', date: '2022', category: 'fieldwork' },
-    { id: 7, image: 'gono_dead.jpg', caption: '<i>Gonoplectus malayus</i> after death on forest floor', location: 'Dang Valley, Western Nepal', date: '2023', category: 'specimen' },
-    { id: 8, image: 'bijan.jpg', caption: 'Mr. Bijan Basnet collecting centipede specimen', location: 'Ranibari Community Forest, Kathmandu', date: '2023', category: 'fieldwork' },
-    { id: 9, image: 'me_field.jpg', caption: 'Collecting millipedes in the field', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork' },
-    { id: 10, image: 'siphono2.jpg', caption: '<i>Siphonorhinus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2024', category: 'specimen' },
-    { id: 11, image: 'students2.jpg', caption: 'Students searching for soil invertebrates', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork' },
-    { id: 12, image: 'chon2.jpg', caption: '<i>Chondromorpha</i> sp. under the soil, exposed after digging', location: 'Dang Valley, Western Nepal', date: '2024', category: 'specimen' },
-    { id: 13, image: 'chondro1.jpg', caption: '<i>Chondromorpha</i> sp. in maize growing land', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 14, image: 'cmating3.jpg', caption: '<i>Chondromorpha</i> sp. mating', location: 'Surrounding Hill, Dang Valley', date: '2025', category: 'specimen' },
-    { id: 15, image: 'crypto1.jpg', caption: '<i>Cryptocorypha</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 16, image: 'delarthrum.jpg', caption: '<i>Delarthrum elegans</i> (Golovatch, 1992)', location: 'Kathmandu Valley, Nepal', date: '2023', category: 'specimen' },
-    { id: 17, image: 'gono2.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 18, image: 'gono3.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Salyan district, Western Nepal', date: '2024', category: 'specimen' },
-    { id: 19, image: 'gono4.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Kathmandu Valley, Nepal', date: '2022', category: 'specimen' },
-    { id: 20, image: 'gono5.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Kathmandu Valley, Nepal', date: '2022', category: 'specimen' },
-    { id: 21, image: 'gonopod_.jpg', caption: 'Gonopod of <i>Gonoplectus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 22, image: 'malayus.jpg', caption: '<i>Gonoplectus lindbergi</i> Demange 1961', location: 'Jhapa district, Eastern Nepal', date: '2023', category: 'specimen' },
-    { id: 23, image: 'milli1.jpg', caption: 'Millipedes under leaf litter', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 24, image: 'sphae2.jpg', caption: 'Giant pill millipede', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 25, image: 'orthomorpha1.jpg', caption: '<i>Orthomorpha coarctata</i> (Saussure, 1860)', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' }
+// iNaturalist API endpoints
+const INAT_API = 'https://api.inaturalist.org/v1/observations';
+const TAXON_ID = 47723; // Diplopoda (millipedes)
+const PLACE_ID = 69075; // Nepal
+
+// Store all observations
+let allObservations = [];
+let currentFilter = 'all';
+let currentImageIndex = 0;
+let currentFilteredData = [];
+let map = null;
+let mapMarkers = [];
+
+// Fieldwork photos (your existing gallery data)
+const fieldworkPhotos = [
+    { id: 1, image: 'forest_dang.jpg', caption: 'Forest of Shorea robusta in Dang Valley', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork', lat: 28.0, lon: 82.5 },
+    { id: 2, image: 'habitat2.jpg', caption: 'Habitat of Chondromorpha sp. and Streptogonopus phipsoni', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork', lat: 28.0, lon: 82.5 },
+    { id: 3, image: 'habitat3.jpg', caption: 'Mixed Forest Leaf litter, perfect habitat for Millipede', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork', lat: 28.0, lon: 82.5 },
+    { id: 4, image: 'lab1.jpg', caption: 'Lokendra Chand and Ayub Senchury in Lab', location: 'Central Department of Zoology, TU, Kathmandu', date: '2023', category: 'fieldwork', lat: 27.7172, lon: 85.3240 },
+    { id: 5, image: 'field1.jpg', caption: 'Lokendra Chand and other field workers', location: 'Nilbarahi Community Forest, Bhaktapur', date: '2022', category: 'fieldwork', lat: 27.6722, lon: 85.4278 },
+    { id: 6, image: 'gono_dead.jpg', caption: 'Gonoplectus malayus after death on forest floor', location: 'Dang Valley, Western Nepal', date: '2023', category: 'fieldwork', lat: 28.0, lon: 82.5 },
+    { id: 7, image: 'chondro1.jpg', caption: 'Chondromorpha sp. in maize growing land', location: 'Dang Valley, Western Nepal', date: '2025', category: 'fieldwork', lat: 28.0, lon: 82.5 },
+    { id: 8, image: 'cmating3.jpg', caption: 'Chondromorpha sp. mating', location: 'Surrounding Hill, Dang Valley', date: '2025', category: 'fieldwork', lat: 28.0, lon: 82.5 },
+    { id: 9, image: 'gono2.jpg', caption: 'Gonoplectus sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'fieldwork', lat: 28.0, lon: 82.5 },
+    { id: 10, image: 'milli1.jpg', caption: 'Millipedes under leaf litter', location: 'Dang Valley, Western Nepal', date: '2025', category: 'fieldwork', lat: 28.0, lon: 82.5 },
+    { id: 11, image: 'sphae2.jpg', caption: 'Giant pill millipede', location: 'Dang Valley, Western Nepal', date: '2025', category: 'fieldwork', lat: 28.0, lon: 82.5 },
+    { id: 12, image: 'orthomorpha1.jpg', caption: 'Orthomorpha coarctata (Saussure, 1860)', location: 'Dang Valley, Western Nepal', date: '2025', category: 'fieldwork', lat: 28.0, lon: 82.5 }
 ];
 
-// Get the gallery container
-const galleryGrid = document.getElementById('gallery-grid');
+// Fetch observations from iNaturalist
+async function fetchINaturalistObservations() {
+    try {
+        const url = `${INAT_API}?taxon_id=${TAXON_ID}&place_id=${PLACE_ID}&per_page=50&order=desc&order_by=created_at&photos=true`;
+        
+        console.log('Fetching from iNaturalist:', url);
+        
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (data && data.results) {
+            const observations = data.results.map(obs => ({
+                id: 'inat_' + obs.id,
+                image: obs.photos && obs.photos[0] ? obs.photos[0].url.replace('square', 'large') : null,
+                caption: obs.taxon ? obs.taxon.preferred_common_name || obs.taxon.name : 'Unknown Millipede',
+                scientificName: obs.taxon ? obs.taxon.name : null,
+                location: obs.place_guess || 'Nepal',
+                date: obs.observed_on || obs.created_at_details?.date || 'Unknown',
+                category: 'inat',
+                lat: obs.geojson?.coordinates?.[1],
+                lon: obs.geojson?.coordinates?.[0],
+                observer: obs.user?.login || 'Anonymous',
+                observationId: obs.id,
+                url: obs.uri
+            })).filter(obs => obs.image && obs.lat && obs.lon); // Only keep with photo and coordinates
+            
+            console.log(`Fetched ${observations.length} iNaturalist observations`);
+            return observations;
+        }
+        return [];
+    } catch (error) {
+        console.error('Error fetching iNaturalist data:', error);
+        return [];
+    }
+}
 
-// Modal elements
-const modal = document.getElementById('imageModal');
-const modalImg = document.getElementById('modalImage');
-const modalCaption = document.getElementById('modalCaption');
-const closeModal = document.querySelector('.close-modal');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
+// Load last update time from localStorage
+function getLastUpdateTime() {
+    const lastUpdate = localStorage.getItem('inat_last_update');
+    if (lastUpdate) {
+        const date = new Date(parseInt(lastUpdate));
+        return `Last updated: ${date.toLocaleString()}`;
+    }
+    return 'Not updated yet';
+}
 
-let currentImageIndex = 0;
-let currentFilter = 'all';
-let currentFilteredData = [];
+// Save update time
+function setLastUpdateTime() {
+    localStorage.setItem('inat_last_update', Date.now().toString());
+    document.getElementById('lastUpdated').innerHTML = getLastUpdateTime();
+}
 
-// Function to render the gallery
+// Check if we need to refresh (every hour)
+function shouldRefresh() {
+    const lastUpdate = localStorage.getItem('inat_last_update');
+    if (!lastUpdate) return true;
+    const oneHour = 60 * 60 * 1000;
+    return (Date.now() - parseInt(lastUpdate)) > oneHour;
+}
+
+// Load all observations (fieldwork + iNaturalist)
+async function loadAllObservations(forceRefresh = false) {
+    const galleryGrid = document.getElementById('gallery-grid');
+    galleryGrid.innerHTML = '<div class="loading-spinner">Loading observations...</div>';
+    
+    // Get iNaturalist data
+    let inatObservations = [];
+    const stored = localStorage.getItem('inat_observations');
+    
+    if (!forceRefresh && stored && !shouldRefresh()) {
+        inatObservations = JSON.parse(stored);
+        console.log('Using cached iNaturalist data');
+    } else {
+        inatObservations = await fetchINaturalistObservations();
+        localStorage.setItem('inat_observations', JSON.stringify(inatObservations));
+        setLastUpdateTime();
+    }
+    
+    // Combine fieldwork and iNaturalist photos
+    allObservations = [...fieldworkPhotos, ...inatObservations];
+    
+    // Update stats
+    document.getElementById('photoCount').innerHTML = allObservations.length;
+    document.getElementById('lastUpdated').innerHTML = getLastUpdateTime();
+    
+    const locationsWithCoords = allObservations.filter(obs => obs.lat && obs.lon);
+    document.getElementById('locationCount').innerHTML = locationsWithCoords.length;
+    
+    // Render gallery
+    renderGallery('all');
+    
+    // Initialize or update map
+    initMap(locationsWithCoords);
+}
+
+// Render gallery based on filter
 function renderGallery(filter = 'all') {
     currentFilter = filter;
     currentFilteredData = filter === 'all' 
-        ? galleryData 
-        : galleryData.filter(item => item.category === filter);
+        ? allObservations 
+        : allObservations.filter(item => item.category === filter);
     
-    galleryGrid.innerHTML = currentFilteredData.map((item, index) => {
-        return `
-        <div class="gallery-item" data-index="${index}" data-filter="${filter}">
-            <img src="${item.image}" alt="${item.caption}" class="gallery-image" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Not+Found'">
+    const container = document.getElementById('gallery-grid');
+    
+    if (currentFilteredData.length === 0) {
+        container.innerHTML = '<div class="no-data">No photos found in this category.</div>';
+        return;
+    }
+    
+    container.innerHTML = currentFilteredData.map((item, index) => `
+        <div class="gallery-item" data-index="${index}">
+            ${item.category === 'inat' ? '<div class="inat-badge">🌐 iNaturalist</div>' : ''}
+            <img src="${item.image}" alt="${item.caption}" class="gallery-image" loading="lazy" 
+                 onerror="this.src='https://via.placeholder.com/600x400?text=Image+Not+Available'">
             <div class="gallery-caption-static">
-                <p>${item.caption}</p>
+                <p>${item.category === 'inat' && item.scientificName ? 
+                    `<span class="scientific-name">${item.scientificName}</span><br>` : 
+                    `<span class="scientific-name">${item.caption}</span><br>`}
+                </p>
                 <div class="gallery-location">
-                    <span>Location:</span> ${item.location} | ${item.date}
+                    📍 ${item.location} | 📅 ${item.date}
+                    ${item.observer ? ` | 👤 ${item.observer}` : ''}
                 </div>
             </div>
         </div>
-    `}).join('');
+    `).join('');
     
     // Add click event to each gallery item
     document.querySelectorAll('.gallery-item').forEach((item, idx) => {
         item.addEventListener('click', function() {
             currentImageIndex = parseInt(this.dataset.index);
-            const imageData = currentFilteredData[currentImageIndex];
-            openModal(imageData);
+            openModal(currentFilteredData[currentImageIndex]);
         });
     });
 }
 
-// Function to open modal
-function openModal(imageData) {
+// Initialize map
+function initMap(observations) {
+    if (map) {
+        // Clear existing markers
+        mapMarkers.forEach(marker => map.removeLayer(marker));
+        mapMarkers = [];
+    } else {
+        map = L.map('inatMap').setView([28.3949, 84.1240], 7);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: 'OpenStreetMap contributors, CartoDB',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+    }
+    
+    // Add markers
+    observations.forEach(obs => {
+        if (obs.lat && obs.lon) {
+            const markerColor = obs.category === 'inat' ? '#77bb22' : '#1a5276';
+            const icon = L.divIcon({
+                html: `<div style="background-color: ${markerColor}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.5);"></div>`,
+                iconSize: [12, 12],
+                className: 'custom-marker'
+            });
+            
+            const marker = L.marker([obs.lat, obs.lon], { icon: icon }).addTo(map);
+            marker.bindPopup(`
+                <b>${obs.caption}</b><br>
+                📍 ${obs.location}<br>
+                📅 ${obs.date}<br>
+                ${obs.observer ? `👤 ${obs.observer}` : ''}
+                ${obs.category === 'inat' ? '<br><i>Source: iNaturalist</i>' : ''}
+            `);
+            mapMarkers.push(marker);
+        }
+    });
+    
+    // Fit bounds to show all markers
+    if (mapMarkers.length > 0) {
+        const bounds = mapMarkers.map(m => m.getLatLng());
+        map.fitBounds(bounds, { padding: [50, 50] });
+    }
+}
+
+// Modal functions
+function openModal(item) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption');
+    
     modal.style.display = 'block';
-    modalImg.src = imageData.image;
+    modalImg.src = item.image;
     modalCaption.innerHTML = `
-        ${imageData.caption}<br>
-        <span class="modal-location">Location: ${imageData.location} | ${imageData.date}</span>
+        <strong>${item.caption}</strong><br>
+        📍 ${item.location}<br>
+        📅 ${item.date}<br>
+        ${item.scientificName ? `🔬 ${item.scientificName}<br>` : ''}
+        ${item.observer ? `👤 Observer: ${item.observer}<br>` : ''}
+        ${item.category === 'inat' ? '<span class="modal-location">🌐 Source: iNaturalist</span>' : ''}
     `;
     
-    // Handle broken images in modal
     modalImg.onerror = function() {
-        this.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
+        this.src = 'https://via.placeholder.com/800x600?text=Image+Not+Available';
     };
 }
 
-// Navigate to previous image
+function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+}
+
 function prevImage() {
     currentImageIndex = (currentImageIndex - 1 + currentFilteredData.length) % currentFilteredData.length;
     openModal(currentFilteredData[currentImageIndex]);
 }
 
-// Navigate to next image
 function nextImage() {
     currentImageIndex = (currentImageIndex + 1) % currentFilteredData.length;
     openModal(currentFilteredData[currentImageIndex]);
 }
 
-// Filter functionality
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        renderGallery(this.dataset.filter);
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    loadAllObservations(false);
+    
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            renderGallery(this.dataset.filter);
+            
+            // Update map to show only filtered observations
+            const filtered = this.dataset.filter === 'all' 
+                ? allObservations 
+                : allObservations.filter(item => item.category === this.dataset.filter);
+            const locationsWithCoords = filtered.filter(obs => obs.lat && obs.lon);
+            initMap(locationsWithCoords);
+        });
+    });
+    
+    // Refresh button
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+        loadAllObservations(true);
+    });
+    
+    // Modal events
+    document.querySelector('.close-modal').addEventListener('click', closeModal);
+    document.getElementById('prevBtn').addEventListener('click', prevImage);
+    document.getElementById('nextBtn').addEventListener('click', nextImage);
+    window.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('imageModal')) closeModal();
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (document.getElementById('imageModal').style.display === 'block') {
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'Escape') closeModal();
+        }
     });
 });
 
-// Close modal when clicking X
-closeModal.addEventListener('click', function() {
-    modal.style.display = 'none';
+// Handle image loading errors
+const images = document.querySelectorAll('img');
+images.forEach(img => {
+    img.addEventListener('error', function() {
+        console.log('Image failed to load:', this.src);
+    });
 });
-
-// Close modal when clicking outside the image
-window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.style.display === 'block') {
-        modal.style.display = 'none';
-    }
-    if (e.key === 'ArrowLeft' && modal.style.display === 'block') {
-        prevImage();
-    }
-    if (e.key === 'ArrowRight' && modal.style.display === 'block') {
-        nextImage();
-    }
-});
-
-// Navigation buttons
-prevBtn.addEventListener('click', prevImage);
-nextBtn.addEventListener('click', nextImage);
-
-// Initialize gallery
-renderGallery('all');
 </script>
 
 </body>
