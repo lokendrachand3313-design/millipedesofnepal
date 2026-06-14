@@ -426,13 +426,13 @@
 
 <main>
     <div class="page-header">
-        <h2>📋 Nepalese Millipede Species Checklist</h2>
+        <h2>Nepalese Millipede Species Checklist</h2>
         <p>Complete list of millipede species documented from Nepal (1935-2025)</p>
     </div>
     
     <!-- METHODOLOGY SECTION -->
     <div class="methodology-section">
-        <h3 class="methodology-title">📖 Methodology</h3>
+        <h3 class="methodology-title">Methodology</h3>
         <div class="methodology-content">
             <p>This checklist is based on primary as well as secondary information. Millipede species of Nepal published in various literature were listed including their distribution locations. Articles were searched from 'Google Scholar', taxonomic journal websites such as Zootaxa and Zookeys as well as Zoological records using keywords 'millipedes', 'nepal', 'diplopoda'. Old literature was downloaded from <a href="https://www.biodiversitylibrary.org" target="_blank" rel="noopener noreferrer">Biodiversity Heritage Library</a> and <a href="https://archive.org" target="_blank" rel="noopener noreferrer">Archive.org</a>.</p>
             
@@ -442,11 +442,11 @@
     
     <!-- SEARCH FILTERS -->
     <div class="search-container">
-        <select id="orderFilter" class="filter-select"><option value="all">📋 All Orders</option></select>
-        <select id="familyFilter" class="filter-select"><option value="all">🏷️ All Families</option></select>
-        <select id="genusFilter" class="filter-select"><option value="all">🔬 All Genera</option></select>
-        <select id="speciesFilter" class="filter-select"><option value="all">🐛 All Species</option></select>
-        <button class="clear-filters-btn" onclick="clearAllFilters()">🗑️ Clear Filters</button>
+        <select id="orderFilter" class="filter-select"><option value="all">All Orders</option></select>
+        <select id="familyFilter" class="filter-select"><option value="all">All Families</option></select>
+        <select id="genusFilter" class="filter-select"><option value="all">All Genera</option></select>
+        <select id="speciesFilter" class="filter-select"><option value="all">All Species</option></select>
+        <button class="clear-filters-btn" onclick="clearAllFilters()">Clear Filters</button>
     </div>
 
     <div id="resultsCount">Loading species data...</div>
@@ -459,7 +459,7 @@
         
         <div class="tree-column">
             <div class="tree-header" style="text-align: center; margin-bottom: 10px;">
-                <h3>🌳 Taxonomic Tree</h3>
+                <h3>Taxonomic Tree</h3>
                 <p>Click Order/Family/Genus to focus | Click species name to see details</p>
             </div>
             <div class="tree-breadcrumb" id="treeBreadcrumb"></div>
@@ -478,11 +478,11 @@
     
     <!-- BOTTOM SECTION: Map + Species Details -->
     <div class="bottom-section">
-        <div class="bottom-header">📍 Distribution Map</div>
+        <div class="bottom-header">Distribution Map</div>
         <div id="map" style="position: relative; height: 450px;"></div>
         
         <div class="species-details-section" id="speciesDetails">
-            <h3 style="color: #1a5276; margin-bottom: 12px; font-size: 1.1rem;">📄 Species Details</h3>
+            <h3 style="color: #1a5276; margin-bottom: 12px; font-size: 1.1rem;">Species Details</h3>
             <div class="details-grid" id="detailsGrid"></div>
         </div>
         <div class="map-status" id="mapStatus">Click on a species in the tree or list to view details and location</div>
@@ -495,6 +495,11 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="data.js"></script>
+
+<script>
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="data.js"></script>
 
@@ -584,7 +589,10 @@
 
     function addMarkersForSpecies(order, family, genus, species) {
         clearMarkers();
-        if (typeof millipedePoints === 'undefined') return;
+        if (typeof millipedePoints === 'undefined') {
+            console.warn('millipedePoints not defined - map points will not show');
+            return;
+        }
         const filteredPoints = millipedePoints.filter(point => 
             (order === 'all' || point.order === order) &&
             (family === 'all' || point.family === family) &&
@@ -604,37 +612,67 @@
         if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
     }
 
-    // Load Data from checklist.json
-    fetch('checklist.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('checklist.json not found');
+    // Load Data from checklist.json - TRY MULTIPLE PATHS
+    function loadChecklistData() {
+        // Try multiple possible paths
+        const paths = [
+            'checklist.json',
+            './checklist.json',
+            '../checklist.json',
+            '/checklist.json'
+        ];
+        
+        let currentPathIndex = 0;
+        
+        function tryNextPath() {
+            if (currentPathIndex >= paths.length) {
+                console.error('Could not load checklist.json from any path');
+                document.getElementById('checklistResults').innerHTML = '<div class="no-data">⚠️ Error: checklist.json file not found. Please ensure the file exists in the website directory.</div>';
+                document.getElementById('resultsCount').innerHTML = '⚠️ Data file not found - Please contact website administrator';
+                initMap();
+                return;
             }
-            return response.json();
-        })
-        .then(data => {
-            speciesData = data;
-            console.log('Loaded', speciesData.length, 'species from checklist.json');
-            speciesData.forEach(s => {
-                if (s.genus && s.species) {
-                    speciesLookupMap.set(`${s.genus} ${s.species}`.toLowerCase(), s);
-                    speciesLookupMap.set(s.species.toLowerCase(), s);
-                }
-            });
-            initFilters();
-            initMap();
-            document.getElementById('resultsCount').innerHTML = `📊 Total: ${speciesData.length} species recorded from Nepal`;
-            displayResults(speciesData);
-            buildFullTree();
-        })
-        .catch(error => {
-            console.error('Error loading checklist.json:', error);
-            document.getElementById('checklistResults').innerHTML = '<div class="no-data">⚠️ Error loading species data. Please ensure checklist.json file exists in the same directory.</div>';
-            document.getElementById('resultsCount').innerHTML = '⚠️ Data file not found';
-            initMap();
-        });
+            
+            const path = paths[currentPathIndex];
+            console.log('Trying to load from:', path);
+            
+            fetch(path)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!Array.isArray(data)) {
+                        throw new Error('Data is not an array');
+                    }
+                    speciesData = data;
+                    console.log('✅ Successfully loaded', speciesData.length, 'species from', path);
+                    document.getElementById('resultsCount').innerHTML = `📊 Total: ${speciesData.length} species recorded from Nepal`;
+                    
+                    speciesData.forEach(s => {
+                        if (s.genus && s.species) {
+                            speciesLookupMap.set(`${s.genus} ${s.species}`.toLowerCase(), s);
+                            speciesLookupMap.set(s.species.toLowerCase(), s);
+                        }
+                    });
+                    initFilters();
+                    displayResults(speciesData);
+                    buildFullTree();
+                })
+                .catch(error => {
+                    console.warn(`Failed to load from ${path}:`, error.message);
+                    currentPathIndex++;
+                    tryNextPath();
+                });
+        }
+        
+        tryNextPath();
+    }
 
     function initFilters() { 
+        if (!speciesData.length) return;
         populateDropdown('orderFilter', 'order'); 
         setupListeners(); 
     }
@@ -805,7 +843,7 @@
     }
 
     // ============================================================
-    // PHYLOGENETIC TREE - Builds from speciesData
+    // PHYLOGENETIC TREE
     // ============================================================
     
     let treeHierarchy = {};
@@ -833,11 +871,17 @@
                     for (let [species, coords] of Object.entries(speciesMap)) {
                         speciesChildren.push({ name: species, type: 'species', points: coords, genus: genus });
                     }
-                    genusChildren.push({ name: genus, type: 'genus', children: speciesChildren });
+                    if (speciesChildren.length > 0) {
+                        genusChildren.push({ name: genus, type: 'genus', children: speciesChildren });
+                    }
                 }
-                familyChildren.push({ name: family, type: 'family', children: genusChildren });
+                if (genusChildren.length > 0) {
+                    familyChildren.push({ name: family, type: 'family', children: genusChildren });
+                }
             }
-            children.push({ name: order, type: 'order', children: familyChildren });
+            if (familyChildren.length > 0) {
+                children.push({ name: order, type: 'order', children: familyChildren });
+            }
         }
         return { name: "Diplopoda (Millipedes)", type: 'root', children: children };
     }
@@ -882,7 +926,7 @@
         bc.innerHTML = "";
         const resetBtn = document.createElement("button"); 
         resetBtn.className = "tree-nav-btn tree-reset-btn"; 
-        resetBtn.innerText = "Reset"; 
+        resetBtn.innerText = "⟳ Reset"; 
         resetBtn.onclick = () => resetToFullTree(); 
         bc.appendChild(resetBtn);
         if (focusStack.length > 0) {
@@ -1009,6 +1053,7 @@
     }
     
     function buildFullTree() {
+        if (!speciesData.length) return;
         fullTreeData = buildFullTreeStructure();
         currentTreeData = JSON.parse(JSON.stringify(fullTreeData));
         focusStack = [];
@@ -1017,8 +1062,12 @@
         document.getElementById('currentFocus').innerHTML = `All Orders`;
     }
     
+    // Initialize everything when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        initMap();
+        loadChecklistData();
+    });
+    
     window.addEventListener('resize', () => { if (currentTreeData) drawTree(currentTreeData); });
 </script>
-
-</body>
 </html>
