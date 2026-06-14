@@ -14,95 +14,82 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* ============ INTROKEY.HTML SPECIFIC STYLES ============ */
+        /* ============ FULL WIDTH LAYOUT ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
-        /* Full Video Section */
+        body {
+            background: #f0f4f8;
+            overflow-x: hidden;
+        }
+        
+        /* Full Width Header */
+        header {
+            width: 100%;
+            border-radius: 0;
+        }
+        
+        .header-container {
+            width: 100%;
+            padding: 20px 5%;
+        }
+        
+        /* Full Width Navigation */
+        nav {
+            width: 100%;
+            border-radius: 0;
+        }
+        
+        /* Main Content - Full Width */
+        main {
+            width: 100%;
+            max-width: 100%;
+            padding: 40px 0;
+            margin: 0;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+        
+        .page-header h2 {
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 1rem;
+            color: #555;
+        }
+        
+        /* Full Video Section - Full Width */
         .full-video-section {
             width: 100%;
-            max-width: 1400px;
-            margin: 0 auto 50px auto;
-            background: #1a1a2e;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
+            max-width: 100%;
+            margin: 0 0 50px 0;
+            border-radius: 0;
         }
         
-        .full-video-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
-        
-        .video-wrapper {
-            width: 100%;
-            background: #000;
-            position: relative;
-        }
-        
-        .full-video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .video-wrapper::after {
-            content: "▶";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: rgba(26, 82, 118, 0.85);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 10;
-        }
-        
-        .video-wrapper:hover::after {
-            opacity: 1;
-        }
-        
-        .video-caption-full {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
-            padding: 30px 40px;
-            color: white;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .video-caption-full p {
-            font-size: 1.2rem;
-            color: #e0e0e0;
-            margin-bottom: 0;
-            line-height: 1.6;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        /* PDF Book Viewer Styles */
+        /* PDF Book Section - Full Width */
         .pdf-book-section {
-            background: #f5f5f5;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 100%;
+            border-radius: 0;
+            padding: 30px 5%;
+            margin-bottom: 0;
+            background: #f5f5f5;
         }
         
-        .pdf-book-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        .pdf-book-section:last-of-type {
+            margin-bottom: 0;
         }
         
         .pdf-book-header {
@@ -124,6 +111,7 @@
             font-size: 0.9rem;
         }
         
+        /* Book Container */
         .book-container {
             background: #e8e8e8;
             border-radius: 12px;
@@ -134,14 +122,15 @@
         .pdf-canvas-container {
             background: #fff;
             border-radius: 10px;
-            padding: 10px;
+            padding: 20px;
             position: relative;
-            overflow: hidden;
+            overflow: auto;
             cursor: pointer;
             min-height: 600px;
             display: flex;
             justify-content: center;
             align-items: center;
+            text-align: center;
         }
         
         .pdf-canvas-container canvas {
@@ -151,6 +140,7 @@
             cursor: pointer;
             max-width: 100%;
             height: auto;
+            margin: 0 auto;
         }
         
         /* Book Controls */
@@ -306,22 +296,14 @@
             background: #c0392b;
         }
         
-        /* Source Box */
+        /* Source Box - Full Width */
         .source-box {
             background: linear-gradient(135deg, var(--blue-bg) 0%, #d6eaf8 100%);
-            border-radius: 20px;
-            padding: 45px;
+            border-radius: 0;
+            padding: 45px 5%;
             text-align: center;
             width: 100%;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: all 0.3s ease;
-        }
-        
-        .source-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            margin-top: 30px;
         }
         
         .milli-peet-logo {
@@ -363,6 +345,66 @@
             transform: translateX(5px);
         }
         
+        /* Full Width Footer */
+        footer {
+            width: 100%;
+            border-radius: 0;
+        }
+        
+        /* Video styles */
+        .video-wrapper {
+            width: 100%;
+            background: #000;
+            position: relative;
+        }
+        
+        .full-video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .video-wrapper::after {
+            content: "▶";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(26, 82, 118, 0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .video-wrapper:hover::after {
+            opacity: 1;
+        }
+        
+        .video-caption-full {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+            padding: 30px 5%;
+            color: white;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .video-caption-full p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 0;
+            line-height: 1.6;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
         /* Responsive */
         @media (max-width: 1200px) {
             .pdf-canvas-container { min-height: 550px; }
@@ -376,35 +418,31 @@
         @media (max-width: 768px) {
             .full-video-section { margin-bottom: 30px; }
             .video-wrapper::after { width: 50px; height: 50px; font-size: 25px; }
-            .video-caption-full { padding: 20px; }
+            .video-caption-full { padding: 20px 5%; }
             .video-caption-full p { font-size: 1rem; }
             
-            .pdf-book-section { padding: 20px; margin-bottom: 30px; }
+            .pdf-book-section { padding: 20px 5%; }
             .pdf-book-header h2 { font-size: 1.2rem; }
-            .pdf-canvas-container { min-height: 420px; }
+            .pdf-canvas-container { min-height: 420px; padding: 15px; }
             
             .book-btn { padding: 8px 16px; font-size: 0.8rem; min-width: 80px; }
             .page-indicator { padding: 8px 14px; font-size: 0.8rem; min-width: 100px; }
             
             .fullscreen-controls button { padding: 6px 14px; font-size: 0.75rem; }
             
-            .source-box { padding: 30px 20px; }
+            .source-box { padding: 30px 5%; }
             .milli-peet-logo { font-size: 1.8rem; }
             .source-box p { font-size: 1rem; }
             .source-box strong { font-size: 1.1rem; }
         }
         
         @media (max-width: 480px) {
-            .pdf-canvas-container { min-height: 350px; }
+            .pdf-canvas-container { min-height: 350px; padding: 10px; }
             .book-controls { gap: 10px; }
             .book-btn { padding: 6px 12px; font-size: 0.7rem; min-width: 65px; }
             .page-indicator { padding: 6px 10px; font-size: 0.7rem; min-width: 85px; }
             .fullscreen-controls { gap: 8px; padding: 8px 15px; }
             .fullscreen-controls button { padding: 5px 10px; font-size: 0.65rem; }
-        }
-        
-        @media (min-width: 1600px) {
-            .pdf-canvas-container { min-height: 800px; }
         }
         
         canvas {
@@ -477,13 +515,13 @@
 <main>
     <div class="page-header">
         <h2>Introduction and Identification Keys</h2>
-        <p>Tap on PDF to fullscreen | Swipe to turn pages</p>
+        <p>📖 Tap on PDF to fullscreen | 👉 Swipe left/right to turn pages</p>
     </div>
     
     <!-- VIDEO SECTION -->
     <div class="full-video-section">
         <div class="video-wrapper">
-            <video class="full-video" controls preload="metadata" poster="thumb.png">
+            <video class="full-video" controls preload="metadata" poster="thumb.png" controlslist="nodownload" disablepictureinpicture>
                 <source src="intronepali.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -509,7 +547,6 @@
                 <span class="page-indicator" id="page1Indicator">Loading...</span>
                 <button class="book-btn" id="next1Btn">Next ▶</button>
             </div>
-            <div class="swipe-hint">👆 Tap on PDF to fullscreen | 👉 Swipe left/right to turn pages</div>
             <div class="book-notice">Adapted from MILLI-PEET Project by Petra Sierwald, <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
         </div>
     </div>
@@ -530,7 +567,6 @@
                 <span class="page-indicator" id="page2Indicator">Loading...</span>
                 <button class="book-btn" id="next2Btn">Next ▶</button>
             </div>
-            <div class="swipe-hint">👆 Tap on PDF to fullscreen | 👉 Swipe left/right to turn pages</div>
             <div class="book-notice">Adapted from MILLI-PEET Project by Petra Sierwald, <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
         </div>
     </div>
@@ -551,7 +587,6 @@
                 <span class="page-indicator" id="page3Indicator">Loading...</span>
                 <button class="book-btn" id="next3Btn">Next ▶</button>
             </div>
-            <div class="swipe-hint">👆 Tap on PDF to fullscreen | 👉 Swipe left/right to turn pages</div>
             <div class="book-notice">This work is inspired by Shinohara (1999)</div>
         </div>
     </div>
@@ -585,52 +620,6 @@ function getNepalTime() {
 
 const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
 const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
-const nepaliMonthDays = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
-
-function isNepaliLeapYear(bsYear) {
-    const leapYears = [1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011, 2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028, 2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046, 2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063, 2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081, 2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098];
-    return leapYears.includes(bsYear);
-}
-
-function getNepaliMonthDays(bsYear, bsMonth) {
-    if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
-    return nepaliMonthDays[bsMonth];
-}
-
-function adToBs(adDate) {
-    const referenceAD = new Date(2026, 3, 14);
-    const referenceBS = { year: 2083, month: 0, day: 1 };
-    const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
-    let diffDays = Math.round((targetAD - referenceAD) / (1000 * 60 * 60 * 24));
-    let bsYear = referenceBS.year;
-    let bsMonth = referenceBS.month;
-    let bsDay = referenceBS.day + diffDays;
-    while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
-        bsDay -= getNepaliMonthDays(bsYear, bsMonth);
-        bsMonth++;
-        if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
-    }
-    while (bsDay < 1) {
-        bsMonth--;
-        if (bsMonth < 0) { bsMonth = 11; bsYear--; }
-        bsDay += getNepaliMonthDays(bsYear, bsMonth);
-    }
-    return { year: bsYear, month: bsMonth, day: bsDay };
-}
-
-function toNepaliDigits(num) {
-    const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-    return String(num).split('').map(d => digits[parseInt(d)] || d).join('');
-}
-
-function getNepaliDateString(date) {
-    const bs = adToBs(date);
-    return `${nepaliWeekdays[date.getDay()]}, ${nepaliMonths[bs.month]} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
-}
-
-function getEnglishDateString(date) {
-    return date.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-}
 
 function updateClock() {
     const now = getNepalTime();
@@ -650,10 +639,10 @@ function updateClock() {
     if (digitalTime) digitalTime.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     
     const englishDate = document.getElementById('englishDate');
-    if (englishDate) englishDate.innerHTML = getEnglishDateString(now);
+    if (englishDate) englishDate.innerHTML = now.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     
     const nepaliDate = document.getElementById('nepaliDate');
-    if (nepaliDate) nepaliDate.innerHTML = getNepaliDateString(now);
+    if (nepaliDate) nepaliDate.innerHTML = `${nepaliWeekdays[now.getDay()]}, ${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
 }
 
 window.addEventListener('DOMContentLoaded', function() {
@@ -662,7 +651,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// PDF BOOK VIEWER - TAP FULLSCREEN & SWIPE PAGES
+// PDF BOOK VIEWER - FULL WIDTH, CENTERED PAGE
 // ============================================
 
 class PDFBookViewer {
@@ -878,7 +867,7 @@ class PDFBookViewer {
             }
         }, { passive: true });
         
-        // Window resize
+        // Window resize - recenter
         window.addEventListener('resize', () => {
             this.centerCanvas();
         });
@@ -913,10 +902,8 @@ class PDFBookViewer {
         
         if (Math.abs(deltaX) > this.minSwipeDistance) {
             if (deltaX > 0) {
-                // Swipe right - previous page
                 this.prevPage();
             } else {
-                // Swipe left - next page
                 this.nextPage();
             }
         }
@@ -928,19 +915,16 @@ class PDFBookViewer {
 
 // Initialize all PDF viewers
 document.addEventListener('DOMContentLoaded', function() {
-    // Book 1
     new PDFBookViewer(
         'intro.pdf', 'pdf1Canvas', 'pdf1Loading',
         'prev1Btn', 'next1Btn', 'page1Indicator', 'pdf1Container'
     );
     
-    // Book 2
     new PDFBookViewer(
         'keys.pdf', 'pdf2Canvas', 'pdf2Loading',
         'prev2Btn', 'next2Btn', 'page2Indicator', 'pdf2Container'
     );
     
-    // Book 3
     new PDFBookViewer(
         'keynepal.pdf', 'pdf3Canvas', 'pdf3Loading',
         'prev3Btn', 'next3Btn', 'page3Indicator', 'pdf3Container'
@@ -953,7 +937,6 @@ document.addEventListener('DOMContentLoaded', function() {
         video.setAttribute('disablepictureinpicture', 'true');
     }
     
-    // Disable right-click on images
     document.querySelectorAll('img').forEach(img => {
         img.addEventListener('contextmenu', (e) => e.preventDefault());
     });
