@@ -1422,6 +1422,16 @@
   {
     "order": "Polydesmida",
     "family": "Paradoxosomatidae",
+    "genus": "Streptogonopus",
+    "species": "phipsoni",
+    "author": "Golovatch, 2015",
+    "type_locality": "India, Culcutta",
+    "global_dist": "India, Bangladesh and Nepal",
+    "nepal_dist": "Panchthar District, Upper riches of Mai Majuwa Khola, Dhorpar Kharka (2700 m) "
+  },
+  {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
     "genus": "Substrongylosoma",
     "species": "exiguum",
     "author": "Golovatch, 2016",
