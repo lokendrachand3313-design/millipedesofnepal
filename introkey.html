@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* ============ FULL WIDTH LAYOUT ============ */
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +25,6 @@
             overflow-x: hidden;
         }
         
-        /* Full Width Header */
         header {
             width: 100%;
             border-radius: 0;
@@ -37,13 +35,11 @@
             padding: 20px 5%;
         }
         
-        /* Full Width Navigation */
         nav {
             width: 100%;
             border-radius: 0;
         }
         
-        /* Main Content - Full Width */
         main {
             width: 100%;
             max-width: 100%;
@@ -70,7 +66,6 @@
             color: #555;
         }
         
-        /* Full Video Section - Full Width */
         .full-video-section {
             width: 100%;
             max-width: 100%;
@@ -78,7 +73,34 @@
             border-radius: 0;
         }
         
-        /* PDF Book Section - Full Width */
+        .video-wrapper {
+            width: 100%;
+            background: #000;
+            position: relative;
+        }
+        
+        .full-video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .video-caption-full {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+            padding: 30px 5%;
+            color: white;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .video-caption-full p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+        
+        /* PDF Book Section */
         .pdf-book-section {
             width: 100%;
             max-width: 100%;
@@ -86,10 +108,6 @@
             padding: 30px 5%;
             margin-bottom: 0;
             background: #f5f5f5;
-        }
-        
-        .pdf-book-section:last-of-type {
-            margin-bottom: 0;
         }
         
         .pdf-book-header {
@@ -111,7 +129,6 @@
             font-size: 0.9rem;
         }
         
-        /* Book Container */
         .book-container {
             background: #e8e8e8;
             border-radius: 12px;
@@ -119,6 +136,7 @@
             position: relative;
         }
         
+        /* CRITICAL: Container for centering */
         .pdf-canvas-container {
             background: #fff;
             border-radius: 10px;
@@ -133,7 +151,7 @@
             text-align: center;
         }
         
-        /* CRITICAL: Canvas centering */
+        /* Canvas centering - using flexbox on parent */
         .pdf-canvas-container canvas {
             display: block;
             box-shadow: 0 2px 15px rgba(0,0,0,0.15);
@@ -141,16 +159,9 @@
             cursor: pointer;
             max-width: 100%;
             height: auto;
-            margin: 0 auto;
-            position: relative;
-            left: auto;
-            right: auto;
-            top: auto;
-            bottom: auto;
-            transform: none;
+            /* No positioning needed - flexbox handles centering */
         }
         
-        /* Book Controls */
         .book-controls {
             display: flex;
             justify-content: center;
@@ -170,7 +181,6 @@
             font-size: 1rem;
             font-weight: bold;
             transition: all 0.3s ease;
-            font-family: 'Times New Roman', Times, serif;
             min-width: 110px;
         }
         
@@ -197,7 +207,6 @@
             text-align: center;
         }
         
-        /* Loading */
         .pdf-loading {
             text-align: center;
             padding: 60px;
@@ -215,7 +224,6 @@
             50% { opacity: 0.5; }
         }
         
-        /* Swipe hint */
         .swipe-hint {
             text-align: center;
             margin-top: 12px;
@@ -223,7 +231,6 @@
             color: #999;
         }
         
-        /* Book Notice */
         .book-notice {
             text-align: center;
             margin-top: 12px;
@@ -259,10 +266,8 @@
             max-height: calc(100vh - 200px);
             width: auto;
             cursor: pointer;
-            margin: 0 auto;
         }
         
-        /* Fullscreen controls */
         .fullscreen-controls {
             position: fixed;
             bottom: 20px;
@@ -300,11 +305,6 @@
             background: #e74c3c;
         }
         
-        .exit-fullscreen-btn:hover {
-            background: #c0392b;
-        }
-        
-        /* Source Box - Full Width */
         .source-box {
             background: linear-gradient(135deg, var(--blue-bg) 0%, #d6eaf8 100%);
             border-radius: 0;
@@ -320,7 +320,6 @@
             color: var(--primary-blue);
             margin-bottom: 20px;
             letter-spacing: 3px;
-            font-family: 'Times New Roman', Times, serif;
         }
         
         .source-box p {
@@ -328,7 +327,6 @@
             font-size: 1.2rem;
             color: #333;
             line-height: 1.6;
-            font-family: 'Times New Roman', Times, serif;
         }
         
         .source-box strong {
@@ -344,7 +342,6 @@
             transition: all 0.3s ease;
             display: inline-block;
             margin-top: 10px;
-            font-family: 'Times New Roman', Times, serif;
         }
         
         .source-box a:hover {
@@ -353,67 +350,11 @@
             transform: translateX(5px);
         }
         
-        /* Full Width Footer */
         footer {
             width: 100%;
             border-radius: 0;
         }
         
-        /* Video styles */
-        .video-wrapper {
-            width: 100%;
-            background: #000;
-            position: relative;
-        }
-        
-        .full-video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .video-wrapper::after {
-            content: "▶";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: rgba(26, 82, 118, 0.85);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 10;
-        }
-        
-        .video-wrapper:hover::after {
-            opacity: 1;
-        }
-        
-        .video-caption-full {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
-            padding: 30px 5%;
-            color: white;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .video-caption-full p {
-            font-size: 1.2rem;
-            color: #e0e0e0;
-            margin-bottom: 0;
-            line-height: 1.6;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        /* Responsive */
         @media (max-width: 1200px) {
             .pdf-canvas-container { min-height: 550px; }
         }
@@ -425,23 +366,17 @@
         
         @media (max-width: 768px) {
             .full-video-section { margin-bottom: 30px; }
-            .video-wrapper::after { width: 50px; height: 50px; font-size: 25px; }
             .video-caption-full { padding: 20px 5%; }
             .video-caption-full p { font-size: 1rem; }
-            
             .pdf-book-section { padding: 20px 5%; }
             .pdf-book-header h2 { font-size: 1.2rem; }
             .pdf-canvas-container { min-height: 420px; padding: 15px; }
-            
             .book-btn { padding: 8px 16px; font-size: 0.8rem; min-width: 80px; }
             .page-indicator { padding: 8px 14px; font-size: 0.8rem; min-width: 100px; }
-            
             .fullscreen-controls button { padding: 6px 14px; font-size: 0.75rem; }
-            
             .source-box { padding: 30px 5%; }
             .milli-peet-logo { font-size: 1.8rem; }
             .source-box p { font-size: 1rem; }
-            .source-box strong { font-size: 1.1rem; }
         }
         
         @media (max-width: 480px) {
@@ -449,8 +384,6 @@
             .book-controls { gap: 10px; }
             .book-btn { padding: 6px 12px; font-size: 0.7rem; min-width: 65px; }
             .page-indicator { padding: 6px 10px; font-size: 0.7rem; min-width: 85px; }
-            .fullscreen-controls { gap: 8px; padding: 8px 15px; }
-            .fullscreen-controls button { padding: 5px 10px; font-size: 0.65rem; }
         }
         
         canvas {
@@ -629,9 +562,6 @@ function getNepalTime() {
     return new Date(utcTime + nepalOffset);
 }
 
-const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
-const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
-
 function updateClock() {
     const now = getNepalTime();
     const hours = now.getHours();
@@ -653,7 +583,7 @@ function updateClock() {
     if (englishDate) englishDate.innerHTML = now.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     
     const nepaliDate = document.getElementById('nepaliDate');
-    if (nepaliDate) nepaliDate.innerHTML = `${nepaliWeekdays[now.getDay()]}, ${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+    if (nepaliDate) nepaliDate.innerHTML = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
 }
 
 window.addEventListener('DOMContentLoaded', function() {
@@ -662,7 +592,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// PDF BOOK VIEWER - CENTERED PAGE
+// PDF BOOK VIEWER - FIXED CENTERING
 // ============================================
 
 class PDFBookViewer {
@@ -703,7 +633,7 @@ class PDFBookViewer {
             this.enableButtons();
             await this.renderPage();
             this.hideLoading();
-            this.centerCanvas();
+            // Use flexbox centering - no JavaScript positioning needed
             this.setupEvents();
         } catch (error) {
             console.error('PDF load error:', error);
@@ -743,6 +673,12 @@ class PDFBookViewer {
             this.canvas.width = viewport.width;
             this.canvas.height = viewport.height;
             
+            // Remove any inline styles that might interfere with centering
+            this.canvas.style.position = '';
+            this.canvas.style.left = '';
+            this.canvas.style.top = '';
+            this.canvas.style.margin = '0 auto';
+            
             const renderContext = {
                 canvasContext: this.ctx,
                 viewport: viewport
@@ -754,26 +690,6 @@ class PDFBookViewer {
         } catch (error) {
             console.error('Render error:', error);
         }
-    }
-    
-    centerCanvas() {
-        if (!this.canvasContainer || !this.canvas) return;
-        
-        const containerRect = this.canvasContainer.getBoundingClientRect();
-        const canvasWidth = this.canvas.width;
-        const canvasHeight = this.canvas.height;
-        
-        // Calculate center position - both horizontally and vertically
-        const left = (containerRect.width - canvasWidth) / 2;
-        const top = (containerRect.height - canvasHeight) / 2;
-        
-        // Apply centering using CSS
-        this.canvas.style.position = 'relative';
-        this.canvas.style.left = left + 'px';
-        this.canvas.style.top = top + 'px';
-        this.canvas.style.right = 'auto';
-        this.canvas.style.bottom = 'auto';
-        this.canvas.style.margin = '0';
     }
     
     updatePageIndicator() {
@@ -802,9 +718,7 @@ class PDFBookViewer {
     prevPage() {
         if (this.currentPage > 1) {
             this.currentPage--;
-            this.renderPage().then(() => {
-                this.centerCanvas();
-            });
+            this.renderPage();
             this.updateNavButtons();
         }
     }
@@ -812,9 +726,7 @@ class PDFBookViewer {
     nextPage() {
         if (this.currentPage < this.totalPages) {
             this.currentPage++;
-            this.renderPage().then(() => {
-                this.centerCanvas();
-            });
+            this.renderPage();
             this.updateNavButtons();
         }
     }
@@ -825,14 +737,10 @@ class PDFBookViewer {
         
         if (!document.fullscreenElement) {
             container.requestFullscreen().catch(err => console.log(err));
-            setTimeout(() => {
-                this.addFullscreenControls();
-                this.centerCanvas();
-            }, 100);
+            setTimeout(() => this.addFullscreenControls(), 100);
         } else {
             document.exitFullscreen();
             this.removeFullscreenControls();
-            setTimeout(() => this.centerCanvas(), 50);
         }
     }
     
@@ -883,11 +791,6 @@ class PDFBookViewer {
             }
         }, { passive: true });
         
-        // Window resize - recenter
-        window.addEventListener('resize', () => {
-            this.centerCanvas();
-        });
-        
         // Keyboard navigation in fullscreen
         document.addEventListener('keydown', (e) => {
             if (document.fullscreenElement) {
@@ -905,7 +808,6 @@ class PDFBookViewer {
         document.addEventListener('fullscreenchange', () => {
             if (!document.fullscreenElement) {
                 this.removeFullscreenControls();
-                setTimeout(() => this.centerCanvas(), 50);
             }
         });
         
