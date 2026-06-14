@@ -277,7 +277,9 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmus", species: "sinuatospinus", lat: 27.00948, lon: 87.929874 },
     
     // Polydesmida - Paradoxosomatidae - Chondromorpha
-    { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Chondromorpha", species: "greke", lat: 27.960222, lon: 82.234269 },
+    { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Chondromorpha", species: "phipsoni", lat: 27.07843164, lon: 82.234269 },
+    // Polydesmida - Paradoxosomatidae- Streptogonous
+     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Xanthodesmini", genus: "Streptogonopus ", species: "greke", lat: 27.960222, lon: 87.93256612},
     
     // Polydesmida - Paradoxosomatidae - Delarthrum
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Alogolykinae", tribe: "Polydrepanani", genus: "Delarthrum", species: "aberrans", lat: 27.614824, lon: 86.228442 },
