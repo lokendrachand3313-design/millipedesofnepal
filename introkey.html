@@ -61,13 +61,13 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* PDF Book Viewer Styles - Clean & Simple */
+        /* PDF Book Viewer Styles - Minimal border */
         .pdf-book-section {
-            background: #2c2c2c;
-            border-radius: 20px;
+            background: #f5f5f5;
+            border-radius: 16px;
             padding: 20px;
             margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 1200px;
             margin-left: auto;
@@ -76,12 +76,12 @@
         
         .pdf-book-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .pdf-book-header h2 {
-            color: var(--gold);
-            border-bottom: 2px solid var(--gold);
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--primary-blue);
             display: inline-block;
             padding-bottom: 8px;
             margin-bottom: 8px;
@@ -89,22 +89,22 @@
         }
         
         .pdf-book-header p {
-            color: #ccc;
+            color: #666;
             font-size: 0.85rem;
         }
         
-        /* Book Container */
+        /* Book Container - minimal padding */
         .book-container {
-            background: #3a3a3a;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.2);
+            background: #e8e8e8;
+            border-radius: 10px;
+            padding: 8px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 2px 5px rgba(0,0,0,0.05);
         }
         
         .pdf-canvas-container {
-            background: #1a1a1a;
-            border-radius: 8px;
-            padding: 10px;
+            background: #fff;
+            border-radius: 6px;
+            padding: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -112,25 +112,26 @@
             position: relative;
             overflow-x: auto;
             overflow-y: auto;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
         #pdf1Canvas, #pdf2Canvas, #pdf3Canvas {
             max-width: 100%;
             height: auto;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             background: white;
             border-radius: 4px;
             display: block;
             margin: 0 auto;
         }
         
-        /* Simple Controls - Only Previous, Next, Page Indicator, Fullscreen */
+        /* Simple Controls */
         .book-controls {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
             flex-wrap: wrap;
         }
         
@@ -138,37 +139,37 @@
             background: var(--primary-blue);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 10px 22px;
             border-radius: 40px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             transition: all 0.3s ease;
             font-family: 'Times New Roman', Times, serif;
-            min-width: 100px;
+            min-width: 90px;
         }
         
         .book-btn:hover {
             background: var(--gold);
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
         
         .book-btn:disabled {
-            background: #666;
+            background: #aaa;
             cursor: not-allowed;
             transform: none;
             opacity: 0.6;
         }
         
         .page-indicator {
-            background: rgba(0,0,0,0.8);
-            color: var(--gold);
-            padding: 10px 20px;
+            background: var(--primary-blue);
+            color: white;
+            padding: 8px 18px;
             border-radius: 40px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-family: monospace;
             font-weight: bold;
-            min-width: 120px;
+            min-width: 100px;
             text-align: center;
         }
         
@@ -182,29 +183,32 @@
         
         /* Fullscreen Mode */
         .book-container:fullscreen {
-            background: #1a1a1a;
+            background: #2c2c2c;
             padding: 20px;
         }
         
         .book-container:fullscreen .pdf-canvas-container {
-            min-height: calc(100vh - 180px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            min-height: calc(100vh - 160px);
+            background: #1a1a1a;
         }
         
         .book-container:fullscreen #pdf1Canvas,
         .book-container:fullscreen #pdf2Canvas,
         .book-container:fullscreen #pdf3Canvas {
-            max-height: calc(100vh - 200px);
+            max-height: calc(100vh - 180px);
             width: auto;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .book-container:fullscreen .book-controls {
+            margin-top: 20px;
         }
         
         /* Loading Spinner */
         .pdf-loading {
             text-align: center;
             padding: 50px;
-            color: white;
+            color: #666;
             font-size: 1rem;
         }
         
@@ -218,10 +222,10 @@
             50% { opacity: 0.5; }
         }
         
-        /* Security Notice - Small and subtle */
+        /* Security Notice - Small */
         .security-notice {
             text-align: center;
-            margin-top: 12px;
+            margin-top: 10px;
             font-size: 0.7rem;
             color: #888;
         }
@@ -229,8 +233,8 @@
         /* Source Box */
         .source-box {
             background: linear-gradient(135deg, var(--blue-bg) 0%, #d6eaf8 100%);
-            border-radius: 20px;
-            padding: 35px;
+            border-radius: 16px;
+            padding: 30px;
             text-align: center;
             width: 100%;
             max-width: 1200px;
@@ -280,15 +284,14 @@
             .pdf-book-header h2 { font-size: 1.2rem; }
             .pdf-book-header p { font-size: 0.7rem; }
             
-            .book-container { padding: 10px; }
+            .book-container { padding: 5px; }
             .pdf-canvas-container { 
                 min-height: 350px; 
-                padding: 5px;
+                padding: 3px;
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
             }
             
-            /* Make canvas responsive on mobile */
             #pdf1Canvas, #pdf2Canvas, #pdf3Canvas {
                 max-width: 100%;
                 height: auto !important;
@@ -297,14 +300,14 @@
             
             .book-controls { gap: 8px; }
             .book-btn { 
-                padding: 8px 16px; 
-                font-size: 0.85rem;
+                padding: 8px 14px; 
+                font-size: 0.8rem;
                 min-width: 70px;
             }
             .page-indicator { 
-                padding: 8px 12px; 
-                font-size: 0.85rem;
-                min-width: 90px;
+                padding: 7px 12px; 
+                font-size: 0.8rem;
+                min-width: 85px;
             }
             
             .security-notice { font-size: 0.6rem; }
@@ -314,13 +317,10 @@
         }
         
         @media (max-width: 480px) {
-            .book-btn { padding: 6px 12px; font-size: 0.75rem; min-width: 60px; }
-            .page-indicator { padding: 6px 10px; font-size: 0.75rem; min-width: 80px; }
+            .book-btn { padding: 6px 10px; font-size: 0.7rem; min-width: 60px; }
+            .page-indicator { padding: 6px 10px; font-size: 0.7rem; min-width: 75px; }
             .pdf-canvas-container { min-height: 280px; }
-        }
-        
-        @media (min-width: 1600px) {
-            .pdf-canvas-container { min-height: 700px; }
+            .book-controls { gap: 6px; }
         }
         
         /* Disable selection on canvas */
@@ -432,7 +432,7 @@
             </div>
             <div class="book-controls">
                 <button class="book-btn" id="prev1Btn" disabled>◀ Previous</button>
-                <span class="page-indicator" id="page1Indicator">Page 0 / 0</span>
+                <span class="page-indicator" id="page1Indicator">0 / 0</span>
                 <button class="book-btn" id="next1Btn" disabled>Next ▶</button>
                 <button class="book-btn fullscreen-btn" id="fullscreen1Btn">🗖 Fullscreen</button>
             </div>
@@ -453,7 +453,7 @@
             </div>
             <div class="book-controls">
                 <button class="book-btn" id="prev2Btn" disabled>◀ Previous</button>
-                <span class="page-indicator" id="page2Indicator">Page 0 / 0</span>
+                <span class="page-indicator" id="page2Indicator">0 / 0</span>
                 <button class="book-btn" id="next2Btn" disabled>Next ▶</button>
                 <button class="book-btn fullscreen-btn" id="fullscreen2Btn">🗖 Fullscreen</button>
             </div>
@@ -474,7 +474,7 @@
             </div>
             <div class="book-controls">
                 <button class="book-btn" id="prev3Btn" disabled>◀ Previous</button>
-                <span class="page-indicator" id="page3Indicator">Page 0 / 0</span>
+                <span class="page-indicator" id="page3Indicator">0 / 0</span>
                 <button class="book-btn" id="next3Btn" disabled>Next ▶</button>
                 <button class="book-btn fullscreen-btn" id="fullscreen3Btn">🗖 Fullscreen</button>
             </div>
@@ -588,7 +588,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// SIMPLE PDF BOOK VIEWER - Only Previous, Next, Page Indicator, Fullscreen
+// SIMPLE PDF BOOK VIEWER - Minimal Design
 // ============================================
 
 class SimplePDFBook {
@@ -630,7 +630,6 @@ class SimplePDFBook {
             this.updatePageIndicator();
             this.enableButtons();
             
-            // Calculate optimal scale for mobile
             this.adjustScaleForScreen();
             await this.renderPage();
             this.hideLoading();
@@ -645,7 +644,6 @@ class SimplePDFBook {
     }
     
     adjustScaleForScreen() {
-        // Adjust scale based on screen width for better mobile viewing
         const screenWidth = window.innerWidth;
         if (screenWidth <= 480) {
             this.scale = 0.7;
@@ -675,7 +673,7 @@ class SimplePDFBook {
     showError() {
         if (this.loadingDiv) {
             this.loadingDiv.innerHTML = '❌ PDF could not be loaded';
-            this.loadingDiv.style.color = '#ff6b6b';
+            this.loadingDiv.style.color = '#e74c3c';
         }
     }
     
@@ -763,7 +761,6 @@ class SimplePDFBook {
     }
     
     setupEventListeners() {
-        // Handle window resize to adjust scale
         window.addEventListener('resize', () => {
             const oldScale = this.scale;
             this.adjustScaleForScreen();
@@ -774,13 +771,13 @@ class SimplePDFBook {
     }
     
     setupSecurityFeatures() {
-        // Disable right-click on canvas
+        // Disable right-click
         this.canvas.addEventListener('contextmenu', (e) => {
             e.preventDefault();
             return false;
         });
         
-        // Disable keyboard shortcuts for saving/printing
+        // Disable keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if ((e.ctrlKey && (e.key === 's' || e.key === 'p' || e.key === 'u' || e.key === 'i')) ||
                 (e.ctrlKey && e.shiftKey && e.key === 'I') ||
@@ -790,7 +787,7 @@ class SimplePDFBook {
             }
         });
         
-        // Disable drag and drop
+        // Disable drag
         this.canvas.addEventListener('dragstart', (e) => {
             e.preventDefault();
             return false;
@@ -801,24 +798,11 @@ class SimplePDFBook {
             e.preventDefault();
             return false;
         });
-        
-        // Add touch event prevention for long-press menu on mobile
-        this.canvas.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
-                // Allow normal touch, but prevent context menu on long press
-                let timer;
-                const longPressTimer = setTimeout(() => {
-                    e.preventDefault();
-                }, 500);
-                this.canvas.addEventListener('touchend', () => clearTimeout(longPressTimer), { once: true });
-            }
-        });
     }
 }
 
-// Initialize all PDF books after DOM is ready
+// Initialize all PDF books
 document.addEventListener('DOMContentLoaded', function() {
-    // Book 1: Introduction to Millipedes
     new SimplePDFBook(
         'intro.pdf',
         'pdf1Canvas',
@@ -830,7 +814,6 @@ document.addEventListener('DOMContentLoaded', function() {
         'book1Container'
     );
     
-    // Book 2: Illustrated Key to Order
     new SimplePDFBook(
         'keys.pdf',
         'pdf2Canvas',
@@ -842,7 +825,6 @@ document.addEventListener('DOMContentLoaded', function() {
         'book2Container'
     );
     
-    // Book 3: Illustrated Key to Genus
     new SimplePDFBook(
         'keynepal.pdf',
         'pdf3Canvas',
@@ -871,7 +853,6 @@ document.addEventListener('DOMContentLoaded', function() {
 const videoElement = document.querySelector('.full-video');
 if (videoElement) {
     videoElement.addEventListener('error', function() {
-        console.log("⚠️ Video file not found");
         const wrapper = document.querySelector('.video-wrapper');
         if (wrapper) {
             const fallbackMsg = document.createElement('div');
