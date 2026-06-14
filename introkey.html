@@ -99,24 +99,26 @@
             border-radius: 8px;
             padding: 10px;
             position: relative;
-            overflow: auto;
+            overflow: hidden;
             cursor: grab;
             min-height: 550px;
             touch-action: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .pdf-canvas-container:active {
             cursor: grabbing;
         }
         
-        /* Canvas styling */
+        /* Canvas styling - centered */
         .pdf-canvas-container canvas {
             display: block;
-            margin: 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             background: white;
             cursor: grab;
-            transform-origin: 0 0;
+            position: relative;
         }
         
         .pdf-canvas-container canvas:active {
@@ -265,6 +267,20 @@
             background: #e74c3c;
         }
         
+        /* Zoom level indicator */
+        .zoom-indicator {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .video-caption-full { padding: 15px; }
@@ -385,7 +401,7 @@
                 <span class="page-indicator" id="page1Indicator">Loading...</span>
                 <button class="book-btn" id="next1Btn">Next ▶</button>
             </div>
-            <div class="swipe-hint">👆 Swipe left/right to turn pages | ✌️ Pinch to zoom (where you touch)</div>
+            <div class="swipe-hint">👆 One finger: Swipe to turn pages | ✌️ Two fingers: Pinch to zoom | 🖐️ One finger drag: Pan when zoomed</div>
             <div class="pdf-notice">translated from MILLI-PEET Project by Petra Sierwald <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
         </div>
     </div>
@@ -406,7 +422,7 @@
                 <span class="page-indicator" id="page2Indicator">Loading...</span>
                 <button class="book-btn" id="next2Btn">Next ▶</button>
             </div>
-            <div class="swipe-hint">👆 Swipe left/right to turn pages | ✌️ Pinch to zoom (where you touch)</div>
+            <div class="swipe-hint">👆 One finger: Swipe to turn pages | ✌️ Two fingers: Pinch to zoom | 🖐️ One finger drag: Pan when zoomed</div>
             <div class="pdf-notice">translated from MILLI-PEET Project by Petra Sierwald <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
         </div>
     </div>
@@ -427,7 +443,7 @@
                 <span class="page-indicator" id="page3Indicator">Loading...</span>
                 <button class="book-btn" id="next3Btn">Next ▶</button>
             </div>
-            <div class="swipe-hint">👆 Swipe left/right to turn pages | ✌️ Pinch to zoom (where you touch)</div>
+            <div class="swipe-hint">👆 One finger: Swipe to turn pages | ✌️ Two fingers: Pinch to zoom | 🖐️ One finger drag: Pan when zoomed</div>
             <div class="pdf-notice">Inspired by Shinohara (1999)</div>
         </div>
     </div>
@@ -486,7 +502,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// PDF VIEWER WITH PINCH ZOOM AT FINGER POSITION
+// PDF VIEWER WITH CENTERED PAGE & SMOOTH PANNING
 // ============================================
 
 class PDFViewer {
@@ -505,11 +521,11 @@ class PDFViewer {
         this.totalPages = 0;
         this.scale = 1.2;
         this.minScale = 0.6;
-        this.maxScale = 3.0;
+        this.maxScale = 3.5;
         
-        // Transform properties for zoom at position
-        this.translateX = 0;
-        this.translateY = 0;
+        // Position properties
+        this.canvasX = 0;
+        this.canvasY = 0;
         
         // Touch handling
         this.touchStartX = 0;
@@ -521,8 +537,8 @@ class PDFViewer {
         // Pinch zoom
         this.initialPinchDistance = 0;
         this.initialScale = this.scale;
-        this.initialTranslateX = 0;
-        this.initialTranslateY = 0;
+        this.initialCanvasX = 0;
+        this.initialCanvasY = 0;
         this.pinchCenterX = 0;
         this.pinchCenterY = 0;
         this.isPinching = false;
@@ -531,8 +547,8 @@ class PDFViewer {
         this.isPanning = false;
         this.panStartX = 0;
         this.panStartY = 0;
-        this.panStartTranslateX = 0;
-        this.panStartTranslateY = 0;
+        this.panStartCanvasX = 0;
+        this.panStartCanvasY = 0;
         
         this.ctx = this.canvas.getContext('2d');
         
@@ -551,7 +567,7 @@ class PDFViewer {
             this.enableButtons();
             await this.renderPage();
             this.hideLoading();
-            this.applyTransform();
+            this.centerCanvas();
             this.setupEvents();
         } catch (error) {
             console.error('PDF load error:', error);
@@ -598,18 +614,61 @@ class PDFViewer {
             
             await page.render(renderContext).promise;
             this.updatePageIndicator();
-            this.applyTransform();
+            this.updateCanvasPosition();
             
         } catch (error) {
             console.error('Render error:', error);
         }
     }
     
-    applyTransform() {
-        // Apply transform for zoom at position and panning
-        const transform = `translate(${this.translateX}px, ${this.translateY}px)`;
-        this.canvas.style.transform = transform;
-        this.canvas.style.transformOrigin = '0 0';
+    centerCanvas() {
+        if (!this.canvasContainer || !this.canvas) return;
+        
+        const containerRect = this.canvasContainer.getBoundingClientRect();
+        const canvasWidth = this.canvas.width;
+        const canvasHeight = this.canvas.height;
+        
+        // Center the canvas horizontally and vertically
+        this.canvasX = (containerRect.width - canvasWidth) / 2;
+        this.canvasY = (containerRect.height - canvasHeight) / 2;
+        
+        this.updateCanvasPosition();
+    }
+    
+    updateCanvasPosition() {
+        this.canvas.style.position = 'relative';
+        this.canvas.style.left = this.canvasX + 'px';
+        this.canvas.style.top = this.canvasY + 'px';
+    }
+    
+    applyPanBounds() {
+        if (!this.canvasContainer || !this.canvas) return;
+        
+        const containerRect = this.canvasContainer.getBoundingClientRect();
+        const canvasWidth = this.canvas.width;
+        const canvasHeight = this.canvas.height;
+        
+        // Calculate bounds for panning
+        const minX = containerRect.width - canvasWidth;
+        const maxX = 0;
+        const minY = containerRect.height - canvasHeight;
+        const maxY = 0;
+        
+        // Apply bounds (when zoomed in, canvas can go out of view)
+        if (canvasWidth > containerRect.width) {
+            this.canvasX = Math.min(0, Math.max(minX, this.canvasX));
+        } else {
+            // Keep centered if canvas smaller than container
+            this.canvasX = (containerRect.width - canvasWidth) / 2;
+        }
+        
+        if (canvasHeight > containerRect.height) {
+            this.canvasY = Math.min(0, Math.max(minY, this.canvasY));
+        } else {
+            this.canvasY = (containerRect.height - canvasHeight) / 2;
+        }
+        
+        this.updateCanvasPosition();
     }
     
     updatePageIndicator() {
@@ -639,7 +698,9 @@ class PDFViewer {
         if (this.currentPage > 1) {
             this.currentPage--;
             this.resetView();
-            this.renderPage();
+            this.renderPage().then(() => {
+                this.centerCanvas();
+            });
             this.updateNavButtons();
         }
     }
@@ -648,16 +709,16 @@ class PDFViewer {
         if (this.currentPage < this.totalPages) {
             this.currentPage++;
             this.resetView();
-            this.renderPage();
+            this.renderPage().then(() => {
+                this.centerCanvas();
+            });
             this.updateNavButtons();
         }
     }
     
     resetView() {
         this.scale = 1.2;
-        this.translateX = 0;
-        this.translateY = 0;
-        this.applyTransform();
+        this.centerCanvas();
     }
     
     toggleFullscreen() {
@@ -666,10 +727,14 @@ class PDFViewer {
         
         if (!document.fullscreenElement) {
             container.requestFullscreen().catch(err => console.log(err));
-            setTimeout(() => this.addFullscreenControls(), 100);
+            setTimeout(() => {
+                this.addFullscreenControls();
+                this.centerCanvas();
+            }, 100);
         } else {
             document.exitFullscreen();
             this.removeFullscreenControls();
+            setTimeout(() => this.centerCanvas(), 50);
         }
     }
     
@@ -707,35 +772,43 @@ class PDFViewer {
     
     zoomIn() {
         if (this.scale < this.maxScale) {
-            // Zoom at center of viewport
-            const centerX = this.canvasContainer.clientWidth / 2;
-            const centerY = this.canvasContainer.clientHeight / 2;
             const oldScale = this.scale;
             const newScale = Math.min(this.maxScale, this.scale + 0.2);
             
-            // Adjust translate to zoom at center
+            // Zoom at center of viewport
+            const containerRect = this.canvasContainer.getBoundingClientRect();
+            const viewCenterX = containerRect.width / 2;
+            const viewCenterY = containerRect.height / 2;
+            
+            // Adjust canvas position to zoom at center
             const ratio = newScale / oldScale;
-            this.translateX = centerX - (centerX - this.translateX) * ratio;
-            this.translateY = centerY - (centerY - this.translateY) * ratio;
+            this.canvasX = viewCenterX - (viewCenterX - this.canvasX) * ratio;
+            this.canvasY = viewCenterY - (viewCenterY - this.canvasY) * ratio;
             
             this.scale = newScale;
-            this.renderPage();
+            this.renderPage().then(() => {
+                this.applyPanBounds();
+            });
         }
     }
     
     zoomOut() {
         if (this.scale > this.minScale) {
-            const centerX = this.canvasContainer.clientWidth / 2;
-            const centerY = this.canvasContainer.clientHeight / 2;
             const oldScale = this.scale;
             const newScale = Math.max(this.minScale, this.scale - 0.2);
             
+            const containerRect = this.canvasContainer.getBoundingClientRect();
+            const viewCenterX = containerRect.width / 2;
+            const viewCenterY = containerRect.height / 2;
+            
             const ratio = newScale / oldScale;
-            this.translateX = centerX - (centerX - this.translateX) * ratio;
-            this.translateY = centerY - (centerY - this.translateY) * ratio;
+            this.canvasX = viewCenterX - (viewCenterX - this.canvasX) * ratio;
+            this.canvasY = viewCenterY - (viewCenterY - this.canvasY) * ratio;
             
             this.scale = newScale;
-            this.renderPage();
+            this.renderPage().then(() => {
+                this.applyPanBounds();
+            });
         }
     }
     
@@ -745,18 +818,15 @@ class PDFViewer {
         return Math.hypot(dx, dy);
     }
     
-    getPinchCenter(touches) {
-        const containerRect = this.canvasContainer.getBoundingClientRect();
-        const canvasRect = this.canvas.getBoundingClientRect();
-        
+    getPinchCenter(touches, containerRect) {
         const centerX = (touches[0].clientX + touches[1].clientX) / 2;
         const centerY = (touches[0].clientY + touches[1].clientY) / 2;
         
-        // Position relative to canvas
-        const canvasX = centerX - canvasRect.left;
-        const canvasY = centerY - canvasRect.top;
+        // Position relative to container
+        const relativeX = centerX - containerRect.left;
+        const relativeY = centerY - containerRect.top;
         
-        return { x: canvasX, y: canvasY, screenX: centerX, screenY: centerY };
+        return { x: relativeX, y: relativeY, screenX: centerX, screenY: centerY };
     }
     
     setupEvents() {
@@ -769,30 +839,29 @@ class PDFViewer {
         // TOUCH EVENTS
         this.canvasContainer.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) {
-                // Single touch - check if panning or swiping
                 const touch = e.touches[0];
                 this.touchStartX = touch.clientX;
                 this.touchStartY = touch.clientY;
                 
-                // Start panning
+                // Start panning (always allowed to pan)
                 this.isPanning = true;
                 this.panStartX = touch.clientX;
                 this.panStartY = touch.clientY;
-                this.panStartTranslateX = this.translateX;
-                this.panStartTranslateY = this.translateY;
+                this.panStartCanvasX = this.canvasX;
+                this.panStartCanvasY = this.canvasY;
                 this.isPinching = false;
                 
             } else if (e.touches.length === 2) {
-                // Two touches - pinch zoom
                 e.preventDefault();
+                const containerRect = this.canvasContainer.getBoundingClientRect();
                 this.initialPinchDistance = this.getPinchDistance(e.touches);
                 this.initialScale = this.scale;
                 
-                const center = this.getPinchCenter(e.touches);
+                const center = this.getPinchCenter(e.touches, containerRect);
                 this.pinchCenterX = center.x;
                 this.pinchCenterY = center.y;
-                this.initialTranslateX = this.translateX;
-                this.initialTranslateY = this.translateY;
+                this.initialCanvasX = this.canvasX;
+                this.initialCanvasY = this.canvasY;
                 this.isPinching = true;
                 this.isPanning = false;
             }
@@ -808,47 +877,42 @@ class PDFViewer {
                 newScale = Math.min(this.maxScale, Math.max(this.minScale, newScale));
                 
                 if (Math.abs(newScale - this.scale) > 0.01) {
-                    // Calculate new translate to zoom at finger position
+                    // Calculate new position to zoom at pinch center
                     const ratio = newScale / this.scale;
-                    
-                    // Adjust translate so the pinch center stays under fingers
-                    this.translateX = this.pinchCenterX - (this.pinchCenterX - this.initialTranslateX) * ratio;
-                    this.translateY = this.pinchCenterY - (this.pinchCenterY - this.initialTranslateY) * ratio;
+                    this.canvasX = this.pinchCenterX - (this.pinchCenterX - this.initialCanvasX) * ratio;
+                    this.canvasY = this.pinchCenterY - (this.pinchCenterY - this.initialCanvasY) * ratio;
                     
                     this.scale = newScale;
-                    this.renderPage();
+                    this.renderPage().then(() => {
+                        this.applyPanBounds();
+                    });
                     
                     // Update for continuous zoom
                     this.initialScale = newScale;
-                    this.initialTranslateX = this.translateX;
-                    this.initialTranslateY = this.translateY;
+                    this.initialCanvasX = this.canvasX;
+                    this.initialCanvasY = this.canvasY;
                     this.initialPinchDistance = newDistance;
                 }
                 
-            } else if (e.touches.length === 1 && this.isPanning && this.scale > 1.0) {
-                // Panning only when zoomed in
+            } else if (e.touches.length === 1 && this.isPanning) {
+                // Allow panning even at normal zoom (to move around when zoomed in)
                 e.preventDefault();
                 const touch = e.touches[0];
                 const deltaX = touch.clientX - this.panStartX;
                 const deltaY = touch.clientY - this.panStartY;
                 
-                this.translateX = this.panStartTranslateX + deltaX;
-                this.translateY = this.panStartTranslateY + deltaY;
+                this.canvasX = this.panStartCanvasX + deltaX;
+                this.canvasY = this.panStartCanvasY + deltaY;
                 
-                // Apply bounds to prevent panning too far
-                const maxTranslateX = this.canvas.width * (this.scale - 1);
-                const maxTranslateY = this.canvas.height * (this.scale - 1);
-                this.translateX = Math.min(maxTranslateX, Math.max(-maxTranslateX, this.translateX));
-                this.translateY = Math.min(maxTranslateY, Math.max(-maxTranslateY, this.translateY));
-                
-                this.applyTransform();
+                this.applyPanBounds();
+                this.updateCanvasPosition();
             }
         }, { passive: false });
         
         this.canvasContainer.addEventListener('touchend', (e) => {
-            if (!this.isPinching && this.touchStartX > 0) {
-                // Handle swipe for page turning (only when not zoomed or zoom level is 1)
-                if (this.scale <= 1.1) {
+            if (!this.isPinching && Math.abs(this.touchEndX - this.touchStartX) < 10) {
+                // Check for swipe only when not pinching and movement is small
+                if (this.touchStartX > 0 && this.scale <= 1.3) {
                     this.touchEndX = e.changedTouches[0]?.clientX || this.touchStartX;
                     this.handleSwipe();
                 }
@@ -865,9 +929,9 @@ class PDFViewer {
             if (e.ctrlKey) {
                 e.preventDefault();
                 
-                const rect = this.canvas.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left;
-                const mouseY = e.clientY - rect.top;
+                const containerRect = this.canvasContainer.getBoundingClientRect();
+                const mouseX = e.clientX - containerRect.left;
+                const mouseY = e.clientY - containerRect.top;
                 const oldScale = this.scale;
                 
                 if (e.deltaY < 0) {
@@ -878,12 +942,20 @@ class PDFViewer {
                 
                 if (this.scale !== oldScale) {
                     const ratio = this.scale / oldScale;
-                    this.translateX = mouseX - (mouseX - this.translateX) * ratio;
-                    this.translateY = mouseY - (mouseY - this.translateY) * ratio;
-                    this.renderPage();
+                    this.canvasX = mouseX - (mouseX - this.canvasX) * ratio;
+                    this.canvasY = mouseY - (mouseY - this.canvasY) * ratio;
+                    this.renderPage().then(() => {
+                        this.applyPanBounds();
+                    });
                 }
             }
         }, { passive: false });
+        
+        // Window resize - recenter
+        window.addEventListener('resize', () => {
+            this.centerCanvas();
+            this.applyPanBounds();
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
@@ -902,6 +974,7 @@ class PDFViewer {
         document.addEventListener('fullscreenchange', () => {
             if (!document.fullscreenElement) {
                 this.removeFullscreenControls();
+                setTimeout(() => this.centerCanvas(), 50);
             }
         });
         
@@ -914,10 +987,8 @@ class PDFViewer {
         
         if (Math.abs(deltaX) > this.minSwipeDistance) {
             if (deltaX > 0) {
-                // Swipe right - previous page
                 this.prevPage();
             } else {
-                // Swipe left - next page
                 this.nextPage();
             }
         }
