@@ -2,23 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Introduction & Identification Keys - Millipedes of Nepal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction & Identification - Millipedes of Nepal</title>
     <meta name="description" content="Learn about millipede identification with illustrated keys, video introduction, and PDF resources for Nepalese millipedes.">
     <meta name="keywords" content="millipedes, Nepal, identification, introduction, taxonomy, Diplopoda, key">
-    
-    <!-- PDF.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     
     <!-- Shared Styles -->
     <link rel="stylesheet" href="style.css">
     
     <style>
-        * {
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
+        /* ============ INTROKEY.HTML SPECIFIC STYLES ============ */
         
         /* Full Video Section */
         .full-video-section {
@@ -29,6 +22,12 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .full-video-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
         
         .video-wrapper {
@@ -43,10 +42,36 @@
             display: block;
         }
         
+        .video-wrapper::after {
+            content: "▶";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(26, 82, 118, 0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .video-wrapper:hover::after {
+            opacity: 1;
+        }
+        
         .video-caption-full {
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
             padding: 30px 40px;
             color: white;
+            width: 100%;
             text-align: center;
         }
         
@@ -55,238 +80,170 @@
             color: #e0e0e0;
             margin-bottom: 0;
             line-height: 1.6;
+            font-family: 'Times New Roman', Times, serif;
         }
         
-        /* PDF Book Viewer */
-        .pdf-book-section {
-            background: #f5f5f5;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 40px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        /* PDF Section Styles */
+        .pdf-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            width: 100%;
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .pdf-book-header {
-            text-align: center;
-            margin-bottom: 15px;
+        .pdf-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
         
-        .pdf-book-header h2 {
+        .pdf-section h2 {
             color: var(--primary-blue);
-            border-bottom: 2px solid var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 800px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background: #f5f5f5;
+        }
+        
+        .pdf-controls {
+            margin-top: 25px;
+            text-align: center;
+        }
+        
+        .pdf-controls a {
             display: inline-block;
-            padding-bottom: 8px;
-            font-size: 1.5rem;
-        }
-        
-        .pdf-book-header p {
-            color: #666;
-            font-size: 0.85rem;
-        }
-        
-        .book-container {
-            background: #e8e8e8;
-            border-radius: 10px;
-            padding: 10px;
-            position: relative;
-        }
-        
-        .pdf-canvas-container {
-            background: #fff;
-            border-radius: 8px;
-            padding: 10px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            min-height: 550px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        /* Canvas styling - centered */
-        .pdf-canvas-container canvas {
-            display: block;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            background: white;
-            cursor: pointer;
-            max-width: 100%;
-            height: auto;
-        }
-        
-        /* Simple Controls */
-        .book-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .book-btn {
-            background: var(--primary-blue);
+            background-color: var(--primary-blue);
             color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            min-width: 100px;
-        }
-        
-        .book-btn:hover {
-            background: var(--gold);
-            transform: scale(1.02);
-        }
-        
-        .book-btn:disabled {
-            background: #aaa;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .page-indicator {
-            background: var(--primary-blue);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-family: monospace;
-            font-weight: bold;
-            min-width: 100px;
-            text-align: center;
-        }
-        
-        /* Loading */
-        .pdf-loading {
-            text-align: center;
-            padding: 50px;
-            color: #666;
-            font-size: 1rem;
-        }
-        
-        .pdf-loading::after {
-            content: "📖 Loading PDF...";
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        /* Simple notice */
-        .pdf-notice {
-            text-align: center;
-            margin-top: 12px;
-            font-size: 0.75rem;
-            color: #888;
-        }
-        
-        .pdf-notice a {
-            color: #888;
-            text-decoration: none;
-        }
-        
-        .pdf-notice a:hover {
-            color: var(--primary-blue);
-            text-decoration: underline;
-        }
-        
-        /* Swipe hint */
-        .swipe-hint {
-            text-align: center;
-            margin-top: 8px;
-            font-size: 0.65rem;
-            color: #999;
-        }
-        
-        /* Fullscreen Mode */
-        .book-container:fullscreen {
-            background: #1a1a1a;
-            padding: 20px;
-        }
-        
-        .book-container:fullscreen .pdf-canvas-container {
-            min-height: calc(100vh - 180px);
-            background: #1a1a1a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .book-container:fullscreen canvas {
-            max-height: calc(100vh - 200px);
-            width: auto;
-            cursor: pointer;
-        }
-        
-        /* Fullscreen controls - simple */
-        .fullscreen-controls {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            z-index: 1000;
-            background: rgba(0,0,0,0.7);
-            padding: 10px 20px;
+            padding: 12px 30px;
             border-radius: 50px;
-            width: fit-content;
-            margin: 0 auto;
-            backdrop-filter: blur(10px);
-        }
-        
-        .fullscreen-controls button {
-            background: var(--primary-blue);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-size: 0.9rem;
+            text-decoration: none;
             font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
         }
         
-        .fullscreen-controls button:hover {
-            background: var(--gold);
+        .pdf-controls a:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
         }
         
-        .exit-fullscreen-btn {
-            background: #e74c3c;
+        .note {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+            font-style: italic;
+            font-size: 0.85rem;
+            font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Responsive */
+        /* Source Box */
+        .source-box {
+            background: linear-gradient(135deg, var(--blue-bg) 0%, #d6eaf8 100%);
+            border-radius: 20px;
+            padding: 45px;
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .source-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .milli-peet-logo {
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .source-box p {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.6;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .source-box strong {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+        }
+        
+        .source-box a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .source-box a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+            transform: translateX(5px);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .pdf-viewer { height: 650px; }
+        }
+        
+        @media (max-width: 992px) {
+            .pdf-viewer { height: 550px; }
+            .pdf-section h2 { font-size: 1.5rem; }
+        }
+        
         @media (max-width: 768px) {
-            .video-caption-full { padding: 15px; }
-            .video-caption-full p { font-size: 0.9rem; }
-            .pdf-book-section { padding: 12px; }
-            .pdf-book-header h2 { font-size: 1.2rem; }
-            .pdf-canvas-container { min-height: 450px; }
-            .book-btn { padding: 8px 16px; font-size: 0.8rem; min-width: 80px; }
-            .page-indicator { padding: 6px 12px; font-size: 0.8rem; min-width: 85px; }
-            .fullscreen-controls button { padding: 6px 15px; font-size: 0.8rem; }
+            .full-video-section { margin-bottom: 30px; }
+            .video-wrapper::after { width: 50px; height: 50px; font-size: 25px; }
+            .video-caption-full { padding: 20px; }
+            .video-caption-full p { font-size: 1rem; }
+            
+            .pdf-section { padding: 25px; margin-bottom: 30px; }
+            .pdf-viewer { height: 450px; }
+            .pdf-controls a { padding: 10px 20px; font-size: 0.9rem; }
+            
+            .source-box { padding: 30px 20px; }
+            .milli-peet-logo { font-size: 1.8rem; }
+            .source-box p { font-size: 1rem; }
+            .source-box strong { font-size: 1.1rem; }
         }
         
         @media (max-width: 480px) {
-            .pdf-canvas-container { min-height: 380px; }
-            .book-controls { gap: 8px; }
-            .book-btn { padding: 6px 12px; font-size: 0.7rem; min-width: 65px; }
-            .page-indicator { padding: 5px 10px; font-size: 0.7rem; min-width: 75px; }
-            .fullscreen-controls button { padding: 5px 12px; font-size: 0.7rem; }
+            .pdf-viewer { height: 350px; }
+            .pdf-section h2 { font-size: 1.2rem; }
+            .milli-peet-logo { font-size: 1.5rem; }
         }
         
-        canvas {
-            user-select: none;
-            -webkit-user-select: none;
+        @media (min-width: 1600px) {
+            .pdf-viewer { height: 950px; }
         }
     </style>
 </head>
@@ -299,7 +256,7 @@
         
         <div class="header-text">
             <h1>Millipedes of Nepal</h1>
-            <p>Introduction and Identification Keys</p>
+            <p>Introduction and Identification</p>
         </div>
         
         <div class="right-group">
@@ -354,12 +311,13 @@
 <main>
     <div class="page-header">
         <h2>Introduction and Identification Keys</h2>
+        <p>Identification keys to Orders of Millipedes</p>
     </div>
     
-    <!-- VIDEO SECTION -->
+    <!-- VIDEO SECTION - full bleed -->
     <div class="full-video-section">
         <div class="video-wrapper">
-            <video class="full-video" controls preload="metadata" poster="thumb.png" controlslist="nodownload" disablepictureinpicture>
+            <video class="full-video" controls preload="metadata" poster="thumb.png">
                 <source src="intronepali.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -369,67 +327,40 @@
         </div>
     </div>
 
-    <!-- PDF BOOK 1 -->
-    <div class="pdf-book-section">
-        <div class="pdf-book-header">
-            <h2>Introduction to Millipedes</h2>
-            <p>मिलिपिडहरूको परिचय</p>
-        </div>
-        <div class="book-container" id="book1Container">
-            <div class="pdf-canvas-container" id="pdf1Container">
-                <canvas id="pdf1Canvas"></canvas>
-                <div id="pdf1Loading" class="pdf-loading"></div>
-            </div>
-            <div class="book-controls">
-                <button class="book-btn" id="prev1Btn">◀ Previous</button>
-                <span class="page-indicator" id="page1Indicator">Loading...</span>
-                <button class="book-btn" id="next1Btn">Next ▶</button>
-            </div>
-            <div class="swipe-hint">👆 Tap to fullscreen | 👉 Swipe left/right to turn pages</div>
-            <div class="pdf-notice">translated from MILLI-PEET Project by Petra Sierwald <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
+    <!-- INTRODUCTION PDF SECTION -->
+    <div class="pdf-section">
+        <h2>Introduction to Millipedes (मिलिपिडहरूको परिचय)</h2>   
+        <embed class="pdf-viewer" src="intro.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf" onerror="this.style.display='none'">
+        <div class="pdf-controls">
+            <a href="intro.pdf" target="_blank">Open</a>
         </div>
     </div>
     
-    <!-- PDF BOOK 2 -->
-    <div class="pdf-book-section">
-        <div class="pdf-book-header">
-            <h2>Illustrated Key to Order</h2>
-            <p>चित्र सहितको पहिचान कुञ्जी</p>
+    <!-- IDENTIFICATION KEY PDF SECTION -->
+    <div class="pdf-section">
+        <h2>Illustrated Key to Order (चित्र सहितको पहिचान कुञ्जी)</h2>
+        <embed class="pdf-viewer" src="keys.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf" onerror="this.style.display='none'">
+        <div class="pdf-controls">
+            <a href="keys.pdf" target="_blank">Open</a>
         </div>
-        <div class="book-container" id="book2Container">
-            <div class="pdf-canvas-container" id="pdf2Container">
-                <canvas id="pdf2Canvas"></canvas>
-                <div id="pdf2Loading" class="pdf-loading"></div>
-            </div>
-            <div class="book-controls">
-                <button class="book-btn" id="prev2Btn">◀ Previous</button>
-                <span class="page-indicator" id="page2Indicator">Loading...</span>
-                <button class="book-btn" id="next2Btn">Next ▶</button>
-            </div>
-            <div class="swipe-hint">👆 Tap to fullscreen | 👉 Swipe left/right to turn pages</div>
-            <div class="pdf-notice">translated from MILLI-PEET Project by Petra Sierwald <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
-        </div>
+        <div class="note">Adapted from MILLI-PEET (Millipede Phylogeny and Evolution) Project,By Petra Sierwald, <a href="https://www.fieldmuseum.org/" target="_blank" rel="noopener noreferrer">🔗 www.fieldmuseum.org</a> </div>
     </div>
-    
-    <!-- PDF BOOK 3 -->
-    <div class="pdf-book-section">
-        <div class="pdf-book-header">
-            <h2>Illustrated Key to Genus for Nepalese Millipedes</h2>
-            <p>नेपाली मिलिपिडहरूको जातीय पहिचान कुञ्जी</p>
+        <!-- IDENTIFICATION KEY upto Genus -->
+    <div class="pdf-section">
+        <h2>Illustrated Key to Genus for Nepalese Millipedes</h2>
+        <embed class="pdf-viewer" src="keynepal.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" type="application/pdf" onerror="this.style.display='none'">
+        <div class="pdf-controls">
+            <a href="keynepal.pdf" target="_blank">Open</a>
         </div>
-        <div class="book-container" id="book3Container">
-            <div class="pdf-canvas-container" id="pdf3Container">
-                <canvas id="pdf3Canvas"></canvas>
-                <div id="pdf3Loading" class="pdf-loading"></div>
-            </div>
-            <div class="book-controls">
-                <button class="book-btn" id="prev3Btn">◀ Previous</button>
-                <span class="page-indicator" id="page3Indicator">Loading...</span>
-                <button class="book-btn" id="next3Btn">Next ▶</button>
-            </div>
-            <div class="swipe-hint">👆 Tap to fullscreen | 👉 Swipe left/right to turn pages</div>
-            <div class="pdf-notice">Inspired by Shinohara (1999)</div>
-        </div>
+        <div class="note">This work is inspired by Shinohara (1999), and this is prepared for personal use. I have used many drawings and figures from many articles. As much as I tried to cite. If not cited, Sorry for this. I am working for it....</div>
+    </div>
+    <!-- SOURCE ATTRIBUTION BOX -->
+    <div class="source-box">
+        <div class="milli-peet-logo">MILLI-PEET</div>
+        <p>This identification key and taxonomic information are adapted from the</p>
+        <p><strong>MILLI-PEET (Millipede Phylogeny and Evolution) Project</strong></p>
+        <p>By <strong>Petra Sierwald</strong></p>
+        <a href="https://www.fieldmuseum.org/" target="_blank" rel="noopener noreferrer">🔗 www.fieldmuseum.org</a>
     </div>
 </main>
 
@@ -440,9 +371,10 @@
 
 <script>
 // ============================================
-// CLOCK FUNCTIONS
+// CLOCK AND DATE FUNCTIONS - ACCURATE VERSION
 // ============================================
 
+// Get Nepal time (UTC+5:45)
 function getNepalTime() {
     const now = new Date();
     const nepalOffset = 5.75 * 60 * 60 * 1000;
@@ -450,14 +382,81 @@ function getNepalTime() {
     return new Date(utcTime + nepalOffset);
 }
 
+// Nepali month names
+const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
+
+// Nepali weekday names
 const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
 
-function getNepaliDateString(date) {
-    return `${nepaliWeekdays[date.getDay()]}, ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+// Days in each Nepali month
+const nepaliMonthDays = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
+
+// Check if Nepali year is leap
+function isNepaliLeapYear(bsYear) {
+    const leapYears = [1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011, 2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028, 2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046, 2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063, 2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081, 2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098];
+    return leapYears.includes(bsYear);
 }
 
+// Get days in Nepali month
+function getNepaliMonthDays(bsYear, bsMonth) {
+    if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
+    return nepaliMonthDays[bsMonth];
+}
+
+// Convert AD to BS
+function adToBs(adDate) {
+    const referenceAD = new Date(2026, 3, 14);
+    const referenceBS = { year: 2083, month: 0, day: 1 };
+    
+    const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
+    let diffDays = Math.round((targetAD - referenceAD) / (1000 * 60 * 60 * 24));
+    
+    let bsYear = referenceBS.year;
+    let bsMonth = referenceBS.month;
+    let bsDay = referenceBS.day + diffDays;
+    
+    while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
+        bsDay -= getNepaliMonthDays(bsYear, bsMonth);
+        bsMonth++;
+        if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
+    }
+    
+    while (bsDay < 1) {
+        bsMonth--;
+        if (bsMonth < 0) { bsMonth = 11; bsYear--; }
+        bsDay += getNepaliMonthDays(bsYear, bsMonth);
+    }
+    
+    return { year: bsYear, month: bsMonth, day: bsDay };
+}
+
+// Convert to Nepali digits
+function toNepaliDigits(num) {
+    const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+    return String(num).split('').map(d => digits[parseInt(d)] || d).join('');
+}
+
+// Get Nepali date string
+function getNepaliDateString(date) {
+    const bs = adToBs(date);
+    return `${nepaliWeekdays[date.getDay()]}, ${nepaliMonths[bs.month]} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
+}
+
+// Format English date
+function getEnglishDateString(date) {
+    return date.toLocaleDateString('en-US', { 
+        weekday: 'short', 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+    });
+}
+
+// Update all clock displays
 function updateClock() {
     const now = getNepalTime();
+    
+    // Update analog hands
     const hours = now.getHours();
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
@@ -470,320 +469,60 @@ function updateClock() {
     if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
     if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
     
+    // Update digital time
     const digitalTime = document.getElementById('digitalTime');
     if (digitalTime) digitalTime.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     
+    // Update English date
     const englishDate = document.getElementById('englishDate');
-    if (englishDate) englishDate.innerHTML = now.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    if (englishDate) englishDate.innerHTML = getEnglishDateString(now);
     
+    // Update Nepali date
     const nepaliDate = document.getElementById('nepaliDate');
     if (nepaliDate) nepaliDate.innerHTML = getNepaliDateString(now);
 }
 
+// Wait for page to load completely
 window.addEventListener('DOMContentLoaded', function() {
     updateClock();
     setInterval(updateClock, 1000);
 });
 
 // ============================================
-// SIMPLE PDF VIEWER - CENTERED, FULLSCREEN, SWIPE
+// INTROKEY SPECIFIC FUNCTIONS
 // ============================================
 
-class SimplePDFViewer {
-    constructor(pdfUrl, canvasId, loadingId, prevBtnId, nextBtnId, pageIndicatorId, containerId) {
-        this.pdfUrl = pdfUrl;
-        this.canvas = document.getElementById(canvasId);
-        this.canvasContainer = document.getElementById(containerId);
-        this.loadingDiv = document.getElementById(loadingId);
-        this.prevBtn = document.getElementById(prevBtnId);
-        this.nextBtn = document.getElementById(nextBtnId);
-        this.pageIndicator = document.getElementById(pageIndicatorId);
-        this.bookContainer = document.getElementById(containerId.replace('Container', 'Container')) || document.getElementById('book1Container');
-        
-        this.pdfDoc = null;
-        this.currentPage = 1;
-        this.totalPages = 0;
-        this.scale = 1.2;
-        
-        // Touch for swipe
-        this.touchStartX = 0;
-        this.touchEndX = 0;
-        this.minSwipeDistance = 40;
-        
-        this.ctx = this.canvas.getContext('2d');
-        
-        this.init();
-    }
-    
-    async init() {
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
-        
-        this.showLoading();
-        
-        try {
-            this.pdfDoc = await pdfjsLib.getDocument(this.pdfUrl).promise;
-            this.totalPages = this.pdfDoc.numPages;
-            this.updatePageIndicator();
-            this.enableButtons();
-            await this.renderPage();
-            this.hideLoading();
-            this.centerCanvas();
-            this.setupEvents();
-        } catch (error) {
-            console.error('PDF load error:', error);
-            this.showError();
-        }
-    }
-    
-    showLoading() {
-        if (this.loadingDiv) {
-            this.loadingDiv.style.display = 'flex';
-            this.canvas.style.display = 'none';
-        }
-    }
-    
-    hideLoading() {
-        if (this.loadingDiv) {
-            this.loadingDiv.style.display = 'none';
-            this.canvas.style.display = 'block';
-        }
-    }
-    
-    showError() {
-        if (this.loadingDiv) {
-            this.loadingDiv.innerHTML = '❌ PDF file not found. Please check if the file exists.';
-            this.loadingDiv.style.color = '#e74c3c';
-            this.loadingDiv.style.display = 'flex';
-        }
-    }
-    
-    async renderPage() {
-        if (!this.pdfDoc) return;
-        
-        try {
-            const page = await this.pdfDoc.getPage(this.currentPage);
-            const viewport = page.getViewport({ scale: this.scale });
-            
-            this.canvas.width = viewport.width;
-            this.canvas.height = viewport.height;
-            
-            const renderContext = {
-                canvasContext: this.ctx,
-                viewport: viewport
-            };
-            
-            await page.render(renderContext).promise;
-            this.updatePageIndicator();
-            
-        } catch (error) {
-            console.error('Render error:', error);
-        }
-    }
-    
-    centerCanvas() {
-        if (!this.canvasContainer || !this.canvas) return;
-        
-        const containerRect = this.canvasContainer.getBoundingClientRect();
-        const canvasWidth = this.canvas.width;
-        const canvasHeight = this.canvas.height;
-        
-        // Calculate center position
-        const left = (containerRect.width - canvasWidth) / 2;
-        const top = (containerRect.height - canvasHeight) / 2;
-        
-        this.canvas.style.position = 'relative';
-        this.canvas.style.left = Math.max(0, left) + 'px';
-        this.canvas.style.top = Math.max(0, top) + 'px';
-    }
-    
-    updatePageIndicator() {
-        if (this.pageIndicator) {
-            this.pageIndicator.textContent = `${this.currentPage} / ${this.totalPages}`;
-        }
-    }
-    
-    enableButtons() {
-        if (this.prevBtn) {
-            this.prevBtn.onclick = () => this.prevPage();
-            this.prevBtn.disabled = false;
-        }
-        if (this.nextBtn) {
-            this.nextBtn.onclick = () => this.nextPage();
-            this.nextBtn.disabled = false;
-        }
-        this.updateNavButtons();
-    }
-    
-    updateNavButtons() {
-        if (this.prevBtn) this.prevBtn.disabled = this.currentPage <= 1;
-        if (this.nextBtn) this.nextBtn.disabled = this.currentPage >= this.totalPages;
-    }
-    
-    prevPage() {
-        if (this.currentPage > 1) {
-            this.currentPage--;
-            this.renderPage().then(() => {
-                this.centerCanvas();
-            });
-            this.updateNavButtons();
-        }
-    }
-    
-    nextPage() {
-        if (this.currentPage < this.totalPages) {
-            this.currentPage++;
-            this.renderPage().then(() => {
-                this.centerCanvas();
-            });
-            this.updateNavButtons();
-        }
-    }
-    
-    toggleFullscreen() {
-        const container = this.bookContainer;
-        if (!container) return;
-        
-        if (!document.fullscreenElement) {
-            container.requestFullscreen().catch(err => console.log(err));
-            setTimeout(() => {
-                this.addFullscreenControls();
-                this.centerCanvas();
-            }, 100);
-        } else {
-            document.exitFullscreen();
-            this.removeFullscreenControls();
-            setTimeout(() => this.centerCanvas(), 50);
-        }
-    }
-    
-    addFullscreenControls() {
-        this.removeFullscreenControls();
-        
-        const controls = document.createElement('div');
-        controls.className = 'fullscreen-controls';
-        controls.id = 'fsControls';
-        controls.innerHTML = `
-            <button id="fsPrevBtn">◀ Previous</button>
-            <button id="fsNextBtn">Next ▶</button>
-            <button id="fsExitBtn" class="exit-fullscreen-btn">✖ Exit</button>
-        `;
-        document.body.appendChild(controls);
-        
-        document.getElementById('fsPrevBtn').onclick = () => this.prevPage();
-        document.getElementById('fsNextBtn').onclick = () => this.nextPage();
-        document.getElementById('fsExitBtn').onclick = () => {
-            document.exitFullscreen();
-            this.removeFullscreenControls();
-        };
-    }
-    
-    removeFullscreenControls() {
-        const controls = document.getElementById('fsControls');
-        if (controls) controls.remove();
-    }
-    
-    setupEvents() {
-        // Tap to fullscreen
-        this.canvas.addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.toggleFullscreen();
-        });
-        
-        // Swipe to turn pages
-        this.canvasContainer.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
-                this.touchStartX = e.touches[0].clientX;
-            }
-        }, { passive: true });
-        
-        this.canvasContainer.addEventListener('touchend', (e) => {
-            if (e.changedTouches.length === 1) {
-                this.touchEndX = e.changedTouches[0].clientX;
-                this.handleSwipe();
-            }
-        }, { passive: true });
-        
-        // Window resize - recenter
-        window.addEventListener('resize', () => {
-            this.centerCanvas();
-        });
-        
-        // Keyboard navigation in fullscreen
-        document.addEventListener('keydown', (e) => {
-            if (document.fullscreenElement) {
-                if (e.key === 'ArrowLeft') {
-                    this.prevPage();
-                } else if (e.key === 'ArrowRight') {
-                    this.nextPage();
-                } else if (e.key === 'Escape') {
-                    this.removeFullscreenControls();
-                }
-            }
-        });
-        
-        // Exit fullscreen cleanup
-        document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) {
-                this.removeFullscreenControls();
-                setTimeout(() => this.centerCanvas(), 50);
-            }
-        });
-        
-        // Disable right-click
-        this.canvas.addEventListener('contextmenu', (e) => e.preventDefault());
-    }
-    
-    handleSwipe() {
-        const deltaX = this.touchEndX - this.touchStartX;
-        
-        if (Math.abs(deltaX) > this.minSwipeDistance) {
-            if (deltaX > 0) {
-                // Swipe right - previous page
-                this.prevPage();
-            } else {
-                // Swipe left - next page
-                this.nextPage();
-            }
-        }
-        
-        // Reset
-        this.touchStartX = 0;
-        this.touchEndX = 0;
-    }
-}
-
-// Initialize all PDF viewers
-document.addEventListener('DOMContentLoaded', function() {
-    // Book 1
-    new SimplePDFViewer(
-        'intro.pdf', 'pdf1Canvas', 'pdf1Loading',
-        'prev1Btn', 'next1Btn', 'page1Indicator', 'pdf1Container'
-    );
-    
-    // Book 2
-    new SimplePDFViewer(
-        'keys.pdf', 'pdf2Canvas', 'pdf2Loading',
-        'prev2Btn', 'next2Btn', 'page2Indicator', 'pdf2Container'
-    );
-    
-    // Book 3
-    new SimplePDFViewer(
-        'keynepal.pdf', 'pdf3Canvas', 'pdf3Loading',
-        'prev3Btn', 'next3Btn', 'page3Indicator', 'pdf3Container'
-    );
-    
-    // Video protection
+(function() {
+    // Handle video errors gracefully
     const video = document.querySelector('.full-video');
-    if (video) {
-        video.setAttribute('controlslist', 'nodownload');
-        video.setAttribute('disablepictureinpicture', 'true');
+    if(video) {
+        video.addEventListener('error', function() {
+            console.log("⚠️ Video file not found: Please ensure intronepali.mp4 and thumb.png exist.");
+            const wrapper = document.querySelector('.video-wrapper');
+            if(wrapper) {
+                const fallbackMsg = document.createElement('div');
+                fallbackMsg.style.cssText = 'position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:white; background:rgba(0,0,0,0.7); padding:20px; border-radius:10px; text-align:center; font-family:Times New Roman, serif;';
+                fallbackMsg.innerHTML = 'Video not available<br><small>Please check if intronepali.mp4 exists</small>';
+                wrapper.style.position = 'relative';
+                wrapper.appendChild(fallbackMsg);
+            }
+        });
     }
     
-    // Disable right-click on images
-    document.querySelectorAll('img').forEach(img => {
-        img.addEventListener('contextmenu', (e) => e.preventDefault());
+    // Handle PDF embed errors gracefully
+    const embeds = document.querySelectorAll('embed.pdf-viewer');
+    embeds.forEach(embed => {
+        embed.addEventListener('error', function() {
+            console.log("⚠️ PDF file not found:", embed.src);
+            const parent = embed.parentElement;
+            const errorMsg = document.createElement('div');
+            errorMsg.style.cssText = 'background:#f8f9fa; padding:40px; text-align:center; border-radius:12px; border:1px dashed #ccc; margin:20px 0; font-family:Times New Roman, serif;';
+            errorMsg.innerHTML = '📄 <strong>PDF preview not available</strong><br><small>Please click the button below to open the PDF directly.</small>';
+            embed.style.display = 'none';
+            parent.insertBefore(errorMsg, embed.nextSibling);
+        });
     });
-});
+})();
 </script>
 
 </body>
