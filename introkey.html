@@ -66,6 +66,7 @@
             color: #555;
         }
         
+        /* Full Video Section - YouTube Embed */
         .full-video-section {
             width: 100%;
             max-width: 100%;
@@ -77,11 +78,13 @@
             width: 100%;
             background: #000;
             position: relative;
+            aspect-ratio: 16 / 9;
         }
         
-        .full-video {
+        .video-wrapper iframe {
             width: 100%;
-            height: auto;
+            height: 100%;
+            border: none;
             display: block;
         }
         
@@ -136,7 +139,6 @@
             position: relative;
         }
         
-        /* CRITICAL: Container for centering */
         .pdf-canvas-container {
             background: #fff;
             border-radius: 10px;
@@ -151,7 +153,6 @@
             text-align: center;
         }
         
-        /* Canvas centering - using flexbox on parent */
         .pdf-canvas-container canvas {
             display: block;
             box-shadow: 0 2px 15px rgba(0,0,0,0.15);
@@ -159,7 +160,6 @@
             cursor: pointer;
             max-width: 100%;
             height: auto;
-            /* No positioning needed - flexbox handles centering */
         }
         
         .book-controls {
@@ -449,7 +449,7 @@
     <a href="articles.html">Articles</a>
     <a href="gallery.html">Gallery</a> 
     <a href="upload.html">Upload</a>
-        <a href="team.html">Team</a>
+    <a href="team.html">Team</a>
     <a href="faq.html">FAQ</a>
 </nav>
 
@@ -458,23 +458,21 @@
         <h2>Introduction and Identification Keys</h2>
     </div>
     
-    <!-- VIDEO SECTION -->
+    <!-- VIDEO SECTION - YouTube Embed -->
     <div class="full-video-section">
         <div class="video-wrapper">
-            <video class="full-video" controls preload="metadata" poster="thumb.png" controlslist="nodownload" disablepictureinpicture>
-                <source src="intronepali.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <iframe 
+                src="https://www.youtube.com/embed/V4ZJr_grRIU?rel=0&modestbranding=1" 
+                title="About Millipedes in Nepali"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
         </div>
-        <div class="video-caption-full">
-            <p>*The Nepali names mentioned in this video for millipede is wrong; so for Nepali names of millipede visit the homepage of this website. The number of millipede species in Nepal and the endemic number can be seen on the checklist page.</p>
-        </div>
-    </div>
 
     <!-- PDF BOOK 1: Introduction to Millipedes -->
     <div class="pdf-book-section">
         <div class="pdf-book-header">
-            <h2>📖 Introduction to Millipedes</h2>
+            <h2>Introduction to Millipedes</h2>
             <p>मिलिपिडहरूको परिचय</p>
         </div>
         <div class="book-container" id="book1Container">
@@ -494,7 +492,7 @@
     <!-- PDF BOOK 2: Illustrated Key to Order -->
     <div class="pdf-book-section">
         <div class="pdf-book-header">
-            <h2>📖 Illustrated Key to Order</h2>
+            <h2>Illustrated Key to Order</h2>
             <p>चित्र सहितको पहिचान कुञ्जी</p>
         </div>
         <div class="book-container" id="book2Container">
@@ -514,7 +512,7 @@
     <!-- PDF BOOK 3: Illustrated Key to Genus -->
     <div class="pdf-book-section">
         <div class="pdf-book-header">
-            <h2>📖 Illustrated Key to Genus for Nepalese Millipedes</h2>
+            <h2>Illustrated Key to Genus for Nepalese Millipedes</h2>
             <p>नेपाली मिलिपिडहरूको जातीय पहिचान कुञ्जी</p>
         </div>
         <div class="book-container" id="book3Container">
@@ -527,7 +525,7 @@
                 <span class="page-indicator" id="page3Indicator">Loading...</span>
                 <button class="book-btn" id="next3Btn">Next ▶</button>
             </div>
-            <div class="book-notice">This work is inspired by Shinohara (1999).This work is inspired by Shinohara (1999), and this is prepared for personal use. I have used many drawings and figures from many articles. As much as I tried to cite. If not cited, Sorry for this. I am working for it....</div>
+            <div class="book-notice">This work is inspired by Shinohara (1999), and this is prepared for personal use. I have used many drawings and figures from many articles. As much as I tried to cite. If not cited, Sorry for this. I am working for it....</div>
         </div>
     </div>
 </main>
@@ -835,32 +833,11 @@ document.addEventListener('DOMContentLoaded', function() {
         'prev3Btn', 'next3Btn', 'page3Indicator', 'pdf3Container'
     );
     
-    // Video protection
-    const video = document.querySelector('.full-video');
-    if (video) {
-        video.setAttribute('controlslist', 'nodownload');
-        video.setAttribute('disablepictureinpicture', 'true');
-    }
-    
+    // Disable right-click on images
     document.querySelectorAll('img').forEach(img => {
         img.addEventListener('contextmenu', (e) => e.preventDefault());
     });
 });
-
-// Handle video errors
-const videoElement = document.querySelector('.full-video');
-if (videoElement) {
-    videoElement.addEventListener('error', function() {
-        const wrapper = document.querySelector('.video-wrapper');
-        if (wrapper) {
-            const fallbackMsg = document.createElement('div');
-            fallbackMsg.style.cssText = 'position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:white; background:rgba(0,0,0,0.7); padding:20px; border-radius:10px; text-align:center; font-family:Times New Roman, serif; z-index:20;';
-            fallbackMsg.innerHTML = 'Video not available<br><small>Please check if intronepali.mp4 exists</small>';
-            wrapper.style.position = 'relative';
-            wrapper.appendChild(fallbackMsg);
-        }
-    });
-}
 </script>
 
 </body>
