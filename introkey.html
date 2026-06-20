@@ -66,12 +66,15 @@
             color: #555;
         }
         
-        /* Full Video Section - YouTube Embed */
+        /* Full Video Section - Smaller, Centered */
         .full-video-section {
             width: 100%;
-            max-width: 100%;
-            margin: 0 0 50px 0;
-            border-radius: 0;
+            max-width: 900px;
+            margin: 0 auto 50px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: #1a1a2e;
         }
         
         .video-wrapper {
@@ -90,14 +93,14 @@
         
         .video-caption-full {
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
-            padding: 30px 5%;
+            padding: 20px 30px;
             color: white;
             width: 100%;
             text-align: center;
         }
         
         .video-caption-full p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #e0e0e0;
             margin-bottom: 0;
             line-height: 1.6;
@@ -362,12 +365,13 @@
         @media (max-width: 992px) {
             .pdf-book-header h2 { font-size: 1.5rem; }
             .pdf-canvas-container { min-height: 500px; }
+            .full-video-section { max-width: 700px; }
         }
         
         @media (max-width: 768px) {
-            .full-video-section { margin-bottom: 30px; }
-            .video-caption-full { padding: 20px 5%; }
-            .video-caption-full p { font-size: 1rem; }
+            .full-video-section { max-width: 100%; margin-bottom: 30px; }
+            .video-caption-full { padding: 15px 20px; }
+            .video-caption-full p { font-size: 0.85rem; }
             .pdf-book-section { padding: 20px 5%; }
             .pdf-book-header h2 { font-size: 1.2rem; }
             .pdf-canvas-container { min-height: 420px; padding: 15px; }
@@ -384,6 +388,7 @@
             .book-controls { gap: 10px; }
             .book-btn { padding: 6px 12px; font-size: 0.7rem; min-width: 65px; }
             .page-indicator { padding: 6px 10px; font-size: 0.7rem; min-width: 85px; }
+            .video-caption-full p { font-size: 0.75rem; }
         }
         
         canvas {
@@ -458,7 +463,7 @@
         <h2>Introduction and Identification Keys</h2>
     </div>
     
-    <!-- VIDEO SECTION - YouTube Embed -->
+    <!-- VIDEO SECTION - YouTube Embed with Smaller Frame -->
     <div class="full-video-section">
         <div class="video-wrapper">
             <iframe 
@@ -468,11 +473,15 @@
                 allowfullscreen>
             </iframe>
         </div>
+        <div class="video-caption-full">
+            <p>This video provides an introduction to millipedes in Nepali. For Nepali names of millipedes, visit the homepage of this website. The number of millipede species in Nepal and the endemic number can be seen on the checklist page.</p>
+        </div>
+    </div>
 
     <!-- PDF BOOK 1: Introduction to Millipedes -->
     <div class="pdf-book-section">
         <div class="pdf-book-header">
-            <h2>Introduction to Millipedes</h2>
+            <h2>📖 Introduction to Millipedes</h2>
             <p>मिलिपिडहरूको परिचय</p>
         </div>
         <div class="book-container" id="book1Container">
@@ -492,7 +501,7 @@
     <!-- PDF BOOK 2: Illustrated Key to Order -->
     <div class="pdf-book-section">
         <div class="pdf-book-header">
-            <h2>Illustrated Key to Order</h2>
+            <h2>📖 Illustrated Key to Order</h2>
             <p>चित्र सहितको पहिचान कुञ्जी</p>
         </div>
         <div class="book-container" id="book2Container">
@@ -512,7 +521,7 @@
     <!-- PDF BOOK 3: Illustrated Key to Genus -->
     <div class="pdf-book-section">
         <div class="pdf-book-header">
-            <h2>Illustrated Key to Genus for Nepalese Millipedes</h2>
+            <h2>📖 Illustrated Key to Genus for Nepalese Millipedes</h2>
             <p>नेपाली मिलिपिडहरूको जातीय पहिचान कुञ्जी</p>
         </div>
         <div class="book-container" id="book3Container">
