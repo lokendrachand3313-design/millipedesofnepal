@@ -106,46 +106,46 @@
             line-height: 1.6;
         }
         
-        /* PDF Book Section - No extra white area */
+        /* PDF Book Section - No white area, matches background */
         .pdf-book-section {
             width: 100%;
             max-width: 100%;
             border-radius: 0;
-            padding: 20px 5%;
+            padding: 15px 5%;
             margin-bottom: 0;
-            background: #f5f5f5;
+            background: #f0f4f8; /* Matches body background */
         }
         
         .pdf-book-header {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         .pdf-book-header h2 {
             color: var(--primary-blue);
             border-bottom: 3px solid var(--primary-blue);
             display: inline-block;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            font-size: 1.8rem;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+            font-size: 1.6rem;
         }
         
         .pdf-book-header p {
             color: #666;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         
         .book-container {
-            background: #e8e8e8;
-            border-radius: 10px;
-            padding: 8px;
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
             position: relative;
         }
         
         .pdf-canvas-container {
-            background: #fff;
-            border-radius: 8px;
-            padding: 5px;
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
             position: relative;
             overflow: auto;
             cursor: pointer;
@@ -158,7 +158,7 @@
         
         .pdf-canvas-container canvas {
             display: block;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             background: white;
             cursor: pointer;
             max-width: 100%;
@@ -171,7 +171,7 @@
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin-top: 15px;
+            margin-top: 12px;
             flex-wrap: wrap;
         }
         
@@ -182,7 +182,7 @@
             padding: 10px 24px;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: bold;
             transition: all 0.3s ease;
             min-width: 100px;
@@ -204,7 +204,7 @@
             color: white;
             padding: 8px 18px;
             border-radius: 50px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-family: monospace;
             font-weight: bold;
             min-width: 110px;
@@ -357,7 +357,7 @@
         }
         
         @media (max-width: 992px) {
-            .pdf-book-header h2 { font-size: 1.5rem; }
+            .pdf-book-header h2 { font-size: 1.4rem; }
             .pdf-canvas-container { min-height: 500px; }
         }
         
@@ -365,10 +365,9 @@
             .full-video-section { max-width: 100%; margin-bottom: 30px; border-radius: 0; }
             .video-caption-full { padding: 15px 20px; }
             .video-caption-full p { font-size: 0.85rem; }
-            .pdf-book-section { padding: 15px 3%; }
-            .pdf-book-header h2 { font-size: 1.2rem; }
-            .pdf-canvas-container { min-height: 420px; padding: 3px; }
-            .book-container { padding: 5px; }
+            .pdf-book-section { padding: 12px 3%; }
+            .pdf-book-header h2 { font-size: 1.1rem; }
+            .pdf-canvas-container { min-height: 420px; }
             .book-btn { padding: 8px 14px; font-size: 0.8rem; min-width: 75px; }
             .page-indicator { padding: 6px 12px; font-size: 0.8rem; min-width: 90px; }
             .fullscreen-controls button { padding: 5px 12px; font-size: 0.7rem; }
@@ -580,7 +579,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// PDF BOOK VIEWER - MINIMAL WHITE AREA
+// PDF BOOK VIEWER - NO WHITE AREA
 // ============================================
 
 class PDFBookViewer {
