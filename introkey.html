@@ -66,10 +66,10 @@
             color: #555;
         }
         
-        /* Full Video Section - Smaller, Centered */
+        /* Full Video Section - Max 1200px, Centered */
         .full-video-section {
             width: 100%;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto 50px auto;
             border-radius: 20px;
             overflow: hidden;
@@ -106,19 +106,19 @@
             line-height: 1.6;
         }
         
-        /* PDF Book Section */
+        /* PDF Book Section - No extra white area */
         .pdf-book-section {
             width: 100%;
             max-width: 100%;
             border-radius: 0;
-            padding: 30px 5%;
+            padding: 20px 5%;
             margin-bottom: 0;
             background: #f5f5f5;
         }
         
         .pdf-book-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .pdf-book-header h2 {
@@ -137,15 +137,15 @@
         
         .book-container {
             background: #e8e8e8;
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 10px;
+            padding: 8px;
             position: relative;
         }
         
         .pdf-canvas-container {
             background: #fff;
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 8px;
+            padding: 5px;
             position: relative;
             overflow: auto;
             cursor: pointer;
@@ -158,19 +158,20 @@
         
         .pdf-canvas-container canvas {
             display: block;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
             background: white;
             cursor: pointer;
             max-width: 100%;
             height: auto;
+            margin: 0 auto;
         }
         
         .book-controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 15px;
             flex-wrap: wrap;
         }
         
@@ -178,13 +179,13 @@
             background: var(--primary-blue);
             color: white;
             border: none;
-            padding: 12px 28px;
+            padding: 10px 24px;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             transition: all 0.3s ease;
-            min-width: 110px;
+            min-width: 100px;
         }
         
         .book-btn:hover {
@@ -201,20 +202,20 @@
         .page-indicator {
             background: var(--primary-blue);
             color: white;
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-family: monospace;
             font-weight: bold;
-            min-width: 120px;
+            min-width: 110px;
             text-align: center;
         }
         
         .pdf-loading {
             text-align: center;
-            padding: 60px;
+            padding: 50px;
             color: #666;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         
         .pdf-loading::after {
@@ -227,16 +228,9 @@
             50% { opacity: 0.5; }
         }
         
-        .swipe-hint {
-            text-align: center;
-            margin-top: 12px;
-            font-size: 0.7rem;
-            color: #999;
-        }
-        
         .book-notice {
             text-align: center;
-            margin-top: 12px;
+            margin-top: 10px;
             font-size: 0.75rem;
             color: #888;
         }
@@ -254,11 +248,11 @@
         /* Fullscreen Mode */
         .book-container:fullscreen {
             background: #1a1a1a;
-            padding: 20px;
+            padding: 15px;
         }
         
         .book-container:fullscreen .pdf-canvas-container {
-            min-height: calc(100vh - 180px);
+            min-height: calc(100vh - 160px);
             background: #1a1a1a;
             display: flex;
             justify-content: center;
@@ -266,7 +260,7 @@
         }
         
         .book-container:fullscreen canvas {
-            max-height: calc(100vh - 200px);
+            max-height: calc(100vh - 180px);
             width: auto;
             cursor: pointer;
         }
@@ -281,8 +275,8 @@
             gap: 15px;
             z-index: 1000;
             background: rgba(0,0,0,0.8);
-            padding: 12px 25px;
-            border-radius: 60px;
+            padding: 10px 20px;
+            border-radius: 50px;
             width: fit-content;
             margin: 0 auto;
             backdrop-filter: blur(10px);
@@ -292,10 +286,10 @@
             background: var(--primary-blue);
             color: white;
             border: none;
-            padding: 10px 22px;
+            padding: 8px 18px;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
             transition: all 0.2s ease;
         }
@@ -365,29 +359,29 @@
         @media (max-width: 992px) {
             .pdf-book-header h2 { font-size: 1.5rem; }
             .pdf-canvas-container { min-height: 500px; }
-            .full-video-section { max-width: 700px; }
         }
         
         @media (max-width: 768px) {
-            .full-video-section { max-width: 100%; margin-bottom: 30px; }
+            .full-video-section { max-width: 100%; margin-bottom: 30px; border-radius: 0; }
             .video-caption-full { padding: 15px 20px; }
             .video-caption-full p { font-size: 0.85rem; }
-            .pdf-book-section { padding: 20px 5%; }
+            .pdf-book-section { padding: 15px 3%; }
             .pdf-book-header h2 { font-size: 1.2rem; }
-            .pdf-canvas-container { min-height: 420px; padding: 15px; }
-            .book-btn { padding: 8px 16px; font-size: 0.8rem; min-width: 80px; }
-            .page-indicator { padding: 8px 14px; font-size: 0.8rem; min-width: 100px; }
-            .fullscreen-controls button { padding: 6px 14px; font-size: 0.75rem; }
+            .pdf-canvas-container { min-height: 420px; padding: 3px; }
+            .book-container { padding: 5px; }
+            .book-btn { padding: 8px 14px; font-size: 0.8rem; min-width: 75px; }
+            .page-indicator { padding: 6px 12px; font-size: 0.8rem; min-width: 90px; }
+            .fullscreen-controls button { padding: 5px 12px; font-size: 0.7rem; }
             .source-box { padding: 30px 5%; }
             .milli-peet-logo { font-size: 1.8rem; }
             .source-box p { font-size: 1rem; }
         }
         
         @media (max-width: 480px) {
-            .pdf-canvas-container { min-height: 350px; padding: 10px; }
-            .book-controls { gap: 10px; }
-            .book-btn { padding: 6px 12px; font-size: 0.7rem; min-width: 65px; }
-            .page-indicator { padding: 6px 10px; font-size: 0.7rem; min-width: 85px; }
+            .pdf-canvas-container { min-height: 350px; }
+            .book-controls { gap: 8px; }
+            .book-btn { padding: 5px 10px; font-size: 0.7rem; min-width: 60px; }
+            .page-indicator { padding: 5px 8px; font-size: 0.7rem; min-width: 75px; }
             .video-caption-full p { font-size: 0.75rem; }
         }
         
@@ -463,7 +457,7 @@
         <h2>Introduction and Identification Keys</h2>
     </div>
     
-    <!-- VIDEO SECTION - YouTube Embed with Smaller Frame -->
+    <!-- VIDEO SECTION - Max 1200px, Centered -->
     <div class="full-video-section">
         <div class="video-wrapper">
             <iframe 
@@ -586,7 +580,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// PDF BOOK VIEWER - FIXED CENTERING
+// PDF BOOK VIEWER - MINIMAL WHITE AREA
 // ============================================
 
 class PDFBookViewer {
@@ -627,7 +621,6 @@ class PDFBookViewer {
             this.enableButtons();
             await this.renderPage();
             this.hideLoading();
-            // Use flexbox centering - no JavaScript positioning needed
             this.setupEvents();
         } catch (error) {
             console.error('PDF load error:', error);
@@ -666,11 +659,6 @@ class PDFBookViewer {
             
             this.canvas.width = viewport.width;
             this.canvas.height = viewport.height;
-            
-            // Remove any inline styles that might interfere with centering
-            this.canvas.style.position = '';
-            this.canvas.style.left = '';
-            this.canvas.style.top = '';
             this.canvas.style.margin = '0 auto';
             
             const renderContext = {
