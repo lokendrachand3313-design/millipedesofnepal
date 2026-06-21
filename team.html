@@ -7,13 +7,428 @@
     <meta name="description" content="Meet the research team behind the Millipedes of Nepal project - dedicated scientists studying Nepalese Diplopoda biodiversity.">
     <meta name="keywords" content="millipedes, Nepal, team, researchers, scientists, Diplopoda">
     
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="style.css">
-    
     <style>
+        /* ============================================
+           Millipedes of Nepal - Unified Style Sheet
+           Version: 3.0 - Common styles for all pages
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --green: #28a745;
+            --red: #dc3545;
+            --orange: #fd7e14;
+        }
+
+        /* ============ UTILITY CLASSES ============ */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 20px; }
+        .mt-3 { margin-top: 30px; }
+        .mb-2 { margin-bottom: 20px; }
+        .mb-3 { margin-bottom: 30px; }
+        .hide { display: none; }
+        .show { display: block; }
+
+        /* ============ REDUCED MOTION ============ */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============ PRINT STYLES ============ */
+        @media print {
+            header, nav, footer, .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .team-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+
+        /* ============ HEADER ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .header-text p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        .millipede-icon {
+            height: 200px;
+            width: auto;
+            max-width: 350px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+        }
+
+        /* ============ CLOCK STYLES ============ */
+        .clock-container {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            min-width: 200px;
+            text-align: center;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
+            position: relative;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: none;
+        }
+
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .clock-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 6px rgba(255,107,107,0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
+            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
+        }
+
+        .hour-hand {
+            width: 4.5px;
+            height: 28px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(243,156,18,0.6);
+            border-radius: 4px 4px 2px 2px;
+        }
+
+        .minute-hand {
+            width: 3.5px;
+            height: 38px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(52,152,219,0.6);
+            border-radius: 3px 3px 2px 2px;
+        }
+
+        .second-hand {
+            width: 1.8px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 6px rgba(255,107,107,0.7);
+            border-radius: 2px;
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 3px rgba(0,0,0,0.4);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
+        .number-1 { color: #f39c12; top: 14%; left: 67%; }
+        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
+        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
+        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
+        .number-5 { color: #3498db; top: 86%; left: 67%; }
+        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
+        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
+        .number-8 { color: #e67e22; top: 73%; left: 19%; }
+        .number-9 { color: #f39c12; top: 50%; left: 8%; }
+        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
+        .number-11 { color: #3498db; top: 14%; left: 33%; }
+
+        .clock-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 6px;
+            text-shadow: 0 0 4px rgba(243,156,18,0.4);
+            font-family: 'Times New Roman', Times, serif;
+            background: rgba(0,0,0,0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* ============ NAVIGATION BAR ============ */
+        nav {
+            background-color: var(--primary-blue);
+            padding: 15px 5%;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            font-family: 'Times New Roman', Times, serif;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #555;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
         /* ============ TEAM.HTML SPECIFIC STYLES ============ */
         
-        /* Team Container */
         .team-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -186,8 +601,121 @@
             gap: 10px;
             align-items: center;
         }
-        
-        /* Responsive adjustments */
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 5%;
+            width: 100%;
+            max-width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+
+        /* ============ RESPONSIVE DESIGN ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+            .millipede-icon { height: 160px; max-width: 280px; }
+        }
+
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 5%; gap: 20px; }
+            .millipede-icon { height: 130px; max-width: 220px; }
+            .analog-clock { width: 80px; height: 80px; }
+            .clock-container { min-width: 170px; }
+            .right-group { gap: 1px; }
+        }
+
         @media (max-width: 868px) {
             .team-container {
                 gap: 30px;
@@ -204,16 +732,44 @@
                 font-size: 1.5rem;
             }
         }
-        
+
         @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            nav a { padding: 6px 10px; font-size: 0.85rem; }
+            main { padding: 30px 5%; }
+            
+            .right-group { 
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .millipede-icon { height: 110px; max-width: 190px; }
+            .analog-clock { width: 70px; height: 70px; }
+            .clock-date { font-size: 16px; }
+            
             .team-card {
                 width: 100%;
                 max-width: 380px;
                 margin: 0 auto;
             }
         }
-        
+
         @media (max-width: 480px) {
+            .header-text h1 { font-size: 1.8rem; }
+            .header-text p { font-size: 1rem; }
+            .header-logo { height: 55px; }
+            .millipede-icon { height: 90px; max-width: 150px; }
+            .analog-clock { width: 60px; height: 60px; }
+            .clock-container { min-width: 150px; }
+            .right-group { gap: 0px; }
+            .clock-date { font-size: 14px; padding: 2px 10px; }
+            
             .profile-img {
                 width: 130px;
                 height: 130px;
@@ -228,8 +784,18 @@
                 font-size: 0.9rem;
             }
         }
-        
+
         @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .millipede-icon { height: 220px; max-width: 380px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
+            .analog-clock { width: 120px; height: 120px; }
+            .clock-container { min-width: 240px; }
+            .right-group { gap: 3px; }
+            .clock-date { font-size: 22px; }
+            
             .team-card {
                 width: 420px;
                 padding: 45px 35px;
@@ -281,9 +847,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="clock-time-digital" id="digitalTime">--:--:--</div>
                 <div class="clock-date" id="englishDate">--</div>
-                <div class="clock-nepali-date" id="nepaliDate">--</div>
             </div>
         </div>
     </div>
@@ -318,10 +882,9 @@
             <div class="member-title">M.Sc., PhD Scholar</div>
             <p class="member-bio">Specializing in Diplopod taxonomy and biodiversity of the Himalayan region. Leading field expeditions across Nepal to document millipede diversity with focus on integrative taxonomic approaches.</p>
             <div class="member-contact">
-                <p>Email: <a href="mailto:lokendrachand56@gmail.com" class="contact-link">lokendrachand56@gmail.com</a></p>
-                <p>Phone: <span class="phone-numbers">+977-9809733313 / +817090238470</span></p>
-                <p>Facebook: <a href="https://www.facebook.com/lokendrachand3313" target="_blank" rel="noopener noreferrer" class="contact-link">facebook.com/lokendrachand3313</a></p>
-                <p>Research Focus: Spirostreptida, Polydesmida, Integrative Taxonomy</p>
+                <p>📧 Email: <a href="mailto:lokendrachand56@gmail.com" class="contact-link">lokendrachand56@gmail.com</a></p>
+                <p>📞 Phone: <span class="phone-numbers">+977-9809733313 / +817090238470</span></p>
+                <p>🔬 Research Focus: Spirostreptida, Polydesmida, Integrative Taxonomy</p>
             </div>
         </div>
 
@@ -333,22 +896,21 @@
             <div class="member-title">M.Sc. Zoology</div>
             <p class="member-bio">Co-investigator focusing on specimen collection, preservation, and morphological analysis of Nepalese millipede species. Expertise in field sampling and laboratory techniques.</p>
             <div class="member-contact">
-                <p>Email: <a href="mailto:asnabin70@gmail.com" class="contact-link">asnabin70@gmail.com</a></p>
-                <p>Facebook: <a href="https://www.facebook.com/aspirant.zoology" target="_blank" rel="noopener noreferrer" class="contact-link">facebook.com/aspirant.zoology</a></p>
-                <p>Research Focus: Specimen Collection, Morphological Analysis, Field Ecology</p>
+                <p>📧 Email: <a href="mailto:asnabin70@gmail.com" class="contact-link">asnabin70@gmail.com</a></p>
+                <p>🔬 Research Focus: Specimen Collection, Morphological Analysis, Field Ecology</p>
             </div>
         </div>
     </div>
 </main>
 
 <footer>
-    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>Copyright <script>document.write(new Date().getFullYear());</script> Lokendra Chand | +977-9809733313 / +817090238470</p>
+    <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
 <script>
 // ============================================
-// CLOCK AND DATE FUNCTIONS - ACCURATE VERSION
+// CLOCK FUNCTIONS - NEPAL TIME (UTC+5:45)
 // ============================================
 
 // Get Nepal time (UTC+5:45)
@@ -359,81 +921,9 @@ function getNepalTime() {
     return new Date(utcTime + nepalOffset);
 }
 
-// Nepali month names
-const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
-
-// Nepali weekday names
-const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
-
-// Days in each Nepali month
-const nepaliMonthDays = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
-
-// Check if Nepali year is leap
-function isNepaliLeapYear(bsYear) {
-    const leapYears = [1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011, 2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028, 2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046, 2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063, 2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081, 2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098];
-    return leapYears.includes(bsYear);
-}
-
-// Get days in Nepali month
-function getNepaliMonthDays(bsYear, bsMonth) {
-    if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
-    return nepaliMonthDays[bsMonth];
-}
-
-// Convert AD to BS
-function adToBs(adDate) {
-    const referenceAD = new Date(2026, 3, 14);
-    const referenceBS = { year: 2083, month: 0, day: 1 };
-    
-    const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
-    let diffDays = Math.round((targetAD - referenceAD) / (1000 * 60 * 60 * 24));
-    
-    let bsYear = referenceBS.year;
-    let bsMonth = referenceBS.month;
-    let bsDay = referenceBS.day + diffDays;
-    
-    while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
-        bsDay -= getNepaliMonthDays(bsYear, bsMonth);
-        bsMonth++;
-        if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
-    }
-    
-    while (bsDay < 1) {
-        bsMonth--;
-        if (bsMonth < 0) { bsMonth = 11; bsYear--; }
-        bsDay += getNepaliMonthDays(bsYear, bsMonth);
-    }
-    
-    return { year: bsYear, month: bsMonth, day: bsDay };
-}
-
-// Convert to Nepali digits
-function toNepaliDigits(num) {
-    const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-    return String(num).split('').map(d => digits[parseInt(d)] || d).join('');
-}
-
-// Get Nepali date string
-function getNepaliDateString(date) {
-    const bs = adToBs(date);
-    return `${nepaliWeekdays[date.getDay()]}, ${nepaliMonths[bs.month]} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
-}
-
-// Format English date
-function getEnglishDateString(date) {
-    return date.toLocaleDateString('en-US', { 
-        weekday: 'short', 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric' 
-    });
-}
-
-// Update all clock displays
+// Update clock display
 function updateClock() {
     const now = getNepalTime();
-    
-    // Update analog hands
     const hours = now.getHours();
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
@@ -446,20 +936,19 @@ function updateClock() {
     if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
     if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
     
-    // Update digital time
-    const digitalTime = document.getElementById('digitalTime');
-    if (digitalTime) digitalTime.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    
     // Update English date
     const englishDate = document.getElementById('englishDate');
-    if (englishDate) englishDate.innerHTML = getEnglishDateString(now);
-    
-    // Update Nepali date
-    const nepaliDate = document.getElementById('nepaliDate');
-    if (nepaliDate) nepaliDate.innerHTML = getNepaliDateString(now);
+    if (englishDate) {
+        englishDate.innerHTML = now.toLocaleDateString('en-US', { 
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+    }
 }
 
-// Wait for page to load completely
+// Initialize clock on page load and update every second
 window.addEventListener('DOMContentLoaded', function() {
     updateClock();
     setInterval(updateClock, 1000);
