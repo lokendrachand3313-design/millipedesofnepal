@@ -601,20 +601,19 @@
             60%, 100% { content: "..."; }
         }
         
-        @media (max-width: 1000px) {
-            .checklist-layout {
-                flex-direction: column;
-            }
-            .tree-column, .species-list-column {
-                flex: auto;
-                min-width: auto;
-            }
-            .tree-wrapper {
-                height: 450px;
-            }
-            .results-container {
-                max-height: 350px;
-            }
+        /* Date display - LARGER FONT */
+        .clock-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 6px;
+            text-shadow: 0 0 4px rgba(243,156,18,0.4);
+            font-family: 'Times New Roman', Times, serif;
+            background: rgba(0,0,0,0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
         }
         
         @media (max-width: 768px) {
@@ -624,12 +623,18 @@
             #map { height: 280px; }
             .checklist-page-header h2 { font-size: 1.3rem; }
             .tree-wrapper { height: 400px; }
+            .clock-date { font-size: 16px; }
+        }
+        
+        @media (max-width: 480px) {
+            .clock-date { font-size: 14px; padding: 2px 10px; }
         }
         
         @media (min-width: 1600px) {
             #map { height: 450px; }
             .tree-wrapper { height: 700px; }
             .results-container { max-height: 700px; }
+            .clock-date { font-size: 22px; }
         }
     </style>
 </head>
