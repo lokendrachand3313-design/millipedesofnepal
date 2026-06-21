@@ -369,19 +369,7 @@
             font-family: 'Times New Roman', Times, serif;
         }
 
-        .clock-nepali-date {
-            font-size: 11px;
-            color: #ecf0f1;
-            text-align: center;
-            font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
-            font-weight: normal;
-            margin-top: 3px;
-            text-shadow: 0 0 2px rgba(0,0,0,0.3);
-            background: rgba(0,0,0,0.2);
-            padding: 2px 6px;
-            border-radius: 15px;
-            display: inline-block;
-        }
+        /* Nepali date removed - keeping only English date */
 
         /* ============ NAVIGATION BAR ============ */
         nav {
@@ -957,7 +945,6 @@
             .clock-container { min-width: 150px; }
             .right-group { gap: 0px; }
             .clock-time-digital { font-size: 11px; }
-            .clock-nepali-date { font-size: 9px; }
             .featured-img { aspect-ratio: 4/3; }
             .video-caption-full h3 { font-size: 1.1rem; }
         }
@@ -1032,7 +1019,7 @@
     <a href="articles.html">Articles</a>
     <a href="gallery.html">Gallery</a> 
     <a href="upload.html">Upload</a>
-      <a href="team.html">Team</a>
+    <a href="team.html">Team</a>
     <a href="faq.html">FAQ</a>
 </nav>
 
@@ -1146,6 +1133,18 @@
 
 <script>
 // ============================================
+// CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
+// ============================================
+
+// Get Nepal time (UTC+5:45)
+function getNepalTime() {
+    const now = new Date();
+    const nepalOffset = 5.75 * 60 * 60 * 1000;
+    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+    return new Date(utcTime + nepalOffset);
+}
+
+// Update clock display
 function updateClock() {
     const now = getNepalTime();
     const hours = now.getHours();
@@ -1171,6 +1170,13 @@ function updateClock() {
         day: 'numeric' 
     });
 }
+
+// Initialize clock on page load and update every second
+window.addEventListener('DOMContentLoaded', function() {
+    updateClock();
+    setInterval(updateClock, 1000);
+});
+
 // Initialize world map
 document.addEventListener('DOMContentLoaded', function() {
     var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
