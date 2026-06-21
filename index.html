@@ -343,15 +343,19 @@
         .number-10 { color: #2ecc71; top: 27%; left: 19%; }
         .number-11 { color: #3498db; top: 14%; left: 33%; }
 
-        /* Digital clock removed - only showing date */
+        /* Date display - FONT SIZE DOUBLED */
         .clock-date {
-            font-size: 9px;
-            color: #3498db;
+            font-size: 18px;
+            font-weight: bold;
+            color: #f39c12;
             text-align: center;
             margin-top: 6px;
-            font-weight: bold;
-            text-shadow: 0 0 2px rgba(52,152,219,0.3);
+            text-shadow: 0 0 4px rgba(243,156,18,0.4);
             font-family: 'Times New Roman', Times, serif;
+            background: rgba(0,0,0,0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
         }
 
         /* ============ NAVIGATION BAR ============ */
@@ -910,6 +914,8 @@
             }
             .millipede-icon { height: 110px; max-width: 190px; }
             .analog-clock { width: 70px; height: 70px; }
+            /* Mobile date font - also doubled */
+            .clock-date { font-size: 16px; }
             
             .video-row .video-col { min-width: 100%; max-width: 100%; }
             .image-row { flex-direction: column; }
@@ -927,9 +933,8 @@
             .analog-clock { width: 60px; height: 60px; }
             .clock-container { min-width: 150px; }
             .right-group { gap: 0px; }
-            .clock-date { font-size: 8px; }
+            .clock-date { font-size: 14px; padding: 2px 10px; }
             .featured-img { aspect-ratio: 4/3; }
-            .video-caption-full h3 { font-size: 1.1rem; }
         }
 
         @media (min-width: 1600px) {
@@ -943,6 +948,7 @@
             .analog-clock { width: 120px; height: 120px; }
             .clock-container { min-width: 240px; }
             .right-group { gap: 3px; }
+            .clock-date { font-size: 22px; }
         }
     </style>
 </head>
