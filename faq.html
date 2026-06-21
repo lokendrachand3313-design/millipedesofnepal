@@ -200,6 +200,21 @@
             box-shadow: 0 6px 14px rgba(0,0,0,0.2);
         }
         
+        /* Date display - LARGER FONT */
+        .clock-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 6px;
+            text-shadow: 0 0 4px rgba(243,156,18,0.4);
+            font-family: 'Times New Roman', Times, serif;
+            background: rgba(0,0,0,0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .faq-header {
@@ -224,6 +239,8 @@
             
             .footer-note { padding: 25px; }
             .footer-note h3 { font-size: 1.2rem; }
+            
+            .clock-date { font-size: 16px; }
         }
         
         @media (max-width: 480px) {
@@ -231,10 +248,12 @@
             .faq-header-text h2 { font-size: 1.3rem; }
             .faq-question { font-size: 1rem; }
             .faq-answer { padding-left: 15px; }
+            .clock-date { font-size: 14px; padding: 2px 10px; }
         }
         
         @media (min-width: 1600px) {
             .faq-header-img { width: 250px; height: 250px; }
+            .clock-date { font-size: 22px; }
         }
     </style>
 </head>
@@ -278,9 +297,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="clock-time-digital" id="digitalTime">--:--:--</div>
+                <!-- Digital clock removed -->
                 <div class="clock-date" id="englishDate">--</div>
-                <div class="clock-nepali-date" id="nepaliDate">--</div>
             </div>
         </div>
     </div>
@@ -431,7 +449,7 @@
 
 <script>
 // ============================================
-// CLOCK AND DATE FUNCTIONS - ACCURATE VERSION
+// CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
 // ============================================
 
 // Get Nepal time (UTC+5:45)
@@ -442,81 +460,9 @@ function getNepalTime() {
     return new Date(utcTime + nepalOffset);
 }
 
-// Nepali month names
-const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
-
-// Nepali weekday names
-const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
-
-// Days in each Nepali month
-const nepaliMonthDays = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
-
-// Check if Nepali year is leap
-function isNepaliLeapYear(bsYear) {
-    const leapYears = [1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011, 2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028, 2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046, 2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063, 2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081, 2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098];
-    return leapYears.includes(bsYear);
-}
-
-// Get days in Nepali month
-function getNepaliMonthDays(bsYear, bsMonth) {
-    if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
-    return nepaliMonthDays[bsMonth];
-}
-
-// Convert AD to BS
-function adToBs(adDate) {
-    const referenceAD = new Date(2026, 3, 14);
-    const referenceBS = { year: 2083, month: 0, day: 1 };
-    
-    const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
-    let diffDays = Math.round((targetAD - referenceAD) / (1000 * 60 * 60 * 24));
-    
-    let bsYear = referenceBS.year;
-    let bsMonth = referenceBS.month;
-    let bsDay = referenceBS.day + diffDays;
-    
-    while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
-        bsDay -= getNepaliMonthDays(bsYear, bsMonth);
-        bsMonth++;
-        if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
-    }
-    
-    while (bsDay < 1) {
-        bsMonth--;
-        if (bsMonth < 0) { bsMonth = 11; bsYear--; }
-        bsDay += getNepaliMonthDays(bsYear, bsMonth);
-    }
-    
-    return { year: bsYear, month: bsMonth, day: bsDay };
-}
-
-// Convert to Nepali digits
-function toNepaliDigits(num) {
-    const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-    return String(num).split('').map(d => digits[parseInt(d)] || d).join('');
-}
-
-// Get Nepali date string
-function getNepaliDateString(date) {
-    const bs = adToBs(date);
-    return `${nepaliWeekdays[date.getDay()]}, ${nepaliMonths[bs.month]} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
-}
-
-// Format English date
-function getEnglishDateString(date) {
-    return date.toLocaleDateString('en-US', { 
-        weekday: 'short', 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric' 
-    });
-}
-
-// Update all clock displays
+// Update clock display
 function updateClock() {
     const now = getNepalTime();
-    
-    // Update analog hands
     const hours = now.getHours();
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
@@ -529,20 +475,19 @@ function updateClock() {
     if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
     if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
     
-    // Update digital time
-    const digitalTime = document.getElementById('digitalTime');
-    if (digitalTime) digitalTime.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    
     // Update English date
     const englishDate = document.getElementById('englishDate');
-    if (englishDate) englishDate.innerHTML = getEnglishDateString(now);
-    
-    // Update Nepali date
-    const nepaliDate = document.getElementById('nepaliDate');
-    if (nepaliDate) nepaliDate.innerHTML = getNepaliDateString(now);
+    if (englishDate) {
+        englishDate.innerHTML = now.toLocaleDateString('en-US', { 
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+    }
 }
 
-// Wait for page to load completely
+// Initialize clock on page load and update every second
 window.addEventListener('DOMContentLoaded', function() {
     updateClock();
     setInterval(updateClock, 1000);
