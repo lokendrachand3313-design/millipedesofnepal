@@ -6,10 +6,422 @@
     <title>Upload - Millipedes of Nepal</title>
     <meta name="description" content="Share your millipede observations, photos, and research data with the Millipedes of Nepal project team.">
     
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="style.css">
-    
     <style>
+        /* ============================================
+           Millipedes of Nepal - Unified Style Sheet
+           Version: 3.0 - Common styles for all pages
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --green: #28a745;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --whatsapp: #25D366;
+            --gmail: #D44638;
+        }
+
+        /* ============ UTILITY CLASSES ============ */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 20px; }
+        .mt-3 { margin-top: 30px; }
+        .mb-2 { margin-bottom: 20px; }
+        .mb-3 { margin-bottom: 30px; }
+        .hide { display: none; }
+        .show { display: block; }
+
+        /* ============ REDUCED MOTION ============ */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============ PRINT STYLES ============ */
+        @media print {
+            header, nav, footer, .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+        }
+
+        /* ============ HEADER ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .header-text p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        .millipede-icon {
+            height: 200px;
+            width: auto;
+            max-width: 350px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+        }
+
+        /* ============ CLOCK STYLES ============ */
+        .clock-container {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            min-width: 200px;
+            text-align: center;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
+            position: relative;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: none;
+        }
+
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .clock-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 6px rgba(255,107,107,0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
+            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
+        }
+
+        .hour-hand {
+            width: 4.5px;
+            height: 28px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(243,156,18,0.6);
+            border-radius: 4px 4px 2px 2px;
+        }
+
+        .minute-hand {
+            width: 3.5px;
+            height: 38px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(52,152,219,0.6);
+            border-radius: 3px 3px 2px 2px;
+        }
+
+        .second-hand {
+            width: 1.8px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 6px rgba(255,107,107,0.7);
+            border-radius: 2px;
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 3px rgba(0,0,0,0.4);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
+        .number-1 { color: #f39c12; top: 14%; left: 67%; }
+        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
+        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
+        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
+        .number-5 { color: #3498db; top: 86%; left: 67%; }
+        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
+        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
+        .number-8 { color: #e67e22; top: 73%; left: 19%; }
+        .number-9 { color: #f39c12; top: 50%; left: 8%; }
+        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
+        .number-11 { color: #3498db; top: 14%; left: 33%; }
+
+        .clock-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 6px;
+            text-shadow: 0 0 4px rgba(243,156,18,0.4);
+            font-family: 'Times New Roman', Times, serif;
+            background: rgba(0,0,0,0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* ============ NAVIGATION BAR ============ */
+        nav {
+            background-color: var(--primary-blue);
+            padding: 15px 5%;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            font-family: 'Times New Roman', Times, serif;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #555;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
         /* ============ UPLOAD.HTML SPECIFIC STYLES ============ */
         
         .contact-section {
@@ -126,6 +538,13 @@
             border-radius: 12px;
             font-family: 'Times New Roman', Times, serif;
             font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.15);
         }
         
         .file-label {
@@ -136,6 +555,11 @@
             cursor: pointer;
             border: 1px dashed var(--primary-blue);
             font-family: 'Times New Roman', Times, serif;
+            transition: all 0.3s ease;
+        }
+        
+        .file-label:hover {
+            background: #d4e6f1;
         }
         
         input[type="file"] {
@@ -169,6 +593,13 @@
         button:hover {
             background: var(--primary-blue-dark);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 82, 118, 0.3);
+        }
+        
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
         }
         
         .row-2 {
@@ -227,6 +658,7 @@
         
         .photo-card:hover {
             transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
         
         .admin-buttons {
@@ -247,8 +679,13 @@
             justify-content: center;
             cursor: pointer;
             border: none;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .admin-btn:hover {
+            transform: scale(1.1);
         }
         
         .gps-btn { background: #fd7e14; color: white; }
@@ -298,6 +735,12 @@
             border-left: 3px solid #ffc107;
         }
         
+        .photo-id-text {
+            font-size: 10px;
+            color: #999;
+            margin-top: 4px;
+        }
+        
         .stats-bar {
             background: #e8f0f9;
             padding: 12px 18px;
@@ -314,6 +757,11 @@
             margin: 0;
             padding: 5px 15px;
             font-size: 0.8rem;
+            background: var(--primary-blue);
+        }
+        
+        .refresh-btn:hover {
+            background: var(--primary-blue-dark);
         }
         
         .admin-panel {
@@ -336,10 +784,15 @@
             gap: 15px;
         }
         
+        .admin-header h3 {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
         .admin-login {
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
         
         .admin-login input {
@@ -347,6 +800,11 @@
             border: none;
             border-radius: 30px;
             width: 200px;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        .admin-login input:focus {
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
         }
         
         .admin-login button {
@@ -355,6 +813,11 @@
             width: auto;
             margin: 0;
             padding: 8px 20px;
+        }
+        
+        .admin-login button:hover {
+            background: #f8f9fa;
+            color: #c0392b;
         }
         
         .admin-status {
@@ -402,7 +865,14 @@
         
         .tool-card button {
             margin-top: 0;
-            background: #fd7e14;
+        }
+        
+        .tool-card .danger-btn {
+            background: #dc3545;
+        }
+        
+        .tool-card .danger-btn:hover {
+            background: #c0392b;
         }
         
         .selected-info {
@@ -415,6 +885,10 @@
         
         .selected-info.show {
             display: block;
+        }
+        
+        .selected-info strong {
+            color: var(--primary-blue);
         }
         
         .modal {
@@ -446,6 +920,11 @@
             color: white;
             font-size: 40px;
             cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            transform: scale(1.2);
         }
         
         .submission-info {
@@ -482,11 +961,227 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
+        .submission-info p {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 5%;
+            width: 100%;
+            max-width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+
+        /* ============ RESPONSIVE DESIGN ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+            .millipede-icon { height: 160px; max-width: 280px; }
+        }
+
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 5%; gap: 20px; }
+            .millipede-icon { height: 130px; max-width: 220px; }
+            .analog-clock { width: 80px; height: 80px; }
+            .clock-container { min-width: 170px; }
+            .right-group { gap: 1px; }
+        }
+
         @media (max-width: 768px) {
-            .contact-section { flex-direction: column; align-items: center; }
-            .whatsapp-btn, .email-btn { width: 80%; justify-content: center; }
-            .form-panel, .gallery-panel { min-width: 280px; }
-            .admin-header { flex-direction: column; text-align: center; }
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            nav a { padding: 6px 10px; font-size: 0.85rem; }
+            main { padding: 30px 5%; }
+            
+            .right-group { 
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .millipede-icon { height: 110px; max-width: 190px; }
+            .analog-clock { width: 70px; height: 70px; }
+            .clock-date { font-size: 16px; }
+            
+            .contact-section { 
+                flex-direction: column; 
+                align-items: center; 
+            }
+            .whatsapp-btn, .email-btn { 
+                width: 80%; 
+                justify-content: center; 
+            }
+            .form-panel, .gallery-panel { 
+                min-width: 280px; 
+            }
+            .admin-header { 
+                flex-direction: column; 
+                text-align: center; 
+            }
+            .admin-login {
+                justify-content: center;
+            }
+            .admin-login input {
+                width: 150px;
+            }
+            .upload-gallery-container {
+                padding: 20px 15px;
+            }
+            .page-header h2 {
+                font-size: 2rem;
+            }
+            .two-columns {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-text h1 { font-size: 1.8rem; }
+            .header-text p { font-size: 1rem; }
+            .header-logo { height: 55px; }
+            .millipede-icon { height: 90px; max-width: 150px; }
+            .analog-clock { width: 60px; height: 60px; }
+            .clock-container { min-width: 150px; }
+            .right-group { gap: 0px; }
+            .clock-date { font-size: 14px; padding: 2px 10px; }
+            
+            .whatsapp-btn, .email-btn { 
+                width: 100%;
+                font-size: 0.95rem;
+                padding: 12px 20px;
+            }
+            .form-panel, .gallery-panel { 
+                min-width: 100%;
+                padding: 15px;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                max-height: 400px;
+            }
+            .admin-tools {
+                flex-direction: column;
+            }
+            .tool-card {
+                min-width: 100%;
+            }
+            .submission-info ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            .row-2 {
+                flex-direction: column;
+            }
+            .row-2 .form-group {
+                flex: 1 1 100%;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .millipede-icon { height: 220px; max-width: 380px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
+            .analog-clock { width: 120px; height: 120px; }
+            .clock-container { min-width: 240px; }
+            .right-group { gap: 3px; }
+            .clock-date { font-size: 22px; }
         }
     </style>
 </head>
@@ -530,9 +1225,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="clock-time-digital" id="digitalTime">--:--:--</div>
                 <div class="clock-date" id="englishDate">--</div>
-                <div class="clock-nepali-date" id="nepaliDate">--</div>
             </div>
         </div>
     </div>
@@ -581,39 +1274,64 @@
                 <div id="statusMsg" class="status-msg"></div>
                 
                 <div class="form-group">
-                    <label>Photo</label>
+                    <label>Photo *</label>
                     <div class="file-label" id="fileLabel">Click to select image</div>
                     <input type="file" id="photoInput" accept="image/*">
                     <img id="preview" class="preview-img">
                 </div>
                 
                 <div class="form-group">
-                    <label>Location</label>
+                    <label>Location *</label>
                     <div style="display: flex; gap: 10px;">
                         <input type="text" id="location" placeholder="Kathmandu or GPS: 27.7172, 85.3240" style="flex:3">
-                        <button type="button" id="getGpsBtn" style="width: auto; margin-top: 0; background: #28a745;">Get My GPS</button>
+                        <button type="button" id="getGpsBtn" style="width: auto; margin-top: 0; background: #28a745; padding: 10px 15px;">Get GPS</button>
                     </div>
-                    <div id="gpsMsg" style="font-size: 12px; margin-top: 4px;"></div>
+                    <div id="gpsMsg" style="font-size: 12px; margin-top: 4px; color: #666;"></div>
                 </div>
                 
                 <div class="row-2">
-                    <div class="form-group"><label>Date</label><input type="date" id="obsDate"></div>
-                    <div class="form-group"><label>Your Name</label><input type="text" id="observerName" placeholder="Your name"></div>
+                    <div class="form-group">
+                        <label>Date *</label>
+                        <input type="date" id="obsDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Your Name *</label>
+                        <input type="text" id="observerName" placeholder="Your name">
+                    </div>
                 </div>
                 
-                <div class="form-group"><label>Notes (Habitat, Behavior)</label><textarea rows="2" id="notes" placeholder="Describe where you found it..."></textarea></div>
-                <div class="form-group"><label style="color: #666;">These are optional</label></div>
+                <div class="form-group">
+                    <label>Notes (Habitat, Behavior)</label>
+                    <textarea rows="2" id="notes" placeholder="Describe where you found it..."></textarea>
+                </div>
+                
+                <div style="border-top: 1px solid #e0e0e0; margin: 15px 0; padding-top: 10px;">
+                    <p style="font-size: 0.9rem; color: #666; font-family: 'Times New Roman', Times, serif;">Optional taxonomy information (if known):</p>
+                </div>
+                
                 <div class="row-2">
-                    <div class="form-group"><label>Order</label><input type="text" id="order" placeholder="e.g., Polydesmida"></div>
-                    <div class="form-group"><label>Family</label><input type="text" id="family" placeholder="e.g., Paradoxosomatidae"></div>
+                    <div class="form-group">
+                        <label>Order</label>
+                        <input type="text" id="order" placeholder="e.g., Polydesmida">
+                    </div>
+                    <div class="form-group">
+                        <label>Family</label>
+                        <input type="text" id="family" placeholder="e.g., Paradoxosomatidae">
+                    </div>
                 </div>
                 <div class="row-2">
-                    <div class="form-group"><label>Genus</label><input type="text" id="genus" placeholder="e.g., Chamberlinius"></div>
-                    <div class="form-group"><label>Species</label><input type="text" id="species" placeholder="e.g., hualienensis"></div>
+                    <div class="form-group">
+                        <label>Genus</label>
+                        <input type="text" id="genus" placeholder="e.g., Chamberlinius">
+                    </div>
+                    <div class="form-group">
+                        <label>Species</label>
+                        <input type="text" id="species" placeholder="e.g., hualienensis">
+                    </div>
                 </div>
                 
                 <button id="uploadBtn">Upload to Gallery</button>
-                <p style="font-size: 11px; text-align: center; margin-top: 10px;">Admin can edit Taxonomy and GPS after upload</p>
+                <p style="font-size: 11px; text-align: center; margin-top: 10px; color: #888;">Admin can edit Taxonomy and GPS after upload</p>
             </div>
             
             <div class="gallery-panel">
@@ -621,8 +1339,10 @@
                     <span id="statsCount">Loading...</span>
                     <button id="refreshBtn" class="refresh-btn">Refresh</button>
                 </div>
-                <h3 style="margin-bottom: 15px;">Photos by Public</h3>
-                <div id="galleryContainer" class="gallery-grid"><div style="text-align:center; padding:40px;">No observations yet. Be the first to upload!</div></div>
+                <h3 style="margin-bottom: 15px; font-family: 'Times New Roman', Times, serif;">Photos by Public</h3>
+                <div id="galleryContainer" class="gallery-grid">
+                    <div style="text-align:center; padding:40px; color:#888;">No observations yet. Be the first to upload!</div>
+                </div>
             </div>
         </div>
     </div>
@@ -640,26 +1360,26 @@
             <div class="admin-tools">
                 <div class="tool-card">
                     <h4>Update GPS</h4>
-                    <p style="font-size: 12px; color: #666;">Click GPS button on any photo first</p>
+                    <p style="font-size: 12px; color: #666; font-family: 'Times New Roman', Times, serif;">Click GPS button on any photo first</p>
                     <input type="text" id="editLat" placeholder="Latitude">
                     <input type="text" id="editLon" placeholder="Longitude">
-                    <button id="updateGpsBtn">Save GPS</button>
+                    <button id="updateGpsBtn" style="background: #fd7e14;">Save GPS</button>
                 </div>
                 <div class="tool-card">
                     <h4>Update Taxonomy</h4>
-                    <p style="font-size: 12px; color: #666;">Click TAX button on any photo first</p>
+                    <p style="font-size: 12px; color: #666; font-family: 'Times New Roman', Times, serif;">Click TAX button on any photo first</p>
                     <input type="text" id="editOrder" placeholder="Order">
                     <input type="text" id="editFamily" placeholder="Family">
                     <input type="text" id="editGenus" placeholder="Genus">
                     <input type="text" id="editSpecies" placeholder="Species">
                     <input type="text" id="editComments" placeholder="Admin Comments">
-                    <button id="updateTaxBtn">Save Taxonomy</button>
+                    <button id="updateTaxBtn" style="background: #28a745;">Save Taxonomy</button>
                 </div>
                 <div class="tool-card">
                     <h4>Find Place Coordinates</h4>
                     <input type="text" id="placeName" placeholder="Nepal place name">
-                    <button id="findPlaceBtn">Find GPS</button>
-                    <div id="placeResult" style="margin-top: 10px; font-size: 12px;"></div>
+                    <button id="findPlaceBtn" style="background: #6c757d;">Find GPS</button>
+                    <div id="placeResult" style="margin-top: 10px; font-size: 12px; color: #666;"></div>
                 </div>
             </div>
             <div id="selectedInfo" class="selected-info">
@@ -669,7 +1389,7 @@
             </div>
             <div class="tool-card" style="margin-top: 10px;">
                 <h4 style="color: #dc3545;">Danger Zone</h4>
-                <button id="deletePhotoBtn" style="background: #dc3545;">Delete Selected Photo</button>
+                <button id="deletePhotoBtn" class="danger-btn">Delete Selected Photo</button>
             </div>
         </div>
     </div>
@@ -692,12 +1412,17 @@
     <p>Copyright <script>document.write(new Date().getFullYear());</script> Lokendra Chand | +977-9809733313 / +817090238470</p>
 </footer>
 
+<!-- Modal for image preview -->
+<div class="modal" id="imageModal">
+    <span class="modal-close">&times;</span>
+    <img id="modalImage" src="" alt="Full size view">
+</div>
+
 <script>
 // ============================================
-// CLOCK AND DATE FUNCTIONS - ACCURATE VERSION
+// CLOCK FUNCTIONS - NEPAL TIME (UTC+5:45)
 // ============================================
 
-// Get Nepal time (UTC+5:45)
 function getNepalTime() {
     const now = new Date();
     const nepalOffset = 5.75 * 60 * 60 * 1000;
@@ -705,81 +1430,8 @@ function getNepalTime() {
     return new Date(utcTime + nepalOffset);
 }
 
-// Nepali month names
-const nepaliMonths = ["बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"];
-
-// Nepali weekday names
-const nepaliWeekdays = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
-
-// Days in each Nepali month
-const nepaliMonthDays = [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 30];
-
-// Check if Nepali year is leap
-function isNepaliLeapYear(bsYear) {
-    const leapYears = [1996, 1997, 1999, 2000, 2003, 2004, 2006, 2007, 2010, 2011, 2013, 2014, 2017, 2018, 2020, 2021, 2024, 2025, 2027, 2028, 2031, 2032, 2034, 2035, 2038, 2039, 2041, 2042, 2045, 2046, 2048, 2049, 2052, 2053, 2055, 2056, 2059, 2060, 2062, 2063, 2066, 2067, 2069, 2070, 2073, 2074, 2076, 2077, 2080, 2081, 2083, 2084, 2087, 2088, 2090, 2091, 2094, 2095, 2097, 2098];
-    return leapYears.includes(bsYear);
-}
-
-// Get days in Nepali month
-function getNepaliMonthDays(bsYear, bsMonth) {
-    if (bsMonth === 11) return isNepaliLeapYear(bsYear) ? 30 : 29;
-    return nepaliMonthDays[bsMonth];
-}
-
-// Convert AD to BS
-function adToBs(adDate) {
-    const referenceAD = new Date(2026, 3, 14);
-    const referenceBS = { year: 2083, month: 0, day: 1 };
-    
-    const targetAD = new Date(adDate.getFullYear(), adDate.getMonth(), adDate.getDate());
-    let diffDays = Math.round((targetAD - referenceAD) / (1000 * 60 * 60 * 24));
-    
-    let bsYear = referenceBS.year;
-    let bsMonth = referenceBS.month;
-    let bsDay = referenceBS.day + diffDays;
-    
-    while (bsDay > getNepaliMonthDays(bsYear, bsMonth)) {
-        bsDay -= getNepaliMonthDays(bsYear, bsMonth);
-        bsMonth++;
-        if (bsMonth >= 12) { bsMonth = 0; bsYear++; }
-    }
-    
-    while (bsDay < 1) {
-        bsMonth--;
-        if (bsMonth < 0) { bsMonth = 11; bsYear--; }
-        bsDay += getNepaliMonthDays(bsYear, bsMonth);
-    }
-    
-    return { year: bsYear, month: bsMonth, day: bsDay };
-}
-
-// Convert to Nepali digits
-function toNepaliDigits(num) {
-    const digits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-    return String(num).split('').map(d => digits[parseInt(d)] || d).join('');
-}
-
-// Get Nepali date string
-function getNepaliDateString(date) {
-    const bs = adToBs(date);
-    return `${nepaliWeekdays[date.getDay()]}, ${nepaliMonths[bs.month]} ${toNepaliDigits(bs.day)}, ${toNepaliDigits(bs.year)}`;
-}
-
-// Format English date
-function getEnglishDateString(date) {
-    return date.toLocaleDateString('en-US', { 
-        weekday: 'short', 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric' 
-    });
-}
-
-// Update all clock displays
 function updateClock() {
     const now = getNepalTime();
-    
-    // Update analog hands
     const hours = now.getHours();
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
@@ -788,53 +1440,45 @@ function updateClock() {
     const minuteHand = document.getElementById('minuteHand');
     const secondHand = document.getElementById('secondHand');
     
-    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
-    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
-    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
+    if (hourHand) hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
+    if (minuteHand) minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
+    if (secondHand) secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
     
-    // Update digital time
-    const digitalTime = document.getElementById('digitalTime');
-    if (digitalTime) digitalTime.innerHTML = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    
-    // Update English date
-    const englishDate = document.getElementById('englishDate');
-    if (englishDate) englishDate.innerHTML = getEnglishDateString(now);
-    
-    // Update Nepali date
-    const nepaliDate = document.getElementById('nepaliDate');
-    if (nepaliDate) nepaliDate.innerHTML = getNepaliDateString(now);
+    var englishDate = document.getElementById('englishDate');
+    if (englishDate) {
+        englishDate.innerHTML = now.toLocaleDateString('en-US', { 
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+    }
 }
 
-// Wait for page to load completely
-window.addEventListener('DOMContentLoaded', function() {
-    updateClock();
-    setInterval(updateClock, 1000);
-});
-
 // ============================================
-// UPLOAD FUNCTIONALITY WITH YOUR CONFIGURATION
+// UPLOAD FUNCTIONALITY
 // ============================================
 
 // YOUR CONFIGURATION
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxumzLE7MXLIP60npssxqFFibSrUUe-IgB9h0xopqQhaWqbceCDb1OTidui9T3zTBm2hA/exec';
-const CLOUD_NAME = 'dmvqby8np';
-const UPLOAD_PRESET = 'millipede_uploads';
-const ADMIN_PASSWORD = 'yamuna@3313';
-const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxumzLE7MXLIP60npssxqFFibSrUUe-IgB9h0xopqQhaWqbceCDb1OTidui9T3zTBm2hA/exec';
+var CLOUD_NAME = 'dmvqby8np';
+var UPLOAD_PRESET = 'millipede_uploads';
+var ADMIN_PASSWORD = 'yamuna@3313';
+var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/image/upload';
 
-let isAdmin = false;
-let allObservations = [];
-let selectedPhoto = null;
+var isAdmin = false;
+var allObservations = [];
+var selectedPhoto = null;
 
 // Extract GPS from text
 function extractGPS(text) {
     if (!text) return null;
-    let match = text.match(/GPS:\s*([-\d.]+),\s*([-\d.]+)/i);
+    var match = text.match(/GPS:\s*([-\d.]+),\s*([-\d.]+)/i);
     if (match) return { lat: parseFloat(match[1]), lon: parseFloat(match[2]) };
     match = text.match(/([-\d.]+),\s*([-\d.]+)/);
     if (match) {
-        let lat = parseFloat(match[1]), lon = parseFloat(match[2]);
-        if (lat >= 26 && lat <= 31 && lon >= 80 && lon <= 89) return { lat, lon };
+        var lat = parseFloat(match[1]), lon = parseFloat(match[2]);
+        if (lat >= 26 && lat <= 31 && lon >= 80 && lon <= 89) return { lat: lat, lon: lon };
     }
     return null;
 }
@@ -842,17 +1486,19 @@ function extractGPS(text) {
 // Load all observations from Google Sheets
 async function loadObservations() {
     try {
-        const response = await fetch(GOOGLE_SCRIPT_URL);
-        const result = await response.json();
+        var response = await fetch(GOOGLE_SCRIPT_URL);
+        var result = await response.json();
         
         if (result.success && result.data && result.data.length > 1) {
-            const rows = result.data.slice(1);
-            allObservations = rows.map(row => ({
-                photoId: row[0], timestamp: row[1], observer: row[2], location: row[3], date: row[4],
-                order: row[5] || '', family: row[6] || '', genus: row[7] || '', species: row[8] || '',
-                notes: row[9] || '', comments: row[10] || '',
-                imageUrl: row[11], publicId: row[12], lat: row[13] || '', lon: row[14] || ''
-            }));
+            var rows = result.data.slice(1);
+            allObservations = rows.map(function(row) {
+                return {
+                    photoId: row[0], timestamp: row[1], observer: row[2], location: row[3], date: row[4],
+                    order: row[5] || '', family: row[6] || '', genus: row[7] || '', species: row[8] || '',
+                    notes: row[9] || '', comments: row[10] || '',
+                    imageUrl: row[11], publicId: row[12], lat: row[13] || '', lon: row[14] || ''
+                };
+            });
             document.getElementById('statsCount').innerHTML = 'Total: ' + allObservations.length;
             renderGallery();
         } else {
@@ -867,18 +1513,18 @@ async function loadObservations() {
 
 // Upload to Cloudinary
 async function uploadToCloudinary(file) {
-    const formData = new FormData();
+    var formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', UPLOAD_PRESET);
     formData.append('folder', 'millipedes_nepal');
     
-    const response = await fetch(CLOUDINARY_URL, { 
+    var response = await fetch(CLOUDINARY_URL, { 
         method: 'POST', 
         body: formData 
     });
     
     if (!response.ok) throw new Error('Cloudinary upload failed');
-    const data = await response.json();
+    var data = await response.json();
     return { url: data.secure_url, publicId: data.public_id };
 }
 
@@ -889,72 +1535,90 @@ function renderGallery() {
         return;
     }
     
-    const container = document.getElementById('galleryContainer');
+    var container = document.getElementById('galleryContainer');
     container.innerHTML = '';
     
-    for (let i = 0; i < allObservations.length; i++) {
-        const obs = allObservations[i];
-        const rowNum = allObservations.length - i + 1;
-        const hasGps = (obs.lat && obs.lat !== '') || extractGPS(obs.location);
+    for (var i = 0; i < allObservations.length; i++) {
+        var obs = allObservations[i];
+        var rowNum = allObservations.length - i + 1;
+        var hasGps = (obs.lat && obs.lat !== '') || extractGPS(obs.location);
         
-        const card = document.createElement('div');
+        var card = document.createElement('div');
         card.className = 'photo-card';
-        card.onclick = () => { 
-            const modal = document.querySelector('.modal');
-            const modalImg = document.getElementById('modalImage');
-            modal.style.display = 'block'; 
-            modalImg.src = obs.imageUrl; 
-        };
+        card.onclick = function(obsRef) {
+            return function() { 
+                var modal = document.querySelector('.modal');
+                var modalImg = document.getElementById('modalImage');
+                modal.style.display = 'block'; 
+                modalImg.src = obsRef.imageUrl; 
+            };
+        }(obs);
         
-        const btnDiv = document.createElement('div');
+        var btnDiv = document.createElement('div');
         btnDiv.className = 'admin-buttons';
         
-        const gpsBtn = document.createElement('button');
+        var gpsBtn = document.createElement('button');
         gpsBtn.innerHTML = 'GPS';
         gpsBtn.className = 'admin-btn gps-btn';
         if (isAdmin) gpsBtn.classList.add('admin-visible');
-        gpsBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'gps'); };
+        gpsBtn.onclick = function(obsRef, rowNumRef) {
+            return function(e) { 
+                e.stopPropagation(); 
+                selectPhoto(obsRef, rowNumRef, 'gps'); 
+            };
+        }(obs, rowNum);
         
-        const taxBtn = document.createElement('button');
+        var taxBtn = document.createElement('button');
         taxBtn.innerHTML = 'TAX';
         taxBtn.className = 'admin-btn tax-btn';
         if (isAdmin) taxBtn.classList.add('admin-visible');
-        taxBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'tax'); };
+        taxBtn.onclick = function(obsRef, rowNumRef) {
+            return function(e) { 
+                e.stopPropagation(); 
+                selectPhoto(obsRef, rowNumRef, 'tax'); 
+            };
+        }(obs, rowNum);
         
-        const delBtn = document.createElement('button');
+        var delBtn = document.createElement('button');
         delBtn.innerHTML = 'DEL';
         delBtn.className = 'admin-btn del-btn';
         if (isAdmin) delBtn.classList.add('admin-visible');
-        delBtn.onclick = (e) => { e.stopPropagation(); selectPhoto(obs, rowNum, 'del'); };
+        delBtn.onclick = function(obsRef, rowNumRef) {
+            return function(e) { 
+                e.stopPropagation(); 
+                selectPhoto(obsRef, rowNumRef, 'del'); 
+            };
+        }(obs, rowNum);
         
         btnDiv.appendChild(gpsBtn);
         btnDiv.appendChild(taxBtn);
         btnDiv.appendChild(delBtn);
         
-        const img = document.createElement('img');
+        var img = document.createElement('img');
         img.className = 'photo-img';
         img.src = obs.imageUrl;
-        img.onerror = () => { img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ccc'/%3E%3Ctext x='50' y='55' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E"; };
+        img.onerror = function() { 
+            this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ccc'/%3E%3Ctext x='50' y='55' text-anchor='middle'%3ENo Image%3C/text%3E%3C/svg%3E"; 
+        };
         
-        const info = document.createElement('div');
+        var info = document.createElement('div');
         info.className = 'photo-info';
         
-        let taxHtml = '';
+        var taxHtml = '';
         if (obs.genus || obs.species) taxHtml = '<div class="taxonomy-box"><i>' + (obs.genus || '') + ' ' + (obs.species || '') + '</i>' + (obs.family ? ' (' + obs.family + ')' : '') + '</div>';
         else if (obs.family) taxHtml = '<div class="taxonomy-box">Family: ' + obs.family + '</div>';
         else if (obs.order) taxHtml = '<div class="taxonomy-box">Order: ' + obs.order + '</div>';
         
         if (obs.comments) taxHtml += '<div class="admin-comment">Admin: ' + obs.comments + '</div>';
         
-        info.innerHTML = `
-            <b>Location: ${escapeHtml(obs.location.substring(0, 60))}</b><br>
-            <span class="badge">Date: ${escapeHtml(obs.date)}</span>
-            <span class="badge">By: ${escapeHtml(obs.observer)}</span>
-            ${hasGps ? '<span class="badge gps-yes">Has GPS</span>' : '<span class="badge gps-no">No GPS</span>'}
-            ${taxHtml}
-            <div style="font-size: 12px; margin-top: 5px;">Notes: ${escapeHtml(obs.notes.substring(0, 80))}</div>
-            <div class="photo-id-text">ID: ${escapeHtml(obs.photoId)}</div>
-        `;
+        info.innerHTML = 
+            '<b>Location: ' + escapeHtml(obs.location.substring(0, 60)) + '</b><br>' +
+            '<span class="badge">Date: ' + escapeHtml(obs.date) + '</span>' +
+            '<span class="badge">By: ' + escapeHtml(obs.observer) + '</span>' +
+            (hasGps ? '<span class="badge gps-yes">Has GPS</span>' : '<span class="badge gps-no">No GPS</span>') +
+            taxHtml +
+            '<div style="font-size: 12px; margin-top: 5px;">Notes: ' + escapeHtml(obs.notes.substring(0, 80)) + '</div>' +
+            '<div class="photo-id-text">ID: ' + escapeHtml(obs.photoId) + '</div>';
         
         card.appendChild(btnDiv);
         card.appendChild(img);
@@ -964,11 +1628,22 @@ function renderGallery() {
 }
 
 function selectPhoto(obs, rowNum, action) {
-    selectedPhoto = { ...obs, rowNum: rowNum };
+    selectedPhoto = { 
+        photoId: obs.photoId, 
+        rowNum: rowNum, 
+        location: obs.location,
+        lat: obs.lat, 
+        lon: obs.lon,
+        order: obs.order,
+        family: obs.family,
+        genus: obs.genus,
+        species: obs.species,
+        comments: obs.comments
+    };
     document.getElementById('selectedName').innerHTML = obs.location.substring(0, 50);
     document.getElementById('selectedId').innerHTML = obs.photoId;
     
-    let gps = (obs.lat && obs.lat !== '') ? { lat: obs.lat, lon: obs.lon } : extractGPS(obs.location);
+    var gps = (obs.lat && obs.lat !== '') ? { lat: obs.lat, lon: obs.lon } : extractGPS(obs.location);
     if (gps) {
         document.getElementById('currentGps').innerHTML = gps.lat + ', ' + gps.lon;
         document.getElementById('editLat').value = gps.lat;
@@ -997,12 +1672,12 @@ function selectPhoto(obs, rowNum, action) {
 async function deletePhoto() {
     if (!selectedPhoto) { alert('Select a photo first'); return; }
     try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
+        var response = await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'deleteObservation', row: selectedPhoto.rowNum })
         });
-        const result = await response.json();
+        var result = await response.json();
         if (result.success) {
             showStatus('Photo deleted!', 'success');
             await loadObservations();
@@ -1017,30 +1692,30 @@ async function deletePhoto() {
 }
 
 function showStatus(msg, type) {
-    const div = document.getElementById('statusMsg');
+    var div = document.getElementById('statusMsg');
     div.innerHTML = msg;
     div.style.display = 'block';
     div.style.background = type === 'success' ? '#d4edda' : (type === 'error' ? '#f8d7da' : '#d1ecf1');
     div.style.color = type === 'success' ? '#155724' : (type === 'error' ? '#721c24' : '#0c5460');
-    setTimeout(() => { div.style.display = 'none'; }, 5000);
+    setTimeout(function() { div.style.display = 'none'; }, 5000);
 }
 
 // Event Listeners
-document.getElementById('getGpsBtn').addEventListener('click', () => {
+document.getElementById('getGpsBtn').addEventListener('click', function() {
     if (!navigator.geolocation) { alert('GPS not supported'); return; }
     navigator.geolocation.getCurrentPosition(
-        (pos) => {
-            const lat = pos.coords.latitude.toFixed(6);
-            const lon = pos.coords.longitude.toFixed(6);
-            document.getElementById('location').value = `GPS: ${lat}, ${lon}`;
+        function(pos) {
+            var lat = pos.coords.latitude.toFixed(6);
+            var lon = pos.coords.longitude.toFixed(6);
+            document.getElementById('location').value = 'GPS: ' + lat + ', ' + lon;
             document.getElementById('gpsMsg').innerHTML = 'Location acquired';
         },
-        (err) => { alert('GPS error: ' + err.message); }
+        function(err) { alert('GPS error: ' + err.message); }
     );
 });
 
-document.getElementById('adminLoginBtn').addEventListener('click', () => {
-    const key = document.getElementById('adminKey').value.trim();
+document.getElementById('adminLoginBtn').addEventListener('click', function() {
+    var key = document.getElementById('adminKey').value.trim();
     if (key === ADMIN_PASSWORD) {
         isAdmin = true;
         document.getElementById('adminStatus').innerHTML = 'Admin Active';
@@ -1053,13 +1728,13 @@ document.getElementById('adminLoginBtn').addEventListener('click', () => {
     }
 });
 
-document.getElementById('updateGpsBtn').addEventListener('click', async () => {
+document.getElementById('updateGpsBtn').addEventListener('click', async function() {
     if (!isAdmin || !selectedPhoto) { alert('Select a photo first'); return; }
-    const lat = parseFloat(document.getElementById('editLat').value);
-    const lon = parseFloat(document.getElementById('editLon').value);
+    var lat = parseFloat(document.getElementById('editLat').value);
+    var lon = parseFloat(document.getElementById('editLon').value);
     if (isNaN(lat) || isNaN(lon)) { alert('Enter valid coordinates'); return; }
     
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
+    var response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -1069,7 +1744,7 @@ document.getElementById('updateGpsBtn').addEventListener('click', async () => {
             lon: lon 
         })
     });
-    const result = await response.json();
+    var result = await response.json();
     if (result.success) {
         showStatus('GPS updated!', 'success');
         await loadObservations();
@@ -1080,10 +1755,10 @@ document.getElementById('updateGpsBtn').addEventListener('click', async () => {
     }
 });
 
-document.getElementById('updateTaxBtn').addEventListener('click', async () => {
+document.getElementById('updateTaxBtn').addEventListener('click', async function() {
     if (!isAdmin || !selectedPhoto) { alert('Select a photo first'); return; }
     
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
+    var response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -1096,7 +1771,7 @@ document.getElementById('updateTaxBtn').addEventListener('click', async () => {
             comments: document.getElementById('editComments').value
         })
     });
-    const result = await response.json();
+    var result = await response.json();
     if (result.success) {
         showStatus('Taxonomy updated!', 'success');
         await loadObservations();
@@ -1107,23 +1782,23 @@ document.getElementById('updateTaxBtn').addEventListener('click', async () => {
     }
 });
 
-document.getElementById('deletePhotoBtn').addEventListener('click', () => {
+document.getElementById('deletePhotoBtn').addEventListener('click', function() {
     if (!selectedPhoto) { alert('Select a photo first'); return; }
     if (confirm('Permanently delete this photo? Cannot be undone!')) {
         deletePhoto();
     }
 });
 
-document.getElementById('findPlaceBtn').addEventListener('click', async () => {
-    const place = document.getElementById('placeName').value.trim();
+document.getElementById('findPlaceBtn').addEventListener('click', async function() {
+    var place = document.getElementById('placeName').value.trim();
     if (!place) return;
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place)}, Nepal&limit=1`;
-    const response = await fetch(url);
-    const data = await response.json();
+    var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(place) + ', Nepal&limit=1';
+    var response = await fetch(url);
+    var data = await response.json();
     if (data && data.length > 0) {
-        const lat = data[0].lat;
-        const lon = data[0].lon;
-        document.getElementById('placeResult').innerHTML = `Found: ${lat}, ${lon}`;
+        var lat = data[0].lat;
+        var lon = data[0].lon;
+        document.getElementById('placeResult').innerHTML = 'Found: ' + lat + ', ' + lon;
         document.getElementById('editLat').value = lat;
         document.getElementById('editLon').value = lon;
     } else {
@@ -1131,18 +1806,18 @@ document.getElementById('findPlaceBtn').addEventListener('click', async () => {
     }
 });
 
-document.getElementById('uploadBtn').addEventListener('click', async () => {
-    const file = document.getElementById('photoInput').files[0];
+document.getElementById('uploadBtn').addEventListener('click', async function() {
+    var file = document.getElementById('photoInput').files[0];
     if (!file) { alert('Select a photo'); return; }
     
-    const location = document.getElementById('location').value.trim();
-    const date = document.getElementById('obsDate').value;
-    const observer = document.getElementById('observerName').value.trim();
-    const notes = document.getElementById('notes').value.trim();
-    const order = document.getElementById('order').value.trim();
-    const family = document.getElementById('family').value.trim();
-    const genus = document.getElementById('genus').value.trim();
-    const species = document.getElementById('species').value.trim();
+    var location = document.getElementById('location').value.trim();
+    var date = document.getElementById('obsDate').value;
+    var observer = document.getElementById('observerName').value.trim();
+    var notes = document.getElementById('notes').value.trim();
+    var order = document.getElementById('order').value.trim();
+    var family = document.getElementById('family').value.trim();
+    var genus = document.getElementById('genus').value.trim();
+    var species = document.getElementById('species').value.trim();
     
     if (!location || !date || !observer) { alert('Fill required fields'); return; }
     
@@ -1150,8 +1825,8 @@ document.getElementById('uploadBtn').addEventListener('click', async () => {
     document.getElementById('uploadBtn').innerHTML = 'Uploading...';
     
     try {
-        const cloud = await uploadToCloudinary(file);
-        const photoId = Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+        var cloud = await uploadToCloudinary(file);
+        var photoId = Date.now() + '_' + Math.random().toString(36).substr(2, 6);
         
         await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
@@ -1198,7 +1873,7 @@ document.getElementById('uploadBtn').addEventListener('click', async () => {
 // Preview image
 document.getElementById('photoInput').addEventListener('change', function(e) {
     if (e.target.files[0]) {
-        const reader = new FileReader();
+        var reader = new FileReader();
         reader.onload = function(ev) {
             document.getElementById('preview').src = ev.target.result;
             document.getElementById('preview').style.display = 'block';
@@ -1207,14 +1882,24 @@ document.getElementById('photoInput').addEventListener('change', function(e) {
         reader.readAsDataURL(e.target.files[0]);
     }
 });
-document.getElementById('fileLabel').addEventListener('click', () => document.getElementById('photoInput').click());
+document.getElementById('fileLabel').addEventListener('click', function() {
+    document.getElementById('photoInput').click();
+});
 
 // Refresh
-document.getElementById('refreshBtn').addEventListener('click', () => loadObservations());
+document.getElementById('refreshBtn').addEventListener('click', function() {
+    loadObservations();
+});
 
 // Modal close
-document.querySelector('.modal-close').addEventListener('click', () => document.querySelector('.modal').style.display = 'none');
-document.querySelector('.modal').addEventListener('click', (e) => { if (e.target === document.querySelector('.modal')) document.querySelector('.modal').style.display = 'none'; });
+document.querySelector('.modal-close').addEventListener('click', function() {
+    document.querySelector('.modal').style.display = 'none';
+});
+document.querySelector('.modal').addEventListener('click', function(e) { 
+    if (e.target === document.querySelector('.modal')) {
+        document.querySelector('.modal').style.display = 'none'; 
+    }
+});
 
 function escapeHtml(str) {
     if (!str) return '';
@@ -1230,7 +1915,11 @@ function escapeHtml(str) {
 document.getElementById('obsDate').valueAsDate = new Date();
 
 // Initialize
-loadObservations();
+window.addEventListener('DOMContentLoaded', function() {
+    updateClock();
+    setInterval(updateClock, 1000);
+    loadObservations();
+});
 </script>
 
 </body>
