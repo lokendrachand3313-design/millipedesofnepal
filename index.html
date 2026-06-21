@@ -212,35 +212,146 @@
             filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
         }
 
-        /* ============ CLOCK STYLES - Simplified ============ */
+        /* ============ CLOCK STYLES ============ */
         .clock-container {
             background: transparent;
             border-radius: 0;
             padding: 0;
-            min-width: 180px;
+            min-width: 200px;
             text-align: center;
             border: none;
             box-shadow: none;
             transition: all 0.3s ease;
         }
 
-        /* Removed analog clock - only showing date */
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
+            position: relative;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: none;
+        }
 
-        .clock-date {
-            font-size: 18px;
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .clock-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 6px rgba(255,107,107,0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
+            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
+        }
+
+        .hour-hand {
+            width: 4.5px;
+            height: 28px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(243,156,18,0.6);
+            border-radius: 4px 4px 2px 2px;
+        }
+
+        .minute-hand {
+            width: 3.5px;
+            height: 38px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(52,152,219,0.6);
+            border-radius: 3px 3px 2px 2px;
+        }
+
+        .second-hand {
+            width: 1.8px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 6px rgba(255,107,107,0.7);
+            border-radius: 2px;
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 12px;
             font-weight: bold;
-            color: #f39c12;
-            text-align: center;
-            text-shadow: 0 0 8px rgba(243,156,18,0.4);
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 3px rgba(0,0,0,0.4);
             font-family: 'Times New Roman', Times, serif;
-            background: rgba(0,0,0,0.25);
-            padding: 10px 18px;
-            border-radius: 30px;
-            display: inline-block;
-            letter-spacing: 1px;
-            border: 1px solid rgba(243,156,18,0.2);
-            backdrop-filter: blur(5px);
-            margin-top: 10px;
+        }
+
+        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
+        .number-1 { color: #f39c12; top: 14%; left: 67%; }
+        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
+        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
+        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
+        .number-5 { color: #3498db; top: 86%; left: 67%; }
+        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
+        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
+        .number-8 { color: #e67e22; top: 73%; left: 19%; }
+        .number-9 { color: #f39c12; top: 50%; left: 8%; }
+        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
+        .number-11 { color: #3498db; top: 14%; left: 33%; }
+
+        /* Digital clock removed - only showing date */
+        .clock-date {
+            font-size: 9px;
+            color: #3498db;
+            text-align: center;
+            margin-top: 6px;
+            font-weight: bold;
+            text-shadow: 0 0 2px rgba(52,152,219,0.3);
+            font-family: 'Times New Roman', Times, serif;
         }
 
         /* ============ NAVIGATION BAR ============ */
@@ -754,6 +865,7 @@
             .header-text p { font-size: 1.3rem; }
             .header-container { padding: 15px 5%; gap: 20px; }
             .millipede-icon { height: 130px; max-width: 220px; }
+            .analog-clock { width: 80px; height: 80px; }
             .clock-container { min-width: 170px; }
             .right-group { gap: 1px; }
             .video-col { min-width: 300px; max-width: calc(33.33% - 14px); }
@@ -797,6 +909,7 @@
                 margin-top: 10px;
             }
             .millipede-icon { height: 110px; max-width: 190px; }
+            .analog-clock { width: 70px; height: 70px; }
             
             .video-row .video-col { min-width: 100%; max-width: 100%; }
             .image-row { flex-direction: column; }
@@ -811,9 +924,12 @@
             .header-text p { font-size: 1rem; }
             .header-logo { height: 55px; }
             .millipede-icon { height: 90px; max-width: 150px; }
-            .clock-date { font-size: 14px; padding: 6px 12px; }
-            .clock-container { min-width: 140px; }
+            .analog-clock { width: 60px; height: 60px; }
+            .clock-container { min-width: 150px; }
+            .right-group { gap: 0px; }
+            .clock-date { font-size: 8px; }
             .featured-img { aspect-ratio: 4/3; }
+            .video-caption-full h3 { font-size: 1.1rem; }
         }
 
         @media (min-width: 1600px) {
@@ -824,7 +940,9 @@
             .header-text p { font-size: 2rem; }
             .featured-img { aspect-ratio: 16/9; }
             #worldMap { height: 750px; }
-            .clock-date { font-size: 22px; padding: 12px 24px; }
+            .analog-clock { width: 120px; height: 120px; }
+            .clock-container { min-width: 240px; }
+            .right-group { gap: 3px; }
         }
     </style>
 </head>
@@ -845,6 +963,30 @@
                  onerror="this.style.display='none'">
             
             <div class="clock-container">
+                <div class="analog-clock">
+                    <div class="clock-face">
+                        <div class="clock-ring"></div>
+                        <div class="hand hour-hand" id="hourHand"></div>
+                        <div class="hand minute-hand" id="minuteHand"></div>
+                        <div class="hand second-hand" id="secondHand"></div>
+                        <div class="clock-center"></div>
+                        <div class="clock-numbers">
+                            <div class="number number-12">12</div>
+                            <div class="number number-1">1</div>
+                            <div class="number number-2">2</div>
+                            <div class="number number-3">3</div>
+                            <div class="number number-4">4</div>
+                            <div class="number number-5">5</div>
+                            <div class="number number-6">6</div>
+                            <div class="number number-7">7</div>
+                            <div class="number number-8">8</div>
+                            <div class="number number-9">9</div>
+                            <div class="number number-10">10</div>
+                            <div class="number number-11">11</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Digital clock removed -->
                 <div class="clock-date" id="englishDate">--</div>
             </div>
         </div>
@@ -974,7 +1116,7 @@
 
 <script>
 // ============================================
-// SIMPLE DATE DISPLAY - NEPAL TIME
+// CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
 // ============================================
 
 // Get Nepal time (UTC+5:45)
@@ -985,9 +1127,22 @@ function getNepalTime() {
     return new Date(utcTime + nepalOffset);
 }
 
-// Update date display
-function updateDate() {
+// Update clock display
+function updateClock() {
     const now = getNepalTime();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    
+    const hourHand = document.getElementById('hourHand');
+    const minuteHand = document.getElementById('minuteHand');
+    const secondHand = document.getElementById('secondHand');
+    
+    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
+    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
+    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
+    
+    // Update English date
     const englishDate = document.getElementById('englishDate');
     if (englishDate) {
         englishDate.innerHTML = now.toLocaleDateString('en-US', { 
@@ -999,10 +1154,10 @@ function updateDate() {
     }
 }
 
-// Initialize on page load and update every minute
+// Initialize clock on page load and update every second
 window.addEventListener('DOMContentLoaded', function() {
-    updateDate();
-    setInterval(updateDate, 60000);
+    updateClock();
+    setInterval(updateClock, 1000);
 });
 
 // Initialize world map
