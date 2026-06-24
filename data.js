@@ -458,8 +458,8 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Polydesmidae", subfamily: "NA", tribe: "NA", genus: "Epanerchodus", species: "sp.", lat: 27.758671, lon: 87.548681 },
     
     // Polydesmida - Polydesmidae - Glenniea
-    { order: "Polydesmida", family: "Polydesmidae", subfamily: "NA", tribe: "NA", genus: "Glenniea", species: "martensi", lat: 28.044361, lon: 84.628317 },
-    { order: "Polydesmida", family: "Polydesmidae", subfamily: "NA", tribe: "NA", genus: "Glenniea", species: "martensi", lat: 28.003008, lon: 84.629797 },
+    { order: "Polydesmida", family: "Opisotretidae", subfamily: "NA", tribe: "NA", genus: "Nepalotretus", species: "martensi", lat: 28.044361, lon: 84.628317 },
+    { order: "Polydesmida", family: "Opisotretidae", subfamily: "NA", tribe: "NA", genus: "Nepalotretus", species: "martensi", lat: 28.003008, lon: 84.629797 },
     
     // Polydesmida - Polydesmidae - Himalodesmus
     { order: "Polydesmida", family: "Polydesmidae", subfamily: "NA", tribe: "NA", genus: "Himalodesmus", species: "audax", lat: 27.573643, lon: 85.40599 },
