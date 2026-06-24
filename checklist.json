@@ -1541,13 +1541,13 @@
   },
   {
     "order": "Polydesmida",
-    "family": "Polydesmidae",
-    "genus": "Glenniea",
+    "family": "Opisotretidae",
+    "genus": "Nepalotretus",
     "species": "martensi",
     "author": "(Golovatch, 1987)",
     "type_locality": "Gorkha District, between Nayasanghu and Gorkha",
     "global_dist": "Endemic to Nepal",
-    "nepal_dist": "Gorkha District, between Nayasanghu and Gorkha (1200 m)"
+    "nepal_dist": "Gorkha District, between Nayasanghu and Gorkha (1200 m) Remarks: Golovatch 1991 synonymised Nepalotretus to Glee the Glenniea but for this nov.com. required"
   },
   {
     "order": "Polydesmida",
