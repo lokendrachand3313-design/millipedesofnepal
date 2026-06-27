@@ -367,6 +367,49 @@
             display: inline-block;
         }
         
+        /* Steps image section */
+        .steps-image-section {
+            width: 100%;
+            max-width: 100%;
+            padding: 10px 5% 30px 5%;
+            background: #f0f4f8;
+            text-align: center;
+        }
+        
+        .steps-image-section .steps-header {
+            margin-bottom: 15px;
+        }
+        
+        .steps-image-section .steps-header h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--gold);
+            display: inline-block;
+            padding-bottom: 6px;
+        }
+        
+        .steps-image-wrapper {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 12px;
+            display: inline-block;
+            max-width: 100%;
+        }
+        
+        .steps-image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+        
+        .steps-caption {
+            margin-top: 12px;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
         @media (max-width: 1200px) {
             .pdf-canvas-container { min-height: 550px; }
         }
@@ -390,6 +433,7 @@
             .milli-peet-logo { font-size: 1.8rem; }
             .source-box p { font-size: 1rem; }
             .clock-date { font-size: 16px; }
+            .steps-image-section .steps-header h3 { font-size: 1.2rem; }
         }
         
         @media (max-width: 480px) {
@@ -451,7 +495,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Digital clock removed -->
                 <div class="clock-date" id="englishDate">--</div>
             </div>
         </div>
@@ -505,6 +548,20 @@
                 <button class="book-btn" id="next1Btn">Next ▶</button>
             </div>
             <div class="book-notice">Adapted from MILLI-PEET Project by Petra Sierwald, <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
+        </div>
+    </div>
+    
+    <!-- STEPS IMAGE SECTION - Added after Introduction PDF -->
+    <div class="steps-image-section">
+        <div class="steps-header">
+            <h3>Steps of Specimen Collection, Preservation and Further Works </h3>
+        </div>
+        <div class="steps-image-wrapper">
+            <img src="steps.JPG" alt="Identification steps for Nepalese millipedes" loading="lazy" 
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='<p style=\'padding:20px;color:#888;\'>⚠️ steps.JPG not found. Please add the image file.</p>';">
+        </div>
+        <div class="steps-caption">
+            <p>Visual guide for identifying millipedes of Nepal — step by step approach.</p>
         </div>
     </div>
     
