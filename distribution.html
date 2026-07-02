@@ -30,7 +30,7 @@
             background: white;
             padding: 15px 25px;
             border-radius: 10px;
-            border-left: 5px solid var(--primary-blue);
+            border-left: 5px solid var(--primary-blue, #1a5276);
             text-align: center;
             min-width: 140px;
             transition: all 0.3s ease;
@@ -39,14 +39,14 @@
         
         .stat-card:hover {
             transform: translateY(-3px);
-            border-left-color: var(--gold);
+            border-left-color: var(--gold, #f39c12);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         
         .stat-number {
             font-size: 2rem;
             font-weight: bold;
-            color: var(--primary-blue);
+            color: var(--primary-blue, #1a5276);
             font-family: 'Times New Roman', Times, serif;
         }
         
@@ -65,7 +65,7 @@
             padding: 8px 20px;
             background: #fef9e6;
             border-radius: 8px;
-            border-left: 4px solid var(--gold);
+            border-left: 4px solid var(--gold, #f39c12);
             font-size: 0.85rem;
             color: #555;
             font-family: 'Times New Roman', Times, serif;
@@ -75,7 +75,7 @@
         }
         
         .stats-note strong {
-            color: var(--primary-blue);
+            color: var(--primary-blue, #1a5276);
         }
         
         /* Map View Buttons */
@@ -88,7 +88,7 @@
         
         .btn-view {
             padding: 10px 20px;
-            background: var(--primary-blue);
+            background: var(--primary-blue, #1a5276);
             color: white;
             border: none;
             border-radius: 5px;
@@ -100,18 +100,18 @@
         }
         
         .btn-view:hover {
-            background: var(--primary-blue-dark);
+            background: var(--primary-blue-dark, #0e3a54);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
         /* Filter Section */
         .filter-section {
-            background: var(--blue-bg);
+            background: var(--blue-bg, #ebf5fb);
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
-            border: 2px solid var(--primary-blue);
+            border: 2px solid var(--primary-blue, #1a5276);
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
@@ -127,7 +127,7 @@
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
-            color: var(--primary-blue);
+            color: var(--primary-blue, #1a5276);
             font-size: 0.85rem;
             font-family: 'Times New Roman', Times, serif;
         }
@@ -145,13 +145,13 @@
         
         .filter-group select:hover,
         .filter-group input:hover {
-            border-color: var(--primary-blue);
+            border-color: var(--primary-blue, #1a5276);
         }
         
         .filter-group select:focus,
         .filter-group input:focus {
             outline: none;
-            border-color: var(--gold);
+            border-color: var(--gold, #f39c12);
             box-shadow: 0 0 5px rgba(243, 156, 18, 0.3);
         }
         
@@ -168,7 +168,7 @@
         
         .filter-badge {
             background: white;
-            color: var(--primary-blue);
+            color: var(--primary-blue, #1a5276);
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -178,8 +178,8 @@
         
         .reset-filters {
             background: transparent;
-            color: var(--primary-blue);
-            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue, #1a5276);
+            border: 2px solid var(--primary-blue, #1a5276);
             padding: 5px 15px;
             border-radius: 20px;
             cursor: pointer;
@@ -190,7 +190,7 @@
         }
         
         .reset-filters:hover {
-            background: var(--primary-blue);
+            background: var(--primary-blue, #1a5276);
             color: white;
             transform: translateY(-1px);
         }
@@ -200,13 +200,13 @@
             height: 550px;
             width: 100%;
             border-radius: 12px;
-            border: 3px solid var(--primary-blue);
+            border: 3px solid var(--primary-blue, #1a5276);
             transition: all 0.3s ease;
             z-index: 1;
         }
         
         #map:hover {
-            border-color: var(--gold);
+            border-color: var(--gold, #f39c12);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
         
@@ -216,12 +216,12 @@
             border-radius: 25px;
             font-size: 0.85rem;
             font-weight: bold;
-            color: var(--primary-blue);
+            color: var(--primary-blue, #1a5276);
             margin-top: 12px;
             text-align: center;
             display: inline-block;
             width: auto;
-            border: 1px solid var(--gold);
+            border: 1px solid var(--gold, #f39c12);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             font-family: 'Times New Roman', Times, serif;
         }
@@ -237,7 +237,7 @@
         }
         
         .corrected-table-header {
-            background: var(--primary-blue);
+            background: var(--primary-blue, #1a5276);
             color: white;
             padding: 15px 20px;
             font-family: 'Times New Roman', Times, serif;
@@ -274,7 +274,7 @@
         }
         
         .table-wrapper::-webkit-scrollbar-thumb {
-            background: var(--primary-blue);
+            background: var(--primary-blue, #1a5276);
             border-radius: 10px;
         }
         
@@ -286,16 +286,15 @@
         }
         
         .corrected-table th {
-            background: var(--blue-bg);
-            color: var(--primary-blue);
+            background: var(--blue-bg, #ebf5fb);
+            color: var(--primary-blue, #1a5276);
             padding: 12px 15px;
             text-align: left;
             font-weight: bold;
-            border-bottom: 2px solid var(--primary-blue);
+            border-bottom: 2px solid var(--primary-blue, #1a5276);
             font-size: 1rem;
             position: sticky;
             top: 0;
-            background: var(--blue-bg);
             z-index: 10;
         }
         
@@ -316,11 +315,11 @@
         }
         
         .corrected-table .locality-corrected {
-            color: var(--primary-blue);
+            color: var(--primary-blue, #1a5276);
             font-weight: 500;
         }
         
-        /* Date display - LARGER FONT */
+        /* Date display */
         .clock-date {
             font-size: 18px;
             font-weight: bold;
@@ -426,7 +425,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Digital clock removed -->
                 <div class="clock-date" id="englishDate">--</div>
             </div>
         </div>
@@ -467,15 +465,15 @@
         </div>
     </div>
 
-<!-- Stats Note -->
-<div class="stats-note">
-    <p><strong>📌 Note:</strong> 
-   Counts differ from the checklist because species without coordinates were excluded here.</p>
-</div>
+    <!-- Stats Note -->
+    <div class="stats-note">
+        <p>Note: Counts differ from the checklist because species without coordinates were excluded.</p>
+    </div>
+
     <div class="map-view-buttons">
-        <button class="btn-view" onclick="zoomToNepal()">🇳🇵 Zoom to Nepal</button>
-        <button class="btn-view" onclick="zoomToAllPoints()">📍 Zoom to All Points</button>
-        <button class="btn-view" onclick="zoomToGlobal()">🌍 Global View</button>
+        <button class="btn-view" onclick="zoomToNepal()">Zoom to Nepal</button>
+        <button class="btn-view" onclick="zoomToAllPoints()">Zoom to All Points</button>
+        <button class="btn-view" onclick="zoomToGlobal()">Global View</button>
     </div>
 
     <div class="filter-section">
@@ -494,12 +492,17 @@
         <div class="filter-group">
             <label>Species</label>
             <select id="speciesFilter" onchange="handleFilterChange()"></select>
+        </div>
+        <div class="filter-group">
+            <label>Search Location</label>
+            <input type="text" id="locationSearch" placeholder="Enter location or species..." onkeyup="handleSearch()">
+        </div>
         
         <div class="filter-info" id="filterInfo">
             <div class="filter-badge" id="activeFilters">
-                <span>📍</span> Showing: <span id="filterSummary">All Records</span>
+                Showing: <span id="filterSummary">All Records</span>
             </div>
-            <button class="reset-filters" onclick="resetAllFilters()"> Reset All Filters</button>
+            <button class="reset-filters" onclick="resetAllFilters()">Reset All Filters</button>
         </div>
     </div>
 
@@ -511,8 +514,8 @@
     <!-- Corrected Localities Table -->
     <div class="corrected-table-section">
         <div class="corrected-table-header">
-            <h3>📌 Standardisation of historical millipede collection localities in Nepal</h3>
-            <p>Locality names as written in original literature vs corrected standard names</p>
+            <h3>Standardisation of historical millipede collection localities in Nepal</h3>
+            <p>Locality names as written in original literature versus corrected standard names</p>
         </div>
         <div class="table-wrapper">
             <table class="corrected-table">
@@ -595,8 +598,8 @@
 </main>
 
 <footer>
-    <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>© 2025 Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+    <p>Copyright 2025 Lokendra Chand | +977-9809733313 / +817090238470</p>
 </footer>
 
 <!-- Leaflet JS -->
@@ -629,12 +632,12 @@ function updateClock() {
     const minuteHand = document.getElementById('minuteHand');
     const secondHand = document.getElementById('secondHand');
     
-    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
-    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
-    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
+    if (hourHand) hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
+    if (minuteHand) minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
+    if (secondHand) secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
     
     // Update English date
-    const englishDate = document.getElementById('englishDate');
+    var englishDate = document.getElementById('englishDate');
     if (englishDate) {
         englishDate.innerHTML = now.toLocaleDateString('en-US', { 
             weekday: 'short', 
@@ -656,12 +659,12 @@ window.addEventListener('DOMContentLoaded', function() {
 // ============================================
 
 // Initialize Map
-const map = L.map('map').setView([28.3949, 84.1240], 7);
-const markersLayer = L.layerGroup().addTo(map);
+var map = L.map('map').setView([28.3949, 84.1240], 7);
+var markersLayer = L.layerGroup().addTo(map);
 
 // Add tile layer with better styling
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors &copy; CartoDB',
+    attribution: 'OpenStreetMap contributors, CartoDB',
     subdomains: 'abcd',
     maxZoom: 19,
     minZoom: 2
@@ -671,10 +674,10 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(map);
 
 // Store full data for filtering
-let allPoints = [];
+var allPoints = [];
 
 // Cache for filter options
-let filterCache = {
+var filterCache = {
     orders: new Set(),
     familiesByOrder: new Map(),
     generaByFamily: new Map(),
@@ -687,17 +690,16 @@ function isValidCoordinate(lat, lon) {
 
 // Build hierarchical filter data
 function buildFilterHierarchy(points) {
-    const ordersSet = new Set();
-    const familiesMap = new Map();
-    const generaMap = new Map();
-    const speciesMap = new Map();
+    var ordersSet = new Set();
+    var familiesMap = new Map();
+    var generaMap = new Map();
+    var speciesMap = new Map();
     
-    points.forEach(p => {
-        // Count ALL species for filters, even those without coordinates
-        const order = p.order || 'Unidentified';
-        const family = p.family || 'Unidentified';
-        const genus = p.genus || 'Unidentified';
-        const species = p.species || 'sp.';
+    points.forEach(function(p) {
+        var order = p.order || 'Unidentified';
+        var family = p.family || 'Unidentified';
+        var genus = p.genus || 'Unidentified';
+        var species = p.species || 'sp.';
         
         ordersSet.add(order);
         
@@ -711,16 +713,16 @@ function buildFilterHierarchy(points) {
         speciesMap.get(genus).add(species);
     });
     
-    return { ordersSet, familiesMap, generaMap, speciesMap };
+    return { ordersSet: ordersSet, familiesMap: familiesMap, generaMap: generaMap, speciesMap: speciesMap };
 }
 
 // Populate order dropdown
 function populateOrders() {
-    const select = document.getElementById('orderFilter');
-    const orders = Array.from(filterCache.ordersSet).sort();
+    var select = document.getElementById('orderFilter');
+    var orders = Array.from(filterCache.ordersSet).sort();
     select.innerHTML = '<option value="all">All Orders</option>';
-    orders.forEach(order => {
-        const option = document.createElement('option');
+    orders.forEach(function(order) {
+        var option = document.createElement('option');
         option.value = order;
         option.textContent = order;
         select.appendChild(option);
@@ -729,16 +731,16 @@ function populateOrders() {
 
 // Update family dropdown based on selected order
 function updateFamilies() {
-    const selectedOrder = document.getElementById('orderFilter').value;
-    const familySelect = document.getElementById('familyFilter');
-    const genusSelect = document.getElementById('genusFilter');
-    const speciesSelect = document.getElementById('speciesFilter');
+    var selectedOrder = document.getElementById('orderFilter').value;
+    var familySelect = document.getElementById('familyFilter');
+    var genusSelect = document.getElementById('genusFilter');
+    var speciesSelect = document.getElementById('speciesFilter');
     
-    let families = [];
+    var families = [];
     if (selectedOrder === 'all') {
-        const allFamilies = new Set();
-        filterCache.familiesMap.forEach(famSet => {
-            famSet.forEach(f => allFamilies.add(f));
+        var allFamilies = new Set();
+        filterCache.familiesMap.forEach(function(famSet) {
+            famSet.forEach(function(f) { allFamilies.add(f); });
         });
         families = Array.from(allFamilies).sort();
     } else {
@@ -746,8 +748,8 @@ function updateFamilies() {
     }
     
     familySelect.innerHTML = '<option value="all">All Families</option>';
-    families.forEach(family => {
-        const option = document.createElement('option');
+    families.forEach(function(family) {
+        var option = document.createElement('option');
         option.value = family;
         option.textContent = family;
         familySelect.appendChild(option);
@@ -761,15 +763,15 @@ function updateFamilies() {
 
 // Update genus dropdown based on selected family
 function updateGenera() {
-    const selectedFamily = document.getElementById('familyFilter').value;
-    const genusSelect = document.getElementById('genusFilter');
-    const speciesSelect = document.getElementById('speciesFilter');
+    var selectedFamily = document.getElementById('familyFilter').value;
+    var genusSelect = document.getElementById('genusFilter');
+    var speciesSelect = document.getElementById('speciesFilter');
     
-    let genera = [];
+    var genera = [];
     if (selectedFamily === 'all') {
-        const allGenera = new Set();
-        filterCache.generaMap.forEach(genSet => {
-            genSet.forEach(g => allGenera.add(g));
+        var allGenera = new Set();
+        filterCache.generaMap.forEach(function(genSet) {
+            genSet.forEach(function(g) { allGenera.add(g); });
         });
         genera = Array.from(allGenera).sort();
     } else {
@@ -777,8 +779,8 @@ function updateGenera() {
     }
     
     genusSelect.innerHTML = '<option value="all">All Genera</option>';
-    genera.forEach(genus => {
-        const option = document.createElement('option');
+    genera.forEach(function(genus) {
+        var option = document.createElement('option');
         option.value = genus;
         option.textContent = genus;
         genusSelect.appendChild(option);
@@ -791,14 +793,14 @@ function updateGenera() {
 
 // Update species dropdown based on selected genus
 function updateSpecies() {
-    const selectedGenus = document.getElementById('genusFilter').value;
-    const speciesSelect = document.getElementById('speciesFilter');
+    var selectedGenus = document.getElementById('genusFilter').value;
+    var speciesSelect = document.getElementById('speciesFilter');
     
-    let species = [];
+    var species = [];
     if (selectedGenus === 'all') {
-        const allSpecies = new Set();
-        filterCache.speciesMap.forEach(spSet => {
-            spSet.forEach(s => allSpecies.add(s));
+        var allSpecies = new Set();
+        filterCache.speciesMap.forEach(function(spSet) {
+            spSet.forEach(function(s) { allSpecies.add(s); });
         });
         species = Array.from(allSpecies).sort();
     } else {
@@ -806,8 +808,8 @@ function updateSpecies() {
     }
     
     speciesSelect.innerHTML = '<option value="all">All Species</option>';
-    species.forEach(sp => {
-        const option = document.createElement('option');
+    species.forEach(function(sp) {
+        var option = document.createElement('option');
         option.value = sp;
         option.textContent = sp;
         speciesSelect.appendChild(option);
@@ -829,31 +831,25 @@ function onGenusChange() {
     updateSpecies();
 }
 
-// ============================================
-// FIXED: Update statistics - Count ALL species and genera
-// ============================================
+// Update statistics - Count ALL species and genera
 function updateStats() {
     if (!allPoints.length) return;
     
-    // Count ALL species (including those with null coordinates)
-    const allSpecies = new Set();
-    const allGenera = new Set();
+    var allSpecies = new Set();
+    var allGenera = new Set();
     
-    allPoints.forEach(p => {
-        const genus = p.genus || 'Unidentified';
-        const species = p.species || 'sp.';
+    allPoints.forEach(function(p) {
+        var genus = p.genus || 'Unidentified';
+        var species = p.species || 'sp.';
         
-        // Count all species
-        allSpecies.add(`${genus}_${species}`);
+        allSpecies.add(genus + '_' + species);
         
-        // Count all genera
         if (genus && genus !== 'Unidentified') {
             allGenera.add(genus);
         }
     });
     
-    // Count only points with valid coordinates for "Visible on Map"
-    const validPoints = allPoints.filter(p => isValidCoordinate(p.lat, p.lon));
+    var validPoints = allPoints.filter(function(p) { return isValidCoordinate(p.lat, p.lon); });
     
     document.getElementById('totalPoints').textContent = allPoints.length;
     document.getElementById('visiblePoints').textContent = validPoints.length;
@@ -861,28 +857,28 @@ function updateStats() {
     document.getElementById('uniqueGenera').textContent = allGenera.size;
 }
 
-let searchTimeout;
+var searchTimeout;
 function handleSearch() {
     clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
+    searchTimeout = setTimeout(function() {
         renderMarkers();
         updateFilterSummary();
     }, 300);
 }
 
 function updateFilterSummary() {
-    const order = document.getElementById('orderFilter').value;
-    const family = document.getElementById('familyFilter').value;
-    const genus = document.getElementById('genusFilter').value;
-    const species = document.getElementById('speciesFilter').value;
-    const search = document.getElementById('locationSearch').value;
+    var order = document.getElementById('orderFilter').value;
+    var family = document.getElementById('familyFilter').value;
+    var genus = document.getElementById('genusFilter').value;
+    var species = document.getElementById('speciesFilter').value;
+    var search = document.getElementById('locationSearch').value;
     
-    let summary = [];
+    var summary = [];
     if (order !== 'all') summary.push(order);
     if (family !== 'all') summary.push(family);
     if (genus !== 'all') summary.push(genus);
     if (species !== 'all') summary.push(species);
-    if (search) summary.push(`"${search}"`);
+    if (search) summary.push('"' + search + '"');
     
     document.getElementById('filterSummary').textContent = summary.length > 0 ? summary.join(' > ') : 'All Records';
 }
@@ -890,14 +886,12 @@ function updateFilterSummary() {
 function resetAllFilters() {
     document.getElementById('orderFilter').value = 'all';
     document.getElementById('locationSearch').value = '';
-    // Reset dropdowns
-    const familySelect = document.getElementById('familyFilter');
-    const genusSelect = document.getElementById('genusFilter');
-    const speciesSelect = document.getElementById('speciesFilter');
+    var familySelect = document.getElementById('familyFilter');
+    var genusSelect = document.getElementById('genusFilter');
+    var speciesSelect = document.getElementById('speciesFilter');
     familySelect.innerHTML = '<option value="all">All Families</option>';
-    genusSelect.innerHTML = '<option value="all"> All Genera</option>';
+    genusSelect.innerHTML = '<option value="all">All Genera</option>';
     speciesSelect.innerHTML = '<option value="all">All Species</option>';
-    // Repopulate families
     updateFamilies();
     handleFilterChange();
     updateFilterSummary();
@@ -911,43 +905,41 @@ function handleFilterChange() {
 function renderMarkers() {
     markersLayer.clearLayers();
     
-    const selectedOrder = document.getElementById('orderFilter').value;
-    const selectedFamily = document.getElementById('familyFilter').value;
-    const selectedGenus = document.getElementById('genusFilter').value;
-    const selectedSpecies = document.getElementById('speciesFilter').value;
-    const searchText = document.getElementById('locationSearch').value.toLowerCase().trim();
+    var selectedOrder = document.getElementById('orderFilter').value;
+    var selectedFamily = document.getElementById('familyFilter').value;
+    var selectedGenus = document.getElementById('genusFilter').value;
+    var selectedSpecies = document.getElementById('speciesFilter').value;
+    var searchText = document.getElementById('locationSearch').value.toLowerCase().trim();
     
-    let visibleCount = 0;
-    const bounds = [];
-    const visibleSpeciesSet = new Set();
+    var visibleCount = 0;
+    var bounds = [];
+    var visibleSpeciesSet = new Set();
     
-    allPoints.forEach(point => {
-        // Skip points without valid coordinates for map display
+    allPoints.forEach(function(point) {
         if (!isValidCoordinate(point.lat, point.lon)) return;
         
-        const pointOrder = point.order || 'Unidentified';
-        const pointFamily = point.family || 'Unidentified';
-        const pointGenus = point.genus || 'Unidentified';
-        const pointSpecies = point.species || 'sp.';
+        var pointOrder = point.order || 'Unidentified';
+        var pointFamily = point.family || 'Unidentified';
+        var pointGenus = point.genus || 'Unidentified';
+        var pointSpecies = point.species || 'sp.';
         
-        const matchOrder = selectedOrder === 'all' || pointOrder === selectedOrder;
-        const matchFamily = selectedFamily === 'all' || pointFamily === selectedFamily;
-        const matchGenus = selectedGenus === 'all' || pointGenus === selectedGenus;
-        const matchSpecies = selectedSpecies === 'all' || pointSpecies === selectedSpecies;
+        var matchOrder = selectedOrder === 'all' || pointOrder === selectedOrder;
+        var matchFamily = selectedFamily === 'all' || pointFamily === selectedFamily;
+        var matchGenus = selectedGenus === 'all' || pointGenus === selectedGenus;
+        var matchSpecies = selectedSpecies === 'all' || pointSpecies === selectedSpecies;
         
-        let matchSearch = true;
+        var matchSearch = true;
         if (searchText) {
-            const location = (point.location || '').toLowerCase();
-            const speciesName = `${pointGenus} ${pointSpecies}`.toLowerCase();
-            matchSearch = location.includes(searchText) || speciesName.includes(searchText);
+            var location = (point.location || '').toLowerCase();
+            var speciesName = (pointGenus + ' ' + pointSpecies).toLowerCase();
+            matchSearch = location.indexOf(searchText) !== -1 || speciesName.indexOf(searchText) !== -1;
         }
         
         if (matchOrder && matchFamily && matchGenus && matchSpecies && matchSearch) {
             visibleCount++;
-            visibleSpeciesSet.add(`${pointGenus} ${pointSpecies}`);
+            visibleSpeciesSet.add(pointGenus + ' ' + pointSpecies);
             
-            // Create custom colored marker based on order
-            let markerColor = '#1a5276';
+            var markerColor = '#1a5276';
             if (pointOrder === 'Spirostreptida') markerColor = '#2980b9';
             else if (pointOrder === 'Polydesmida') markerColor = '#27ae60';
             else if (pointOrder === 'Julida') markerColor = '#f39c12';
@@ -955,27 +947,27 @@ function renderMarkers() {
             else if (pointOrder === 'Glomerida') markerColor = '#e74c3c';
             else if (pointOrder === 'Sphaerotheriida') markerColor = '#8e44ad';
             
-            const customIcon = L.divIcon({
-                html: `<div style="background-color: ${markerColor}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.5);"></div>`,
+            var customIcon = L.divIcon({
+                html: '<div style="background-color: ' + markerColor + '; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.5);"></div>',
                 iconSize: [12, 12],
                 className: 'custom-marker'
             });
             
-            const marker = L.marker([point.lat, point.lon], { icon: customIcon });
+            var marker = L.marker([point.lat, point.lon], { icon: customIcon });
             
-            marker.bindPopup(`
-                <div style="font-family: 'Times New Roman', Times, serif; max-width: 280px;">
-                    <h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">
-                        <i>${pointGenus} ${pointSpecies}</i>
-                    </h3>
-                    <p style="margin:5px 0;"><strong>Order:</strong> ${pointOrder}</p>
-                    <p style="margin:5px 0;"><strong>Family:</strong> ${pointFamily}</p>
-                    <p style="margin:5px 0;"><strong>Location:</strong> ${point.location || 'Nepal'}</p>
-                    <p style="margin:5px 0;"><strong>Coordinates:</strong><br>
-                    ${point.lat.toFixed(4)}°N, ${point.lon.toFixed(4)}°E</p>
-                    ${point.notes ? `<p style="margin:5px 0; font-style: italic;"> ${point.notes}</p>` : ''}
-                </div>
-            `);
+            marker.bindPopup(
+                '<div style="font-family: Times New Roman, Times, serif; max-width: 280px;">' +
+                    '<h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">' +
+                        '<i>' + pointGenus + ' ' + pointSpecies + '</i>' +
+                    '</h3>' +
+                    '<p style="margin:5px 0;"><strong>Order:</strong> ' + pointOrder + '</p>' +
+                    '<p style="margin:5px 0;"><strong>Family:</strong> ' + pointFamily + '</p>' +
+                    '<p style="margin:5px 0;"><strong>Location:</strong> ' + (point.location || 'Nepal') + '</p>' +
+                    '<p style="margin:5px 0;"><strong>Coordinates:</strong><br>' +
+                    point.lat.toFixed(4) + '°N, ' + point.lon.toFixed(4) + '°E</p>' +
+                    (point.notes ? '<p style="margin:5px 0; font-style: italic;">Note: ' + point.notes + '</p>' : '') +
+                '</div>'
+            );
             
             markersLayer.addLayer(marker);
             bounds.push([point.lat, point.lon]);
@@ -983,15 +975,15 @@ function renderMarkers() {
     });
     
     document.getElementById('markerCount').innerHTML = 
-        `📍 ${visibleCount} point${visibleCount !== 1 ? 's' : ''} visible (${visibleSpeciesSet.size} species)`;
+        visibleCount + ' point' + (visibleCount !== 1 ? 's' : '') + ' visible (' + visibleSpeciesSet.size + ' species)';
     document.getElementById('visiblePoints').textContent = visibleCount;
     
     if (bounds.length > 0 && bounds.length !== allPoints.length) {
-        const order = document.getElementById('orderFilter').value;
-        const family = document.getElementById('familyFilter').value;
-        const genus = document.getElementById('genusFilter').value;
-        const species = document.getElementById('speciesFilter').value;
-        const hasFilter = order !== 'all' || family !== 'all' || genus !== 'all' || species !== 'all';
+        var order = document.getElementById('orderFilter').value;
+        var family = document.getElementById('familyFilter').value;
+        var genus = document.getElementById('genusFilter').value;
+        var species = document.getElementById('speciesFilter').value;
+        var hasFilter = order !== 'all' || family !== 'all' || genus !== 'all' || species !== 'all';
         
         if (hasFilter && bounds.length > 0) {
             map.fitBounds(bounds, { padding: [50, 50], maxZoom: 12 });
@@ -1004,8 +996,8 @@ function zoomToNepal() {
 }
 
 function zoomToAllPoints() {
-    const bounds = [];
-    allPoints.forEach(point => {
+    var bounds = [];
+    allPoints.forEach(function(point) {
         if (isValidCoordinate(point.lat, point.lon)) bounds.push([point.lat, point.lon]);
     });
     if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
@@ -1028,13 +1020,11 @@ window.zoomToGlobal = zoomToGlobal;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if data loaded from data.js
     if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
         allPoints = millipedePoints;
         console.log('Loaded', allPoints.length, 'millipede points from data.js');
     } else {
         console.warn('millipedePoints not found in data.js. Using sample data.');
-        // Sample data for demo if no data.js
         allPoints = [
             { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240, notes: "Common species in western Nepal" },
             { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", location: "Kathmandu Valley", lat: 27.7172, lon: 85.3240, notes: "Urban forest record" },
@@ -1045,8 +1035,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
     }
     
-    // Build filter hierarchy
-    const hierarchy = buildFilterHierarchy(allPoints);
+    var hierarchy = buildFilterHierarchy(allPoints);
     filterCache.ordersSet = hierarchy.ordersSet;
     filterCache.familiesMap = hierarchy.familiesMap;
     filterCache.generaMap = hierarchy.generaMap;
@@ -1058,10 +1047,8 @@ document.addEventListener('DOMContentLoaded', function() {
     renderMarkers();
     updateFilterSummary();
     
-    // Log unique species count from data
-    const uniqueSpecies = new Set(allPoints.map(p => `${p.genus} ${p.species}`));
+    var uniqueSpecies = new Set(allPoints.map(function(p) { return p.genus + ' ' + p.species; }));
     console.log('Unique species in data:', uniqueSpecies.size);
-    console.log('Species list:', [...uniqueSpecies].sort());
 });
 </script>
 
