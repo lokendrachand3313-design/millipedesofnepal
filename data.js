@@ -239,7 +239,7 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "anteriporus", lat: 27.508091, lon: 88.016699 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "anteriporus", lat: 27.494047, lon: 87.983297 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "bifidus", lat: 27.747514, lon: 86.00632 },
-    { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "lobatus ", lat: 27.755011, lon: 87.544190 },
+    { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "lobatus", lat: 27.755011, lon: 87.544190 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "longifemoratus", lat: 27.459217, lon: 86.892246 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "martensi", lat: 27.080583, lon: 87.921427 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "montigena", lat: 27.824786, lon: 86.671446 },
