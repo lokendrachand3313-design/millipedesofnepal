@@ -480,31 +480,26 @@
 
     <div class="filter-section">
         <div class="filter-group">
-            <label>📋 Order</label>
+            <label>Order</label>
             <select id="orderFilter" onchange="onOrderChange()"></select>
         </div>
         <div class="filter-group">
-            <label>🏷️ Family</label>
+            <label>Family</label>
             <select id="familyFilter" onchange="onFamilyChange()"></select>
         </div>
         <div class="filter-group">
-            <label>🔬 Genus</label>
+            <label>Genus</label>
             <select id="genusFilter" onchange="onGenusChange()"></select>
         </div>
         <div class="filter-group">
-            <label>🐛 Species</label>
+            <label>Species</label>
             <select id="speciesFilter" onchange="handleFilterChange()"></select>
-        </div>
-        <div class="filter-group">
-            <label>🔍 Search Location</label>
-            <input type="text" id="locationSearch" placeholder="Enter location or species..." onkeyup="handleSearch()">
-        </div>
         
         <div class="filter-info" id="filterInfo">
             <div class="filter-badge" id="activeFilters">
                 <span>📍</span> Showing: <span id="filterSummary">All Records</span>
             </div>
-            <button class="reset-filters" onclick="resetAllFilters()">🗑️ Reset All Filters</button>
+            <button class="reset-filters" onclick="resetAllFilters()"> Reset All Filters</button>
         </div>
     </div>
 
@@ -723,7 +718,7 @@ function buildFilterHierarchy(points) {
 function populateOrders() {
     const select = document.getElementById('orderFilter');
     const orders = Array.from(filterCache.ordersSet).sort();
-    select.innerHTML = '<option value="all">📋 All Orders</option>';
+    select.innerHTML = '<option value="all">All Orders</option>';
     orders.forEach(order => {
         const option = document.createElement('option');
         option.value = order;
@@ -750,7 +745,7 @@ function updateFamilies() {
         families = Array.from(filterCache.familiesMap.get(selectedOrder) || new Set()).sort();
     }
     
-    familySelect.innerHTML = '<option value="all">🏷️ All Families</option>';
+    familySelect.innerHTML = '<option value="all">All Families</option>';
     families.forEach(family => {
         const option = document.createElement('option');
         option.value = family;
@@ -758,8 +753,8 @@ function updateFamilies() {
         familySelect.appendChild(option);
     });
     
-    genusSelect.innerHTML = '<option value="all">🔬 All Genera</option>';
-    speciesSelect.innerHTML = '<option value="all">🐛 All Species</option>';
+    genusSelect.innerHTML = '<option value="all">All Genera</option>';
+    speciesSelect.innerHTML = '<option value="all">All Species</option>';
     
     handleFilterChange();
 }
@@ -781,7 +776,7 @@ function updateGenera() {
         genera = Array.from(filterCache.generaMap.get(selectedFamily) || new Set()).sort();
     }
     
-    genusSelect.innerHTML = '<option value="all">🔬 All Genera</option>';
+    genusSelect.innerHTML = '<option value="all">All Genera</option>';
     genera.forEach(genus => {
         const option = document.createElement('option');
         option.value = genus;
@@ -789,7 +784,7 @@ function updateGenera() {
         genusSelect.appendChild(option);
     });
     
-    speciesSelect.innerHTML = '<option value="all">🐛 All Species</option>';
+    speciesSelect.innerHTML = '<option value="all">All Species</option>';
     
     handleFilterChange();
 }
@@ -810,7 +805,7 @@ function updateSpecies() {
         species = Array.from(filterCache.speciesMap.get(selectedGenus) || new Set()).sort();
     }
     
-    speciesSelect.innerHTML = '<option value="all">🐛 All Species</option>';
+    speciesSelect.innerHTML = '<option value="all">All Species</option>';
     species.forEach(sp => {
         const option = document.createElement('option');
         option.value = sp;
@@ -899,9 +894,9 @@ function resetAllFilters() {
     const familySelect = document.getElementById('familyFilter');
     const genusSelect = document.getElementById('genusFilter');
     const speciesSelect = document.getElementById('speciesFilter');
-    familySelect.innerHTML = '<option value="all">🏷️ All Families</option>';
-    genusSelect.innerHTML = '<option value="all">🔬 All Genera</option>';
-    speciesSelect.innerHTML = '<option value="all">🐛 All Species</option>';
+    familySelect.innerHTML = '<option value="all">All Families</option>';
+    genusSelect.innerHTML = '<option value="all"> All Genera</option>';
+    speciesSelect.innerHTML = '<option value="all">All Species</option>';
     // Repopulate families
     updateFamilies();
     handleFilterChange();
@@ -973,12 +968,12 @@ function renderMarkers() {
                     <h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">
                         <i>${pointGenus} ${pointSpecies}</i>
                     </h3>
-                    <p style="margin:5px 0;"><strong>📋 Order:</strong> ${pointOrder}</p>
-                    <p style="margin:5px 0;"><strong>🏷️ Family:</strong> ${pointFamily}</p>
-                    <p style="margin:5px 0;"><strong>📍 Location:</strong> ${point.location || 'Nepal'}</p>
-                    <p style="margin:5px 0;"><strong>🗺️ Coordinates:</strong><br>
+                    <p style="margin:5px 0;"><strong>Order:</strong> ${pointOrder}</p>
+                    <p style="margin:5px 0;"><strong>Family:</strong> ${pointFamily}</p>
+                    <p style="margin:5px 0;"><strong>Location:</strong> ${point.location || 'Nepal'}</p>
+                    <p style="margin:5px 0;"><strong>Coordinates:</strong><br>
                     ${point.lat.toFixed(4)}°N, ${point.lon.toFixed(4)}°E</p>
-                    ${point.notes ? `<p style="margin:5px 0; font-style: italic;">📝 ${point.notes}</p>` : ''}
+                    ${point.notes ? `<p style="margin:5px 0; font-style: italic;"> ${point.notes}</p>` : ''}
                 </div>
             `);
             
@@ -1036,9 +1031,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if data loaded from data.js
     if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
         allPoints = millipedePoints;
-        console.log('✅ Loaded', allPoints.length, 'millipede points from data.js');
+        console.log('Loaded', allPoints.length, 'millipede points from data.js');
     } else {
-        console.warn('⚠️ millipedePoints not found in data.js. Using sample data.');
+        console.warn('millipedePoints not found in data.js. Using sample data.');
         // Sample data for demo if no data.js
         allPoints = [
             { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240, notes: "Common species in western Nepal" },
@@ -1065,8 +1060,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Log unique species count from data
     const uniqueSpecies = new Set(allPoints.map(p => `${p.genus} ${p.species}`));
-    console.log('📊 Unique species in data:', uniqueSpecies.size);
-    console.log('📋 Species list:', [...uniqueSpecies].sort());
+    console.log('Unique species in data:', uniqueSpecies.size);
+    console.log('Species list:', [...uniqueSpecies].sort());
 });
 </script>
 
