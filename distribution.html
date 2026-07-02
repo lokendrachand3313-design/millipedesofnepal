@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* ============ DISTRIBUTION.HTML SPECIFIC STYLES ============ */
-        
         .stats-summary {
             display: flex;
             flex-wrap: wrap;
@@ -435,6 +433,14 @@
             <div class="stat-number" id="uniqueGenera">0</div>
             <div class="stat-label">Genera</div>
         </div>
+        <div class="stat-card" style="border-left-color: #27ae60;">
+            <div class="stat-number" id="mappedSpecies">0</div>
+            <div class="stat-label">Mapped Species</div>
+        </div>
+        <div class="stat-card" style="border-left-color: #e74c3c;">
+            <div class="stat-number" id="unmappedSpecies">0</div>
+            <div class="stat-label">Unmapped Species</div>
+        </div>
     </div>
 
     <div class="map-view-buttons">
@@ -471,7 +477,7 @@
         
         <div class="filter-info" id="filterInfo">
             <div class="filter-badge" id="activeFilters">
-                Showing: <span id="filterSummary">All GPS Points</span>
+                Showing: <span id="filterSummary">GPS Points (no labels)</span>
             </div>
             <button class="reset-filters" onclick="resetAllFilters()">Reset All Filters</button>
         </div>
@@ -686,13 +692,23 @@ function updateStats() {
     
     var allSpecies = new Set();
     var allGenera = new Set();
+    var mappedSpecies = new Set();
+    var unmappedSpecies = new Set();
     
     allPoints.forEach(function(p) {
         var genus = p.genus || 'Unidentified';
         var species = p.species || 'sp.';
-        allSpecies.add(genus + '_' + species);
+        var key = genus + '_' + species;
+        
+        allSpecies.add(key);
         if (genus && genus !== 'Unidentified') {
             allGenera.add(genus);
+        }
+        
+        if (isValidCoordinate(p.lat, p.lon)) {
+            mappedSpecies.add(key);
+        } else {
+            unmappedSpecies.add(key);
         }
     });
     
@@ -702,6 +718,8 @@ function updateStats() {
     document.getElementById('visiblePoints').textContent = validPoints.length;
     document.getElementById('uniqueSpecies').textContent = allSpecies.size;
     document.getElementById('uniqueGenera').textContent = allGenera.size;
+    document.getElementById('mappedSpecies').textContent = mappedSpecies.size;
+    document.getElementById('unmappedSpecies').textContent = unmappedSpecies.size;
 }
 
 function updateFilterSummary() {
@@ -711,16 +729,17 @@ function updateFilterSummary() {
     var species = document.getElementById('speciesFilter').value;
     
     var summary = [];
-    if (order !== 'all') summary.push(order);
-    if (family !== 'all') summary.push(family);
-    if (genus !== 'all') summary.push(genus);
-    if (species !== 'all') summary.push(species);
-    
-    if (summary.length === 0) {
-        document.getElementById('filterSummary').textContent = 'All GPS Points';
+    if (order !== 'all' && family === 'all') {
+        summary.push('Order: ' + order + ' (Showing Family names)');
+    } else if (order !== 'all' && family !== 'all' && genus === 'all') {
+        summary.push('Family: ' + family + ' (Showing Genus names)');
+    } else if (order !== 'all' && family !== 'all' && genus !== 'all') {
+        summary.push('Genus: ' + genus + ' (Showing Species names)');
     } else {
-        document.getElementById('filterSummary').textContent = summary.join(' > ');
+        summary.push('GPS Points (no labels)');
     }
+    
+    document.getElementById('filterSummary').textContent = summary.join(' > ');
 }
 
 function resetAllFilters() {
@@ -813,7 +832,7 @@ function onSpeciesChange() {
 }
 
 // ============================================
-// RENDER MARKERS FUNCTION
+// RENDER MARKERS FUNCTION - FIXED
 // ============================================
 function renderMarkers() {
     markersLayer.clearLayers();
@@ -827,21 +846,22 @@ function renderMarkers() {
     var bounds = [];
     var speciesSet = new Set();
     
-    // Determine label type
+    // Determine label type based on selections
     var labelType = 'none';
     if (selectedOrder === 'all') {
-        labelType = 'none';
+        labelType = 'none';  // No labels - just dots
     } else if (selectedOrder !== 'all' && selectedFamily === 'all') {
-        labelType = 'family';
+        labelType = 'family';  // Show Family names
     } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
-        labelType = 'genus';
+        labelType = 'genus';  // Show Genus names
     } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus !== 'all') {
-        labelType = 'species';
+        labelType = 'species';  // Show Species names
     }
     
     allPoints.forEach(function(point) {
         if (!isValidCoordinate(point.lat, point.lon)) return;
         
+        // Apply filters
         if (selectedOrder !== 'all' && point.order !== selectedOrder) return;
         if (selectedFamily !== 'all' && point.family !== selectedFamily) return;
         if (selectedGenus !== 'all' && point.genus !== selectedGenus) return;
@@ -875,8 +895,10 @@ function renderMarkers() {
         var marker;
         
         if (labelType === 'none') {
+            // Plain marker - no label
             marker = L.marker([point.lat, point.lon]);
         } else {
+            // Marker with label
             var customIcon = L.divIcon({
                 html: '<div style="display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.92); padding: 2px 8px; border-radius: 14px; border: 1.5px solid ' + markerColor + '; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">' +
                     '<div style="background-color: ' + markerColor + '; width: 8px; height: 8px; border-radius: 50%; border: 1px solid white; flex-shrink: 0;"></div>' +
@@ -906,15 +928,16 @@ function renderMarkers() {
         bounds.push([point.lat, point.lon]);
     });
     
+    // Update display messages
     var msg = '';
     if (labelType === 'none') {
         msg = count + ' GPS points visible (click for details)';
     } else if (labelType === 'family') {
-        msg = count + ' points visible - Showing Family names';
+        msg = count + ' points visible - Showing <strong>Family</strong> names';
     } else if (labelType === 'genus') {
-        msg = count + ' points visible - Showing Genus names';
+        msg = count + ' points visible - Showing <strong>Genus</strong> names';
     } else if (labelType === 'species') {
-        msg = count + ' point' + (count !== 1 ? 's' : '') + ' visible - Showing Species names';
+        msg = count + ' point' + (count !== 1 ? 's' : '') + ' visible - Showing <strong>Species</strong> names';
     }
     document.getElementById('markerCount').innerHTML = msg;
     document.getElementById('visiblePoints').textContent = count;
@@ -960,12 +983,27 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Count unique species
         var speciesSet = new Set();
+        var mappedCount = 0;
+        var unmappedCount = 0;
+        var genusSet = new Set();
+        
         allPoints.forEach(function(p) {
-            if (p.genus && p.species) {
+            if (p.genus && p.species && p.species !== 'sp.') {
                 speciesSet.add(p.genus + ' ' + p.species);
+            }
+            if (p.genus && p.genus !== 'Unidentified') {
+                genusSet.add(p.genus);
+            }
+            if (isValidCoordinate(p.lat, p.lon)) {
+                mappedCount++;
+            } else {
+                unmappedCount++;
             }
         });
         console.log('📊 Unique species in data:', speciesSet.size);
+        console.log('📊 Unique genera in data:', genusSet.size);
+        console.log('📊 Mapped species:', mappedCount);
+        console.log('📊 Unmapped species:', unmappedCount);
     } else {
         console.error('❌ millipedePoints not found! Please check data.js');
         allPoints = [
@@ -983,6 +1021,7 @@ document.addEventListener('DOMContentLoaded', function() {
     populateOrders();
     updateStats();
     renderMarkers();
+    updateFilterSummary();
 });
 </script>
 
