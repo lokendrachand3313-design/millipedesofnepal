@@ -444,6 +444,14 @@
             <div class="stat-number" id="uniqueGenera">0</div>
             <div class="stat-label">Genera</div>
         </div>
+        <div class="stat-card" style="border-left-color: #e74c3c;">
+            <div class="stat-number" id="mappedSpecies">0</div>
+            <div class="stat-label">Mapped Species</div>
+        </div>
+        <div class="stat-card" style="border-left-color: #f39c12;">
+            <div class="stat-number" id="unmappedSpecies">0</div>
+            <div class="stat-label">Unmapped Species</div>
+        </div>
     </div>
 
     <div class="map-view-buttons">
@@ -802,13 +810,23 @@ function updateStats() {
     
     var allSpecies = new Set();
     var allGenera = new Set();
+    var mappedSpecies = new Set();
+    var unmappedSpecies = new Set();
     
     allPoints.forEach(function(p) {
         var genus = p.genus || 'Unidentified';
         var species = p.species || 'sp.';
-        allSpecies.add(genus + '_' + species);
+        var key = genus + '_' + species;
+        allSpecies.add(key);
         if (genus && genus !== 'Unidentified') {
             allGenera.add(genus);
+        }
+        
+        // Check if this species has coordinates
+        if (isValidCoordinate(p.lat, p.lon)) {
+            mappedSpecies.add(key);
+        } else {
+            unmappedSpecies.add(key);
         }
     });
     
@@ -818,6 +836,8 @@ function updateStats() {
     document.getElementById('visiblePoints').textContent = validPoints.length;
     document.getElementById('uniqueSpecies').textContent = allSpecies.size;
     document.getElementById('uniqueGenera').textContent = allGenera.size;
+    document.getElementById('mappedSpecies').textContent = mappedSpecies.size;
+    document.getElementById('unmappedSpecies').textContent = unmappedSpecies.size;
 }
 
 function updateFilterSummary() {
@@ -981,11 +1001,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn('millipedePoints not found in data.js. Using sample data.');
         allPoints = [
             { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240, notes: "Common species in western Nepal" },
-            { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", location: "Kathmandu Valley", lat: 27.7172, lon: 85.3240, notes: "Urban forest record" },
-            { order: "Spirostreptida", family: "Harpagophoridae", genus: "Thyropygus", species: "nepalensis", location: "Pokhara", lat: 28.2096, lon: 83.9856, notes: "Endemic species" },
-            { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Desmoxytes", species: "purpurosea", location: "Chitwan", lat: 27.5733, lon: 84.4851, notes: "Dragon millipede" },
-            { order: "Julida", family: "Julidae", genus: "Cylindroiulus", species: "neapolitanus", location: "Lumbini", lat: 27.4669, lon: 83.2762, notes: "Introduced species" },
-            { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Oxidus", species: "gracilis", location: "Kathmandu", lat: 27.7172, lon: 85.3240, notes: "Greenhouse millipede" }
+            { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", location: "Kathmandu Valley", lat: 27.7172, lon: 85.3240, notes: "Urban forest record" }
         ];
     }
     
@@ -1004,6 +1020,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     var uniqueSpecies = new Set(allPoints.map(function(p) { return p.genus + ' ' + p.species; }));
     console.log('Unique species in data:', uniqueSpecies.size);
+    console.log('Total species (including duplicates):', allPoints.length);
+    
+    // Log species with null coordinates
+    var nullCoordSpecies = allPoints.filter(function(p) { 
+        return p.lat === null || p.lon === null || isNaN(p.lat) || isNaN(p.lon);
+    });
+    console.log('Species with null coordinates:', nullCoordSpecies.length);
 });
 </script>
 
