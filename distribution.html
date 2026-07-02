@@ -730,16 +730,18 @@ function updateFilterSummary() {
     
     var summary = [];
     if (order !== 'all' && family === 'all') {
-        summary.push('Order: ' + order + ' (Showing Family names)');
+        summary.push('Order: ' + order + ' (Showing <i>Family</i> names)');
     } else if (order !== 'all' && family !== 'all' && genus === 'all') {
-        summary.push('Family: ' + family + ' (Showing Genus names)');
-    } else if (order !== 'all' && family !== 'all' && genus !== 'all') {
-        summary.push('Genus: ' + genus + ' (Showing Species names)');
+        summary.push('Family: ' + family + ' (Showing <i>Genus</i> names)');
+    } else if (order !== 'all' && family !== 'all' && genus !== 'all' && species === 'all') {
+        summary.push('Genus: ' + genus + ' (Showing <i>Species</i> names)');
+    } else if (order !== 'all' && family !== 'all' && genus !== 'all' && species !== 'all') {
+        summary.push('Species: ' + genus + ' ' + species);
     } else {
         summary.push('GPS Points (no labels)');
     }
     
-    document.getElementById('filterSummary').textContent = summary.join(' > ');
+    document.getElementById('filterSummary').innerHTML = summary.join(' > ');
 }
 
 function resetAllFilters() {
@@ -832,7 +834,7 @@ function onSpeciesChange() {
 }
 
 // ============================================
-// RENDER MARKERS FUNCTION - FIXED
+// RENDER MARKERS FUNCTION - WITH ITALIC NAMES
 // ============================================
 function renderMarkers() {
     markersLayer.clearLayers();
@@ -855,7 +857,7 @@ function renderMarkers() {
     } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
         labelType = 'genus';  // Show Genus names
     } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus !== 'all') {
-        labelType = 'species';  // Show Species names
+        labelType = 'species';  // Show Species names (italic)
     }
     
     allPoints.forEach(function(point) {
@@ -884,12 +886,16 @@ function renderMarkers() {
         else if (point.order === 'Platydesmida') markerColor = '#1abc9c';
         
         var labelText = '';
+        var labelStyle = '';
         if (labelType === 'family') {
             labelText = point.family || 'Unknown Family';
+            labelStyle = '';
         } else if (labelType === 'genus') {
             labelText = point.genus || 'Unknown Genus';
+            labelStyle = 'font-style: italic;';
         } else if (labelType === 'species') {
             labelText = (point.genus || '?') + ' ' + (point.species || '?');
+            labelStyle = 'font-style: italic;';
         }
         
         var marker;
@@ -898,11 +904,11 @@ function renderMarkers() {
             // Plain marker - no label
             marker = L.marker([point.lat, point.lon]);
         } else {
-            // Marker with label
+            // Marker with label - italic for genus and species
             var customIcon = L.divIcon({
                 html: '<div style="display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.92); padding: 2px 8px; border-radius: 14px; border: 1.5px solid ' + markerColor + '; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">' +
                     '<div style="background-color: ' + markerColor + '; width: 8px; height: 8px; border-radius: 50%; border: 1px solid white; flex-shrink: 0;"></div>' +
-                    '<span style="font-size: 9px; font-weight: 500; color: #222; font-family: Times New Roman, Times, serif; white-space: nowrap;">' + labelText + '</span>' +
+                    '<span style="font-size: 9px; font-weight: 500; color: #222; font-family: Times New Roman, Times, serif; white-space: nowrap; ' + labelStyle + '">' + labelText + '</span>' +
                 '</div>',
                 iconSize: [null, null],
                 className: 'label-marker',
@@ -935,9 +941,9 @@ function renderMarkers() {
     } else if (labelType === 'family') {
         msg = count + ' points visible - Showing <strong>Family</strong> names';
     } else if (labelType === 'genus') {
-        msg = count + ' points visible - Showing <strong>Genus</strong> names';
+        msg = count + ' points visible - Showing <strong><i>Genus</i></strong> names';
     } else if (labelType === 'species') {
-        msg = count + ' point' + (count !== 1 ? 's' : '') + ' visible - Showing <strong>Species</strong> names';
+        msg = count + ' point' + (count !== 1 ? 's' : '') + ' visible - Showing <strong><i>Species</i></strong> names';
     }
     document.getElementById('markerCount').innerHTML = msg;
     document.getElementById('visiblePoints').textContent = count;
