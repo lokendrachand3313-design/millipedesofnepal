@@ -58,6 +58,26 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
+        /* Stats Note */
+        .stats-note {
+            text-align: center;
+            margin: -10px 0 25px 0;
+            padding: 8px 20px;
+            background: #fef9e6;
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+            font-size: 0.85rem;
+            color: #555;
+            font-family: 'Times New Roman', Times, serif;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .stats-note strong {
+            color: var(--primary-blue);
+        }
+        
         /* Map View Buttons */
         .map-view-buttons {
             display: flex;
@@ -337,6 +357,7 @@
             .btn-view { width: 100%; text-align: center; }
             #map { height: 400px; }
             .clock-date { font-size: 16px; }
+            .stats-note { font-size: 0.75rem; padding: 6px 12px; }
             
             .corrected-table th, 
             .corrected-table td {
@@ -350,6 +371,7 @@
             .stat-card { min-width: 100%; }
             .marker-count { font-size: 0.75rem; }
             .clock-date { font-size: 14px; padding: 2px 10px; }
+            .stats-note { font-size: 0.7rem; }
             
             .corrected-table th, 
             .corrected-table td {
@@ -444,10 +466,14 @@
             <div class="stat-label">Genera</div>
         </div>
     </div>
-    <div style="text-align: center; margin-bottom: 25px; font-size: 0.9rem; color: #555; font-style: italic; font-family: 'Times New Roman', Times, serif;">
-    <span style="font-weight: bold; color: #1a5276;">Note:</span> 
-    Note: Counts differ from the checklist because species without coordinates were excluded
-</div>
+
+    <!-- Stats Note -->
+    <div class="stats-note">
+        <strong>📌 Note:</strong> 
+        The difference between "Total Records" and "Visible on Map" is because some species records lack GPS coordinates. 
+        These species are included in the checklist but not displayed on the map.
+    </div>
+
     <div class="map-view-buttons">
         <button class="btn-view" onclick="zoomToNepal()">🇳🇵 Zoom to Nepal</button>
         <button class="btn-view" onclick="zoomToAllPoints()">📍 Zoom to All Points</button>
@@ -674,8 +700,7 @@ function buildFilterHierarchy(points) {
     const speciesMap = new Map();
     
     points.forEach(p => {
-        if (!isValidCoordinate(p.lat, p.lon)) return;
-        
+        // Count ALL species for filters, even those without coordinates
         const order = p.order || 'Unidentified';
         const family = p.family || 'Unidentified';
         const genus = p.genus || 'Unidentified';
@@ -811,17 +836,36 @@ function onGenusChange() {
     updateSpecies();
 }
 
-// Update statistics
+// ============================================
+// FIXED: Update statistics - Count ALL species and genera
+// ============================================
 function updateStats() {
     if (!allPoints.length) return;
     
+    // Count ALL species (including those with null coordinates)
+    const allSpecies = new Set();
+    const allGenera = new Set();
+    
+    allPoints.forEach(p => {
+        const genus = p.genus || 'Unidentified';
+        const species = p.species || 'sp.';
+        
+        // Count all species
+        allSpecies.add(`${genus}_${species}`);
+        
+        // Count all genera
+        if (genus && genus !== 'Unidentified') {
+            allGenera.add(genus);
+        }
+    });
+    
+    // Count only points with valid coordinates for "Visible on Map"
     const validPoints = allPoints.filter(p => isValidCoordinate(p.lat, p.lon));
-    const species = new Set(validPoints.map(p => `${p.genus || '?'}_${p.species || '?'}`));
-    const genera = new Set(validPoints.map(p => p.genus).filter(g => g && g !== 'Unidentified'));
     
     document.getElementById('totalPoints').textContent = allPoints.length;
-    document.getElementById('uniqueSpecies').textContent = species.size;
-    document.getElementById('uniqueGenera').textContent = genera.size;
+    document.getElementById('visiblePoints').textContent = validPoints.length;
+    document.getElementById('uniqueSpecies').textContent = allSpecies.size;
+    document.getElementById('uniqueGenera').textContent = allGenera.size;
 }
 
 let searchTimeout;
@@ -885,6 +929,7 @@ function renderMarkers() {
     const visibleSpeciesSet = new Set();
     
     allPoints.forEach(point => {
+        // Skip points without valid coordinates for map display
         if (!isValidCoordinate(point.lat, point.lon)) return;
         
         const pointOrder = point.order || 'Unidentified';
@@ -915,6 +960,7 @@ function renderMarkers() {
             else if (pointOrder === 'Julida') markerColor = '#f39c12';
             else if (pointOrder === 'Chordeumatida') markerColor = '#9b59b6';
             else if (pointOrder === 'Glomerida') markerColor = '#e74c3c';
+            else if (pointOrder === 'Sphaerotheriida') markerColor = '#8e44ad';
             
             const customIcon = L.divIcon({
                 html: `<div style="background-color: ${markerColor}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.5);"></div>`,
