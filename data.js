@@ -535,8 +535,8 @@ const millipedePoints = [
     { order: "Spirostreptida", family: "Harpagophoridae", subfamily: "Harpagophorinae", tribe: "Gonoplectini", genus: "Gonoplectus", species: "malayus", lat: 27.56522, lon: 84.097853 },
     { order: "Spirostreptida", family: "Harpagophoridae", subfamily: "Harpagophorinae", tribe: "Gonoplectini", genus: "Gonoplectus", species: "lindbergi", lat: 26.644483, lon: 88.027548 },
     
-    // Spirobolida - Pachybolidae
-    { order: "Spirobolida", family: "Pachybolidae", subfamily: "Trigoniulinae", tribe: "NA", genus: "Trigoniulus", species: "corralinus", lat: 27.730944, lon: 85.320841 },
+// Spirobolida - Pachybolidae
+{ order: "Spirobolida", family: "Pachybolidae", subfamily: "Trigoniulinae", tribe: "NA", genus: "Trigoniulus", species: "corralinus", lat: 27.730944, lon: 85.320841 },
 // No coordinates speciies
 // Cryptocorypha sp. 1 
 { order: "Polydesmida", family: "Pyrgodesmidae", subfamily: "NA", tribe: "NA", genus: "Cryptocorypha", species: "sp.1", lat: null, lon: null },
