@@ -720,22 +720,4 @@ footer a:hover {
     .clock-container { min-width: 240px; }
     .right-group { gap: 3px; }
 }
-/* Stats Note */
-.stats-note {
-    text-align: center;
-    margin: -10px 0 25px 0;
-    padding: 8px 20px;
-    background: #fef9e6;
-    border-radius: 8px;
-    border-left: 4px solid var(--gold, #f39c12);
-    font-size: 0.85rem;
-    color: #555;
-    font-family: 'Times New Roman', Times, serif;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-.stats-note strong {
-    color: var(--primary-blue, #1a5276);
-}
