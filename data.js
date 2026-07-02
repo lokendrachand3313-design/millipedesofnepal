@@ -239,6 +239,8 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "anteriporus", lat: 27.508091, lon: 88.016699 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "anteriporus", lat: 27.494047, lon: 87.983297 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "bifidus", lat: 27.747514, lon: 86.00632 },
+    { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "lobatus ", lat: 27.755011, lon:87.544190 },
+    { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "lobatus ", lat: 27.755011, lon:87.544190 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "longifemoratus", lat: 27.459217, lon: 86.892246 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "martensi", lat: 27.080583, lon: 87.921427 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Chamberliniini", genus: "Beronodesmoides", species: "montigena", lat: 27.824786, lon: 86.671446 },
@@ -518,7 +520,7 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Trichopolydesmidae", subfamily: "NA", tribe: "NA", genus: "Sholaphilus", species: "monachus", lat: 27.497211, lon: 87.253927 },
 
         // Spirostreptida - Cambalopsidae
-    { order: "Spirostreptida", family: "Cambalopsidae", subfamily: "Glyphiulinae", tribe: "NA", genus: "Podoglyphiulus", species: "elegans", lat: 27.594801, lon: 85.401456 },
+    { order: "Spirostreptida", family: "Cambalopsidae", subfamily: "Glyphiulinae", tribe: "NA", genus: "Podoglyphiulus", species: "elegans nepalensis", lat: 27.594801, lon: 85.401456 },
     { order: "Spirostreptida", family: "Cambalopsidae", subfamily: "Cambalopsinae", tribe: "NA", genus: "Trachyjulus", species: "wilsonae", lat: 28.27254, lon: 83.979256 },
     { order: "Spirostreptida", family: "Cambalopsidae", subfamily: "Cambalopsinae", tribe: "NA", genus: "Trachyjulus", species: "wilsonae", lat: 27.594801, lon: 85.401456 },
     
