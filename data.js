@@ -231,7 +231,7 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "similis", lat: 27.824027, lon: 86.007296 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "similis", lat: 27.824027, lon: 86.007296 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "spinosus", lat: 27.588047, lon: 86.74256 },
-    order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "subcylindricus", lat: null, lon: null },
+    {order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "subcylindricus", lat: null, lon: null },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "sp.", lat: 27.4706443, lon: 85.51389497 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "sp.", lat: 28.62064092, lon: 83.61243176 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "sp.", lat: 27.17974327, lon: 87.45242469 },
