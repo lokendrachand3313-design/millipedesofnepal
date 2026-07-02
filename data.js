@@ -164,9 +164,6 @@ const millipedePoints = [
     { order: "Chordeumatida", family: "Lankasomatidae", subfamily: "NA", tribe: "NA", genus: "Nepalella", species: "sp.", lat: 28.03344001, lon: 85.48043115 },
     { order: "Chordeumatida", family: "Lankasomatidae", subfamily: "NA", tribe: "NA", genus: "Nepalella", species: "sp.", lat: 28.01282744, lon: 85.488973 },
     
-    // Platydesmida - Andrognathidae
-    { order: "Platydesmida", family: "Andrognathidae", subfamily: "Bazillozoniinae", tribe: "NA", genus: "Pseudodesmus", species: "sp.", lat: null, lon: null },
-    
     // Polydesmida - Haplodesmidae
     { order: "Polydesmida", family: "Haplodesmidae", subfamily: "NA", tribe: "NA", genus: "Koponenius", species: "biramus", lat: 27.599255, lon: 85.382036 },
     { order: "Polydesmida", family: "Haplodesmidae", subfamily: "NA", tribe: "NA", genus: "Koponenius", species: "schawalleri", lat: 27.572636, lon: 84.498806 },
@@ -231,7 +228,7 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "similis", lat: 27.824027, lon: 86.007296 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "similis", lat: 27.824027, lon: 86.007296 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "spinosus", lat: 27.588047, lon: 86.74256 },
-    {order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "subcylindricus", lat: null, lon: null },
+    { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "subcylindricus", lat: null, lon: null },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "sp.", lat: 27.4706443, lon: 85.51389497 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "sp.", lat: 28.62064092, lon: 83.61243176 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "sp.", lat: 27.17974327, lon: 87.45242469 },
@@ -537,7 +534,9 @@ const millipedePoints = [
     
     // Spirobolida - Pachybolidae
     { order: "Spirobolida", family: "Pachybolidae", subfamily: "Trigoniulinae", tribe: "NA", genus: "Trigoniulus", species: "corralinus", lat: 27.730944, lon: 85.320841 },
-    
+        
+    // Platydesmida - Andrognathidae
+    { order: "Platydesmida", family: "Andrognathidae", subfamily: "Bazillozoniinae", tribe: "NA", genus: "Pseudodesmus", species: "sp.", lat: null, lon: null },
     // No coordinates species
     { order: "Polydesmida", family: "Pyrgodesmidae", subfamily: "NA", tribe: "NA", genus: "Cryptocorypha", species: "sp.1", lat: null, lon: null },
     { order: "Polydesmida", family: "Pyrgodesmidae", subfamily: "NA", tribe: "NA", genus: "Cryptocorypha", species: "sp.2", lat: null, lon: null },
