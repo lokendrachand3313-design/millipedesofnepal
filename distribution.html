@@ -78,6 +78,10 @@
             color: var(--primary-blue, #1a5276);
         }
         
+        .stats-note p {
+            margin: 0;
+        }
+        
         /* Map View Buttons */
         .map-view-buttons {
             display: flex;
@@ -344,6 +348,12 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
+        /* Label Marker Styles */
+        .label-marker {
+            background: transparent !important;
+            border: none !important;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .stats-summary { gap: 10px; }
@@ -467,7 +477,7 @@
 
     <!-- Stats Note -->
     <div class="stats-note">
-    <p>Counts may differ from the checklist because species without coordinates were excluded</p>
+        <p><strong>Note:</strong> Counts may differ from the checklist because species without coordinates were excluded</p>
     </div>
 
     <div class="map-view-buttons">
@@ -615,28 +625,27 @@
 
 // Get Nepal time (UTC+5:45)
 function getNepalTime() {
-    const now = new Date();
-    const nepalOffset = 5.75 * 60 * 60 * 1000;
-    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+    var now = new Date();
+    var nepalOffset = 5.75 * 60 * 60 * 1000;
+    var utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
     return new Date(utcTime + nepalOffset);
 }
 
 // Update clock display
 function updateClock() {
-    const now = getNepalTime();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
+    var now = getNepalTime();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
     
-    const hourHand = document.getElementById('hourHand');
-    const minuteHand = document.getElementById('minuteHand');
-    const secondHand = document.getElementById('secondHand');
+    var hourHand = document.getElementById('hourHand');
+    var minuteHand = document.getElementById('minuteHand');
+    var secondHand = document.getElementById('secondHand');
     
     if (hourHand) hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
     if (minuteHand) minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
     if (secondHand) secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
     
-    // Update English date
     var englishDate = document.getElementById('englishDate');
     if (englishDate) {
         englishDate.innerHTML = now.toLocaleDateString('en-US', { 
@@ -648,7 +657,6 @@ function updateClock() {
     }
 }
 
-// Initialize clock on page load and update every second
 window.addEventListener('DOMContentLoaded', function() {
     updateClock();
     setInterval(updateClock, 1000);
@@ -658,11 +666,9 @@ window.addEventListener('DOMContentLoaded', function() {
 // DISTRIBUTION MAP FUNCTIONS
 // ============================================
 
-// Initialize Map
 var map = L.map('map').setView([28.3949, 84.1240], 7);
 var markersLayer = L.layerGroup().addTo(map);
 
-// Add tile layer with better styling
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: 'OpenStreetMap contributors, CartoDB',
     subdomains: 'abcd',
@@ -670,13 +676,9 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     minZoom: 2
 }).addTo(map);
 
-// Add scale control
 L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(map);
 
-// Store full data for filtering
 var allPoints = [];
-
-// Cache for filter options
 var filterCache = {
     orders: new Set(),
     familiesByOrder: new Map(),
@@ -688,7 +690,6 @@ function isValidCoordinate(lat, lon) {
     return lat && lon && !isNaN(lat) && !isNaN(lon) && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
 }
 
-// Build hierarchical filter data
 function buildFilterHierarchy(points) {
     var ordersSet = new Set();
     var familiesMap = new Map();
@@ -716,7 +717,6 @@ function buildFilterHierarchy(points) {
     return { ordersSet: ordersSet, familiesMap: familiesMap, generaMap: generaMap, speciesMap: speciesMap };
 }
 
-// Populate order dropdown
 function populateOrders() {
     var select = document.getElementById('orderFilter');
     var orders = Array.from(filterCache.ordersSet).sort();
@@ -729,7 +729,6 @@ function populateOrders() {
     });
 }
 
-// Update family dropdown based on selected order
 function updateFamilies() {
     var selectedOrder = document.getElementById('orderFilter').value;
     var familySelect = document.getElementById('familyFilter');
@@ -761,7 +760,6 @@ function updateFamilies() {
     handleFilterChange();
 }
 
-// Update genus dropdown based on selected family
 function updateGenera() {
     var selectedFamily = document.getElementById('familyFilter').value;
     var genusSelect = document.getElementById('genusFilter');
@@ -791,7 +789,6 @@ function updateGenera() {
     handleFilterChange();
 }
 
-// Update species dropdown based on selected genus
 function updateSpecies() {
     var selectedGenus = document.getElementById('genusFilter').value;
     var speciesSelect = document.getElementById('speciesFilter');
@@ -818,7 +815,6 @@ function updateSpecies() {
     handleFilterChange();
 }
 
-// Cascading change handlers
 function onOrderChange() {
     updateFamilies();
 }
@@ -831,7 +827,6 @@ function onGenusChange() {
     updateSpecies();
 }
 
-// Update statistics - Count ALL species and genera
 function updateStats() {
     if (!allPoints.length) return;
     
@@ -841,9 +836,7 @@ function updateStats() {
     allPoints.forEach(function(p) {
         var genus = p.genus || 'Unidentified';
         var species = p.species || 'sp.';
-        
         allSpecies.add(genus + '_' + species);
-        
         if (genus && genus !== 'Unidentified') {
             allGenera.add(genus);
         }
@@ -902,6 +895,9 @@ function handleFilterChange() {
     updateFilterSummary();
 }
 
+// ============================================
+// RENDER MARKERS WITH LABELS - UPDATED VERSION
+// ============================================
 function renderMarkers() {
     markersLayer.clearLayers();
     
@@ -947,10 +943,17 @@ function renderMarkers() {
             else if (pointOrder === 'Glomerida') markerColor = '#e74c3c';
             else if (pointOrder === 'Sphaerotheriida') markerColor = '#8e44ad';
             
+            var labelText = pointGenus + ' ' + pointSpecies;
+            
+            // Create marker with label
             var customIcon = L.divIcon({
-                html: '<div style="background-color: ' + markerColor + '; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.5);"></div>',
-                iconSize: [12, 12],
-                className: 'custom-marker'
+                html: '<div style="display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.92); padding: 2px 8px; border-radius: 14px; border: 1.5px solid ' + markerColor + '; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">' +
+                    '<div style="background-color: ' + markerColor + '; width: 8px; height: 8px; border-radius: 50%; border: 1px solid white; flex-shrink: 0;"></div>' +
+                    '<span style="font-size: 10px; font-weight: 500; color: #222; font-family: Times New Roman, Times, serif; white-space: nowrap;">' + labelText + '</span>' +
+                '</div>',
+                iconSize: [null, null],
+                className: 'label-marker',
+                popupAnchor: [0, -10]
             });
             
             var marker = L.marker([point.lat, point.lon], { icon: customIcon });
@@ -1007,7 +1010,6 @@ function zoomToGlobal() {
     map.setView([20, 0], 2);
 }
 
-// Make functions globally available
 window.onOrderChange = onOrderChange;
 window.onFamilyChange = onFamilyChange;
 window.onGenusChange = onGenusChange;
@@ -1018,7 +1020,6 @@ window.zoomToNepal = zoomToNepal;
 window.zoomToAllPoints = zoomToAllPoints;
 window.zoomToGlobal = zoomToGlobal;
 
-// Initialize
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
         allPoints = millipedePoints;
