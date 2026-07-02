@@ -16,7 +16,6 @@
     <style>
         /* ============ DISTRIBUTION.HTML SPECIFIC STYLES ============ */
         
-        /* Stats Summary */
         .stats-summary {
             display: flex;
             flex-wrap: wrap;
@@ -58,7 +57,6 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Map View Buttons */
         .map-view-buttons {
             display: flex;
             gap: 10px;
@@ -85,7 +83,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
-        /* Filter Section */
         .filter-section {
             background: var(--blue-bg, #ebf5fb);
             padding: 20px;
@@ -172,7 +169,6 @@
             transform: translateY(-1px);
         }
         
-        /* Map */
         #map {
             height: 550px;
             width: 100%;
@@ -203,7 +199,6 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Corrected Localities Table */
         .corrected-table-section {
             margin-top: 40px;
             background: white;
@@ -296,7 +291,6 @@
             font-weight: 500;
         }
         
-        /* Date display */
         .clock-date {
             font-size: 18px;
             font-weight: bold;
@@ -311,7 +305,6 @@
             display: inline-block;
         }
         
-        /* Leaflet Popup Customization */
         .leaflet-popup-content-wrapper {
             border-radius: 10px;
             font-family: 'Times New Roman', Times, serif;
@@ -321,13 +314,11 @@
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Label Marker Styles */
         .label-marker {
             background: transparent !important;
             border: none !important;
         }
         
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .stats-summary { gap: 10px; }
             .stat-card { min-width: calc(50% - 10px); padding: 10px; }
@@ -473,14 +464,14 @@
         </div>
         <div class="filter-group">
             <label>Species</label>
-            <select id="speciesFilter" onchange="handleFilterChange()">
+            <select id="speciesFilter" onchange="onSpeciesChange()">
                 <option value="all">Select Species</option>
             </select>
         </div>
         
         <div class="filter-info" id="filterInfo">
             <div class="filter-badge" id="activeFilters">
-                Showing: <span id="filterSummary">Please select an Order to view data</span>
+                Showing: <span id="filterSummary">All GPS Points</span>
             </div>
             <button class="reset-filters" onclick="resetAllFilters()">Reset All Filters</button>
         </div>
@@ -488,7 +479,7 @@
 
     <div id="map"></div>
     <div style="text-align: center; margin-top: 10px;">
-        <div class="marker-count" id="markerCount">Select an Order to view points</div>
+        <div class="marker-count" id="markerCount">Loading points...</div>
     </div>
     
     <!-- Corrected Localities Table -->
@@ -590,10 +581,9 @@
 
 <script>
 // ============================================
-// CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
+// CLOCK AND DATE FUNCTIONS
 // ============================================
 
-// Get Nepal time (UTC+5:45)
 function getNepalTime() {
     var now = new Date();
     var nepalOffset = 5.75 * 60 * 60 * 1000;
@@ -601,7 +591,6 @@ function getNepalTime() {
     return new Date(utcTime + nepalOffset);
 }
 
-// Update clock display
 function updateClock() {
     var now = getNepalTime();
     var hours = now.getHours();
@@ -699,105 +688,20 @@ function populateOrders() {
     });
 }
 
-function updateFamilies() {
+function onOrderChange() {
     var selectedOrder = document.getElementById('orderFilter').value;
+    
+    // Reset family, genus, species dropdowns
     var familySelect = document.getElementById('familyFilter');
     var genusSelect = document.getElementById('genusFilter');
     var speciesSelect = document.getElementById('speciesFilter');
     
-    var families = [];
-    if (selectedOrder === 'all') {
-        var allFamilies = new Set();
-        filterCache.familiesMap.forEach(function(famSet) {
-            famSet.forEach(function(f) { allFamilies.add(f); });
-        });
-        families = Array.from(allFamilies).sort();
-    } else {
-        families = Array.from(filterCache.familiesMap.get(selectedOrder) || new Set()).sort();
-    }
-    
     familySelect.innerHTML = '<option value="all">Select Family</option>';
-    families.forEach(function(family) {
-        var option = document.createElement('option');
-        option.value = family;
-        option.textContent = family;
-        familySelect.appendChild(option);
-    });
-    
     genusSelect.innerHTML = '<option value="all">Select Genus</option>';
     speciesSelect.innerHTML = '<option value="all">Select Species</option>';
     
-    renderMarkers();
-    updateFilterSummary();
-}
-
-function updateGenera() {
-    var selectedFamily = document.getElementById('familyFilter').value;
-    var genusSelect = document.getElementById('genusFilter');
-    var speciesSelect = document.getElementById('speciesFilter');
-    
-    var genera = [];
-    if (selectedFamily === 'all') {
-        var allGenera = new Set();
-        filterCache.generaMap.forEach(function(genSet) {
-            genSet.forEach(function(g) { allGenera.add(g); });
-        });
-        genera = Array.from(allGenera).sort();
-    } else {
-        genera = Array.from(filterCache.generaMap.get(selectedFamily) || new Set()).sort();
-    }
-    
-    genusSelect.innerHTML = '<option value="all">Select Genus</option>';
-    genera.forEach(function(genus) {
-        var option = document.createElement('option');
-        option.value = genus;
-        option.textContent = genus;
-        genusSelect.appendChild(option);
-    });
-    
-    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
-    
-    renderMarkers();
-    updateFilterSummary();
-}
-
-function updateSpecies() {
-    var selectedGenus = document.getElementById('genusFilter').value;
-    var speciesSelect = document.getElementById('speciesFilter');
-    
-    var species = [];
-    if (selectedGenus === 'all') {
-        var allSpecies = new Set();
-        filterCache.speciesMap.forEach(function(spSet) {
-            spSet.forEach(function(s) { allSpecies.add(s); });
-        });
-        species = Array.from(allSpecies).sort();
-    } else {
-        species = Array.from(filterCache.speciesMap.get(selectedGenus) || new Set()).sort();
-    }
-    
-    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
-    species.forEach(function(sp) {
-        var option = document.createElement('option');
-        option.value = sp;
-        option.textContent = sp;
-        speciesSelect.appendChild(option);
-    });
-    
-    renderMarkers();
-    updateFilterSummary();
-}
-
-function onOrderChange() {
-    // Reset family, genus, species dropdowns
-    document.getElementById('familyFilter').innerHTML = '<option value="all">Select Family</option>';
-    document.getElementById('genusFilter').innerHTML = '<option value="all">Select Genus</option>';
-    document.getElementById('speciesFilter').innerHTML = '<option value="all">Select Species</option>';
-    
-    // Populate families for the selected order
-    var selectedOrder = document.getElementById('orderFilter').value;
+    // Populate families for selected order
     if (selectedOrder !== 'all') {
-        var familySelect = document.getElementById('familyFilter');
         var families = Array.from(filterCache.familiesMap.get(selectedOrder) || new Set()).sort();
         families.forEach(function(family) {
             var option = document.createElement('option');
@@ -812,15 +716,17 @@ function onOrderChange() {
 }
 
 function onFamilyChange() {
-    // Reset genus and species dropdowns
-    document.getElementById('genusFilter').innerHTML = '<option value="all">Select Genus</option>';
-    document.getElementById('speciesFilter').innerHTML = '<option value="all">Select Species</option>';
-    
     var selectedOrder = document.getElementById('orderFilter').value;
     var selectedFamily = document.getElementById('familyFilter').value;
     
+    // Reset genus and species dropdowns
+    var genusSelect = document.getElementById('genusFilter');
+    var speciesSelect = document.getElementById('speciesFilter');
+    genusSelect.innerHTML = '<option value="all">Select Genus</option>';
+    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
+    
+    // Populate genera for selected family
     if (selectedFamily !== 'all' && selectedOrder !== 'all') {
-        var genusSelect = document.getElementById('genusFilter');
         var genera = Array.from(filterCache.generaMap.get(selectedFamily) || new Set()).sort();
         genera.forEach(function(genus) {
             var option = document.createElement('option');
@@ -835,15 +741,16 @@ function onFamilyChange() {
 }
 
 function onGenusChange() {
-    // Reset species dropdown
-    document.getElementById('speciesFilter').innerHTML = '<option value="all">Select Species</option>';
-    
     var selectedOrder = document.getElementById('orderFilter').value;
     var selectedFamily = document.getElementById('familyFilter').value;
     var selectedGenus = document.getElementById('genusFilter').value;
     
+    // Reset species dropdown
+    var speciesSelect = document.getElementById('speciesFilter');
+    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
+    
+    // Populate species for selected genus
     if (selectedGenus !== 'all' && selectedFamily !== 'all' && selectedOrder !== 'all') {
-        var speciesSelect = document.getElementById('speciesFilter');
         var species = Array.from(filterCache.speciesMap.get(selectedGenus) || new Set()).sort();
         species.forEach(function(sp) {
             var option = document.createElement('option');
@@ -857,27 +764,23 @@ function onGenusChange() {
     updateFilterSummary();
 }
 
+function onSpeciesChange() {
+    renderMarkers();
+    updateFilterSummary();
+}
+
 function updateStats() {
     if (!allPoints.length) return;
     
     var allSpecies = new Set();
     var allGenera = new Set();
-    var mappedSpecies = new Set();
-    var unmappedSpecies = new Set();
     
     allPoints.forEach(function(p) {
         var genus = p.genus || 'Unidentified';
         var species = p.species || 'sp.';
-        var key = genus + '_' + species;
-        allSpecies.add(key);
+        allSpecies.add(genus + '_' + species);
         if (genus && genus !== 'Unidentified') {
             allGenera.add(genus);
-        }
-        
-        if (isValidCoordinate(p.lat, p.lon)) {
-            mappedSpecies.add(key);
-        } else {
-            unmappedSpecies.add(key);
         }
     });
     
@@ -902,7 +805,7 @@ function updateFilterSummary() {
     if (species !== 'all') summary.push(species);
     
     if (summary.length === 0) {
-        document.getElementById('filterSummary').textContent = 'Please select an Order to view data';
+        document.getElementById('filterSummary').textContent = 'All GPS Points';
     } else {
         document.getElementById('filterSummary').textContent = summary.join(' > ');
     }
@@ -914,19 +817,12 @@ function resetAllFilters() {
     document.getElementById('genusFilter').innerHTML = '<option value="all">Select Genus</option>';
     document.getElementById('speciesFilter').innerHTML = '<option value="all">Select Species</option>';
     
-    markersLayer.clearLayers();
-    document.getElementById('markerCount').innerHTML = 'Select an Order to view points';
-    document.getElementById('visiblePoints').textContent = '0';
-    document.getElementById('filterSummary').textContent = 'Please select an Order to view data';
-}
-
-function handleFilterChange() {
     renderMarkers();
     updateFilterSummary();
 }
 
 // ============================================
-// RENDER MARKERS WITH DIFFERENT LABEL LEVELS
+// RENDER MARKERS - MAIN FUNCTION
 // ============================================
 function renderMarkers() {
     markersLayer.clearLayers();
@@ -936,70 +832,62 @@ function renderMarkers() {
     var selectedGenus = document.getElementById('genusFilter').value;
     var selectedSpecies = document.getElementById('speciesFilter').value;
     
-    // If no order selected, show only GPS points (no labels)
+    var count = 0;
+    var bounds = [];
+    var speciesSet = new Set();
+    
+    // Determine what label to show
+    var labelType = 'none';
     if (selectedOrder === 'all') {
-        // Show all points with simple marker (no labels)
-        var allCount = 0;
-        var allBounds = [];
-        
-        allPoints.forEach(function(point) {
-            if (!isValidCoordinate(point.lat, point.lon)) return;
-            
-            allCount++;
-            var marker = L.marker([point.lat, point.lon]);
-            
-            // Still bind popup with info
-            marker.bindPopup(
-                '<div style="font-family: Times New Roman, Times, serif; max-width: 280px;">' +
-                    '<h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">' +
-                        '<i>' + (point.genus || '?') + ' ' + (point.species || '?') + '</i>' +
-                    '</h3>' +
-                    '<p style="margin:5px 0;"><strong>Order:</strong> ' + (point.order || 'Unidentified') + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Family:</strong> ' + (point.family || 'Unidentified') + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Location:</strong> ' + (point.location || 'Nepal') + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Coordinates:</strong><br>' +
-                    point.lat.toFixed(4) + '°N, ' + point.lon.toFixed(4) + '°E</p>' +
-                    (point.notes ? '<p style="margin:5px 0; font-style: italic;">Note: ' + point.notes + '</p>' : '') +
-                '</div>'
-            );
-            
-            markersLayer.addLayer(marker);
-            allBounds.push([point.lat, point.lon]);
-        });
-        
-        document.getElementById('markerCount').innerHTML = allCount + ' points visible (click for details)';
-        document.getElementById('visiblePoints').textContent = allCount;
-        
-        if (allBounds.length > 0) {
-            map.fitBounds(allBounds, { padding: [50, 50] });
-        }
-        return;
+        labelType = 'none';  // Just GPS points, no labels
+    } else if (selectedOrder !== 'all' && selectedFamily === 'all') {
+        labelType = 'family';  // Show Family names
+    } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
+        labelType = 'genus';  // Show Genus names
+    } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus !== 'all') {
+        labelType = 'species';  // Show Species names
     }
     
-    // === LEVEL 1: ORDER SELECTED - Show Family names on markers ===
-    if (selectedOrder !== 'all' && selectedFamily === 'all') {
-        var orderCount = 0;
-        var orderBounds = [];
-        var orderSpeciesSet = new Set();
+    allPoints.forEach(function(point) {
+        if (!isValidCoordinate(point.lat, point.lon)) return;
         
-        allPoints.forEach(function(point) {
-            if (!isValidCoordinate(point.lat, point.lon)) return;
-            if (point.order !== selectedOrder) return;
-            
-            orderCount++;
-            orderSpeciesSet.add(point.family + ' ' + point.genus + ' ' + point.species);
-            
-            var markerColor = '#1a5276';
-            if (point.order === 'Spirostreptida') markerColor = '#2980b9';
-            else if (point.order === 'Polydesmida') markerColor = '#27ae60';
-            else if (point.order === 'Julida') markerColor = '#f39c12';
-            else if (point.order === 'Chordeumatida') markerColor = '#9b59b6';
-            else if (point.order === 'Glomerida') markerColor = '#e74c3c';
-            else if (point.order === 'Sphaerotheriida') markerColor = '#8e44ad';
-            
-            // Show FAMILY name on marker
-            var labelText = point.family || 'Unknown Family';
-            
+        // Check filters
+        var matchOrder = selectedOrder === 'all' || point.order === selectedOrder;
+        var matchFamily = selectedFamily === 'all' || point.family === selectedFamily;
+        var matchGenus = selectedGenus === 'all' || point.genus === selectedGenus;
+        var matchSpecies = selectedSpecies === 'all' || point.species === selectedSpecies;
+        
+        if (!matchOrder || !matchFamily || !matchGenus || !matchSpecies) return;
+        
+        count++;
+        speciesSet.add(point.genus + ' ' + point.species);
+        
+        var markerColor = '#1a5276';
+        if (point.order === 'Spirostreptida') markerColor = '#2980b9';
+        else if (point.order === 'Polydesmida') markerColor = '#27ae60';
+        else if (point.order === 'Julida') markerColor = '#f39c12';
+        else if (point.order === 'Chordeumatida') markerColor = '#9b59b6';
+        else if (point.order === 'Glomerida') markerColor = '#e74c3c';
+        else if (point.order === 'Sphaerotheriida') markerColor = '#8e44ad';
+        
+        var labelText = '';
+        if (labelType === 'none') {
+            labelText = '';
+        } else if (labelType === 'family') {
+            labelText = point.family || 'Unknown Family';
+        } else if (labelType === 'genus') {
+            labelText = point.genus || 'Unknown Genus';
+        } else if (labelType === 'species') {
+            labelText = (point.genus || '?') + ' ' + (point.species || '?');
+        }
+        
+        var marker;
+        
+        if (labelType === 'none') {
+            // Simple marker with no label
+            marker = L.marker([point.lat, point.lon]);
+        } else {
+            // Marker with label
             var customIcon = L.divIcon({
                 html: '<div style="display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.92); padding: 2px 8px; border-radius: 14px; border: 1.5px solid ' + markerColor + '; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">' +
                     '<div style="background-color: ' + markerColor + '; width: 8px; height: 8px; border-radius: 50%; border: 1px solid white; flex-shrink: 0;"></div>' +
@@ -1009,163 +897,43 @@ function renderMarkers() {
                 className: 'label-marker',
                 popupAnchor: [0, -10]
             });
-            
-            var marker = L.marker([point.lat, point.lon], { icon: customIcon });
-            
-            marker.bindPopup(
-                '<div style="font-family: Times New Roman, Times, serif; max-width: 280px;">' +
-                    '<h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">' +
-                        '<i>' + (point.genus || '?') + ' ' + (point.species || '?') + '</i>' +
-                    '</h3>' +
-                    '<p style="margin:5px 0;"><strong>Order:</strong> ' + point.order + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Family:</strong> ' + point.family + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Location:</strong> ' + (point.location || 'Nepal') + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Coordinates:</strong><br>' +
-                    point.lat.toFixed(4) + '°N, ' + point.lon.toFixed(4) + '°E</p>' +
-                    (point.notes ? '<p style="margin:5px 0; font-style: italic;">Note: ' + point.notes + '</p>' : '') +
-                '</div>'
-            );
-            
-            markersLayer.addLayer(marker);
-            orderBounds.push([point.lat, point.lon]);
-        });
-        
-        document.getElementById('markerCount').innerHTML = orderCount + ' points visible (' + orderSpeciesSet.size + ' records)';
-        document.getElementById('visiblePoints').textContent = orderCount;
-        
-        if (orderBounds.length > 0) {
-            map.fitBounds(orderBounds, { padding: [50, 50], maxZoom: 12 });
+            marker = L.marker([point.lat, point.lon], { icon: customIcon });
         }
-        return;
+        
+        marker.bindPopup(
+            '<div style="font-family: Times New Roman, Times, serif; max-width: 280px;">' +
+                '<h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">' +
+                    '<i>' + (point.genus || '?') + ' ' + (point.species || '?') + '</i>' +
+                '</h3>' +
+                '<p style="margin:5px 0;"><strong>Order:</strong> ' + (point.order || 'Unidentified') + '</p>' +
+                '<p style="margin:5px 0;"><strong>Family:</strong> ' + (point.family || 'Unidentified') + '</p>' +
+                '<p style="margin:5px 0;"><strong>Location:</strong> ' + (point.location || 'Nepal') + '</p>' +
+                '<p style="margin:5px 0;"><strong>Coordinates:</strong><br>' +
+                point.lat.toFixed(4) + '°N, ' + point.lon.toFixed(4) + '°E</p>' +
+                (point.notes ? '<p style="margin:5px 0; font-style: italic;">Note: ' + point.notes + '</p>' : '') +
+            '</div>'
+        );
+        
+        markersLayer.addLayer(marker);
+        bounds.push([point.lat, point.lon]);
+    });
+    
+    var message = '';
+    if (labelType === 'none') {
+        message = count + ' GPS points visible';
+    } else if (labelType === 'family') {
+        message = count + ' points visible (' + speciesSet.size + ' records) - Showing Family names';
+    } else if (labelType === 'genus') {
+        message = count + ' points visible (' + speciesSet.size + ' records) - Showing Genus names';
+    } else if (labelType === 'species') {
+        message = count + ' point' + (count !== 1 ? 's' : '') + ' visible (' + speciesSet.size + ' species) - Showing Species names';
     }
     
-    // === LEVEL 2: FAMILY SELECTED - Show Genus names on markers ===
-    if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
-        var familyCount = 0;
-        var familyBounds = [];
-        var familySpeciesSet = new Set();
-        
-        allPoints.forEach(function(point) {
-            if (!isValidCoordinate(point.lat, point.lon)) return;
-            if (point.order !== selectedOrder || point.family !== selectedFamily) return;
-            
-            familyCount++;
-            familySpeciesSet.add(point.genus + ' ' + point.species);
-            
-            var markerColor = '#1a5276';
-            if (point.order === 'Spirostreptida') markerColor = '#2980b9';
-            else if (point.order === 'Polydesmida') markerColor = '#27ae60';
-            else if (point.order === 'Julida') markerColor = '#f39c12';
-            else if (point.order === 'Chordeumatida') markerColor = '#9b59b6';
-            else if (point.order === 'Glomerida') markerColor = '#e74c3c';
-            else if (point.order === 'Sphaerotheriida') markerColor = '#8e44ad';
-            
-            // Show GENUS name on marker
-            var labelText = point.genus || 'Unknown Genus';
-            
-            var customIcon = L.divIcon({
-                html: '<div style="display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.92); padding: 2px 8px; border-radius: 14px; border: 1.5px solid ' + markerColor + '; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">' +
-                    '<div style="background-color: ' + markerColor + '; width: 8px; height: 8px; border-radius: 50%; border: 1px solid white; flex-shrink: 0;"></div>' +
-                    '<span style="font-size: 9px; font-weight: 500; color: #222; font-family: Times New Roman, Times, serif; white-space: nowrap;">' + labelText + '</span>' +
-                '</div>',
-                iconSize: [null, null],
-                className: 'label-marker',
-                popupAnchor: [0, -10]
-            });
-            
-            var marker = L.marker([point.lat, point.lon], { icon: customIcon });
-            
-            marker.bindPopup(
-                '<div style="font-family: Times New Roman, Times, serif; max-width: 280px;">' +
-                    '<h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">' +
-                        '<i>' + (point.genus || '?') + ' ' + (point.species || '?') + '</i>' +
-                    '</h3>' +
-                    '<p style="margin:5px 0;"><strong>Order:</strong> ' + point.order + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Family:</strong> ' + point.family + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Location:</strong> ' + (point.location || 'Nepal') + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Coordinates:</strong><br>' +
-                    point.lat.toFixed(4) + '°N, ' + point.lon.toFixed(4) + '°E</p>' +
-                    (point.notes ? '<p style="margin:5px 0; font-style: italic;">Note: ' + point.notes + '</p>' : '') +
-                '</div>'
-            );
-            
-            markersLayer.addLayer(marker);
-            familyBounds.push([point.lat, point.lon]);
-        });
-        
-        document.getElementById('markerCount').innerHTML = familyCount + ' points visible (' + familySpeciesSet.size + ' records)';
-        document.getElementById('visiblePoints').textContent = familyCount;
-        
-        if (familyBounds.length > 0) {
-            map.fitBounds(familyBounds, { padding: [50, 50], maxZoom: 12 });
-        }
-        return;
-    }
+    document.getElementById('markerCount').innerHTML = message;
+    document.getElementById('visiblePoints').textContent = count;
     
-    // === LEVEL 3: GENUS SELECTED - Show Species names on markers ===
-    if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus !== 'all') {
-        var genusCount = 0;
-        var genusBounds = [];
-        var genusSpeciesSet = new Set();
-        
-        allPoints.forEach(function(point) {
-            if (!isValidCoordinate(point.lat, point.lon)) return;
-            if (point.order !== selectedOrder || point.family !== selectedFamily || point.genus !== selectedGenus) return;
-            
-            // If species is selected, only show that species
-            if (selectedSpecies !== 'all' && point.species !== selectedSpecies) return;
-            
-            genusCount++;
-            genusSpeciesSet.add(point.genus + ' ' + point.species);
-            
-            var markerColor = '#1a5276';
-            if (point.order === 'Spirostreptida') markerColor = '#2980b9';
-            else if (point.order === 'Polydesmida') markerColor = '#27ae60';
-            else if (point.order === 'Julida') markerColor = '#f39c12';
-            else if (point.order === 'Chordeumatida') markerColor = '#9b59b6';
-            else if (point.order === 'Glomerida') markerColor = '#e74c3c';
-            else if (point.order === 'Sphaerotheriida') markerColor = '#8e44ad';
-            
-            // Show FULL SPECIES NAME on marker
-            var labelText = point.genus + ' ' + point.species;
-            
-            var customIcon = L.divIcon({
-                html: '<div style="display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.92); padding: 2px 8px; border-radius: 14px; border: 1.5px solid ' + markerColor + '; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">' +
-                    '<div style="background-color: ' + markerColor + '; width: 8px; height: 8px; border-radius: 50%; border: 1px solid white; flex-shrink: 0;"></div>' +
-                    '<span style="font-size: 9px; font-weight: 500; color: #222; font-family: Times New Roman, Times, serif; white-space: nowrap;">' + labelText + '</span>' +
-                '</div>',
-                iconSize: [null, null],
-                className: 'label-marker',
-                popupAnchor: [0, -10]
-            });
-            
-            var marker = L.marker([point.lat, point.lon], { icon: customIcon });
-            
-            marker.bindPopup(
-                '<div style="font-family: Times New Roman, Times, serif; max-width: 280px;">' +
-                    '<h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">' +
-                        '<i>' + (point.genus || '?') + ' ' + (point.species || '?') + '</i>' +
-                    '</h3>' +
-                    '<p style="margin:5px 0;"><strong>Order:</strong> ' + point.order + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Family:</strong> ' + point.family + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Location:</strong> ' + (point.location || 'Nepal') + '</p>' +
-                    '<p style="margin:5px 0;"><strong>Coordinates:</strong><br>' +
-                    point.lat.toFixed(4) + '°N, ' + point.lon.toFixed(4) + '°E</p>' +
-                    (point.notes ? '<p style="margin:5px 0; font-style: italic;">Note: ' + point.notes + '</p>' : '') +
-                '</div>'
-            );
-            
-            markersLayer.addLayer(marker);
-            genusBounds.push([point.lat, point.lon]);
-        });
-        
-        document.getElementById('markerCount').innerHTML = genusCount + ' point' + (genusCount !== 1 ? 's' : '') + ' visible (' + genusSpeciesSet.size + ' species)';
-        document.getElementById('visiblePoints').textContent = genusCount;
-        
-        if (genusBounds.length > 0) {
-            map.fitBounds(genusBounds, { padding: [50, 50], maxZoom: 12 });
-        }
-        return;
+    if (bounds.length > 0) {
+        map.fitBounds(bounds, { padding: [50, 50], maxZoom: 12 });
     }
 }
 
@@ -1188,7 +956,7 @@ function zoomToGlobal() {
 window.onOrderChange = onOrderChange;
 window.onFamilyChange = onFamilyChange;
 window.onGenusChange = onGenusChange;
-window.handleFilterChange = handleFilterChange;
+window.onSpeciesChange = onSpeciesChange;
 window.resetAllFilters = resetAllFilters;
 window.zoomToNepal = zoomToNepal;
 window.zoomToAllPoints = zoomToAllPoints;
@@ -1219,11 +987,8 @@ document.addEventListener('DOMContentLoaded', function() {
     populateOrders();
     updateStats();
     
-    // Show all points initially with no labels (just GPS points)
+    // Initial render - show GPS points only (no labels)
     renderMarkers();
-    
-    var uniqueSpecies = new Set(allPoints.map(function(p) { return p.genus + ' ' + p.species; }));
-    console.log('Unique species in data:', uniqueSpecies.size);
 });
 </script>
 
