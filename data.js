@@ -59,6 +59,7 @@ const millipedePoints = [
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "generalis", lat: 28.396007, lon: 83.764363 },
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "generalis", lat: 28.391198, lon: 83.822677 },
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "generalis", lat: 28.634735, lon: 83.39041 },
+    { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "humlaensis", lat: 29.696389, lon: 82.073889 },
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "hyalilobus", lat: 29.170822, lon: 82.935022 },
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "hyalilobus", lat: 28.976491, lon: 82.880479 },
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "hyalilobus", lat: 28.8748, lon: 82.993203 },
@@ -70,6 +71,7 @@ const millipedePoints = [
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "ivanloebli", lat: 28.112586, lon: 85.336817 },
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "juxtapositus", lat: 28.261851, lon: 83.77579 },
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "juxtapositus", lat: 28.373867, lon: 83.804725 },
+    { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "karnaliensis", lat: 29.906389, lon: 81.919722 },
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "martensi", lat: 27.83277, lon: 86.746399 },
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "martensi", lat: 27.901691, lon: 86.894647 },
     { order: "Julida", family: "Julidae", subfamily: "Oncoiulinae", tribe: "Leucogeorgiini", genus: "Nepalmatoiulus", species: "maurièsi", lat: 28.443002, lon: 84.848015 },
@@ -180,6 +182,10 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Opisotretidae", subfamily: "NA", tribe: "NA", genus: "Martensodesmus", species: "sherpa", lat: 28.139634, lon: 84.689974 },
     { order: "Polydesmida", family: "Opisotretidae", subfamily: "NA", tribe: "NA", genus: "Martensodesmus", species: "sherpa", lat: 27.999527, lon: 84.930375 },
     
+    // Polydesmida - Polydesmidae - Nepalotretus
+    { order: "Polydesmida", family: "Opisotretidae", subfamily: "NA", tribe: "NA", genus: "Nepalotretus", species: "martensi", lat: 28.044361, lon: 84.628317 },
+    { order: "Polydesmida", family: "Opisotretidae", subfamily: "NA", tribe: "NA", genus: "Nepalotretus", species: "martensi", lat: 28.003008, lon: 84.629797 },
+    
     // Polydesmida - Paradoxosomatidae - Anoplodesmus
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "affinis", lat: 27.571703, lon: 85.406413 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "cylindricus", lat: 27.643571, lon: 87.447343 },
@@ -225,6 +231,7 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "similis", lat: 27.824027, lon: 86.007296 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "similis", lat: 27.824027, lon: 86.007296 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "spinosus", lat: 27.588047, lon: 86.74256 },
+    order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "subcylindricus", lat: null, lon: null },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "sp.", lat: 27.4706443, lon: 85.51389497 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "sp.", lat: 28.62064092, lon: 83.61243176 },
     { order: "Polydesmida", family: "Paradoxosomatidae", subfamily: "Paradoxosomatinae", tribe: "Sulciferini", genus: "Anoplodesmus", species: "sp.", lat: 27.17974327, lon: 87.45242469 },
@@ -457,10 +464,6 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Polydesmidae", subfamily: "NA", tribe: "NA", genus: "Epanerchodus", species: "theosophicus", lat: 28.111397, lon: 85.33801 },
     { order: "Polydesmida", family: "Polydesmidae", subfamily: "NA", tribe: "NA", genus: "Epanerchodus", species: "sp.", lat: 27.758671, lon: 87.548681 },
     
-    // Polydesmida - Polydesmidae - Glenniea
-    { order: "Polydesmida", family: "Opisotretidae", subfamily: "NA", tribe: "NA", genus: "Nepalotretus", species: "martensi", lat: 28.044361, lon: 84.628317 },
-    { order: "Polydesmida", family: "Opisotretidae", subfamily: "NA", tribe: "NA", genus: "Nepalotretus", species: "martensi", lat: 28.003008, lon: 84.629797 },
-    
     // Polydesmida - Polydesmidae - Himalodesmus
     { order: "Polydesmida", family: "Polydesmidae", subfamily: "NA", tribe: "NA", genus: "Himalodesmus", species: "audax", lat: 27.573643, lon: 85.40599 },
     { order: "Polydesmida", family: "Polydesmidae", subfamily: "NA", tribe: "NA", genus: "Himalodesmus", species: "benefactor", lat: 27.532995, lon: 87.954022 },
@@ -534,8 +537,19 @@ const millipedePoints = [
     
     // Spirobolida - Pachybolidae
     { order: "Spirobolida", family: "Pachybolidae", subfamily: "Trigoniulinae", tribe: "NA", genus: "Trigoniulus", species: "corralinus", lat: 27.730944, lon: 85.320841 },
-];
+// No coordinates speciies
+// Cryptocorypha sp. 1 
+{ order: "Polydesmida", family: "Pyrgodesmidae", subfamily: "NA", tribe: "NA", genus: "Cryptocorypha", species: "sp.1", lat: null, lon: null },
 
+// Cryptocorypha sp. 2
+{ order: "Polydesmida", family: "Pyrgodesmidae", subfamily: "NA", tribe: "NA", genus: "Cryptocorypha", species: "sp.2", lat: null, lon: null },
+
+// Monographis mirus
+{ order: "Polyxenida", family: "Polyxenidae", subfamily: "NA", tribe: "NA", genus: "Monographis", species: "mirus", lat: null, lon: null },
+
+// Unixenus sp.
+{ order: "Polyxenida", family: "Polyxenidae", subfamily: "NA", tribe: "NA", genus: "Unixenus", species: "sp.", lat: null, lon: null },
+];
 // Export for use in other files if needed (for module systems)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = millipedePoints;
