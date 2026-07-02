@@ -519,8 +519,8 @@ const millipedePoints = [
     { order: "Polydesmida", family: "Trichopolydesmidae", subfamily: "NA", tribe: "NA", genus: "Sholaphilus", species: "martensi", lat: 28.534431, lon: 84.341358 },
     { order: "Polydesmida", family: "Trichopolydesmidae", subfamily: "NA", tribe: "NA", genus: "Sholaphilus", species: "monachus", lat: 27.52425, lon: 87.268861 },
     { order: "Polydesmida", family: "Trichopolydesmidae", subfamily: "NA", tribe: "NA", genus: "Sholaphilus", species: "monachus", lat: 27.497211, lon: 87.253927 },
-    
-    // Spirostreptida - Cambalopsidae
+
+        // Spirostreptida - Cambalopsidae
     { order: "Spirostreptida", family: "Cambalopsidae", subfamily: "Glyphiulinae", tribe: "NA", genus: "Podoglyphiulus", species: "elegans", lat: 27.594801, lon: 85.401456 },
     { order: "Spirostreptida", family: "Cambalopsidae", subfamily: "Cambalopsinae", tribe: "NA", genus: "Trachyjulus", species: "wilsonae", lat: 28.27254, lon: 83.979256 },
     { order: "Spirostreptida", family: "Cambalopsidae", subfamily: "Cambalopsinae", tribe: "NA", genus: "Trachyjulus", species: "wilsonae", lat: 27.594801, lon: 85.401456 },
@@ -535,21 +535,16 @@ const millipedePoints = [
     { order: "Spirostreptida", family: "Harpagophoridae", subfamily: "Harpagophorinae", tribe: "Gonoplectini", genus: "Gonoplectus", species: "malayus", lat: 27.56522, lon: 84.097853 },
     { order: "Spirostreptida", family: "Harpagophoridae", subfamily: "Harpagophorinae", tribe: "Gonoplectini", genus: "Gonoplectus", species: "lindbergi", lat: 26.644483, lon: 88.027548 },
     
-// Spirobolida - Pachybolidae
-{ order: "Spirobolida", family: "Pachybolidae", subfamily: "Trigoniulinae", tribe: "NA", genus: "Trigoniulus", species: "corralinus", lat: 27.730944, lon: 85.320841 },
-// No coordinates speciies
-// Cryptocorypha sp. 1 
-{ order: "Polydesmida", family: "Pyrgodesmidae", subfamily: "NA", tribe: "NA", genus: "Cryptocorypha", species: "sp.1", lat: null, lon: null },
-
-// Cryptocorypha sp. 2
-{ order: "Polydesmida", family: "Pyrgodesmidae", subfamily: "NA", tribe: "NA", genus: "Cryptocorypha", species: "sp.2", lat: null, lon: null },
-
-// Monographis mirus
-{ order: "Polyxenida", family: "Polyxenidae", subfamily: "NA", tribe: "NA", genus: "Monographis", species: "mirus", lat: null, lon: null },
-
-// Unixenus sp.
-{ order: "Polyxenida", family: "Polyxenidae", subfamily: "NA", tribe: "NA", genus: "Unixenus", species: "sp.", lat: null, lon: null },
+    // Spirobolida - Pachybolidae
+    { order: "Spirobolida", family: "Pachybolidae", subfamily: "Trigoniulinae", tribe: "NA", genus: "Trigoniulus", species: "corralinus", lat: 27.730944, lon: 85.320841 },
+    
+    // No coordinates species
+    { order: "Polydesmida", family: "Pyrgodesmidae", subfamily: "NA", tribe: "NA", genus: "Cryptocorypha", species: "sp.1", lat: null, lon: null },
+    { order: "Polydesmida", family: "Pyrgodesmidae", subfamily: "NA", tribe: "NA", genus: "Cryptocorypha", species: "sp.2", lat: null, lon: null },
+    { order: "Polyxenida", family: "Polyxenidae", subfamily: "NA", tribe: "NA", genus: "Monographis", species: "mirus", lat: null, lon: null },
+    { order: "Polyxenida", family: "Polyxenidae", subfamily: "NA", tribe: "NA", genus: "Unixenus", species: "sp.", lat: null, lon: null }
 ];
+
 // Export for use in other files if needed (for module systems)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = millipedePoints;
