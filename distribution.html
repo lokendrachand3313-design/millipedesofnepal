@@ -728,20 +728,20 @@ function updateFilterSummary() {
     var genus = document.getElementById('genusFilter').value;
     var species = document.getElementById('speciesFilter').value;
     
-    var summary = [];
-    if (order !== 'all' && family === 'all') {
-        summary.push('Order: ' + order + ' (Showing <i>Family</i> names)');
+    var summary = '';
+    if (order === 'all') {
+        summary = 'GPS Points (no labels)';
+    } else if (order !== 'all' && family === 'all') {
+        summary = 'Order: ' + order + ' (GPS points, no labels)';
     } else if (order !== 'all' && family !== 'all' && genus === 'all') {
-        summary.push('Family: ' + family + ' (Showing <i>Genus</i> names)');
+        summary = 'Family: ' + family + ' (GPS points, no labels)';
     } else if (order !== 'all' && family !== 'all' && genus !== 'all' && species === 'all') {
-        summary.push('Genus: ' + genus + ' (Showing <i>Species</i> names)');
+        summary = 'Genus: ' + genus + ' (Showing Species names)';
     } else if (order !== 'all' && family !== 'all' && genus !== 'all' && species !== 'all') {
-        summary.push('Species: ' + genus + ' ' + species);
-    } else {
-        summary.push('GPS Points (no labels)');
+        summary = 'Species: ' + genus + ' ' + species;
     }
     
-    document.getElementById('filterSummary').innerHTML = summary.join(' > ');
+    document.getElementById('filterSummary').textContent = summary;
 }
 
 function resetAllFilters() {
@@ -834,7 +834,7 @@ function onSpeciesChange() {
 }
 
 // ============================================
-// RENDER MARKERS FUNCTION - WITH ITALIC NAMES
+// RENDER MARKERS FUNCTION - NO LABELS UNTIL GENUS SELECTED
 // ============================================
 function renderMarkers() {
     markersLayer.clearLayers();
@@ -849,14 +849,17 @@ function renderMarkers() {
     var speciesSet = new Set();
     
     // Determine label type based on selections
+    // ONLY show labels when GENUS is selected
     var labelType = 'none';
     if (selectedOrder === 'all') {
-        labelType = 'none';  // No labels - just dots
+        labelType = 'none';
     } else if (selectedOrder !== 'all' && selectedFamily === 'all') {
-        labelType = 'family';  // Show Family names
+        labelType = 'none';  // NO labels - just GPS points
     } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
-        labelType = 'genus';  // Show Genus names
-    } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus !== 'all') {
+        labelType = 'none';  // NO labels - just GPS points
+    } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus !== 'all' && selectedSpecies === 'all') {
+        labelType = 'species';  // Show Species names (italic)
+    } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus !== 'all' && selectedSpecies !== 'all') {
         labelType = 'species';  // Show Species names (italic)
     }
     
@@ -887,13 +890,7 @@ function renderMarkers() {
         
         var labelText = '';
         var labelStyle = '';
-        if (labelType === 'family') {
-            labelText = point.family || 'Unknown Family';
-            labelStyle = '';
-        } else if (labelType === 'genus') {
-            labelText = point.genus || 'Unknown Genus';
-            labelStyle = 'font-style: italic;';
-        } else if (labelType === 'species') {
+        if (labelType === 'species') {
             labelText = (point.genus || '?') + ' ' + (point.species || '?');
             labelStyle = 'font-style: italic;';
         }
@@ -904,7 +901,7 @@ function renderMarkers() {
             // Plain marker - no label
             marker = L.marker([point.lat, point.lon]);
         } else {
-            // Marker with label - italic for genus and species
+            // Marker with label
             var customIcon = L.divIcon({
                 html: '<div style="display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.92); padding: 2px 8px; border-radius: 14px; border: 1.5px solid ' + markerColor + '; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">' +
                     '<div style="background-color: ' + markerColor + '; width: 8px; height: 8px; border-radius: 50%; border: 1px solid white; flex-shrink: 0;"></div>' +
@@ -937,11 +934,15 @@ function renderMarkers() {
     // Update display messages
     var msg = '';
     if (labelType === 'none') {
-        msg = count + ' GPS points visible (click for details)';
-    } else if (labelType === 'family') {
-        msg = count + ' points visible - Showing <strong>Family</strong> names';
-    } else if (labelType === 'genus') {
-        msg = count + ' points visible - Showing <strong><i>Genus</i></strong> names';
+        if (selectedOrder === 'all') {
+            msg = count + ' GPS points visible (click for details)';
+        } else if (selectedOrder !== 'all' && selectedFamily === 'all') {
+            msg = count + ' GPS points visible for Order: ' + selectedOrder + ' (click for details)';
+        } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
+            msg = count + ' GPS points visible for Family: ' + selectedFamily + ' (click for details)';
+        } else {
+            msg = count + ' GPS points visible (click for details)';
+        }
     } else if (labelType === 'species') {
         msg = count + ' point' + (count !== 1 ? 's' : '') + ' visible - Showing <strong><i>Species</i></strong> names';
     }
@@ -985,7 +986,7 @@ window.zoomToGlobal = zoomToGlobal;
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
         allPoints = millipedePoints;
-        console.log('✅ Loaded', allPoints.length, 'millipede points from data.js');
+        console.log('Loaded', allPoints.length, 'millipede points from data.js');
         
         // Count unique species
         var speciesSet = new Set();
@@ -994,7 +995,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var genusSet = new Set();
         
         allPoints.forEach(function(p) {
-            if (p.genus && p.species && p.species !== 'sp.') {
+            if (p.genus && p.species) {
                 speciesSet.add(p.genus + ' ' + p.species);
             }
             if (p.genus && p.genus !== 'Unidentified') {
@@ -1006,12 +1007,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 unmappedCount++;
             }
         });
-        console.log('📊 Unique species in data:', speciesSet.size);
-        console.log('📊 Unique genera in data:', genusSet.size);
-        console.log('📊 Mapped species:', mappedCount);
-        console.log('📊 Unmapped species:', unmappedCount);
+        console.log('Unique species in data:', speciesSet.size);
+        console.log('Unique genera in data:', genusSet.size);
+        console.log('Mapped species:', mappedCount);
+        console.log('Unmapped species:', unmappedCount);
     } else {
-        console.error('❌ millipedePoints not found! Please check data.js');
+        console.error('millipedePoints not found! Please check data.js');
         allPoints = [
             { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240 },
             { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", location: "Kathmandu", lat: 27.7172, lon: 85.3240 }
