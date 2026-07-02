@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* ============ DISTRIBUTION.HTML SPECIFIC STYLES ============ */
-        
         .stats-summary {
             display: flex;
             flex-wrap: wrap;
@@ -491,11 +489,7 @@
         <div class="table-wrapper">
             <table class="corrected-table">
                 <thead>
-                    <tr>
-                        <th>S.N.</th>
-                        <th>Locality in Paper</th>
-                        <th>Corrected Name</th>
-                    </tr>
+                    <tr><th>S.N.</th><th>Locality in Paper</th><th>Corrected Name</th></tr>
                 </thead>
                 <tbody>
                     <tr><td>1</td><td class="locality-old">Nagarjung</td><td class="locality-corrected">Nagarjun</td></tr>
@@ -573,10 +567,7 @@
     <p>Copyright 2025 Lokendra Chand | +977-9809733313 / +817090238470</p>
 </footer>
 
-<!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- Data File -->
 <script src="data.js"></script>
 
 <script>
@@ -688,87 +679,6 @@ function populateOrders() {
     });
 }
 
-function onOrderChange() {
-    var selectedOrder = document.getElementById('orderFilter').value;
-    
-    // Reset family, genus, species dropdowns
-    var familySelect = document.getElementById('familyFilter');
-    var genusSelect = document.getElementById('genusFilter');
-    var speciesSelect = document.getElementById('speciesFilter');
-    
-    familySelect.innerHTML = '<option value="all">Select Family</option>';
-    genusSelect.innerHTML = '<option value="all">Select Genus</option>';
-    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
-    
-    // Populate families for selected order
-    if (selectedOrder !== 'all') {
-        var families = Array.from(filterCache.familiesMap.get(selectedOrder) || new Set()).sort();
-        families.forEach(function(family) {
-            var option = document.createElement('option');
-            option.value = family;
-            option.textContent = family;
-            familySelect.appendChild(option);
-        });
-    }
-    
-    renderMarkers();
-    updateFilterSummary();
-}
-
-function onFamilyChange() {
-    var selectedOrder = document.getElementById('orderFilter').value;
-    var selectedFamily = document.getElementById('familyFilter').value;
-    
-    // Reset genus and species dropdowns
-    var genusSelect = document.getElementById('genusFilter');
-    var speciesSelect = document.getElementById('speciesFilter');
-    genusSelect.innerHTML = '<option value="all">Select Genus</option>';
-    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
-    
-    // Populate genera for selected family
-    if (selectedFamily !== 'all' && selectedOrder !== 'all') {
-        var genera = Array.from(filterCache.generaMap.get(selectedFamily) || new Set()).sort();
-        genera.forEach(function(genus) {
-            var option = document.createElement('option');
-            option.value = genus;
-            option.textContent = genus;
-            genusSelect.appendChild(option);
-        });
-    }
-    
-    renderMarkers();
-    updateFilterSummary();
-}
-
-function onGenusChange() {
-    var selectedOrder = document.getElementById('orderFilter').value;
-    var selectedFamily = document.getElementById('familyFilter').value;
-    var selectedGenus = document.getElementById('genusFilter').value;
-    
-    // Reset species dropdown
-    var speciesSelect = document.getElementById('speciesFilter');
-    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
-    
-    // Populate species for selected genus
-    if (selectedGenus !== 'all' && selectedFamily !== 'all' && selectedOrder !== 'all') {
-        var species = Array.from(filterCache.speciesMap.get(selectedGenus) || new Set()).sort();
-        species.forEach(function(sp) {
-            var option = document.createElement('option');
-            option.value = sp;
-            option.textContent = sp;
-            speciesSelect.appendChild(option);
-        });
-    }
-    
-    renderMarkers();
-    updateFilterSummary();
-}
-
-function onSpeciesChange() {
-    renderMarkers();
-    updateFilterSummary();
-}
-
 function updateStats() {
     if (!allPoints.length) return;
     
@@ -822,7 +732,7 @@ function resetAllFilters() {
 }
 
 // ============================================
-// RENDER MARKERS - MAIN FUNCTION
+// MAIN RENDER FUNCTION - FIXED
 // ============================================
 function renderMarkers() {
     markersLayer.clearLayers();
@@ -836,28 +746,26 @@ function renderMarkers() {
     var bounds = [];
     var speciesSet = new Set();
     
-    // Determine what label to show
+    // Determine label type based on selections
     var labelType = 'none';
     if (selectedOrder === 'all') {
-        labelType = 'none';  // Just GPS points, no labels
+        labelType = 'none';
     } else if (selectedOrder !== 'all' && selectedFamily === 'all') {
-        labelType = 'family';  // Show Family names
+        labelType = 'family';
     } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
-        labelType = 'genus';  // Show Genus names
+        labelType = 'genus';
     } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus !== 'all') {
-        labelType = 'species';  // Show Species names
+        labelType = 'species';
     }
     
     allPoints.forEach(function(point) {
         if (!isValidCoordinate(point.lat, point.lon)) return;
         
-        // Check filters
-        var matchOrder = selectedOrder === 'all' || point.order === selectedOrder;
-        var matchFamily = selectedFamily === 'all' || point.family === selectedFamily;
-        var matchGenus = selectedGenus === 'all' || point.genus === selectedGenus;
-        var matchSpecies = selectedSpecies === 'all' || point.species === selectedSpecies;
-        
-        if (!matchOrder || !matchFamily || !matchGenus || !matchSpecies) return;
+        // Check if point matches all filters
+        if (selectedOrder !== 'all' && point.order !== selectedOrder) return;
+        if (selectedFamily !== 'all' && point.family !== selectedFamily) return;
+        if (selectedGenus !== 'all' && point.genus !== selectedGenus) return;
+        if (selectedSpecies !== 'all' && point.species !== selectedSpecies) return;
         
         count++;
         speciesSet.add(point.genus + ' ' + point.species);
@@ -871,9 +779,7 @@ function renderMarkers() {
         else if (point.order === 'Sphaerotheriida') markerColor = '#8e44ad';
         
         var labelText = '';
-        if (labelType === 'none') {
-            labelText = '';
-        } else if (labelType === 'family') {
+        if (labelType === 'family') {
             labelText = point.family || 'Unknown Family';
         } else if (labelType === 'genus') {
             labelText = point.genus || 'Unknown Genus';
@@ -884,7 +790,7 @@ function renderMarkers() {
         var marker;
         
         if (labelType === 'none') {
-            // Simple marker with no label
+            // Plain marker - no label
             marker = L.marker([point.lat, point.lon]);
         } else {
             // Marker with label
@@ -918,23 +824,104 @@ function renderMarkers() {
         bounds.push([point.lat, point.lon]);
     });
     
-    var message = '';
+    // Update count display
+    var msg = '';
     if (labelType === 'none') {
-        message = count + ' GPS points visible';
+        msg = count + ' GPS points visible (click for details)';
     } else if (labelType === 'family') {
-        message = count + ' points visible (' + speciesSet.size + ' records) - Showing Family names';
+        msg = count + ' points visible - Showing Family names';
     } else if (labelType === 'genus') {
-        message = count + ' points visible (' + speciesSet.size + ' records) - Showing Genus names';
+        msg = count + ' points visible - Showing Genus names';
     } else if (labelType === 'species') {
-        message = count + ' point' + (count !== 1 ? 's' : '') + ' visible (' + speciesSet.size + ' species) - Showing Species names';
+        msg = count + ' point' + (count !== 1 ? 's' : '') + ' visible - Showing Species names';
     }
-    
-    document.getElementById('markerCount').innerHTML = message;
+    document.getElementById('markerCount').innerHTML = msg;
     document.getElementById('visiblePoints').textContent = count;
     
     if (bounds.length > 0) {
         map.fitBounds(bounds, { padding: [50, 50], maxZoom: 12 });
     }
+}
+
+// ============================================
+// DROPDOWN CHANGE HANDLERS
+// ============================================
+
+function onOrderChange() {
+    var selectedOrder = document.getElementById('orderFilter').value;
+    
+    // Reset lower dropdowns
+    var familySelect = document.getElementById('familyFilter');
+    var genusSelect = document.getElementById('genusFilter');
+    var speciesSelect = document.getElementById('speciesFilter');
+    
+    familySelect.innerHTML = '<option value="all">Select Family</option>';
+    genusSelect.innerHTML = '<option value="all">Select Genus</option>';
+    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
+    
+    // Populate families for selected order
+    if (selectedOrder !== 'all') {
+        var families = Array.from(filterCache.familiesMap.get(selectedOrder) || new Set()).sort();
+        families.forEach(function(family) {
+            var option = document.createElement('option');
+            option.value = family;
+            option.textContent = family;
+            familySelect.appendChild(option);
+        });
+    }
+    
+    renderMarkers();
+    updateFilterSummary();
+}
+
+function onFamilyChange() {
+    var selectedOrder = document.getElementById('orderFilter').value;
+    var selectedFamily = document.getElementById('familyFilter').value;
+    
+    var genusSelect = document.getElementById('genusFilter');
+    var speciesSelect = document.getElementById('speciesFilter');
+    genusSelect.innerHTML = '<option value="all">Select Genus</option>';
+    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
+    
+    if (selectedFamily !== 'all' && selectedOrder !== 'all') {
+        var genera = Array.from(filterCache.generaMap.get(selectedFamily) || new Set()).sort();
+        genera.forEach(function(genus) {
+            var option = document.createElement('option');
+            option.value = genus;
+            option.textContent = genus;
+            genusSelect.appendChild(option);
+        });
+    }
+    
+    renderMarkers();
+    updateFilterSummary();
+}
+
+function onGenusChange() {
+    var selectedOrder = document.getElementById('orderFilter').value;
+    var selectedFamily = document.getElementById('familyFilter').value;
+    var selectedGenus = document.getElementById('genusFilter').value;
+    
+    var speciesSelect = document.getElementById('speciesFilter');
+    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
+    
+    if (selectedGenus !== 'all' && selectedFamily !== 'all' && selectedOrder !== 'all') {
+        var species = Array.from(filterCache.speciesMap.get(selectedGenus) || new Set()).sort();
+        species.forEach(function(sp) {
+            var option = document.createElement('option');
+            option.value = sp;
+            option.textContent = sp;
+            speciesSelect.appendChild(option);
+        });
+    }
+    
+    renderMarkers();
+    updateFilterSummary();
+}
+
+function onSpeciesChange() {
+    renderMarkers();
+    updateFilterSummary();
 }
 
 function zoomToNepal() { 
@@ -953,6 +940,7 @@ function zoomToGlobal() {
     map.setView([20, 0], 2);
 }
 
+// Make functions globally available
 window.onOrderChange = onOrderChange;
 window.onFamilyChange = onFamilyChange;
 window.onGenusChange = onGenusChange;
@@ -962,19 +950,20 @@ window.zoomToNepal = zoomToNepal;
 window.zoomToAllPoints = zoomToAllPoints;
 window.zoomToGlobal = zoomToGlobal;
 
+// ============================================
+// INITIALIZATION
+// ============================================
+
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
         allPoints = millipedePoints;
         console.log('Loaded', allPoints.length, 'millipede points from data.js');
     } else {
-        console.warn('millipedePoints not found in data.js. Using sample data.');
+        console.warn('millipedePoints not found. Using sample data.');
         allPoints = [
-            { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240, notes: "Common species in western Nepal" },
-            { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", location: "Kathmandu Valley", lat: 27.7172, lon: 85.3240, notes: "Urban forest record" },
-            { order: "Spirostreptida", family: "Harpagophoridae", genus: "Thyropygus", species: "nepalensis", location: "Pokhara", lat: 28.2096, lon: 83.9856, notes: "Endemic species" },
-            { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Desmoxytes", species: "purpurosea", location: "Chitwan", lat: 27.5733, lon: 84.4851, notes: "Dragon millipede" },
-            { order: "Julida", family: "Julidae", genus: "Cylindroiulus", species: "neapolitanus", location: "Lumbini", lat: 27.4669, lon: 83.2762, notes: "Introduced species" },
-            { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Oxidus", species: "gracilis", location: "Kathmandu", lat: 27.7172, lon: 85.3240, notes: "Greenhouse millipede" }
+            { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240 },
+            { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", location: "Kathmandu", lat: 27.7172, lon: 85.3240 },
+            { order: "Julida", family: "Julidae", genus: "Cylindroiulus", species: "neapolitanus", location: "Lumbini", lat: 27.4669, lon: 83.2762 }
         ];
     }
     
@@ -986,8 +975,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     populateOrders();
     updateStats();
-    
-    // Initial render - show GPS points only (no labels)
     renderMarkers();
 });
 </script>
