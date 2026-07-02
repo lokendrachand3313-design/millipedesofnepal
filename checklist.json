@@ -409,6 +409,16 @@
     "global_dist": "Endemic to Nepal",
     "nepal_dist": "Nuwakot District, between Ghopte and Tharepati (3220–3250 m)"
   },
+    {
+    "order": "Chordeumatida",
+    "family": "Entomobielziidae",
+    "genus": "Tianella",
+    "species": "sp.",
+    "author": "Mauriès, 1988",
+    "type_locality": null,
+    "global_dist": null,
+    "nepal_dist": "Langtang Khola Valley (1950 m), 2.5 km east of Syaphru (1720 m); Solukhumbu District, trails from Tamakoshi to Namche Bazar, Sete (2900–3250 m)"
+  },
   {
     "order": "Chordeumatida",
     "family": "Kashmireumatidae",
@@ -418,6 +428,16 @@
     "type_locality": "Rasuwa District, Langtang Khola Valley, Kyanjin Gompa (=Gumba) forest",
     "global_dist": "Endemic to Nepal",
     "nepal_dist": "Rasuwa District, Langtang Khola Valley, Kyanjin Gompa (=Gumba) forest (3800–4100 m), north side of Syaphru (3600–3800 m)"
+  },
+    {
+    "order": "Chordeumatida",
+    "family": "Kashmireumatidae",
+    "genus": "Kashmireuma",
+    "species": "sp.",
+    "author": "Mauriès, 1988",
+    "type_locality": null,
+    "global_dist": null,
+    "nepal_dist": "Annapurna Region, vicinity of New Dhovan Lodge in Hinku (2500–3000 m), south of Godhepani Pass (2700 m)"
   },
   {
     "order": "Chordeumatida",
@@ -528,6 +548,16 @@
     "type_locality": "Solukhumbu District, trails from Tamakoshi to Namche Bazar: east of Taksindu La",
     "global_dist": "Endemic to Nepal",
     "nepal_dist": "Solukhumbu District, trails from Tamakoshi to Namche Bazaar: east of Taksindu La (2450–3000 m), Taksindu La (2900–3000 m)"
+  },
+    {
+    "order": "Chordeumatida",
+    "family": "Lankasomatidae",
+    "genus": "Nepalella",
+    "species": "tragsindola",
+    "author": "Mauriès, 1988",
+    "type_locality": null,
+    "global_dist": null,
+    "nepal_dist": "Solukhumbu District, Khumbu, Mt. Everest region, Pare (3550 m), Lukla (2950 m), trails from Tamakoshi to Namche Bazar, Changma (1900 m); Mustang District, Thakkhola, Kali Gandaki Valley, between Annapurna and Dhaulagiri Himal, Dhampus Khola Valley, near Tukuche (2890–2930 m), Thakkhola, ascending Dapa Col (3900–4100 m); eastern Nepal, Thinsang La Pass and Thodung (2330–2500 m); Rasuwa District, northern flank above Syaphru (3650 m), between Ghopte and Tharepati (3220 m) "
   },
   {
     "order": "Platydesmida",
@@ -668,6 +698,16 @@
     "type_locality": "Palnis (Palni Hills), South India",
     "global_dist": "South India and Nepal (uncertain)",
     "nepal_dist": "Reported from Nepal but evidence uncertain"
+  },
+    {
+    "order": "Polydesmida",
+    "family": "Paradoxosomatidae",
+    "genus": "Anoplodesmus",
+    "species": "sp.",
+    "author": "Golovatch 1990a",
+    "type_locality": null,
+    "global_dist": null,
+    "nepal_dist": "Makawanpur District, Mahabharat Mountains, Daman (2500–2900 m); Terhathum District, Tinjure Danda (2450 m); Mustang District, south of Lete (2450–2600 m)"
   },
   {
     "order": "Polydesmida",
@@ -1539,6 +1579,16 @@
     "global_dist": "Endemic to Nepal",
     "nepal_dist": "Rasuwa District, Trisuli Valley, Gosaikund, Sing Gompa (3200 m)"
   },
+   {
+    "order": "Polydesmida",
+    "family": "Polydesmidae",
+    "genus": "Epanerchodus",
+    "species": "sp.",
+    "author": "(Golovatch, 1990b)",
+    "type_locality": null,
+    "global_dist": null,
+    "nepal_dist": "Sankhuwasabha District, Kongla Khola east of Thudam (4100–4200 m), Thudam (3550–3650 m), from Thudam to Gabri Khola (4000–4250 m), between Pass Pomari La and Pawakhola (3450–3600 m)"
+  }, 
   {
     "order": "Polydesmida",
     "family": "Opisotretidae",
@@ -1633,7 +1683,17 @@
     "order": "Polydesmida",
     "family": "Pyrgodesmidae",
     "genus": "Cryptocorypha",
-    "species": "sp.",
+    "species": "sp.1",
+    "author": null,
+    "type_locality": null,
+    "global_dist": "Two species from Nepal",
+    "nepal_dist": "Nepal"
+  },
+    {
+    "order": "Polydesmida",
+    "family": "Pyrgodesmidae",
+    "genus": "Cryptocorypha",
+    "species": "sp.2",
     "author": null,
     "type_locality": null,
     "global_dist": "Two species from Nepal",
@@ -1728,6 +1788,16 @@
     "type_locality": "Taplejung District, Pass Anda Deurali, between Simbuwa Khola and Ghunsa Khola",
     "global_dist": "Endemic to Nepal",
     "nepal_dist": "Taplejung District, Pass Anda Deurali, between Simbuwa Khola and Ghunsa Khola (4250–4500 m), between Lassetham pasture and Simbuwa Khola (3100–3300 m), Yalung (3450 m), south of Ghunsa (3600–3900 m), Ghunsa (3200–3400 m), ridge Lasse Dhara and pasture Lassetham (3000–3300 m), descent from Pass Deurali to Hellok (3000–3400 m), upper Simbuwa Khola Valley, near Tseram (3250–3350 m), ascent to pasture Lassetham (3000 m)"
+  },
+    {
+    "order": "Polydesmida",
+    "family": "Trichopolydesmidae",
+    "genus": "Hingstonia",
+    "species": "sp.",
+    "author": "Golovatch, 1990b",
+    "type_locality": null,
+    "global_dist": null,
+    "nepal_dist": "Taplejung District, upper Simbuwa Khola Valley, near Tseram (3250–3350 m); Sankhuwasabha District, between Pomri La and Pawakhola (3600–3900 m); Panchthar District, ridge between Sheldoti and Paniparuwa (2200 m) "
   },
   {
     "order": "Polydesmida",
