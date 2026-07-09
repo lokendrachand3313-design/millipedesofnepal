@@ -548,7 +548,8 @@
             background: #d35400;
         }
         
-        .navigation-buttons {
+        /* ===== TREE COLUMN NAVIGATION BUTTONS ===== */
+        .tree-navigation {
             display: flex;
             gap: 8px;
             margin-top: 8px;
@@ -556,7 +557,7 @@
             flex-wrap: wrap;
         }
         
-        .nav-btn {
+        .tree-navigation .tree-nav-btn {
             background: var(--primary-blue);
             color: white;
             border: none;
@@ -568,39 +569,38 @@
             transition: all 0.3s ease;
         }
         
-        .nav-btn:hover {
+        .tree-navigation .tree-nav-btn:hover {
             background: var(--primary-blue-dark);
             transform: translateY(-1px);
         }
         
-        .undo-btn {
+        .tree-navigation .undo-btn {
             background: var(--gold);
             color: var(--primary-blue);
         }
         
-        .undo-btn:hover {
+        .tree-navigation .undo-btn:hover {
             background: var(--gold-dark);
             color: white;
         }
         
-        .undo-btn:disabled {
+        .tree-navigation .undo-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
             transform: none;
         }
         
-        /* Redo Button Styles */
-        .redo-btn {
+        .tree-navigation .redo-btn {
             background: var(--blue-accent);
             color: white;
         }
         
-        .redo-btn:hover {
+        .tree-navigation .redo-btn:hover {
             background: var(--primary-blue);
             color: white;
         }
         
-        .redo-btn:disabled {
+        .tree-navigation .redo-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
             transform: none;
@@ -664,7 +664,6 @@
                 font-size: 1.3rem; 
             }
             
-            /* FIX: Make tree bigger on mobile */
             .tree-wrapper {
                 height: 650px !important;
                 min-height: 500px;
@@ -701,7 +700,7 @@
                 padding: 2px 10px; 
             }
             
-            .navigation-buttons .nav-btn {
+            .tree-navigation .tree-nav-btn {
                 font-size: 0.6rem;
                 padding: 3px 10px;
             }
@@ -882,13 +881,16 @@
                 <div id="phylogeneticTree"></div>
             </div>
             
-            <!-- ===== NAVIGATION BUTTONS - BELOW THE TREE ===== -->
+            <!-- ===== TREE CONTROLS - BELOW THE TREE ===== -->
             <div class="current-focus" id="currentFocus">Class: Diplopoda (Millipedes)</div>
-            <div class="navigation-buttons">
-                <button class="nav-btn undo-btn" id="undoTreeBtn" disabled>↩ Undo</button>
-                <button class="nav-btn redo-btn" id="redoTreeBtn" disabled>↪ Redo</button>
-                <button class="nav-btn" id="resetTreeBtn">⟳ Reset Tree</button>
+            
+            <!-- Navigation Buttons - Only in tree column -->
+            <div class="tree-navigation">
+                <button class="tree-nav-btn undo-btn" id="undoTreeBtn" disabled>↩ Undo</button>
+                <button class="tree-nav-btn redo-btn" id="redoTreeBtn" disabled>↪ Redo</button>
+                <button class="tree-nav-btn" id="resetTreeBtn">⟳ Reset Tree</button>
             </div>
+            
             <div class="legend-box">
                 <div><span class="legend-color" style="background:#8b5cf6;"></span> Class</div>
                 <div><span class="legend-color" style="background:#3b82f6;"></span> Order</div>
@@ -944,7 +946,6 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<!-- Load data.js first for millipedePoints -->
 <script src="data.js"></script>
 
 <script>
@@ -1004,7 +1005,7 @@ let currentLayer = 'street';
 let currentTreeData = null;
 let distributionPoints = [];
 
-// UNDO / REDO FUNCTIONALITY - Navigation history stack
+// UNDO / REDO FUNCTIONALITY
 let treeHistoryStack = [];
 let currentHistoryIndex = -1;
 
