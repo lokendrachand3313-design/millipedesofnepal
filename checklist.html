@@ -589,7 +589,7 @@
             transform: none;
         }
         
-        /* ===== NEW: Redo Button Styles ===== */
+        /* Redo Button Styles */
         .redo-btn {
             background: var(--blue-accent);
             color: white;
@@ -666,7 +666,7 @@
             
             /* FIX: Make tree bigger on mobile */
             .tree-wrapper {
-                height: 650px !important; /* Increased height for mobile */
+                height: 650px !important;
                 min-height: 500px;
                 padding: 5px;
             }
@@ -678,7 +678,7 @@
             }
             
             .checklist-layout {
-                flex-direction: column-reverse; /* Show tree first, then list */
+                flex-direction: column-reverse;
                 gap: 15px;
             }
             
@@ -881,6 +881,8 @@
             <div class="tree-wrapper" id="treeWrapper">
                 <div id="phylogeneticTree"></div>
             </div>
+            
+            <!-- ===== NAVIGATION BUTTONS - BELOW THE TREE ===== -->
             <div class="current-focus" id="currentFocus">Class: Diplopoda (Millipedes)</div>
             <div class="navigation-buttons">
                 <button class="nav-btn undo-btn" id="undoTreeBtn" disabled>↩ Undo</button>
@@ -950,7 +952,6 @@
 // CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
 // ============================================
 
-// Get Nepal time (UTC+5:45)
 function getNepalTime() {
     const now = new Date();
     const nepalOffset = 5.75 * 60 * 60 * 1000;
@@ -958,7 +959,6 @@ function getNepalTime() {
     return new Date(utcTime + nepalOffset);
 }
 
-// Update clock display
 function updateClock() {
     const now = getNepalTime();
     const hours = now.getHours();
@@ -973,7 +973,6 @@ function updateClock() {
     if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
     if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
     
-    // Update English date
     const englishDate = document.getElementById('englishDate');
     if (englishDate) {
         englishDate.innerHTML = now.toLocaleDateString('en-US', { 
@@ -985,7 +984,6 @@ function updateClock() {
     }
 }
 
-// Initialize clock on page load and update every second
 window.addEventListener('DOMContentLoaded', function() {
     updateClock();
     setInterval(updateClock, 1000);
@@ -1010,9 +1008,7 @@ let distributionPoints = [];
 let treeHistoryStack = [];
 let currentHistoryIndex = -1;
 
-// Save current tree state to history
 function saveToHistory(treeData, focusText, filteredData, filterMessageText, resultsCountText) {
-    // Remove any forward history if we're not at the end
     if (currentHistoryIndex < treeHistoryStack.length - 1) {
         treeHistoryStack = treeHistoryStack.slice(0, currentHistoryIndex + 1);
     }
@@ -1029,7 +1025,6 @@ function saveToHistory(treeData, focusText, filteredData, filterMessageText, res
     updateButtonStates();
 }
 
-// Update Undo/Redo button states
 function updateButtonStates() {
     const undoBtn = document.getElementById('undoTreeBtn');
     const redoBtn = document.getElementById('redoTreeBtn');
@@ -1042,25 +1037,20 @@ function updateButtonStates() {
     }
 }
 
-// Undo last action
 function undoLastAction() {
     if (currentHistoryIndex <= 0) return;
-    
     currentHistoryIndex--;
     applyHistoryState(currentHistoryIndex);
     updateButtonStates();
 }
 
-// Redo last undone action
 function redoLastAction() {
     if (currentHistoryIndex >= treeHistoryStack.length - 1) return;
-    
     currentHistoryIndex++;
     applyHistoryState(currentHistoryIndex);
     updateButtonStates();
 }
 
-// Apply a history state by index
 function applyHistoryState(index) {
     const state = treeHistoryStack[index];
     if (!state) return;
@@ -1097,7 +1087,6 @@ function applyHistoryState(index) {
     document.getElementById('mapStatus').innerHTML = 'Click on a species to view location';
 }
 
-// Get distribution points for a species from data.js
 function getPointsForSpecies(order, family, genus, species) {
     if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
         return millipedePoints.filter(p => 
@@ -1124,7 +1113,6 @@ async function loadSpeciesData() {
         speciesData = [];
     }
     
-    // Check if distribution points are available
     if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
         distributionPoints = millipedePoints;
         console.log(`Loaded ${distributionPoints.length} distribution points from data.js`);
@@ -1154,7 +1142,6 @@ async function loadSpeciesData() {
     saveToHistory(currentTreeData, document.getElementById('currentFocus').innerHTML, 
                   filteredSpeciesData, null, 'Total: ' + speciesData.length + ' species');
     
-    // Add event listeners for buttons
     document.getElementById('undoTreeBtn').addEventListener('click', undoLastAction);
     document.getElementById('redoTreeBtn').addEventListener('click', redoLastAction);
     document.getElementById('resetTreeBtn').addEventListener('click', resetTreeToFullWithHistory);
@@ -1502,11 +1489,9 @@ function renderTree(data) {
     container.innerHTML = "";
     const wrapper = document.getElementById("treeWrapper");
     
-    // Get available dimensions
     const availableWidth = Math.max(wrapper.clientWidth - 20, 600);
     const availableHeight = Math.max(wrapper.clientHeight - 20, 500);
     
-    // Count nodes to determine scaling
     const countNodes = (node) => {
         let count = 1;
         if (node.children && node.children.length > 0) {
@@ -1518,12 +1503,9 @@ function renderTree(data) {
     };
     
     const nodeCount = countNodes(data);
-    
-    // Calculate height based on node count, with minimum height
     let calculatedHeight = nodeCount * 28 + 40;
     let treeHeight = Math.max(availableHeight, Math.min(calculatedHeight, 800));
     
-    // For mobile, ensure minimum height
     if (window.innerWidth <= 768) {
         treeHeight = Math.max(500, calculatedHeight);
     }
@@ -1565,7 +1547,6 @@ function renderTree(data) {
         .attr("transform", d => `translate(${d.y}, ${d.x})`)
         .attr("class", "node");
     
-    // Adjust circle size for mobile
     const isMobile = window.innerWidth <= 768;
     const circleSize = isMobile ? 5 : 5.5;
     
@@ -1627,7 +1608,6 @@ function renderTree(data) {
             });
         });
     
-    // Adjust font sizes for mobile
     const fontSize = isMobile ? 8 : 10;
     
     nodes.append("text")
@@ -1987,7 +1967,6 @@ function addMapControls() {
     }
 }
 
-// Handle resize events - redraw tree on orientation change
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
