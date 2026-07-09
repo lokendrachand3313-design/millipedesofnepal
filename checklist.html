@@ -589,6 +589,23 @@
             transform: none;
         }
         
+        /* ===== NEW: Redo Button Styles ===== */
+        .redo-btn {
+            background: var(--blue-accent);
+            color: white;
+        }
+        
+        .redo-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .redo-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
         /* Loading indicator */
         .loading-indicator {
             text-align: center;
@@ -867,7 +884,8 @@
             <div class="current-focus" id="currentFocus">Class: Diplopoda (Millipedes)</div>
             <div class="navigation-buttons">
                 <button class="nav-btn undo-btn" id="undoTreeBtn" disabled>↩ Undo</button>
-                <button class="nav-btn" id="resetTreeBtn">Reset Tree</button>
+                <button class="nav-btn redo-btn" id="redoTreeBtn" disabled>↪ Redo</button>
+                <button class="nav-btn" id="resetTreeBtn">⟳ Reset Tree</button>
             </div>
             <div class="legend-box">
                 <div><span class="legend-color" style="background:#8b5cf6;"></span> Class</div>
@@ -974,7 +992,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// CHECKLIST FUNCTIONALITY WITH UNDO
+// CHECKLIST FUNCTIONALITY WITH UNDO & REDO
 // ============================================
 
 let speciesData = [];
@@ -988,12 +1006,13 @@ let currentLayer = 'street';
 let currentTreeData = null;
 let distributionPoints = [];
 
-// UNDO FUNCTIONALITY - Navigation history stack
+// UNDO / REDO FUNCTIONALITY - Navigation history stack
 let treeHistoryStack = [];
 let currentHistoryIndex = -1;
 
 // Save current tree state to history
 function saveToHistory(treeData, focusText, filteredData, filterMessageText, resultsCountText) {
+    // Remove any forward history if we're not at the end
     if (currentHistoryIndex < treeHistoryStack.length - 1) {
         treeHistoryStack = treeHistoryStack.slice(0, currentHistoryIndex + 1);
     }
@@ -1007,9 +1026,19 @@ function saveToHistory(treeData, focusText, filteredData, filterMessageText, res
     });
     currentHistoryIndex++;
     
+    updateButtonStates();
+}
+
+// Update Undo/Redo button states
+function updateButtonStates() {
     const undoBtn = document.getElementById('undoTreeBtn');
+    const redoBtn = document.getElementById('redoTreeBtn');
+    
     if (undoBtn) {
         undoBtn.disabled = (currentHistoryIndex <= 0);
+    }
+    if (redoBtn) {
+        redoBtn.disabled = (currentHistoryIndex >= treeHistoryStack.length - 1);
     }
 }
 
@@ -1018,45 +1047,54 @@ function undoLastAction() {
     if (currentHistoryIndex <= 0) return;
     
     currentHistoryIndex--;
-    const previousState = treeHistoryStack[currentHistoryIndex];
+    applyHistoryState(currentHistoryIndex);
+    updateButtonStates();
+}
+
+// Redo last undone action
+function redoLastAction() {
+    if (currentHistoryIndex >= treeHistoryStack.length - 1) return;
     
-    if (previousState) {
-        currentTreeData = JSON.parse(JSON.stringify(previousState.treeData));
-        renderTree(currentTreeData);
-        document.getElementById('currentFocus').innerHTML = previousState.focusText;
+    currentHistoryIndex++;
+    applyHistoryState(currentHistoryIndex);
+    updateButtonStates();
+}
+
+// Apply a history state by index
+function applyHistoryState(index) {
+    const state = treeHistoryStack[index];
+    if (!state) return;
+    
+    currentTreeData = JSON.parse(JSON.stringify(state.treeData));
+    renderTree(currentTreeData);
+    document.getElementById('currentFocus').innerHTML = state.focusText;
+    
+    if (state.filteredData && state.filteredData.length > 0) {
+        filteredSpeciesData = [...state.filteredData];
+        displayResults(filteredSpeciesData);
         
-        if (previousState.filteredData) {
-            filteredSpeciesData = [...previousState.filteredData];
-            displayResults(filteredSpeciesData);
-            
-            if (previousState.filterMessageText && previousState.filterMessageText !== 'All Records') {
-                document.getElementById('filterInfo').style.display = 'block';
-                document.getElementById('filterMessage').innerHTML = previousState.filterMessageText;
-                document.getElementById('resultsCount').innerText = previousState.resultsCountText;
-            } else {
-                document.getElementById('filterInfo').style.display = 'none';
-                document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
-            }
+        if (state.filterMessageText && state.filterMessageText !== 'All Records') {
+            document.getElementById('filterInfo').style.display = 'block';
+            document.getElementById('filterMessage').innerHTML = state.filterMessageText;
+            document.getElementById('resultsCount').innerText = state.resultsCountText || `Showing ${filteredSpeciesData.length} species`;
         } else {
-            filteredSpeciesData = [...speciesData];
-            displayResults(filteredSpeciesData);
             document.getElementById('filterInfo').style.display = 'none';
-            document.getElementById('resultsCount').innerText = 'Total: ' + speciesData.length + ' species';
+            document.getElementById('resultsCount').innerText = state.resultsCountText || `Total: ${speciesData.length} species`;
         }
-        
-        if (currentActiveCard) {
-            currentActiveCard.classList.remove('active');
-            currentActiveCard = null;
-        }
-        clearMarkers();
-        document.getElementById('speciesDetails').style.display = 'none';
-        document.getElementById('mapStatus').innerHTML = 'Click on a species to view location';
-        
-        const undoBtn = document.getElementById('undoTreeBtn');
-        if (undoBtn) {
-            undoBtn.disabled = (currentHistoryIndex <= 0);
-        }
+    } else {
+        filteredSpeciesData = [...speciesData];
+        displayResults(filteredSpeciesData);
+        document.getElementById('filterInfo').style.display = 'none';
+        document.getElementById('resultsCount').innerText = state.resultsCountText || `Total: ${speciesData.length} species`;
     }
+    
+    if (currentActiveCard) {
+        currentActiveCard.classList.remove('active');
+        currentActiveCard = null;
+    }
+    clearMarkers();
+    document.getElementById('speciesDetails').style.display = 'none';
+    document.getElementById('mapStatus').innerHTML = 'Click on a species to view location';
 }
 
 // Get distribution points for a species from data.js
@@ -1116,7 +1154,9 @@ async function loadSpeciesData() {
     saveToHistory(currentTreeData, document.getElementById('currentFocus').innerHTML, 
                   filteredSpeciesData, null, 'Total: ' + speciesData.length + ' species');
     
+    // Add event listeners for buttons
     document.getElementById('undoTreeBtn').addEventListener('click', undoLastAction);
+    document.getElementById('redoTreeBtn').addEventListener('click', redoLastAction);
     document.getElementById('resetTreeBtn').addEventListener('click', resetTreeToFullWithHistory);
 }
 
