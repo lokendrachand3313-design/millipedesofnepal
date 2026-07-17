@@ -1,294 +1,363 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ne">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Distribution - Millipedes of Nepal</title>
     <meta name="description" content="Explore the distribution of millipede species across Nepal with interactive maps and filtering capabilities.">
     <meta name="keywords" content="millipedes, Nepal, distribution, map, biodiversity, Diplopoda">
-    
+    <link rel="canonical" href="https://www.chandlokendra.com.np/distribution.html">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
     <!-- Leaflet CSS for Map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="style.css">
-    
+
+    <!-- Shared Styles - Embedded (SAME AS INDEX.HTML) -->
     <style>
-        .stats-summary {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 30px;
-            width: 100%;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            border-left: 5px solid var(--primary-blue, #1a5276);
-            text-align: center;
-            min-width: 140px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-3px);
-            border-left-color: var(--gold, #f39c12);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-blue, #1a5276);
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .stat-label {
-            font-size: 0.8rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .map-view-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .btn-view {
-            padding: 10px 20px;
-            background: var(--primary-blue, #1a5276);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 0.9rem;
-        }
-        
-        .btn-view:hover {
-            background: var(--primary-blue-dark, #0e3a54);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
-        .filter-section {
-            background: var(--blue-bg, #ebf5fb);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 2px solid var(--primary-blue, #1a5276);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            width: 100%;
-        }
-        
-        .filter-group {
-            flex: 1;
-            min-width: 150px;
-        }
-        
-        .filter-group label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-            color: var(--primary-blue, #1a5276);
-            font-size: 0.85rem;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .filter-group select {
-            width: 100%;
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-group select:hover {
-            border-color: var(--primary-blue, #1a5276);
-        }
-        
-        .filter-group select:focus {
-            outline: none;
-            border-color: var(--gold, #f39c12);
-            box-shadow: 0 0 5px rgba(243, 156, 18, 0.3);
-        }
-        
-        .filter-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed #ccc;
-            width: 100%;
-            align-items: center;
-        }
-        
-        .filter-badge {
-            background: white;
-            color: var(--primary-blue, #1a5276);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .reset-filters {
-            background: transparent;
-            color: var(--primary-blue, #1a5276);
-            border: 2px solid var(--primary-blue, #1a5276);
-            padding: 5px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin-left: auto;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .reset-filters:hover {
-            background: var(--primary-blue, #1a5276);
-            color: white;
-            transform: translateY(-1px);
-        }
-        
-        #map {
-            height: 550px;
-            width: 100%;
-            border-radius: 12px;
-            border: 3px solid var(--primary-blue, #1a5276);
-            transition: all 0.3s ease;
-            z-index: 1;
-        }
-        
-        #map:hover {
-            border-color: var(--gold, #f39c12);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        
-        .marker-count {
-            background: white;
-            padding: 8px 15px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: var(--primary-blue, #1a5276);
-            margin-top: 12px;
-            text-align: center;
-            display: inline-block;
-            width: auto;
-            border: 1px solid var(--gold, #f39c12);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .corrected-table-section {
-            margin-top: 40px;
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            border: 1px solid #e0e0e0;
-        }
-        
-        .corrected-table-header {
-            background: var(--primary-blue, #1a5276);
-            color: white;
-            padding: 15px 20px;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .corrected-table-header h3 {
+        /* ============================================
+           Millipedes of Nepal - Unified Style Sheet
+           Version: 3.1 - Common styles for all pages
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
+        * {
             margin: 0;
-            font-size: 1.3rem;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --green: #28a745;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --whatsapp: #25D366;
+            --gmail: #D44638;
+        }
+
+        /* ============ SKIP TO CONTENT ============ */
+        .skip-link {
+            position: absolute;
+            top: -1000px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #000;
+            padding: 10px 20px;
+            z-index: 10000;
+            font-weight: bold;
+            border-radius: 0 0 8px 8px;
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ============ UTILITY CLASSES ============ */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        .mt-1 { margin-top: 10px; }
+        .mt-2 { margin-top: 20px; }
+        .mt-3 { margin-top: 30px; }
+        .mb-1 { margin-bottom: 10px; }
+        .mb-2 { margin-bottom: 20px; }
+        .mb-3 { margin-bottom: 30px; }
+
+        .hide { display: none; }
+        .show { display: block; }
+
+        /* ============ REDUCED MOTION ============ */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============ PRINT STYLES ============ */
+        @media print {
+            header, nav, footer, .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .content-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        /* ============ HEADER ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
             color: white;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
             font-family: 'Times New Roman', Times, serif;
         }
-        
-        .corrected-table-header p {
-            margin: 5px 0 0 0;
-            font-size: 0.85rem;
-            opacity: 0.9;
+
+        .header-text p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
             font-family: 'Times New Roman', Times, serif;
         }
-        
-        .table-wrapper {
-            overflow-x: auto;
-            max-height: 500px;
-            overflow-y: auto;
+
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            animation: fadeInRight 0.8s ease-out;
         }
-        
-        .table-wrapper::-webkit-scrollbar {
+
+        .millipede-icon {
+            height: 200px;
+            width: auto;
+            max-width: 350px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+        }
+
+        /* ============ CLOCK STYLES ============ */
+        .clock-container {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            min-width: 200px;
+            text-align: center;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
+            position: relative;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: none;
+        }
+
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .clock-center {
+            position: absolute;
             width: 8px;
             height: 8px;
-        }
-        
-        .table-wrapper::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        .table-wrapper::-webkit-scrollbar-thumb {
-            background: var(--primary-blue, #1a5276);
-            border-radius: 10px;
-        }
-        
-        .corrected-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: 'Times New Roman', Times, serif;
-            min-width: 500px;
-        }
-        
-        .corrected-table th {
-            background: var(--blue-bg, #ebf5fb);
-            color: var(--primary-blue, #1a5276);
-            padding: 12px 15px;
-            text-align: left;
-            font-weight: bold;
-            border-bottom: 2px solid var(--primary-blue, #1a5276);
-            font-size: 1rem;
-            position: sticky;
-            top: 0;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 10;
+            box-shadow: 0 0 6px rgba(255,107,107,0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
         }
-        
-        .corrected-table td {
-            padding: 10px 15px;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 0.9rem;
-            color: #333;
+
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
+            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
         }
-        
-        .corrected-table tr:hover {
-            background: #f5f5f5;
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
         }
-        
-        .corrected-table .locality-old {
-            color: #7b3f00;
-            font-style: italic;
+
+        .hour-hand {
+            width: 4.5px;
+            height: 28px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(243,156,18,0.6);
+            border-radius: 4px 4px 2px 2px;
         }
-        
-        .corrected-table .locality-corrected {
-            color: var(--primary-blue, #1a5276);
-            font-weight: 500;
+
+        .minute-hand {
+            width: 3.5px;
+            height: 38px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(52,152,219,0.6);
+            border-radius: 3px 3px 2px 2px;
         }
-        
+
+        .second-hand {
+            width: 1.8px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 6px rgba(255,107,107,0.7);
+            border-radius: 2px;
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 3px rgba(0,0,0,0.4);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
+        .number-1 { color: #f39c12; top: 14%; left: 67%; }
+        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
+        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
+        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
+        .number-5 { color: #3498db; top: 86%; left: 67%; }
+        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
+        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
+        .number-8 { color: #e67e22; top: 73%; left: 19%; }
+        .number-9 { color: #f39c12; top: 50%; left: 8%; }
+        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
+        .number-11 { color: #3498db; top: 14%; left: 33%; }
+
         .clock-date {
             font-size: 18px;
             font-weight: bold;
@@ -302,28 +371,644 @@
             border-radius: 20px;
             display: inline-block;
         }
-        
+
+        /* ============ NAVIGATION BAR ============ */
+        nav {
+            background-color: var(--primary-blue);
+            padding: 15px 5%;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid white;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ============ UNIFIED CONTENT CARDS ============ */
+        .content-card {
+            background: var(--bg-white);
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            width: 100%;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .content-card h2 {
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .content-card p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #333;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .content-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--primary-blue);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* ============ DISTRIBUTION-SPECIFIC STYLES ============ */
+        .stats-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-blue);
+            text-align: center;
+            min-width: 140px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-left-color: var(--gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .map-view-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-view {
+            padding: 10px 20px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.9rem;
+        }
+
+        .btn-view:hover {
+            background: var(--primary-blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .filter-section {
+            background: var(--blue-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid var(--primary-blue);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: var(--primary-blue);
+            font-size: 0.85rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:hover {
+            border-color: var(--primary-blue);
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 5px rgba(243, 156, 18, 0.3);
+        }
+
+        .filter-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+            width: 100%;
+            align-items: center;
+        }
+
+        .filter-badge {
+            background: white;
+            color: var(--primary-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .reset-filters {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: auto;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .reset-filters:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        #map {
+            height: 550px;
+            width: 100%;
+            border-radius: 12px;
+            border: 3px solid var(--primary-blue);
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        #map:hover {
+            border-color: var(--gold);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .marker-count {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-top: 12px;
+            text-align: center;
+            display: inline-block;
+            width: auto;
+            border: 1px solid var(--gold);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .corrected-table-section {
+            margin-top: 40px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .corrected-table-header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 15px 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .corrected-table-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .corrected-table-header p {
+            margin: 5px 0 0 0;
+            font-size: 0.85rem;
+            opacity: 0.9;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .table-wrapper::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 10px;
+        }
+
+        .corrected-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Times New Roman', Times, serif;
+            min-width: 500px;
+        }
+
+        .corrected-table th {
+            background: var(--blue-bg);
+            color: var(--primary-blue);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid var(--primary-blue);
+            font-size: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .corrected-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .corrected-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .corrected-table .locality-old {
+            color: #7b3f00;
+            font-style: italic;
+        }
+
+        .corrected-table .locality-corrected {
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
         .leaflet-popup-content-wrapper {
             border-radius: 10px;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .leaflet-popup-content {
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .label-marker {
             background: transparent !important;
             border: none !important;
         }
-        
-        /* Custom Dot Marker Styles */
+
         .custom-dot-marker {
             background: transparent !important;
             border: none !important;
         }
-        
+
+        /* ============ BUTTONS ============ */
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            background-color: #e67e22;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 5%;
+            width: 100%;
+            max-width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ============ RESPONSIVE DESIGN ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+            .millipede-icon { height: 160px; max-width: 280px; }
+        }
+
+        @media (max-width: 1024px) {
+            nav { padding: 15px 5%; }
+            main { padding: 30px 5%; }
+            footer { padding: 30px 5%; }
+            .content-card { padding: 30px; }
+        }
+
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 5%; gap: 20px; }
+            .millipede-icon { height: 130px; max-width: 220px; }
+            .analog-clock { width: 80px; height: 80px; }
+            .clock-container { min-width: 170px; }
+            .right-group { gap: 1px; }
+        }
+
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 2px;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            nav a {
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                margin: 0;
+            }
+
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            main { padding: 20px 4%; }
+            .content-card { padding: 25px; }
+            .content-card h2 { font-size: 1.7rem; }
+            .content-card h3 { font-size: 1.5rem; }
+
+            .right-group {
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .millipede-icon { height: 110px; max-width: 190px; }
+            .analog-clock { width: 70px; height: 70px; }
+            .clock-date { font-size: 16px; }
+
+            footer p { font-size: 1rem; }
+
             .stats-summary { gap: 10px; }
             .stat-card { min-width: calc(50% - 10px); padding: 10px; }
             .stat-number { font-size: 1.5rem; }
@@ -333,713 +1018,767 @@
             .map-view-buttons { flex-direction: column; }
             .btn-view { width: 100%; text-align: center; }
             #map { height: 400px; }
-            .clock-date { font-size: 16px; }
-            
-            .corrected-table th, 
+
+            .corrected-table th,
             .corrected-table td {
                 padding: 8px 10px;
                 font-size: 0.8rem;
             }
             .corrected-table-header h3 { font-size: 1.1rem; }
         }
-        
+
         @media (max-width: 480px) {
+            .header-text h1 { font-size: 1.5rem; }
+            .header-text p { font-size: 0.9rem; }
+            .header-logo { height: 50px; }
+            .millipede-icon { height: 80px; max-width: 130px; }
+            .analog-clock { width: 55px; height: 55px; }
+            .clock-container { min-width: 130px; }
+            .right-group { gap: 0px; }
+            .clock-date { font-size: 13px; padding: 2px 8px; }
+            .content-card { padding: 18px; }
+            .content-card h2 { font-size: 1.4rem; }
+            .content-card p { font-size: 1rem; }
+            .content-card h3 { font-size: 1.3rem; }
+
             .stat-card { min-width: 100%; }
             .marker-count { font-size: 0.75rem; }
-            .clock-date { font-size: 14px; padding: 2px 10px; }
-            
-            .corrected-table th, 
+            .corrected-table th,
             .corrected-table td {
                 padding: 6px 8px;
                 font-size: 0.7rem;
             }
         }
-        
+
         @media (min-width: 1600px) {
-            #map { height: 650px; }
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .millipede-icon { height: 220px; max-width: 380px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
+            .analog-clock { width: 120px; height: 120px; }
+            .clock-container { min-width: 240px; }
+            .right-group { gap: 3px; }
             .clock-date { font-size: 22px; }
+            #map { height: 650px; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
-             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
-        
-        <div class="header-text">
-            <h1>Millipedes of Nepal</h1>
-            <p>Distribution</p>
-        </div>
-        
-        <div class="right-group">
-            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
-                 onerror="this.style.display='none'">
-            
-            <div class="clock-container">
-                <div class="analog-clock">
-                    <div class="clock-face">
-                        <div class="clock-ring"></div>
-                        <div class="hand hour-hand" id="hourHand"></div>
-                        <div class="hand minute-hand" id="minuteHand"></div>
-                        <div class="hand second-hand" id="secondHand"></div>
-                        <div class="clock-center"></div>
-                        <div class="clock-numbers">
-                            <div class="number number-12">12</div>
-                            <div class="number number-1">1</div>
-                            <div class="number number-2">2</div>
-                            <div class="number number-3">3</div>
-                            <div class="number number-4">4</div>
-                            <div class="number number-5">5</div>
-                            <div class="number number-6">6</div>
-                            <div class="number number-7">7</div>
-                            <div class="number number-8">8</div>
-                            <div class="number number-9">9</div>
-                            <div class="number number-10">10</div>
-                            <div class="number number-11">11</div>
+    <!-- ============ SKIP TO CONTENT ============ -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <div class="header-container">
+            <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo"
+                 onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
+
+            <div class="header-text">
+                <h1>Millipedes of Nepal</h1>
+                <p>Distribution</p>
+            </div>
+
+            <div class="right-group">
+                <img src="milli.png" alt="Millipede Icon" class="millipede-icon"
+                     onerror="this.style.display='none'">
+
+                <div class="clock-container">
+                    <div class="analog-clock">
+                        <div class="clock-face">
+                            <div class="clock-ring"></div>
+                            <div class="hand hour-hand" id="hourHand"></div>
+                            <div class="hand minute-hand" id="minuteHand"></div>
+                            <div class="hand second-hand" id="secondHand"></div>
+                            <div class="clock-center"></div>
+                            <div class="clock-numbers">
+                                <div class="number number-12">12</div>
+                                <div class="number number-1">1</div>
+                                <div class="number number-2">2</div>
+                                <div class="number number-3">3</div>
+                                <div class="number number-4">4</div>
+                                <div class="number number-5">5</div>
+                                <div class="number number-6">6</div>
+                                <div class="number number-7">7</div>
+                                <div class="number number-8">8</div>
+                                <div class="number number-9">9</div>
+                                <div class="number number-10">10</div>
+                                <div class="number number-11">11</div>
+                            </div>
                         </div>
                     </div>
+                    <div class="clock-date" id="englishDate">--</div>
                 </div>
-                <div class="clock-date" id="englishDate">--</div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="history.html">History</a>
-    <a href="checklist.html">Checklist</a>
-    <a href="distribution.html" class="active">Distribution</a>
-    <a href="introkey.html">Introduction and Identification</a>
-    <a href="articles.html">Articles</a>
-    <a href="gallery.html">Gallery</a> 
-    <a href="upload.html">Upload</a>
-    <a href="team.html">Team</a>
-    <a href="faq.html">FAQ</a>
-</nav>
+    <!-- ============ NAVIGATION ============ -->
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">☰ Menu</button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="history.html">History</a>
+            <a href="checklist.html">Checklist</a>
+            <a href="distribution.html" class="active">Distribution</a>
+            <a href="introkey.html">Introduction and Identification</a>
+            <a href="articles.html">Articles</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="upload.html">Upload</a>
+            <a href="team.html">Team</a>
+            <a href="faq.html">FAQ</a>
+        </div>
+    </nav>
 
-<main>
-    <!-- Stats Summary -->
-    <div class="stats-summary" id="statsSummary">
-        <div class="stat-card">
-            <div class="stat-number" id="totalPoints">0</div>
-            <div class="stat-label">Total Records</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="visiblePoints">0</div>
-            <div class="stat-label">Visible on Map</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="uniqueSpecies">0</div>
-            <div class="stat-label">Unique Species</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="uniqueGenera">0</div>
-            <div class="stat-label">Genera</div>
-        </div>
-        <div class="stat-card" style="border-left-color: #27ae60;">
-            <div class="stat-number" id="mappedSpecies">0</div>
-            <div class="stat-label">Mapped Species</div>
-        </div>
-        <div class="stat-card" style="border-left-color: #e74c3c;">
-            <div class="stat-number" id="unmappedSpecies">0</div>
-            <div class="stat-label">Unmapped Species</div>
-        </div>
-    </div>
+    <!-- ============ MAIN CONTENT ============ -->
+    <main id="main-content">
 
-    <div class="map-view-buttons">
-        <button class="btn-view" onclick="zoomToNepal()">Zoom to Nepal</button>
-        <button class="btn-view" onclick="zoomToAllPoints()">Zoom to All Points</button>
-        <button class="btn-view" onclick="zoomToGlobal()">Global View</button>
-    </div>
-
-    <div class="filter-section">
-        <div class="filter-group">
-            <label>Order</label>
-            <select id="orderFilter" onchange="onOrderChange()">
-                <option value="all">Select Order</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>Family</label>
-            <select id="familyFilter" onchange="onFamilyChange()">
-                <option value="all">Select Family</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>Genus</label>
-            <select id="genusFilter" onchange="onGenusChange()">
-                <option value="all">Select Genus</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>Species</label>
-            <select id="speciesFilter" onchange="onSpeciesChange()">
-                <option value="all">Select Species</option>
-            </select>
-        </div>
-        
-        <div class="filter-info" id="filterInfo">
-            <div class="filter-badge" id="activeFilters">
-                Showing: <span id="filterSummary">GPS Points (no labels)</span>
+        <!-- Stats Summary -->
+        <div class="stats-summary" id="statsSummary">
+            <div class="stat-card">
+                <div class="stat-number" id="totalPoints">0</div>
+                <div class="stat-label">Total Records</div>
             </div>
-            <button class="reset-filters" onclick="resetAllFilters()">Reset All Filters</button>
+            <div class="stat-card">
+                <div class="stat-number" id="visiblePoints">0</div>
+                <div class="stat-label">Visible on Map</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="uniqueSpecies">0</div>
+                <div class="stat-label">Unique Species</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="uniqueGenera">0</div>
+                <div class="stat-label">Genera</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #27ae60;">
+                <div class="stat-number" id="mappedSpecies">0</div>
+                <div class="stat-label">Mapped Species</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #e74c3c;">
+                <div class="stat-number" id="unmappedSpecies">0</div>
+                <div class="stat-label">Unmapped Species</div>
+            </div>
         </div>
-    </div>
 
-    <div id="map"></div>
-    <div style="text-align: center; margin-top: 10px;">
-        <div class="marker-count" id="markerCount">Loading points...</div>
-    </div>
-    
-    <!-- Corrected Localities Table -->
-    <div class="corrected-table-section">
-        <div class="corrected-table-header">
-            <h3>Standardisation of historical millipede collection localities in Nepal</h3>
-            <p>Locality names as written in original literature versus corrected standard names</p>
+        <div class="map-view-buttons">
+            <button class="btn-view" onclick="zoomToNepal()">Zoom to Nepal</button>
+            <button class="btn-view" onclick="zoomToAllPoints()">Zoom to All Points</button>
+            <button class="btn-view" onclick="zoomToGlobal()">Global View</button>
         </div>
-        <div class="table-wrapper">
-            <table class="corrected-table">
-                <thead>
-                    <tr><th>S.N.</th><th>Locality in Paper</th><th>Corrected Name</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td class="locality-old">Nagarjung</td><td class="locality-corrected">Nagarjun</td></tr>
-                    <tr><td>2</td><td class="locality-old">Jamacok</td><td class="locality-corrected">Jamacho</td></tr>
-                    <tr><td>3</td><td class="locality-old">Tinjura Dara</td><td class="locality-corrected">Tinjure Danda (Hill)</td></tr>
-                    <tr><td>4</td><td class="locality-old">Chitlong</td><td class="locality-corrected">Chitlang</td></tr>
-                    <tr><td>5</td><td class="locality-old">Dhumpus/Dhambush</td><td class="locality-corrected">Dhampus</td></tr>
-                    <tr><td>6</td><td class="locality-old">Sheopuri/ Shiwapuri Dara/ Sheopuri Mountain</td><td class="locality-corrected">Shivapuri/ Sivapuri Danda (Hill)</td></tr>
-                    <tr><td>7</td><td class="locality-old">Yamphuthin</td><td class="locality-corrected">Yamphudin</td></tr>
-                    <tr><td>8</td><td class="locality-old">Thaksang</td><td class="locality-corrected">Thasang</td></tr>
-                    <tr><td>9</td><td class="locality-old">Tukche</td><td class="locality-corrected">Tukuche</td></tr>
-                    <tr><td>10</td><td class="locality-old">Deorali</td><td class="locality-corrected">Deurali</td></tr>
-                    <tr><td>11</td><td class="locality-old">Gunsa</td><td class="locality-corrected">Ghunsa</td></tr>
-                    <tr><td>12</td><td class="locality-old">Paha Khola</td><td class="locality-corrected">Pawakhola</td></tr>
-                    <tr><td>13</td><td class="locality-old">Kyangin/ Kyangjin</td><td class="locality-corrected">Kyanjin</td></tr>
-                    <tr><td>14</td><td class="locality-old">Muri</td><td class="locality-corrected">Mudi</td></tr>
-                    <tr><td>15</td><td class="locality-old">Barabise</td><td class="locality-corrected">Bahrabise</td></tr>
-                    <tr><td>16</td><td class="locality-old">Chuling Khola</td><td class="locality-corrected">Chumling Khola</td></tr>
-                    <tr><td>17</td><td class="locality-old">Ghandrung</td><td class="locality-corrected">Ghandruk</td></tr>
-                    <tr><td>18</td><td class="locality-old">Bobang</td><td class="locality-corrected">Bowang</td></tr>
-                    <tr><td>19</td><td class="locality-old">Tomba Kosi/ Tomba-Kosi</td><td class="locality-corrected">Tamakoshi</td></tr>
-                    <tr><td>20</td><td class="locality-old">Lughla</td><td class="locality-corrected">Lukla</td></tr>
-                    <tr><td>21</td><td class="locality-old">Mansingma</td><td class="locality-corrected">Mangsima</td></tr>
-                    <tr><td>22</td><td class="locality-old">Gorapani</td><td class="locality-corrected">Ghodepani</td></tr>
-                    <tr><td>23</td><td class="locality-old">Simbua</td><td class="locality-corrected">Simbuwa</td></tr>
-                    <tr><td>24</td><td class="locality-old">Darondi</td><td class="locality-corrected">Daraudi</td></tr>
-                    <tr><td>25</td><td class="locality-old">Thanjok</td><td class="locality-corrected">Thanchok</td></tr>
-                    <tr><td>26</td><td class="locality-old">Chordung</td><td class="locality-corrected">Cherdung</td></tr>
-                    <tr><td>27</td><td class="locality-old">Pangum</td><td class="locality-corrected">Panggom</td></tr>
-                    <tr><td>28</td><td class="locality-old">Walungchung</td><td class="locality-corrected">Olangchung</td></tr>
-                    <tr><td>29</td><td class="locality-old">Lethe</td><td class="locality-corrected">Lete</td></tr>
-                    <tr><td>30</td><td class="locality-old">Thing Sang/ Ting Sang La</td><td class="locality-corrected">Thinsang La</td></tr>
-                    <tr><td>31</td><td class="locality-old">Cherakapti</td><td class="locality-corrected">Skhetrapa</td></tr>
-                    <tr><td>32</td><td class="locality-old">Bhichuk</td><td class="locality-corrected">Bhichok</td></tr>
-                    <tr><td>33</td><td class="locality-old">Dobang</td><td class="locality-corrected">Darwang</td></tr>
-                    <tr><td>34</td><td class="locality-old">Ghorlabesi</td><td class="locality-corrected">Khorlabesi</td></tr>
-                    <tr><td>35</td><td class="locality-old">Suteo</td><td class="locality-corrected">Soti</td></tr>
-                    <tr><td>36</td><td class="locality-old">Hyangja</td><td class="locality-corrected">Hemja</td></tr>
-                    <tr><td>37</td><td class="locality-old">Paniporua</td><td class="locality-corrected">Paniparuwa</td></tr>
-                    <tr><td>38</td><td class="locality-old">Naya Sangu</td><td class="locality-corrected">Nayasanghu</td></tr>
-                    <tr><td>39</td><td class="locality-old">Machapurche</td><td class="locality-corrected">Machhapurchhe</td></tr>
-                    <tr><td>40</td><td class="locality-old">Sallentar</td><td class="locality-corrected">Salyantar</td></tr>
-                    <tr><td>41</td><td class="locality-old">Rigmo</td><td class="locality-corrected">Ringmo</td></tr>
-                    <tr><td>42</td><td class="locality-old">Thimang</td><td class="locality-corrected">Timang/Temang</td></tr>
-                    <tr><td>43</td><td class="locality-old">Thankur</td><td class="locality-corrected">Thakur</td></tr>
-                    <tr><td>44</td><td class="locality-old">Sibuche</td><td class="locality-corrected">Sibuje</td></tr>
-                    <tr><td>45</td><td class="locality-old">Nabricot</td><td class="locality-corrected">Naurikot</td></tr>
-                    <tr><td>46</td><td class="locality-old">Siklis</td><td class="locality-corrected">Sikles</td></tr>
-                    <tr><td>47</td><td class="locality-old">Lassetham</td><td class="locality-corrected">Lase tham</td></tr>
-                    <tr><td>48</td><td class="locality-old">Bagar La Pass</td><td class="locality-corrected">Baga La Pass</td></tr>
-                    <tr><td>49</td><td class="locality-old">Syng Gyang</td><td class="locality-corrected">Sin Gompa</td></tr>
-                    <tr><td>50</td><td class="locality-old">Buri Gandaki</td><td class="locality-corrected">Budhi Gandaki</td></tr>
-                    <tr><td>51</td><td class="locality-old">Doreni</td><td class="locality-corrected">Dhodeni</td></tr>
-                    <tr><td>52</td><td class="locality-old">Motar</td><td class="locality-corrected">Mahatar</td></tr>
-                    <tr><td>53</td><td class="locality-old">Mure</td><td class="locality-corrected">Mudhe</td></tr>
-                    <tr><td>54</td><td class="locality-old">Hurure</td><td class="locality-corrected">Mururu</td></tr>
-                    <tr><td>55</td><td class="locality-old">Taplethok</td><td class="locality-corrected">Tapethok</td></tr>
-                    <tr><td>56</td><td class="locality-old">Kordunje</td><td class="locality-corrected">Kotunje</td></tr>
-                    <tr><td>57</td><td class="locality-old">Thorpu</td><td class="locality-corrected">Tharpu</td></tr>
-                    <tr><td>58</td><td class="locality-old">Senghe</td><td class="locality-corrected">Syange</td></tr>
-                    <tr><td>59</td><td class="locality-old">Tarke Ghyang</td><td class="locality-corrected">Tarkeyghyang</td></tr>
-                    <tr><td>60</td><td class="locality-old">Barahbise</td><td class="locality-corrected">Bahrabise</td></tr>
-                    <tr><td>61</td><td class="locality-old">Phulcoki/ Phulchauki/ Phulchoki</td><td class="locality-corrected">Phulchoki</td></tr>
-                    <tr><td>62</td><td class="locality-old">Tragsindo La/ Tragsindo-La</td><td class="locality-corrected">Taksindu La</td></tr>
-                    <tr><td>63</td><td class="locality-old">Thatepati/ Thadepati</td><td class="locality-corrected">Tharepati</td></tr>
-                    <tr><td>64</td><td class="locality-old">Syabru</td><td class="locality-corrected">Syaphru</td></tr>
-                </tbody>
-            </table>
+
+        <div class="filter-section">
+            <div class="filter-group">
+                <label>Order</label>
+                <select id="orderFilter" onchange="onOrderChange()">
+                    <option value="all">Select Order</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Family</label>
+                <select id="familyFilter" onchange="onFamilyChange()">
+                    <option value="all">Select Family</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Genus</label>
+                <select id="genusFilter" onchange="onGenusChange()">
+                    <option value="all">Select Genus</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Species</label>
+                <select id="speciesFilter" onchange="onSpeciesChange()">
+                    <option value="all">Select Species</option>
+                </select>
+            </div>
+
+            <div class="filter-info" id="filterInfo">
+                <div class="filter-badge" id="activeFilters">
+                    Showing: <span id="filterSummary">GPS Points (no labels)</span>
+                </div>
+                <button class="reset-filters" onclick="resetAllFilters()">Reset All Filters</button>
+            </div>
         </div>
-    </div>
-</main>
 
-<footer>
-    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>Copyright 2025 Lokendra Chand | +977-9809733313 / +817090238470</p>
-</footer>
+        <div id="map"></div>
+        <div style="text-align: center; margin-top: 10px;">
+            <div class="marker-count" id="markerCount">Loading points...</div>
+        </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="data.js"></script>
+        <!-- Corrected Localities Table -->
+        <div class="content-card">
+            <div class="corrected-table-section">
+                <div class="corrected-table-header">
+                    <h3>Standardisation of historical millipede collection localities in Nepal</h3>
+                    <p>Locality names as written in original literature versus corrected standard names</p>
+                </div>
+                <div class="table-wrapper">
+                    <table class="corrected-table">
+                        <thead>
+                            <tr><th>S.N.</th><th>Locality in Paper</th><th>Corrected Name</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td class="locality-old">Nagarjung</td><td class="locality-corrected">Nagarjun</td></tr>
+                            <tr><td>2</td><td class="locality-old">Jamacok</td><td class="locality-corrected">Jamacho</td></tr>
+                            <tr><td>3</td><td class="locality-old">Tinjura Dara</td><td class="locality-corrected">Tinjure Danda (Hill)</td></tr>
+                            <tr><td>4</td><td class="locality-old">Chitlong</td><td class="locality-corrected">Chitlang</td></tr>
+                            <tr><td>5</td><td class="locality-old">Dhumpus/Dhambush</td><td class="locality-corrected">Dhampus</td></tr>
+                            <tr><td>6</td><td class="locality-old">Sheopuri/ Shiwapuri Dara/ Sheopuri Mountain</td><td class="locality-corrected">Shivapuri/ Sivapuri Danda (Hill)</td></tr>
+                            <tr><td>7</td><td class="locality-old">Yamphuthin</td><td class="locality-corrected">Yamphudin</td></tr>
+                            <tr><td>8</td><td class="locality-old">Thaksang</td><td class="locality-corrected">Thasang</td></tr>
+                            <tr><td>9</td><td class="locality-old">Tukche</td><td class="locality-corrected">Tukuche</td></tr>
+                            <tr><td>10</td><td class="locality-old">Deorali</td><td class="locality-corrected">Deurali</td></tr>
+                            <tr><td>11</td><td class="locality-old">Gunsa</td><td class="locality-corrected">Ghunsa</td></tr>
+                            <tr><td>12</td><td class="locality-old">Paha Khola</td><td class="locality-corrected">Pawakhola</td></tr>
+                            <tr><td>13</td><td class="locality-old">Kyangin/ Kyangjin</td><td class="locality-corrected">Kyanjin</td></tr>
+                            <tr><td>14</td><td class="locality-old">Muri</td><td class="locality-corrected">Mudi</td></tr>
+                            <tr><td>15</td><td class="locality-old">Barabise</td><td class="locality-corrected">Bahrabise</td></tr>
+                            <tr><td>16</td><td class="locality-old">Chuling Khola</td><td class="locality-corrected">Chumling Khola</td></tr>
+                            <tr><td>17</td><td class="locality-old">Ghandrung</td><td class="locality-corrected">Ghandruk</td></tr>
+                            <tr><td>18</td><td class="locality-old">Bobang</td><td class="locality-corrected">Bowang</td></tr>
+                            <tr><td>19</td><td class="locality-old">Tomba Kosi/ Tomba-Kosi</td><td class="locality-corrected">Tamakoshi</td></tr>
+                            <tr><td>20</td><td class="locality-old">Lughla</td><td class="locality-corrected">Lukla</td></tr>
+                            <tr><td>21</td><td class="locality-old">Mansingma</td><td class="locality-corrected">Mangsima</td></tr>
+                            <tr><td>22</td><td class="locality-old">Gorapani</td><td class="locality-corrected">Ghodepani</td></tr>
+                            <tr><td>23</td><td class="locality-old">Simbua</td><td class="locality-corrected">Simbuwa</td></tr>
+                            <tr><td>24</td><td class="locality-old">Darondi</td><td class="locality-corrected">Daraudi</td></tr>
+                            <tr><td>25</td><td class="locality-old">Thanjok</td><td class="locality-corrected">Thanchok</td></tr>
+                            <tr><td>26</td><td class="locality-old">Chordung</td><td class="locality-corrected">Cherdung</td></tr>
+                            <tr><td>27</td><td class="locality-old">Pangum</td><td class="locality-corrected">Panggom</td></tr>
+                            <tr><td>28</td><td class="locality-old">Walungchung</td><td class="locality-corrected">Olangchung</td></tr>
+                            <tr><td>29</td><td class="locality-old">Lethe</td><td class="locality-corrected">Lete</td></tr>
+                            <tr><td>30</td><td class="locality-old">Thing Sang/ Ting Sang La</td><td class="locality-corrected">Thinsang La</td></tr>
+                            <tr><td>31</td><td class="locality-old">Cherakapti</td><td class="locality-corrected">Skhetrapa</td></tr>
+                            <tr><td>32</td><td class="locality-old">Bhichuk</td><td class="locality-corrected">Bhichok</td></tr>
+                            <tr><td>33</td><td class="locality-old">Dobang</td><td class="locality-corrected">Darwang</td></tr>
+                            <tr><td>34</td><td class="locality-old">Ghorlabesi</td><td class="locality-corrected">Khorlabesi</td></tr>
+                            <tr><td>35</td><td class="locality-old">Suteo</td><td class="locality-corrected">Soti</td></tr>
+                            <tr><td>36</td><td class="locality-old">Hyangja</td><td class="locality-corrected">Hemja</td></tr>
+                            <tr><td>37</td><td class="locality-old">Paniporua</td><td class="locality-corrected">Paniparuwa</td></tr>
+                            <tr><td>38</td><td class="locality-old">Naya Sangu</td><td class="locality-corrected">Nayasanghu</td></tr>
+                            <tr><td>39</td><td class="locality-old">Machapurche</td><td class="locality-corrected">Machhapurchhe</td></tr>
+                            <tr><td>40</td><td class="locality-old">Sallentar</td><td class="locality-corrected">Salyantar</td></tr>
+                            <tr><td>41</td><td class="locality-old">Rigmo</td><td class="locality-corrected">Ringmo</td></tr>
+                            <tr><td>42</td><td class="locality-old">Thimang</td><td class="locality-corrected">Timang/Temang</td></tr>
+                            <tr><td>43</td><td class="locality-old">Thankur</td><td class="locality-corrected">Thakur</td></tr>
+                            <tr><td>44</td><td class="locality-old">Sibuche</td><td class="locality-corrected">Sibuje</td></tr>
+                            <tr><td>45</td><td class="locality-old">Nabricot</td><td class="locality-corrected">Naurikot</td></tr>
+                            <tr><td>46</td><td class="locality-old">Siklis</td><td class="locality-corrected">Sikles</td></tr>
+                            <tr><td>47</td><td class="locality-old">Lassetham</td><td class="locality-corrected">Lase tham</td></tr>
+                            <tr><td>48</td><td class="locality-old">Bagar La Pass</td><td class="locality-corrected">Baga La Pass</td></tr>
+                            <tr><td>49</td><td class="locality-old">Syng Gyang</td><td class="locality-corrected">Sin Gompa</td></tr>
+                            <tr><td>50</td><td class="locality-old">Buri Gandaki</td><td class="locality-corrected">Budhi Gandaki</td></tr>
+                            <tr><td>51</td><td class="locality-old">Doreni</td><td class="locality-corrected">Dhodeni</td></tr>
+                            <tr><td>52</td><td class="locality-old">Motar</td><td class="locality-corrected">Mahatar</td></tr>
+                            <tr><td>53</td><td class="locality-old">Mure</td><td class="locality-corrected">Mudhe</td></tr>
+                            <tr><td>54</td><td class="locality-old">Hurure</td><td class="locality-corrected">Mururu</td></tr>
+                            <tr><td>55</td><td class="locality-old">Taplethok</td><td class="locality-corrected">Tapethok</td></tr>
+                            <tr><td>56</td><td class="locality-old">Kordunje</td><td class="locality-corrected">Kotunje</td></tr>
+                            <tr><td>57</td><td class="locality-old">Thorpu</td><td class="locality-corrected">Tharpu</td></tr>
+                            <tr><td>58</td><td class="locality-old">Senghe</td><td class="locality-corrected">Syange</td></tr>
+                            <tr><td>59</td><td class="locality-old">Tarke Ghyang</td><td class="locality-corrected">Tarkeyghyang</td></tr>
+                            <tr><td>60</td><td class="locality-old">Barahbise</td><td class="locality-corrected">Bahrabise</td></tr>
+                            <tr><td>61</td><td class="locality-old">Phulcoki/ Phulchauki/ Phulchoki</td><td class="locality-corrected">Phulchoki</td></tr>
+                            <tr><td>62</td><td class="locality-old">Tragsindo La/ Tragsindo-La</td><td class="locality-corrected">Taksindu La</td></tr>
+                            <tr><td>63</td><td class="locality-old">Thatepati/ Thadepati</td><td class="locality-corrected">Tharepati</td></tr>
+                            <tr><td>64</td><td class="locality-old">Syabru</td><td class="locality-corrected">Syaphru</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-<script>
-// ============================================
-// CLOCK AND DATE FUNCTIONS
-// ============================================
+    </main>
 
-function getNepalTime() {
-    var now = new Date();
-    var nepalOffset = 5.75 * 60 * 60 * 1000;
-    var utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-    return new Date(utcTime + nepalOffset);
-}
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+        <p>© <span id="footerYear">2026</span> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    </footer>
 
-function updateClock() {
-    var now = getNepalTime();
-    var hours = now.getHours();
-    var minutes = now.getMinutes();
-    var seconds = now.getSeconds();
-    
-    var hourHand = document.getElementById('hourHand');
-    var minuteHand = document.getElementById('minuteHand');
-    var secondHand = document.getElementById('secondHand');
-    
-    if (hourHand) hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
-    if (minuteHand) minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
-    if (secondHand) secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
-    
-    var englishDate = document.getElementById('englishDate');
-    if (englishDate) {
-        englishDate.innerHTML = now.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
-        });
-    }
-}
+    <!-- ============ SCRIPTS ============ -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="data.js"></script>
 
-window.addEventListener('DOMContentLoaded', function() {
-    updateClock();
-    setInterval(updateClock, 1000);
-});
-
-// ============================================
-// DISTRIBUTION MAP FUNCTIONS
-// ============================================
-
-var map = L.map('map').setView([28.3949, 84.1240], 7);
-var markersLayer = L.layerGroup().addTo(map);
-
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: 'OpenStreetMap contributors, CartoDB',
-    subdomains: 'abcd',
-    maxZoom: 19,
-    minZoom: 2
-}).addTo(map);
-
-L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(map);
-
-var allPoints = [];
-var filterCache = {
-    orders: new Set(),
-    familiesByOrder: new Map(),
-    generaByFamily: new Map(),
-    speciesByGenus: new Map()
-};
-
-function isValidCoordinate(lat, lon) {
-    return lat && lon && !isNaN(lat) && !isNaN(lon) && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
-}
-
-function buildFilterHierarchy(points) {
-    var ordersSet = new Set();
-    var familiesMap = new Map();
-    var generaMap = new Map();
-    var speciesMap = new Map();
-    
-    points.forEach(function(p) {
-        var order = p.order || 'Unidentified';
-        var family = p.family || 'Unidentified';
-        var genus = p.genus || 'Unidentified';
-        var species = p.species || 'sp.';
-        
-        ordersSet.add(order);
-        
-        if (!familiesMap.has(order)) familiesMap.set(order, new Set());
-        familiesMap.get(order).add(family);
-        
-        if (!generaMap.has(family)) generaMap.set(family, new Set());
-        generaMap.get(family).add(genus);
-        
-        if (!speciesMap.has(genus)) speciesMap.set(genus, new Set());
-        speciesMap.get(genus).add(species);
-    });
-    
-    return { ordersSet: ordersSet, familiesMap: familiesMap, generaMap: generaMap, speciesMap: speciesMap };
-}
-
-function populateOrders() {
-    var select = document.getElementById('orderFilter');
-    var orders = Array.from(filterCache.ordersSet).sort();
-    select.innerHTML = '<option value="all">Select Order</option>';
-    orders.forEach(function(order) {
-        var option = document.createElement('option');
-        option.value = order;
-        option.textContent = order;
-        select.appendChild(option);
-    });
-}
-
-function updateStats() {
-    if (!allPoints.length) return;
-    
-    var allSpecies = new Set();
-    var allGenera = new Set();
-    var mappedSpecies = new Set();
-    var unmappedSpecies = new Set();
-    
-    allPoints.forEach(function(p) {
-        var genus = p.genus || 'Unidentified';
-        var species = p.species || 'sp.';
-        var key = genus + '_' + species;
-        
-        allSpecies.add(key);
-        if (genus && genus !== 'Unidentified') {
-            allGenera.add(genus);
-        }
-        
-        if (isValidCoordinate(p.lat, p.lon)) {
-            mappedSpecies.add(key);
-        } else {
-            unmappedSpecies.add(key);
-        }
-    });
-    
-    var validPoints = allPoints.filter(function(p) { return isValidCoordinate(p.lat, p.lon); });
-    
-    document.getElementById('totalPoints').textContent = allPoints.length;
-    document.getElementById('visiblePoints').textContent = validPoints.length;
-    document.getElementById('uniqueSpecies').textContent = allSpecies.size;
-    document.getElementById('uniqueGenera').textContent = allGenera.size;
-    document.getElementById('mappedSpecies').textContent = mappedSpecies.size;
-    document.getElementById('unmappedSpecies').textContent = unmappedSpecies.size;
-}
-
-function updateFilterSummary() {
-    var order = document.getElementById('orderFilter').value;
-    var family = document.getElementById('familyFilter').value;
-    var genus = document.getElementById('genusFilter').value;
-    var species = document.getElementById('speciesFilter').value;
-    
-    var summary = '';
-    if (order === 'all') {
-        summary = 'GPS Points (no labels)';
-    } else if (order !== 'all' && family === 'all') {
-        summary = 'Order: ' + order + ' (GPS points, no labels)';
-    } else if (order !== 'all' && family !== 'all' && genus === 'all') {
-        summary = 'Family: ' + family + ' (GPS points, no labels)';
-    } else if (order !== 'all' && family !== 'all' && genus !== 'all' && species === 'all') {
-        summary = 'Genus: ' + genus + ' (Showing Species names)';
-    } else if (order !== 'all' && family !== 'all' && genus !== 'all' && species !== 'all') {
-        summary = 'Species: ' + genus + ' ' + species;
-    }
-    
-    document.getElementById('filterSummary').textContent = summary;
-}
-
-function resetAllFilters() {
-    document.getElementById('orderFilter').value = 'all';
-    document.getElementById('familyFilter').innerHTML = '<option value="all">Select Family</option>';
-    document.getElementById('genusFilter').innerHTML = '<option value="all">Select Genus</option>';
-    document.getElementById('speciesFilter').innerHTML = '<option value="all">Select Species</option>';
-    
-    renderMarkers();
-    updateFilterSummary();
-}
-
-// ============================================
-// DROPDOWN CHANGE HANDLERS
-// ============================================
-
-function onOrderChange() {
-    var selectedOrder = document.getElementById('orderFilter').value;
-    
-    var familySelect = document.getElementById('familyFilter');
-    var genusSelect = document.getElementById('genusFilter');
-    var speciesSelect = document.getElementById('speciesFilter');
-    
-    familySelect.innerHTML = '<option value="all">Select Family</option>';
-    genusSelect.innerHTML = '<option value="all">Select Genus</option>';
-    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
-    
-    if (selectedOrder !== 'all') {
-        var families = Array.from(filterCache.familiesMap.get(selectedOrder) || new Set()).sort();
-        families.forEach(function(family) {
-            var option = document.createElement('option');
-            option.value = family;
-            option.textContent = family;
-            familySelect.appendChild(option);
-        });
-    }
-    
-    renderMarkers();
-    updateFilterSummary();
-}
-
-function onFamilyChange() {
-    var selectedOrder = document.getElementById('orderFilter').value;
-    var selectedFamily = document.getElementById('familyFilter').value;
-    
-    var genusSelect = document.getElementById('genusFilter');
-    var speciesSelect = document.getElementById('speciesFilter');
-    genusSelect.innerHTML = '<option value="all">Select Genus</option>';
-    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
-    
-    if (selectedFamily !== 'all' && selectedOrder !== 'all') {
-        var genera = Array.from(filterCache.generaMap.get(selectedFamily) || new Set()).sort();
-        genera.forEach(function(genus) {
-            var option = document.createElement('option');
-            option.value = genus;
-            option.textContent = genus;
-            genusSelect.appendChild(option);
-        });
-    }
-    
-    renderMarkers();
-    updateFilterSummary();
-}
-
-function onGenusChange() {
-    var selectedOrder = document.getElementById('orderFilter').value;
-    var selectedFamily = document.getElementById('familyFilter').value;
-    var selectedGenus = document.getElementById('genusFilter').value;
-    
-    var speciesSelect = document.getElementById('speciesFilter');
-    speciesSelect.innerHTML = '<option value="all">Select Species</option>';
-    
-    if (selectedGenus !== 'all' && selectedFamily !== 'all' && selectedOrder !== 'all') {
-        var species = Array.from(filterCache.speciesMap.get(selectedGenus) || new Set()).sort();
-        species.forEach(function(sp) {
-            var option = document.createElement('option');
-            option.value = sp;
-            option.textContent = sp;
-            speciesSelect.appendChild(option);
-        });
-    }
-    
-    renderMarkers();
-    updateFilterSummary();
-}
-
-function onSpeciesChange() {
-    renderMarkers();
-    updateFilterSummary();
-}
-
-// ============================================
-// RENDER MARKERS FUNCTION - WITH SMALL DOT ICONS
-// ============================================
-function renderMarkers() {
-    markersLayer.clearLayers();
-    
-    var selectedOrder = document.getElementById('orderFilter').value;
-    var selectedFamily = document.getElementById('familyFilter').value;
-    var selectedGenus = document.getElementById('genusFilter').value;
-    var selectedSpecies = document.getElementById('speciesFilter').value;
-    
-    var count = 0;
-    var bounds = [];
-    var speciesSet = new Set();
-    
-    var labelType = 'none';
-    if (selectedOrder === 'all') {
-        labelType = 'none';
-    } else if (selectedOrder !== 'all' && selectedFamily === 'all') {
-        labelType = 'none';
-    } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
-        labelType = 'none';
-    } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus !== 'all') {
-        labelType = 'species';
-    }
-    
-    allPoints.forEach(function(point) {
-        if (!isValidCoordinate(point.lat, point.lon)) return;
-        
-        if (selectedOrder !== 'all' && point.order !== selectedOrder) return;
-        if (selectedFamily !== 'all' && point.family !== selectedFamily) return;
-        if (selectedGenus !== 'all' && point.genus !== selectedGenus) return;
-        if (selectedSpecies !== 'all' && point.species !== selectedSpecies) return;
-        
-        count++;
-        speciesSet.add(point.genus + ' ' + point.species);
-        
-        var markerColor = '#1a5276';
-        if (point.order === 'Spirostreptida') markerColor = '#2980b9';
-        else if (point.order === 'Polydesmida') markerColor = '#27ae60';
-        else if (point.order === 'Julida') markerColor = '#f39c12';
-        else if (point.order === 'Chordeumatida') markerColor = '#9b59b6';
-        else if (point.order === 'Glomerida') markerColor = '#e74c3c';
-        else if (point.order === 'Sphaerotheriida') markerColor = '#8e44ad';
-        else if (point.order === 'Polyzoniida') markerColor = '#16a085';
-        else if (point.order === 'Siphonocryptida') markerColor = '#2c3e50';
-        else if (point.order === 'Spirobolida') markerColor = '#d35400';
-        else if (point.order === 'Polyxenida') markerColor = '#7f8c8d';
-        else if (point.order === 'Platydesmida') markerColor = '#1abc9c';
-        
-        var labelText = '';
-        var labelStyle = '';
-        if (labelType === 'species') {
-            labelText = (point.genus || '?') + ' ' + (point.species || '?');
-            labelStyle = 'font-style: italic;';
-        }
-        
-        var marker;
-        
+    <script>
         // ============================================
-        // SMALL DOT WITH RING BORDER ICON
+        // NAVIGATION: MOBILE TOGGLE
         // ============================================
-        var dotIcon = L.divIcon({
-            html: '<div style="background-color: ' + markerColor + '; width: 10px; height: 10px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 2px ' + markerColor + ';"></div>',
-            iconSize: [10, 10],
-            className: 'custom-dot-marker',
-            popupAnchor: [0, -5]
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
         });
-        
-        if (labelType === 'none') {
-            // Plain marker with dot icon
-            marker = L.marker([point.lat, point.lon], { icon: dotIcon });
-        } else {
-            // Marker with label and dot icon
-            var customIcon = L.divIcon({
-                html: '<div style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.95); padding: 3px 10px; border-radius: 16px; border: 1.5px solid ' + markerColor + '; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">' +
-                    '<div style="background-color: ' + markerColor + '; width: 8px; height: 8px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1.5px ' + markerColor + '; flex-shrink: 0;"></div>' +
-                    '<span style="font-size: 10px; font-weight: 500; color: #222; font-family: Times New Roman, Times, serif; white-space: nowrap; ' + labelStyle + '">' + labelText + '</span>' +
-                '</div>',
-                iconSize: [null, null],
-                className: 'label-marker',
-                popupAnchor: [0, -12]
+
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('show');
             });
-            marker = L.marker([point.lat, point.lon], { icon: customIcon });
-        }
-        
-        marker.bindPopup(
-            '<div style="font-family: Times New Roman, Times, serif; max-width: 280px;">' +
-                '<h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">' +
-                    '<i>' + (point.genus || '?') + ' ' + (point.species || '?') + '</i>' +
-                '</h3>' +
-                '<p style="margin:5px 0;"><strong>Order:</strong> ' + (point.order || 'Unidentified') + '</p>' +
-                '<p style="margin:5px 0;"><strong>Family:</strong> ' + (point.family || 'Unidentified') + '</p>' +
-                '<p style="margin:5px 0;"><strong>Location:</strong> ' + (point.location || 'Nepal') + '</p>' +
-                '<p style="margin:5px 0;"><strong>Coordinates:</strong><br>' +
-                point.lat.toFixed(4) + '°N, ' + point.lon.toFixed(4) + '°E</p>' +
-            '</div>'
-        );
-        
-        markersLayer.addLayer(marker);
-        bounds.push([point.lat, point.lon]);
-    });
-    
-    var msg = '';
-    if (labelType === 'none') {
-        if (selectedOrder === 'all') {
-            msg = count + ' GPS points visible (click for details)';
-        } else if (selectedOrder !== 'all' && selectedFamily === 'all') {
-            msg = count + ' GPS points visible for Order: ' + selectedOrder + ' (click for details)';
-        } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
-            msg = count + ' GPS points visible for Family: ' + selectedFamily + ' (click for details)';
-        } else {
-            msg = count + ' GPS points visible (click for details)';
-        }
-    } else if (labelType === 'species') {
-        msg = count + ' point' + (count !== 1 ? 's' : '') + ' visible - Showing <strong><i>Species</i></strong> names';
-    }
-    document.getElementById('markerCount').innerHTML = msg;
-    document.getElementById('visiblePoints').textContent = count;
-    
-    if (bounds.length > 0) {
-        map.fitBounds(bounds, { padding: [50, 50], maxZoom: 12 });
-    }
-}
-
-function zoomToNepal() { 
-    map.setView([28.3949, 84.1240], 7);
-}
-
-function zoomToAllPoints() {
-    var bounds = [];
-    allPoints.forEach(function(point) {
-        if (isValidCoordinate(point.lat, point.lon)) bounds.push([point.lat, point.lon]);
-    });
-    if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
-}
-
-function zoomToGlobal() { 
-    map.setView([20, 0], 2);
-}
-
-window.onOrderChange = onOrderChange;
-window.onFamilyChange = onFamilyChange;
-window.onGenusChange = onGenusChange;
-window.onSpeciesChange = onSpeciesChange;
-window.resetAllFilters = resetAllFilters;
-window.zoomToNepal = zoomToNepal;
-window.zoomToAllPoints = zoomToAllPoints;
-window.zoomToGlobal = zoomToGlobal;
-
-// ============================================
-// INITIALIZATION
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
-        allPoints = millipedePoints;
-        console.log('Loaded', allPoints.length, 'millipede points from data.js');
-        
-        var speciesSet = new Set();
-        var genusSet = new Set();
-        var mappedCount = 0;
-        var unmappedCount = 0;
-        
-        allPoints.forEach(function(p) {
-            if (p.genus && p.species) {
-                speciesSet.add(p.genus + ' ' + p.species);
-            }
-            if (p.genus && p.genus !== 'Unidentified') {
-                genusSet.add(p.genus);
-            }
-            if (isValidCoordinate(p.lat, p.lon)) {
-                mappedCount++;
-            } else {
-                unmappedCount++;
-            }
         });
-        console.log('Unique species in data:', speciesSet.size);
-        console.log('Unique genera in data:', genusSet.size);
-        console.log('Mapped species:', mappedCount);
-        console.log('Unmapped species:', unmappedCount);
-    } else {
-        console.error('millipedePoints not found! Please check data.js');
-        allPoints = [
-            { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240 },
-            { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", location: "Kathmandu", lat: 27.7172, lon: 85.3240 }
-        ];
-    }
-    
-    var hierarchy = buildFilterHierarchy(allPoints);
-    filterCache.ordersSet = hierarchy.ordersSet;
-    filterCache.familiesMap = hierarchy.familiesMap;
-    filterCache.generaMap = hierarchy.generaMap;
-    filterCache.speciesMap = hierarchy.speciesMap;
-    
-    populateOrders();
-    updateStats();
-    renderMarkers();
-    updateFilterSummary();
-});
-</script>
+
+        // ============================================
+        // CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
+        // ============================================
+
+        function getNepalTime() {
+            var now = new Date();
+            var nepalOffset = 5.75 * 60 * 60 * 1000;
+            var utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+            return new Date(utcTime + nepalOffset);
+        }
+
+        function updateClock() {
+            var now = getNepalTime();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            var hourHand = document.getElementById('hourHand');
+            var minuteHand = document.getElementById('minuteHand');
+            var secondHand = document.getElementById('secondHand');
+
+            if (hourHand) {
+                hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
+            }
+            if (minuteHand) {
+                minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
+            }
+            if (secondHand) {
+                secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
+            }
+
+            var englishDate = document.getElementById('englishDate');
+            if (englishDate) {
+                englishDate.textContent = now.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            }
+        }
+
+        // ============================================
+        // FOOTER YEAR
+        // ============================================
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+        // ============================================
+        // INITIALIZE CLOCK
+        // ============================================
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ============================================
+        // DISTRIBUTION MAP FUNCTIONS
+        // ============================================
+
+        var map = L.map('map').setView([28.3949, 84.1240], 7);
+        var markersLayer = L.layerGroup().addTo(map);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: 'OpenStreetMap contributors, CartoDB',
+            subdomains: 'abcd',
+            maxZoom: 19,
+            minZoom: 2
+        }).addTo(map);
+
+        L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(map);
+
+        var allPoints = [];
+        var filterCache = {
+            orders: new Set(),
+            familiesByOrder: new Map(),
+            generaByFamily: new Map(),
+            speciesByGenus: new Map()
+        };
+
+        function isValidCoordinate(lat, lon) {
+            return lat && lon && !isNaN(lat) && !isNaN(lon) && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
+        }
+
+        function buildFilterHierarchy(points) {
+            var ordersSet = new Set();
+            var familiesMap = new Map();
+            var generaMap = new Map();
+            var speciesMap = new Map();
+
+            points.forEach(function(p) {
+                var order = p.order || 'Unidentified';
+                var family = p.family || 'Unidentified';
+                var genus = p.genus || 'Unidentified';
+                var species = p.species || 'sp.';
+
+                ordersSet.add(order);
+
+                if (!familiesMap.has(order)) familiesMap.set(order, new Set());
+                familiesMap.get(order).add(family);
+
+                if (!generaMap.has(family)) generaMap.set(family, new Set());
+                generaMap.get(family).add(genus);
+
+                if (!speciesMap.has(genus)) speciesMap.set(genus, new Set());
+                speciesMap.get(genus).add(species);
+            });
+
+            return { ordersSet: ordersSet, familiesMap: familiesMap, generaMap: generaMap, speciesMap: speciesMap };
+        }
+
+        function populateOrders() {
+            var select = document.getElementById('orderFilter');
+            var orders = Array.from(filterCache.ordersSet).sort();
+            select.innerHTML = '<option value="all">Select Order</option>';
+            orders.forEach(function(order) {
+                var option = document.createElement('option');
+                option.value = order;
+                option.textContent = order;
+                select.appendChild(option);
+            });
+        }
+
+        function updateStats() {
+            if (!allPoints.length) return;
+
+            var allSpecies = new Set();
+            var allGenera = new Set();
+            var mappedSpecies = new Set();
+            var unmappedSpecies = new Set();
+
+            allPoints.forEach(function(p) {
+                var genus = p.genus || 'Unidentified';
+                var species = p.species || 'sp.';
+                var key = genus + '_' + species;
+
+                allSpecies.add(key);
+                if (genus && genus !== 'Unidentified') {
+                    allGenera.add(genus);
+                }
+
+                if (isValidCoordinate(p.lat, p.lon)) {
+                    mappedSpecies.add(key);
+                } else {
+                    unmappedSpecies.add(key);
+                }
+            });
+
+            var validPoints = allPoints.filter(function(p) { return isValidCoordinate(p.lat, p.lon); });
+
+            document.getElementById('totalPoints').textContent = allPoints.length;
+            document.getElementById('visiblePoints').textContent = validPoints.length;
+            document.getElementById('uniqueSpecies').textContent = allSpecies.size;
+            document.getElementById('uniqueGenera').textContent = allGenera.size;
+            document.getElementById('mappedSpecies').textContent = mappedSpecies.size;
+            document.getElementById('unmappedSpecies').textContent = unmappedSpecies.size;
+        }
+
+        function updateFilterSummary() {
+            var order = document.getElementById('orderFilter').value;
+            var family = document.getElementById('familyFilter').value;
+            var genus = document.getElementById('genusFilter').value;
+            var species = document.getElementById('speciesFilter').value;
+
+            var summary = '';
+            if (order === 'all') {
+                summary = 'GPS Points (no labels)';
+            } else if (order !== 'all' && family === 'all') {
+                summary = 'Order: ' + order + ' (GPS points, no labels)';
+            } else if (order !== 'all' && family !== 'all' && genus === 'all') {
+                summary = 'Family: ' + family + ' (GPS points, no labels)';
+            } else if (order !== 'all' && family !== 'all' && genus !== 'all' && species === 'all') {
+                summary = 'Genus: ' + genus + ' (Showing Species names)';
+            } else if (order !== 'all' && family !== 'all' && genus !== 'all' && species !== 'all') {
+                summary = 'Species: ' + genus + ' ' + species;
+            }
+
+            document.getElementById('filterSummary').textContent = summary;
+        }
+
+        function resetAllFilters() {
+            document.getElementById('orderFilter').value = 'all';
+            document.getElementById('familyFilter').innerHTML = '<option value="all">Select Family</option>';
+            document.getElementById('genusFilter').innerHTML = '<option value="all">Select Genus</option>';
+            document.getElementById('speciesFilter').innerHTML = '<option value="all">Select Species</option>';
+
+            renderMarkers();
+            updateFilterSummary();
+        }
+
+        // ============================================
+        // DROPDOWN CHANGE HANDLERS
+        // ============================================
+
+        function onOrderChange() {
+            var selectedOrder = document.getElementById('orderFilter').value;
+
+            var familySelect = document.getElementById('familyFilter');
+            var genusSelect = document.getElementById('genusFilter');
+            var speciesSelect = document.getElementById('speciesFilter');
+
+            familySelect.innerHTML = '<option value="all">Select Family</option>';
+            genusSelect.innerHTML = '<option value="all">Select Genus</option>';
+            speciesSelect.innerHTML = '<option value="all">Select Species</option>';
+
+            if (selectedOrder !== 'all') {
+                var families = Array.from(filterCache.familiesMap.get(selectedOrder) || new Set()).sort();
+                families.forEach(function(family) {
+                    var option = document.createElement('option');
+                    option.value = family;
+                    option.textContent = family;
+                    familySelect.appendChild(option);
+                });
+            }
+
+            renderMarkers();
+            updateFilterSummary();
+        }
+
+        function onFamilyChange() {
+            var selectedOrder = document.getElementById('orderFilter').value;
+            var selectedFamily = document.getElementById('familyFilter').value;
+
+            var genusSelect = document.getElementById('genusFilter');
+            var speciesSelect = document.getElementById('speciesFilter');
+            genusSelect.innerHTML = '<option value="all">Select Genus</option>';
+            speciesSelect.innerHTML = '<option value="all">Select Species</option>';
+
+            if (selectedFamily !== 'all' && selectedOrder !== 'all') {
+                var genera = Array.from(filterCache.generaMap.get(selectedFamily) || new Set()).sort();
+                genera.forEach(function(genus) {
+                    var option = document.createElement('option');
+                    option.value = genus;
+                    option.textContent = genus;
+                    genusSelect.appendChild(option);
+                });
+            }
+
+            renderMarkers();
+            updateFilterSummary();
+        }
+
+        function onGenusChange() {
+            var selectedOrder = document.getElementById('orderFilter').value;
+            var selectedFamily = document.getElementById('familyFilter').value;
+            var selectedGenus = document.getElementById('genusFilter').value;
+
+            var speciesSelect = document.getElementById('speciesFilter');
+            speciesSelect.innerHTML = '<option value="all">Select Species</option>';
+
+            if (selectedGenus !== 'all' && selectedFamily !== 'all' && selectedOrder !== 'all') {
+                var species = Array.from(filterCache.speciesMap.get(selectedGenus) || new Set()).sort();
+                species.forEach(function(sp) {
+                    var option = document.createElement('option');
+                    option.value = sp;
+                    option.textContent = sp;
+                    speciesSelect.appendChild(option);
+                });
+            }
+
+            renderMarkers();
+            updateFilterSummary();
+        }
+
+        function onSpeciesChange() {
+            renderMarkers();
+            updateFilterSummary();
+        }
+
+        // ============================================
+        // RENDER MARKERS FUNCTION
+        // ============================================
+
+        function renderMarkers() {
+            markersLayer.clearLayers();
+
+            var selectedOrder = document.getElementById('orderFilter').value;
+            var selectedFamily = document.getElementById('familyFilter').value;
+            var selectedGenus = document.getElementById('genusFilter').value;
+            var selectedSpecies = document.getElementById('speciesFilter').value;
+
+            var count = 0;
+            var bounds = [];
+            var speciesSet = new Set();
+
+            var labelType = 'none';
+            if (selectedOrder === 'all') {
+                labelType = 'none';
+            } else if (selectedOrder !== 'all' && selectedFamily === 'all') {
+                labelType = 'none';
+            } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
+                labelType = 'none';
+            } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus !== 'all') {
+                labelType = 'species';
+            }
+
+            allPoints.forEach(function(point) {
+                if (!isValidCoordinate(point.lat, point.lon)) return;
+
+                if (selectedOrder !== 'all' && point.order !== selectedOrder) return;
+                if (selectedFamily !== 'all' && point.family !== selectedFamily) return;
+                if (selectedGenus !== 'all' && point.genus !== selectedGenus) return;
+                if (selectedSpecies !== 'all' && point.species !== selectedSpecies) return;
+
+                count++;
+                speciesSet.add(point.genus + ' ' + point.species);
+
+                var markerColor = '#1a5276';
+                if (point.order === 'Spirostreptida') markerColor = '#2980b9';
+                else if (point.order === 'Polydesmida') markerColor = '#27ae60';
+                else if (point.order === 'Julida') markerColor = '#f39c12';
+                else if (point.order === 'Chordeumatida') markerColor = '#9b59b6';
+                else if (point.order === 'Glomerida') markerColor = '#e74c3c';
+                else if (point.order === 'Sphaerotheriida') markerColor = '#8e44ad';
+                else if (point.order === 'Polyzoniida') markerColor = '#16a085';
+                else if (point.order === 'Siphonocryptida') markerColor = '#2c3e50';
+                else if (point.order === 'Spirobolida') markerColor = '#d35400';
+                else if (point.order === 'Polyxenida') markerColor = '#7f8c8d';
+                else if (point.order === 'Platydesmida') markerColor = '#1abc9c';
+
+                var labelText = '';
+                var labelStyle = '';
+                if (labelType === 'species') {
+                    labelText = (point.genus || '?') + ' ' + (point.species || '?');
+                    labelStyle = 'font-style: italic;';
+                }
+
+                var marker;
+
+                var dotIcon = L.divIcon({
+                    html: '<div style="background-color: ' + markerColor + '; width: 10px; height: 10px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 2px ' + markerColor + ';"></div>',
+                    iconSize: [10, 10],
+                    className: 'custom-dot-marker',
+                    popupAnchor: [0, -5]
+                });
+
+                if (labelType === 'none') {
+                    marker = L.marker([point.lat, point.lon], { icon: dotIcon });
+                } else {
+                    var customIcon = L.divIcon({
+                        html: '<div style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.95); padding: 3px 10px; border-radius: 16px; border: 1.5px solid ' + markerColor + '; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">' +
+                            '<div style="background-color: ' + markerColor + '; width: 8px; height: 8px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1.5px ' + markerColor + '; flex-shrink: 0;"></div>' +
+                            '<span style="font-size: 10px; font-weight: 500; color: #222; font-family: Times New Roman, Times, serif; white-space: nowrap; ' + labelStyle + '">' + labelText + '</span>' +
+                            '</div>',
+                        iconSize: [null, null],
+                        className: 'label-marker',
+                        popupAnchor: [0, -12]
+                    });
+                    marker = L.marker([point.lat, point.lon], { icon: customIcon });
+                }
+
+                marker.bindPopup(
+                    '<div style="font-family: Times New Roman, Times, serif; max-width: 280px;">' +
+                    '<h3 style="margin:0 0 8px 0; color:#1a5276; border-bottom:2px solid #1a5276; padding-bottom:5px;">' +
+                    '<i>' + (point.genus || '?') + ' ' + (point.species || '?') + '</i>' +
+                    '</h3>' +
+                    '<p style="margin:5px 0;"><strong>Order:</strong> ' + (point.order || 'Unidentified') + '</p>' +
+                    '<p style="margin:5px 0;"><strong>Family:</strong> ' + (point.family || 'Unidentified') + '</p>' +
+                    '<p style="margin:5px 0;"><strong>Location:</strong> ' + (point.location || 'Nepal') + '</p>' +
+                    '<p style="margin:5px 0;"><strong>Coordinates:</strong><br>' +
+                    point.lat.toFixed(4) + '°N, ' + point.lon.toFixed(4) + '°E</p>' +
+                    '</div>'
+                );
+
+                markersLayer.addLayer(marker);
+                bounds.push([point.lat, point.lon]);
+            });
+
+            var msg = '';
+            if (labelType === 'none') {
+                if (selectedOrder === 'all') {
+                    msg = count + ' GPS points visible (click for details)';
+                } else if (selectedOrder !== 'all' && selectedFamily === 'all') {
+                    msg = count + ' GPS points visible for Order: ' + selectedOrder + ' (click for details)';
+                } else if (selectedOrder !== 'all' && selectedFamily !== 'all' && selectedGenus === 'all') {
+                    msg = count + ' GPS points visible for Family: ' + selectedFamily + ' (click for details)';
+                } else {
+                    msg = count + ' GPS points visible (click for details)';
+                }
+            } else if (labelType === 'species') {
+                msg = count + ' point' + (count !== 1 ? 's' : '') + ' visible - Showing <strong><i>Species</i></strong> names';
+            }
+            document.getElementById('markerCount').innerHTML = msg;
+            document.getElementById('visiblePoints').textContent = count;
+
+            if (bounds.length > 0) {
+                map.fitBounds(bounds, { padding: [50, 50], maxZoom: 12 });
+            }
+        }
+
+        function zoomToNepal() {
+            map.setView([28.3949, 84.1240], 7);
+        }
+
+        function zoomToAllPoints() {
+            var bounds = [];
+            allPoints.forEach(function(point) {
+                if (isValidCoordinate(point.lat, point.lon)) bounds.push([point.lat, point.lon]);
+            });
+            if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
+        }
+
+        function zoomToGlobal() {
+            map.setView([20, 0], 2);
+        }
+
+        window.onOrderChange = onOrderChange;
+        window.onFamilyChange = onFamilyChange;
+        window.onGenusChange = onGenusChange;
+        window.onSpeciesChange = onSpeciesChange;
+        window.resetAllFilters = resetAllFilters;
+        window.zoomToNepal = zoomToNepal;
+        window.zoomToAllPoints = zoomToAllPoints;
+        window.zoomToGlobal = zoomToGlobal;
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof millipedePoints !== 'undefined' && millipedePoints.length > 0) {
+                allPoints = millipedePoints;
+                console.log('Loaded', allPoints.length, 'millipede points from data.js');
+
+                var speciesSet = new Set();
+                var genusSet = new Set();
+                var mappedCount = 0;
+                var unmappedCount = 0;
+
+                allPoints.forEach(function(p) {
+                    if (p.genus && p.species) {
+                        speciesSet.add(p.genus + ' ' + p.species);
+                    }
+                    if (p.genus && p.genus !== 'Unidentified') {
+                        genusSet.add(p.genus);
+                    }
+                    if (isValidCoordinate(p.lat, p.lon)) {
+                        mappedCount++;
+                    } else {
+                        unmappedCount++;
+                    }
+                });
+                console.log('Unique species in data:', speciesSet.size);
+                console.log('Unique genera in data:', genusSet.size);
+                console.log('Mapped species:', mappedCount);
+                console.log('Unmapped species:', unmappedCount);
+            } else {
+                console.error('millipedePoints not found! Please check data.js');
+                allPoints = [
+                    { order: "Spirostreptida", family: "Harpagophoridae", genus: "Gonoplectus", species: "malayus", location: "Dang Valley", lat: 28.3949, lon: 84.1240 },
+                    { order: "Polydesmida", family: "Paradoxosomatidae", genus: "Orthomorpha", species: "coarctata", location: "Kathmandu", lat: 27.7172, lon: 85.3240 }
+                ];
+            }
+
+            var hierarchy = buildFilterHierarchy(allPoints);
+            filterCache.ordersSet = hierarchy.ordersSet;
+            filterCache.familiesMap = hierarchy.familiesMap;
+            filterCache.generaMap = hierarchy.generaMap;
+            filterCache.speciesMap = hierarchy.speciesMap;
+
+            populateOrders();
+            updateStats();
+            renderMarkers();
+            updateFilterSummary();
+        });
+    </script>
 
 </body>
 </html>
