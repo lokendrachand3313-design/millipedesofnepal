@@ -10,12 +10,490 @@
     <!-- Leaflet CSS for Map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="style.css">
-    
     <style>
-        /* ============ ARTICLES.HTML SPECIFIC STYLES ============ */
-        
+        /* ============================================
+           Millipedes of Nepal - Unified Style Sheet
+           Version: 3.1 - Common styles for all pages
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --green: #28a745;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --whatsapp: #25D366;
+            --gmail: #D44638;
+        }
+
+        /* ============ SKIP TO CONTENT ============ */
+        .skip-link {
+            position: absolute;
+            top: -1000px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #000;
+            padding: 10px 20px;
+            z-index: 10000;
+            font-weight: bold;
+            border-radius: 0 0 8px 8px;
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ============ UTILITY CLASSES ============ */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        .mt-1 { margin-top: 10px; }
+        .mt-2 { margin-top: 20px; }
+        .mt-3 { margin-top: 30px; }
+        .mb-1 { margin-bottom: 10px; }
+        .mb-2 { margin-bottom: 20px; }
+        .mb-3 { margin-bottom: 30px; }
+
+        .hide { display: none; }
+        .show { display: block; }
+
+        /* ============ REDUCED MOTION ============ */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============ PRINT STYLES ============ */
+        @media print {
+            header, nav, footer, .no-print, .gallery-filters, 
+            .map-controls, .admin-panel, .contact-buttons,
+            .jump-to, .full-video-section, .pdf-controls,
+            .map-view-buttons, .filter-section {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .article-card, .faq-item, .team-card, .gallery-item,
+            .species-card, .pdf-section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        /* ============ HEADER - STANDARD FOR ALL PAGES ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .header-text p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* Right side group for clock and icon */
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        .millipede-icon {
+            height: 200px;
+            width: auto;
+            max-width: 350px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+        }
+
+        /* ============ CLOCK STYLES ============ */
+        .clock-container {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            min-width: 200px;
+            text-align: center;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
+            position: relative;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: none;
+        }
+
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .clock-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 6px rgba(255,107,107,0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
+            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
+        }
+
+        .hour-hand {
+            width: 4.5px;
+            height: 28px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(243,156,18,0.6);
+            border-radius: 4px 4px 2px 2px;
+        }
+
+        .minute-hand {
+            width: 3.5px;
+            height: 38px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(52,152,219,0.6);
+            border-radius: 3px 3px 2px 2px;
+        }
+
+        .second-hand {
+            width: 1.8px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 6px rgba(255,107,107,0.7);
+            border-radius: 2px;
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 3px rgba(0,0,0,0.4);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
+        .number-1 { color: #f39c12; top: 14%; left: 67%; }
+        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
+        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
+        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
+        .number-5 { color: #3498db; top: 86%; left: 67%; }
+        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
+        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
+        .number-8 { color: #e67e22; top: 73%; left: 19%; }
+        .number-9 { color: #f39c12; top: 50%; left: 8%; }
+        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
+        .number-11 { color: #3498db; top: 14%; left: 33%; }
+
+        .clock-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 6px;
+            text-shadow: 0 0 4px rgba(243,156,18,0.4);
+            font-family: 'Times New Roman', Times, serif;
+            background: rgba(0,0,0,0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* ============ NAVIGATION BAR ============ */
+        nav {
+            background-color: var(--primary-blue);
+            padding: 15px 5%;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid white;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* ============ PAGE HEADER ============ */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-family: 'Times New Roman', Times, serif;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            font-family: 'Times New Roman', Times, serif;
+            opacity: 0.9;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
         /* Full Photo Section */
         .full-photo-section {
             margin-bottom: 60px;
@@ -26,30 +504,30 @@
             border: 1px solid #e0e0e0;
             transition: all 0.3s ease;
         }
-        
+
         .full-photo-section:hover {
             transform: translateY(-5px);
             border-color: var(--gold);
         }
-        
+
         .full-photo-container {
             position: relative;
             width: 100%;
             max-height: 600px;
             overflow: hidden;
         }
-        
+
         .full-photo {
             width: 100%;
             height: auto;
             display: block;
             transition: transform 0.8s ease;
         }
-        
+
         .full-photo:hover {
             transform: scale(1.05);
         }
-        
+
         .full-photo-caption {
             background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
             color: white;
@@ -59,41 +537,34 @@
             left: 0;
             right: 0;
         }
-        
+
         .full-photo-caption h3 {
             font-size: 2rem;
             margin-bottom: 10px;
             color: var(--gold);
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .full-photo-caption p {
             font-size: 1.2rem;
             max-width: 800px;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .photo-credit {
             margin-top: 10px;
             font-size: 0.9rem;
             opacity: 0.8;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         /* Main Layout with Sidebar */
         .main-with-sidebar {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 40px;
         }
-        
-        .articles-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
+
         /* Article Card */
         .article-card {
             display: grid;
@@ -105,32 +576,33 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             border: 1px solid #e0e0e0;
             transition: all 0.4s ease;
+            margin-bottom: 40px;
         }
-        
+
         .article-card:hover {
             transform: translateY(-8px);
             border-color: var(--gold);
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
-        
+
         .article-image {
             position: relative;
             height: 100%;
             min-height: 280px;
             overflow: hidden;
         }
-        
+
         .specimen-photo {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.8s ease;
         }
-        
+
         .article-card:hover .specimen-photo {
             transform: scale(1.1);
         }
-        
+
         .photo-caption {
             position: absolute;
             bottom: 0;
@@ -144,15 +616,15 @@
             transition: transform 0.3s ease;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .article-card:hover .photo-caption {
             transform: translateY(0);
         }
-        
+
         .article-content {
             padding: 25px 25px 25px 0;
         }
-        
+
         .taxonomic-line {
             font-size: 0.9rem;
             color: var(--primary-blue);
@@ -166,7 +638,7 @@
             border-radius: 20px;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .article-title {
             font-size: 1.8rem;
             color: #7b3f00;
@@ -174,7 +646,7 @@
             margin-bottom: 15px;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .meta-info {
             font-size: 0.95rem;
             color: #666;
@@ -187,7 +659,7 @@
             flex-wrap: wrap;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .badge {
             background: var(--primary-blue);
             color: white;
@@ -197,7 +669,7 @@
             font-weight: bold;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .status {
             background: var(--blue-bg);
             color: var(--primary-blue);
@@ -208,7 +680,7 @@
             border: 1px solid var(--primary-blue);
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .abstract-text {
             line-height: 1.8;
             color: #444;
@@ -216,7 +688,7 @@
             font-size: 1rem;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .taxa-table {
             width: 100%;
             font-size: 0.9rem;
@@ -226,29 +698,29 @@
             border-radius: 8px;
             overflow: hidden;
         }
-        
+
         .taxa-table td {
             padding: 8px 15px;
             border-bottom: 1px solid #e0e0e0;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .taxa-table tr:last-child td {
             border-bottom: none;
         }
-        
+
         .label {
             font-weight: bold;
             color: #7b3f00;
             width: 100px;
             background: #f0f0f0;
         }
-        
+
         .scientific {
             font-style: italic;
             color: var(--primary-blue);
         }
-        
+
         .location-box {
             margin: 20px 0;
             padding: 12px 15px;
@@ -262,12 +734,12 @@
             gap: 10px;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .location-box::before {
             content: "📍";
             font-size: 1.2rem;
         }
-        
+
         .read-more {
             display: inline-block;
             padding: 10px 25px;
@@ -280,13 +752,13 @@
             margin-top: 15px;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .read-more:hover {
             background: var(--primary-blue-dark);
             transform: translateY(-3px);
             box-shadow: 0 6px 14px rgba(0,0,0,0.2);
         }
-        
+
         /* Sidebar */
         .sidebar {
             background: white;
@@ -296,7 +768,7 @@
             height: fit-content;
             border: 1px solid #e0e0e0;
         }
-        
+
         .sidebar h3 {
             color: var(--primary-blue);
             border-bottom: 2px solid #ddd;
@@ -305,7 +777,7 @@
             font-size: 1.3rem;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .recent-link {
             display: flex;
             align-items: center;
@@ -318,38 +790,38 @@
             transition: all 0.3s ease;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .recent-link:hover {
             color: var(--primary-blue);
             padding-left: 15px;
         }
-        
+
         .recent-link span {
             color: var(--primary-blue);
             font-weight: bold;
         }
-        
+
         .stats-box {
             background: var(--blue-bg);
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
         }
-        
+
         .stats-box p {
             margin: 8px 0;
             font-size: 0.95rem;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .stats-box strong {
             color: var(--primary-blue);
         }
-        
+
         .external-links {
             margin-top: 25px;
         }
-        
+
         .external-link {
             display: flex;
             align-items: center;
@@ -363,20 +835,20 @@
             transition: all 0.3s ease;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .external-link:hover {
             background: var(--blue-bg);
             transform: translateX(5px);
             color: var(--primary-blue);
         }
-        
+
         .photo-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             margin-top: 15px;
         }
-        
+
         .thumb-img {
             width: 100%;
             height: 80px;
@@ -385,14 +857,173 @@
             border: 2px solid var(--primary-blue);
             transition: all 0.3s ease;
         }
-        
+
         .thumb-img:hover {
             transform: scale(1.05);
             border-color: var(--gold);
             cursor: pointer;
         }
-        
-        /* Responsive adjustments */
+
+        /* ============ BUTTONS ============ */
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            background-color: #e67e22;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 5%;
+            width: 100%;
+            max-width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
+            display: inline-block;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ============ RESPONSIVE DESIGN ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+            .millipede-icon { height: 160px; max-width: 280px; }
+        }
+
+        @media (max-width: 1024px) {
+            nav { padding: 15px 5%; }
+            main { padding: 30px 5%; }
+            footer { padding: 30px 5%; }
+        }
+
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 5%; gap: 20px; }
+            .millipede-icon { height: 130px; max-width: 220px; }
+            .analog-clock { width: 80px; height: 80px; }
+            .clock-container { min-width: 170px; }
+            .right-group { gap: 1px; }
+        }
+
         @media (max-width: 968px) {
             .main-with-sidebar {
                 grid-template-columns: 1fr;
@@ -417,293 +1048,392 @@
                 font-size: 1rem;
             }
         }
-        
+
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 2px;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            nav a {
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                margin: 0;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            main { padding: 20px 4%; }
+            
+            .right-group { 
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .millipede-icon { height: 110px; max-width: 190px; }
+            .analog-clock { width: 70px; height: 70px; }
+            .clock-date { font-size: 16px; }
+            
             .article-title { font-size: 1.4rem; }
             .taxonomic-line { font-size: 0.8rem; }
             .abstract-text { font-size: 0.95rem; }
             .sidebar { margin-top: 20px; }
             .meta-info { flex-direction: column; align-items: flex-start; gap: 8px; }
-            .clock-date { font-size: 16px; }
+            
+            footer p { font-size: 1rem; }
+            .page-header h2 { font-size: 1.8rem; }
+            .page-header p { font-size: 1rem; }
+            .full-photo-container { max-height: 350px; }
         }
-        
+
         @media (max-width: 480px) {
+            .header-text h1 { font-size: 1.5rem; }
+            .header-text p { font-size: 0.9rem; }
+            .header-logo { height: 50px; }
+            .millipede-icon { height: 80px; max-width: 130px; }
+            .analog-clock { width: 55px; height: 55px; }
+            .clock-container { min-width: 130px; }
+            .right-group { gap: 0px; }
+            .clock-date { font-size: 13px; padding: 2px 8px; }
+            
             .article-title { font-size: 1.2rem; }
             .taxa-table td { display: block; width: 100%; }
             .label { width: 100%; }
-            .clock-date { font-size: 14px; padding: 2px 10px; }
+            .page-header { padding: 20px 15px; }
+            .page-header h2 { font-size: 1.4rem; }
+            .full-photo-container { max-height: 250px; }
+            .full-photo-caption { padding: 15px; }
+            .full-photo-caption h3 { font-size: 1.2rem; }
+            .full-photo-caption p { font-size: 0.9rem; }
+            .photo-grid { grid-template-columns: 1fr; }
         }
-        
+
         @media (min-width: 1600px) {
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .millipede-icon { height: 220px; max-width: 380px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
+            .analog-clock { width: 120px; height: 120px; }
+            .clock-container { min-width: 240px; }
+            .right-group { gap: 3px; }
             .clock-date { font-size: 22px; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
-             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
-        
-        <div class="header-text">
-            <h1>Millipedes of Nepal</h1>
-            <p>Articles Published and In Prep</p>
-        </div>
-        
-        <div class="right-group">
-            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
-                 onerror="this.style.display='none'">
+    <!-- ============ SKIP TO CONTENT ============ -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <div class="header-container">
+            <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
+                 onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
             
-            <div class="clock-container">
-                <div class="analog-clock">
-                    <div class="clock-face">
-                        <div class="clock-ring"></div>
-                        <div class="hand hour-hand" id="hourHand"></div>
-                        <div class="hand minute-hand" id="minuteHand"></div>
-                        <div class="hand second-hand" id="secondHand"></div>
-                        <div class="clock-center"></div>
-                        <div class="clock-numbers">
-                            <div class="number number-12">12</div>
-                            <div class="number number-1">1</div>
-                            <div class="number number-2">2</div>
-                            <div class="number number-3">3</div>
-                            <div class="number number-4">4</div>
-                            <div class="number number-5">5</div>
-                            <div class="number number-6">6</div>
-                            <div class="number number-7">7</div>
-                            <div class="number number-8">8</div>
-                            <div class="number number-9">9</div>
-                            <div class="number number-10">10</div>
-                            <div class="number number-11">11</div>
+            <div class="header-text">
+                <h1>Millipedes of Nepal</h1>
+                <p>Articles Published and In Prep</p>
+            </div>
+            
+            <div class="right-group">
+                <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
+                     onerror="this.style.display='none'">
+                
+                <div class="clock-container">
+                    <div class="analog-clock">
+                        <div class="clock-face">
+                            <div class="clock-ring"></div>
+                            <div class="hand hour-hand" id="hourHand"></div>
+                            <div class="hand minute-hand" id="minuteHand"></div>
+                            <div class="hand second-hand" id="secondHand"></div>
+                            <div class="clock-center"></div>
+                            <div class="clock-numbers">
+                                <div class="number number-12">12</div>
+                                <div class="number number-1">1</div>
+                                <div class="number number-2">2</div>
+                                <div class="number number-3">3</div>
+                                <div class="number number-4">4</div>
+                                <div class="number number-5">5</div>
+                                <div class="number number-6">6</div>
+                                <div class="number number-7">7</div>
+                                <div class="number number-8">8</div>
+                                <div class="number number-9">9</div>
+                                <div class="number number-10">10</div>
+                                <div class="number number-11">11</div>
+                            </div>
                         </div>
                     </div>
+                    <div class="clock-date" id="englishDate">--</div>
                 </div>
-                <div class="clock-date" id="englishDate" style="color: #f39c12;">--</div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="history.html">History</a>
-    <a href="checklist.html">Checklist</a>
-    <a href="distribution.html">Distribution</a>
-    <a href="introkey.html">Introduction and Identification</a>
-    <a href="articles.html" class="active">Articles</a>
-    <a href="gallery.html">Gallery</a> 
-    <a href="upload.html">Upload</a>
-    <a href="team.html">Team</a>
-    <a href="faq.html">FAQ</a>
-</nav>
-
-<main>
-    <div class="page-header">
-        <h2>Research Publications & Specimen Records</h2>
-        <p>Scientific documentation of Nepalese Diplopoda</p>
-    </div>
-    
-    <!-- Full Photo Section -->
-    <div class="full-photo-section">
-        <div class="full-photo-container">
-            <img src="field_team.jpg" alt="Millipede Research Team in Field" class="full-photo" loading="lazy" 
-                 onerror="this.src='https://via.placeholder.com/1400x600?text=Fieldwork+Photo'">
-            <div class="full-photo-caption">
-                <h3>Fieldwork in Dang Valley, Western Nepal</h3>
-                <p>Research team collecting millipede specimens during the 2024 expedition. <i>Gonoplectus malayus</i> and other species were discovered in this region.</p>
-                <div class="photo-credit">Photo: Lokendra Chand | November 2024</div>
-            </div>
+    <!-- ============ NAVIGATION ============ -->
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">☰ Menu</button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="history.html">History</a>
+            <a href="checklist.html">Checklist</a>
+            <a href="distribution.html">Distribution</a>
+            <a href="introkey.html">Introduction and Identification</a>
+            <a href="articles.html" class="active">Articles</a>
+            <a href="gallery.html">Gallery</a> 
+            <a href="upload.html">Upload</a>
+            <a href="team.html">Team</a>
+            <a href="faq.html">FAQ</a>
         </div>
-    </div>
-    
-    <div class="main-with-sidebar">
-        <div class="articles-container">
-            <!-- Article 1: Trigoniulus corallinus -->
-            <div class="article-card" id="article1">
-                <div class="article-image">
-                    <img src="sp1.png" alt="Trigoniulus corallinus specimen" class="specimen-photo" loading="lazy" 
-                         onerror="this.src='https://via.placeholder.com/400x300?text=Trigoniulus+corallinus'">
-                    <div class="photo-caption">
-                        <i>Trigoniulus corallinus</i> - Preserved specimen in lab
-                    </div>
-                </div>
-                <div class="article-content">
-                    <div class="taxonomic-line">Diplopoda: Spirobolida: Pachybolidae</div>
-                    <h3 class="article-title">First Record of Spirobolid <i>Trigoniulus corallinus</i> (Gervais, 1842) from Nepal</h3>
-                    <div class="meta-info">
-                        <span class="badge">In Prep</span>
-                        <span>Author: Chand, L.</span>
-                        <span class="status">Specimen Available</span>
-                    </div>
-                    
-                    <table class="taxa-table">
-                        <tr><td class="label">Order:</td><td>Spirobolida</td></tr>
-                        <tr><td class="label">Family:</td><td>Pachybolidae</td></tr>
-                        <tr><td class="label">Genus:</td><td class="scientific">Trigoniulus</td></tr>
-                        <tr><td class="label">Species:</td><td class="scientific">corallinus</td></tr>
-                        <tr><td class="label">Collected by:</td><td>L. Chand & A. Senchury</td></tr>
-                    </table>
-                    
-                    <div class="location-box">
-                        <strong>Type Locality:</strong> Kathmandu Valley, Central Nepal (27.7172°N, 85.3240°E)
-                    </div>
-                    
-                    <p class="abstract-text">
-                        <strong>Abstract:</strong> This paper reports the first confirmed presence of the rusty millipede, <i>Trigoniulus corallinus</i>, in the urban environments of Nepal. Specimens were collected from the Kathmandu Valley, marking a significant range expansion for this anthropochore species. The record highlights the role of human activity in the dispersal of tropical millipedes into Himalayan regions.
-                    </p>
-                    <a href="#" class="read-more">Read Full Article →</a>
-                </div>
-            </div>
-            
-            <!-- Article 2: Gonoplectus lindbergi -->
-            <div class="article-card" id="article2">
-                <div class="article-image">
-                    <img src="sp2.png" alt="Gonoplectus lindbergi specimen" class="specimen-photo" loading="lazy" 
-                         onerror="this.src='https://via.placeholder.com/400x300?text=Gonoplectus+lindbergi'">
-                    <div class="photo-caption">
-                        <i>Gonoplectus lindbergi</i> - Live specimen in natural habitat
-                    </div>
-                </div>
-                <div class="article-content">
-                    <div class="taxonomic-line">Diplopoda: Spirostreptida: Harpagophoridae</div>
-                    <h3 class="article-title">First Record of <i>Gonoplectus lindbergi</i> Demange, 1961 from Nepal</h3>
-                    <div class="meta-info">
-                        <span class="badge">In Prep</span>
-                        <span>Author: Chand, L.</span>
-                        <span class="status">Specimen Available</span>
-                    </div>
-                    
-                    <table class="taxa-table">
-                        <tr><td class="label">Order:</td><td>Spirostreptida</td></tr>
-                        <tr><td class="label">Family:</td><td>Harpagophoridae</td></tr>
-                        <tr><td class="label">Genus:</td><td class="scientific">Gonoplectus</td></tr>
-                        <tr><td class="label">Species:</td><td class="scientific">lindbergi</td></tr>
-                        <tr><td class="label">Collected by:</td><td>L. Chand</td></tr>
-                    </table>
-                    
-                    <div class="location-box">
-                        <strong>Type Locality:</strong> Eastern Region, Nepal (27.5833°N, 87.8000°E)
-                    </div>
-                    
-                    <p class="abstract-text">
-                        <strong>Abstract:</strong> The Harpagophorid species <i>Gonoplectus lindbergi</i> is documented for the first time in Nepal. Previously known from Eastern Himalayan territories, these new sightings in the Central Himalayan belt provide valuable data for the biogeographical mapping of South Asian Myriapoda.
-                    </p>
-                    <a href="#" class="read-more">Read Full Article →</a>
+    </nav>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main id="main-content">
+        <div class="page-header">
+            <h2>Research Publications & Specimen Records</h2>
+            <p>Scientific documentation of Nepalese Diplopoda</p>
+        </div>
+        
+        <!-- Full Photo Section -->
+        <div class="full-photo-section">
+            <div class="full-photo-container">
+                <img src="field_team.jpg" alt="Millipede Research Team in Field" class="full-photo" loading="lazy" 
+                     onerror="this.src='https://via.placeholder.com/1400x600?text=Fieldwork+Photo'">
+                <div class="full-photo-caption">
+                    <h3>Fieldwork in Dang Valley, Western Nepal</h3>
+                    <p>Research team collecting millipede specimens during the 2024 expedition. <i>Gonoplectus malayus</i> and other species were discovered in this region.</p>
+                    <div class="photo-credit">Photo: Lokendra Chand | November 2024</div>
                 </div>
             </div>
         </div>
         
-        <aside class="sidebar">
-            <h3>Quick Navigation</h3>
-            <a href="#article1" class="recent-link"><span>1.</span> <i>Trigoniulus corallinus</i> Record</a>
-            <a href="#article2" class="recent-link"><span>2.</span> <i>Gonoplectus lindbergi</i> Record</a>
-            
-            <h3 style="margin-top: 25px;">Statistics</h3>
-            <div class="stats-box">
-                <p><strong>Current Articles:</strong> 2</p>
-                <p><strong>Specimens:</strong> 2</p>
-                <p><strong>New Records:</strong> 2</p>
-                <p><strong>In Prep:</strong> 2</p>
-                <p><strong>Field Expeditions:</strong> 2022-2024</p>
+        <div class="main-with-sidebar">
+            <div class="articles-container">
+                <!-- Article 1: Trigoniulus corallinus -->
+                <div class="article-card" id="article1">
+                    <div class="article-image">
+                        <img src="sp1.png" alt="Trigoniulus corallinus specimen" class="specimen-photo" loading="lazy" 
+                             onerror="this.src='https://via.placeholder.com/400x300?text=Trigoniulus+corallinus'">
+                        <div class="photo-caption">
+                            <i>Trigoniulus corallinus</i> - Preserved specimen in lab
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <div class="taxonomic-line">Diplopoda: Spirobolida: Pachybolidae</div>
+                        <h3 class="article-title">First Record of Spirobolid <i>Trigoniulus corallinus</i> (Gervais, 1842) from Nepal</h3>
+                        <div class="meta-info">
+                            <span class="badge">In Prep</span>
+                            <span>Author: Chand, L.</span>
+                            <span class="status">Specimen Available</span>
+                        </div>
+                        
+                        <table class="taxa-table">
+                            <tr><td class="label">Order:</td><td>Spirobolida</td></tr>
+                            <tr><td class="label">Family:</td><td>Pachybolidae</td></tr>
+                            <tr><td class="label">Genus:</td><td class="scientific">Trigoniulus</td></tr>
+                            <tr><td class="label">Species:</td><td class="scientific">corallinus</td></tr>
+                            <tr><td class="label">Collected by:</td><td>L. Chand & A. Senchury</td></tr>
+                        </table>
+                        
+                        <div class="location-box">
+                            <strong>Type Locality:</strong> Kathmandu Valley, Central Nepal (27.7172°N, 85.3240°E)
+                        </div>
+                        
+                        <p class="abstract-text">
+                            <strong>Abstract:</strong> This paper reports the first confirmed presence of the rusty millipede, <i>Trigoniulus corallinus</i>, in the urban environments of Nepal. Specimens were collected from the Kathmandu Valley, marking a significant range expansion for this anthropochore species. The record highlights the role of human activity in the dispersal of tropical millipedes into Himalayan regions.
+                        </p>
+                        <a href="#" class="read-more">Read Full Article →</a>
+                    </div>
+                </div>
+                
+                <!-- Article 2: Gonoplectus lindbergi -->
+                <div class="article-card" id="article2">
+                    <div class="article-image">
+                        <img src="sp2.png" alt="Gonoplectus lindbergi specimen" class="specimen-photo" loading="lazy" 
+                             onerror="this.src='https://via.placeholder.com/400x300?text=Gonoplectus+lindbergi'">
+                        <div class="photo-caption">
+                            <i>Gonoplectus lindbergi</i> - Live specimen in natural habitat
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <div class="taxonomic-line">Diplopoda: Spirostreptida: Harpagophoridae</div>
+                        <h3 class="article-title">First Record of <i>Gonoplectus lindbergi</i> Demange, 1961 from Nepal</h3>
+                        <div class="meta-info">
+                            <span class="badge">In Prep</span>
+                            <span>Author: Chand, L.</span>
+                            <span class="status">Specimen Available</span>
+                        </div>
+                        
+                        <table class="taxa-table">
+                            <tr><td class="label">Order:</td><td>Spirostreptida</td></tr>
+                            <tr><td class="label">Family:</td><td>Harpagophoridae</td></tr>
+                            <tr><td class="label">Genus:</td><td class="scientific">Gonoplectus</td></tr>
+                            <tr><td class="label">Species:</td><td class="scientific">lindbergi</td></tr>
+                            <tr><td class="label">Collected by:</td><td>L. Chand</td></tr>
+                        </table>
+                        
+                        <div class="location-box">
+                            <strong>Type Locality:</strong> Eastern Region, Nepal (27.5833°N, 87.8000°E)
+                        </div>
+                        
+                        <p class="abstract-text">
+                            <strong>Abstract:</strong> The Harpagophorid species <i>Gonoplectus lindbergi</i> is documented for the first time in Nepal. Previously known from Eastern Himalayan territories, these new sightings in the Central Himalayan belt provide valuable data for the biogeographical mapping of South Asian Myriapoda.
+                        </p>
+                        <a href="#" class="read-more">Read Full Article →</a>
+                    </div>
+                </div>
             </div>
             
-            <h3>External Links</h3>
-            <div class="external-links">
-                <a href="http://millibase.org" target="_blank" rel="noopener noreferrer" class="external-link">
-                    MilliBase Database
-                </a>
-                <a href="https://gbif.org" target="_blank" rel="noopener noreferrer" class="external-link">
-                    GBIF Records
-                </a>
-            </div>
-            
-            <h3>Recent Photos</h3>
-            <div class="photo-grid">
-                <img src="sp1.png" alt="Trigoniulus" class="thumb-img" loading="lazy" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen1'">
-                <img src="sp2.png" alt="Gonoplectus" class="thumb-img" loading="lazy" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen2'">
-            </div>
-            
-            <p style="font-size: 0.8rem; color: #666; margin-top: 15px; text-align: center; font-family: 'Times New Roman', Times, serif;">
-                 Click on article cards for more details
-            </p>
-        </aside>
-    </div>
-</main>
+            <aside class="sidebar">
+                <h3>Quick Navigation</h3>
+                <a href="#article1" class="recent-link"><span>1.</span> <i>Trigoniulus corallinus</i> Record</a>
+                <a href="#article2" class="recent-link"><span>2.</span> <i>Gonoplectus lindbergi</i> Record</a>
+                
+                <h3 style="margin-top: 25px;">Statistics</h3>
+                <div class="stats-box">
+                    <p><strong>Current Articles:</strong> 2</p>
+                    <p><strong>Specimens:</strong> 2</p>
+                    <p><strong>New Records:</strong> 2</p>
+                    <p><strong>In Prep:</strong> 2</p>
+                    <p><strong>Field Expeditions:</strong> 2022-2024</p>
+                </div>
+                
+                <h3>External Links</h3>
+                <div class="external-links">
+                    <a href="http://millibase.org" target="_blank" rel="noopener noreferrer" class="external-link">
+                        MilliBase Database
+                    </a>
+                    <a href="https://gbif.org" target="_blank" rel="noopener noreferrer" class="external-link">
+                        GBIF Records
+                    </a>
+                </div>
+                
+                <h3>Recent Photos</h3>
+                <div class="photo-grid">
+                    <img src="sp1.png" alt="Trigoniulus" class="thumb-img" loading="lazy" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen1'">
+                    <img src="sp2.png" alt="Gonoplectus" class="thumb-img" loading="lazy" onerror="this.src='https://via.placeholder.com/100x80?text=Specimen2'">
+                </div>
+                
+                <p style="font-size: 0.8rem; color: #666; margin-top: 15px; text-align: center; font-family: 'Times New Roman', Times, serif;">
+                     Click on article cards for more details
+                </p>
+            </aside>
+        </div>
+    </main>
 
-<footer>
-    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>Copyright <script>document.write(new Date().getFullYear());</script> Lokendra Chand | +977-9809733313 / +817090238470</p>
-</footer>
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+        <p>Copyright <span id="footerYear">2026</span> Lokendra Chand | +977-9809733313 / +817090238470</p>
+    </footer>
 
-<script>
-// ============================================
-// CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
-// ============================================
-
-// Get Nepal time (UTC+5:45)
-function getNepalTime() {
-    const now = new Date();
-    const nepalOffset = 5.75 * 60 * 60 * 1000;
-    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-    return new Date(utcTime + nepalOffset);
-}
-
-// Update clock display
-function updateClock() {
-    const now = getNepalTime();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    
-    const hourHand = document.getElementById('hourHand');
-    const minuteHand = document.getElementById('minuteHand');
-    const secondHand = document.getElementById('secondHand');
-    
-    if (hourHand) hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
-    if (minuteHand) minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
-    if (secondHand) secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
-    
-    // Update English date
-    const englishDate = document.getElementById('englishDate');
-    if (englishDate) {
-        englishDate.innerHTML = now.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
+    <script>
+        // ============================================
+        // NAVIGATION: MOBILE TOGGLE
+        // ============================================
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
         });
-    }
-}
 
-// Initialize clock on page load and update every second
-window.addEventListener('DOMContentLoaded', function() {
-    updateClock();
-    setInterval(updateClock, 1000);
-});
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        var target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('show');
             });
-        }
-    });
-});
+        });
 
-// Handle image loading errors gracefully
-var images = document.querySelectorAll('img');
-images.forEach(function(img) {
-    img.addEventListener('error', function() {
-        console.log('Image failed to load:', this.src);
-    });
-});
-</script>
+        // ============================================
+        // CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
+        // ============================================
+
+        function getNepalTime() {
+            var now = new Date();
+            var nepalOffset = 5.75 * 60 * 60 * 1000;
+            var utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+            return new Date(utcTime + nepalOffset);
+        }
+
+        function updateClock() {
+            var now = getNepalTime();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            var hourHand = document.getElementById('hourHand');
+            var minuteHand = document.getElementById('minuteHand');
+            var secondHand = document.getElementById('secondHand');
+
+            if (hourHand) {
+                hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
+            }
+            if (minuteHand) {
+                minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
+            }
+            if (secondHand) {
+                secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
+            }
+
+            var englishDate = document.getElementById('englishDate');
+            if (englishDate) {
+                englishDate.textContent = now.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            }
+        }
+
+        // ============================================
+        // FOOTER YEAR
+        // ============================================
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+        // ============================================
+        // INITIALIZE CLOCK
+        // ============================================
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ============================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ============================================
+        // IMAGE ERROR HANDLING
+        // ============================================
+        document.querySelectorAll('img').forEach(function(img) {
+            img.addEventListener('error', function() {
+                console.log('Image failed to load:', this.src);
+            });
+        });
+    </script>
 
 </body>
 </html>
