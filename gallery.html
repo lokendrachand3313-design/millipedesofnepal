@@ -7,10 +7,490 @@
     <meta name="description" content="Explore fieldwork photos, specimen images, and habitat photographs from the Millipedes of Nepal research project.">
     <meta name="keywords" content="millipedes, Nepal, gallery, fieldwork, specimens, habitat, photographs">
     
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="style.css">
-    
     <style>
+        /* ============================================
+           Millipedes of Nepal - Unified Style Sheet
+           Version: 3.1 - Common styles for all pages
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --green: #28a745;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --whatsapp: #25D366;
+            --gmail: #D44638;
+        }
+
+        /* ============ SKIP TO CONTENT ============ */
+        .skip-link {
+            position: absolute;
+            top: -1000px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #000;
+            padding: 10px 20px;
+            z-index: 10000;
+            font-weight: bold;
+            border-radius: 0 0 8px 8px;
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ============ UTILITY CLASSES ============ */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        .mt-1 { margin-top: 10px; }
+        .mt-2 { margin-top: 20px; }
+        .mt-3 { margin-top: 30px; }
+        .mb-1 { margin-bottom: 10px; }
+        .mb-2 { margin-bottom: 20px; }
+        .mb-3 { margin-bottom: 30px; }
+
+        .hide { display: none; }
+        .show { display: block; }
+
+        /* ============ REDUCED MOTION ============ */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============ PRINT STYLES ============ */
+        @media print {
+            header, nav, footer, .no-print, .gallery-filters, 
+            .map-controls, .admin-panel, .contact-buttons,
+            .jump-to, .full-video-section, .pdf-controls,
+            .map-view-buttons, .filter-section {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .article-card, .faq-item, .team-card, .gallery-item,
+            .species-card, .pdf-section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        /* ============ HEADER - STANDARD FOR ALL PAGES ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .header-text p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* Right side group for clock and icon */
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        .millipede-icon {
+            height: 200px;
+            width: auto;
+            max-width: 350px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+        }
+
+        /* ============ CLOCK STYLES ============ */
+        .clock-container {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            min-width: 200px;
+            text-align: center;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
+            position: relative;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: none;
+        }
+
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .clock-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 6px rgba(255,107,107,0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
+            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
+        }
+
+        .hour-hand {
+            width: 4.5px;
+            height: 28px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(243,156,18,0.6);
+            border-radius: 4px 4px 2px 2px;
+        }
+
+        .minute-hand {
+            width: 3.5px;
+            height: 38px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(52,152,219,0.6);
+            border-radius: 3px 3px 2px 2px;
+        }
+
+        .second-hand {
+            width: 1.8px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 6px rgba(255,107,107,0.7);
+            border-radius: 2px;
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 3px rgba(0,0,0,0.4);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
+        .number-1 { color: #f39c12; top: 14%; left: 67%; }
+        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
+        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
+        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
+        .number-5 { color: #3498db; top: 86%; left: 67%; }
+        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
+        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
+        .number-8 { color: #e67e22; top: 73%; left: 19%; }
+        .number-9 { color: #f39c12; top: 50%; left: 8%; }
+        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
+        .number-11 { color: #3498db; top: 14%; left: 33%; }
+
+        .clock-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 6px;
+            text-shadow: 0 0 4px rgba(243,156,18,0.4);
+            font-family: 'Times New Roman', Times, serif;
+            background: rgba(0,0,0,0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* ============ NAVIGATION BAR ============ */
+        nav {
+            background-color: var(--primary-blue);
+            padding: 15px 5%;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid white;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* ============ PAGE HEADER ============ */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-family: 'Times New Roman', Times, serif;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            font-family: 'Times New Roman', Times, serif;
+            opacity: 0.9;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
         /* ============ GALLERY.HTML SPECIFIC STYLES ============ */
         
         /* Filter Buttons */
@@ -261,362 +741,562 @@
         .next-btn {
             right: 20px;
         }
-        
-        /* Date display - LARGER FONT */
-        .clock-date {
-            font-size: 18px;
-            font-weight: bold;
-            color: #f39c12;
-            text-align: center;
-            margin-top: 6px;
-            text-shadow: 0 0 4px rgba(243,156,18,0.4);
+
+        /* ============ BUTTONS ============ */
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
             font-family: 'Times New Roman', Times, serif;
-            background: rgba(0,0,0,0.25);
-            padding: 4px 14px;
-            border-radius: 20px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            background-color: #e67e22;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 5%;
+            width: 100%;
+            max-width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
             display: inline-block;
         }
-        
-        /* Responsive adjustments */
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ============ RESPONSIVE DESIGN ============ */
+        @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
+            .millipede-icon { height: 160px; max-width: 280px; }
+        }
+
         @media (max-width: 1024px) {
-            .gallery-container {
-                column-count: 2;
-            }
+            nav { padding: 15px 5%; }
+            main { padding: 30px 5%; }
+            footer { padding: 30px 5%; }
+            .gallery-container { column-count: 2; }
         }
-        
+
+        @media (max-width: 992px) {
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 5%; gap: 20px; }
+            .millipede-icon { height: 130px; max-width: 220px; }
+            .analog-clock { width: 80px; height: 80px; }
+            .clock-container { min-width: 170px; }
+            .right-group { gap: 1px; }
+        }
+
         @media (max-width: 768px) {
-            .gallery-container {
-                column-count: 1;
+            .menu-toggle {
+                display: block;
             }
-            .filter-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 2px;
             }
-            .modal-content {
-                max-width: 95%;
-                max-height: 60vh;
+            .nav-links.show {
+                display: flex;
             }
-            .close-modal {
-                top: 15px;
-                right: 25px;
-                font-size: 40px;
-            }
-            .nav-btn {
-                font-size: 1.5rem;
-                padding: 10px;
-            }
-            .clock-date { font-size: 16px; }
-        }
-        
-        @media (max-width: 480px) {
-            .filter-btn {
+            nav a {
                 width: 100%;
                 text-align: center;
+                padding: 10px;
+                margin: 0;
             }
-            .gallery-caption-static p {
-                font-size: 0.95rem;
+            
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
             }
-            .modal-caption {
-                font-size: 1rem;
-                padding: 15px;
-                width: 95%;
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            main { padding: 20px 4%; }
+            
+            .right-group { 
+                justify-content: center;
+                margin-top: 10px;
             }
-            .clock-date { font-size: 14px; padding: 2px 10px; }
+            .millipede-icon { height: 110px; max-width: 190px; }
+            .analog-clock { width: 70px; height: 70px; }
+            .clock-date { font-size: 16px; }
+            
+            .gallery-container { column-count: 1; }
+            .filter-btn { padding: 8px 16px; font-size: 0.9rem; }
+            .modal-content { max-width: 95%; max-height: 60vh; }
+            .close-modal { top: 15px; right: 25px; font-size: 40px; }
+            .nav-btn { font-size: 1.5rem; padding: 10px; }
+            .page-header h2 { font-size: 1.8rem; }
+            .page-header p { font-size: 1rem; }
+            
+            footer p { font-size: 1rem; }
         }
-        
+
+        @media (max-width: 480px) {
+            .header-text h1 { font-size: 1.5rem; }
+            .header-text p { font-size: 0.9rem; }
+            .header-logo { height: 50px; }
+            .millipede-icon { height: 80px; max-width: 130px; }
+            .analog-clock { width: 55px; height: 55px; }
+            .clock-container { min-width: 130px; }
+            .right-group { gap: 0px; }
+            .clock-date { font-size: 13px; padding: 2px 8px; }
+            
+            .filter-btn { width: 100%; text-align: center; }
+            .gallery-caption-static p { font-size: 0.95rem; }
+            .modal-caption { font-size: 1rem; padding: 15px; width: 95%; }
+            .page-header { padding: 20px 15px; }
+            .page-header h2 { font-size: 1.4rem; }
+        }
+
         @media (min-width: 1600px) {
-            .gallery-container {
-                column-count: 4;
-            }
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
+            .millipede-icon { height: 220px; max-width: 380px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
+            .analog-clock { width: 120px; height: 120px; }
+            .clock-container { min-width: 240px; }
+            .right-group { gap: 3px; }
             .clock-date { font-size: 22px; }
+            .gallery-container { column-count: 4; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
-             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
-        
-        <div class="header-text">
-            <h1>Millipedes of Nepal</h1>
-            <p>Fieldwork Gallery</p>
+    <!-- ============ SKIP TO CONTENT ============ -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <div class="header-container">
+            <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
+                 onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
+            
+            <div class="header-text">
+                <h1>Millipedes of Nepal</h1>
+                <p>Fieldwork Gallery</p>
+            </div>
+            
+            <div class="right-group">
+                <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
+                     onerror="this.style.display='none'">
+                
+                <div class="clock-container">
+                    <div class="analog-clock">
+                        <div class="clock-face">
+                            <div class="clock-ring"></div>
+                            <div class="hand hour-hand" id="hourHand"></div>
+                            <div class="hand minute-hand" id="minuteHand"></div>
+                            <div class="hand second-hand" id="secondHand"></div>
+                            <div class="clock-center"></div>
+                            <div class="clock-numbers">
+                                <div class="number number-12">12</div>
+                                <div class="number number-1">1</div>
+                                <div class="number number-2">2</div>
+                                <div class="number number-3">3</div>
+                                <div class="number number-4">4</div>
+                                <div class="number number-5">5</div>
+                                <div class="number number-6">6</div>
+                                <div class="number number-7">7</div>
+                                <div class="number number-8">8</div>
+                                <div class="number number-9">9</div>
+                                <div class="number number-10">10</div>
+                                <div class="number number-11">11</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clock-date" id="englishDate">--</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============ NAVIGATION ============ -->
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">☰ Menu</button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="history.html">History</a>
+            <a href="checklist.html">Checklist</a>
+            <a href="distribution.html">Distribution</a>
+            <a href="introkey.html">Introduction and Identification</a>
+            <a href="articles.html">Articles</a>
+            <a href="gallery.html" class="active">Gallery</a> 
+            <a href="upload.html">Upload</a>
+            <a href="team.html">Team</a>
+            <a href="faq.html">FAQ</a>
+        </div>
+    </nav>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main id="main-content">
+        <div class="page-header">
+            <h2>Fieldwork and Specimen Gallery</h2>
+            <p>Explore our collection of millipede photographs from field expeditions and laboratory work</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">All Photos</button>
+            <button class="filter-btn" data-filter="habitat">Habitat</button>
+            <button class="filter-btn" data-filter="specimen">Specimens</button>
+            <button class="filter-btn" data-filter="fieldwork">Fieldwork</button>
+            <button class="filter-btn" data-filter="lab">Lab Work</button>
         </div>
         
-        <div class="right-group">
-            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
-                 onerror="this.style.display='none'">
+        <!-- Gallery Grid -->
+        <div class="gallery-container" id="gallery-grid"></div>
+        
+        <!-- Lightbox Modal -->
+        <div id="imageModal" class="modal">
+            <span class="close-modal">&times;</span>
+            <button class="nav-btn prev-btn" id="prevBtn">❮</button>
+            <button class="nav-btn next-btn" id="nextBtn">❯</button>
+            <img class="modal-content" id="modalImage">
+            <div id="modalCaption" class="modal-caption"></div>
+        </div>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+        <p>© <span id="footerYear">2026</span> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    </footer>
+
+    <script>
+        // ============================================
+        // NAVIGATION: MOBILE TOGGLE
+        // ============================================
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('show');
+            });
+        });
+
+        // ============================================
+        // CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
+        // ============================================
+
+        function getNepalTime() {
+            var now = new Date();
+            var nepalOffset = 5.75 * 60 * 60 * 1000;
+            var utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+            return new Date(utcTime + nepalOffset);
+        }
+
+        function updateClock() {
+            var now = getNepalTime();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            var hourHand = document.getElementById('hourHand');
+            var minuteHand = document.getElementById('minuteHand');
+            var secondHand = document.getElementById('secondHand');
+
+            if (hourHand) {
+                hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
+            }
+            if (minuteHand) {
+                minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
+            }
+            if (secondHand) {
+                secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
+            }
+
+            var englishDate = document.getElementById('englishDate');
+            if (englishDate) {
+                englishDate.textContent = now.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            }
+        }
+
+        // ============================================
+        // FOOTER YEAR
+        // ============================================
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+        // ============================================
+        // INITIALIZE CLOCK
+        // ============================================
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ============================================
+        // GALLERY SPECIFIC FUNCTIONS
+        // ============================================
+
+        // Gallery Data - All photos with categories (all text normal)
+        const galleryData = [
+            { id: 1, image: 'forest_dang.jpg', caption: 'Forest of <i>Shorea robusta</i> in Dang Valley', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
+            { id: 2, image: 'habitat2.jpg', caption: 'Habitat of <i>Chondromorpha</i> sp. and Streptogonopus phipsoni', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
+            { id: 3, image: 'habitat3.jpg', caption: 'Mixed Forest Leaf litter, perfect habitat for Millipede and other Invertebrates', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
+            { id: 4, image: 'habitat4.jpg', caption: '<i>Shorea robusta</i> Forest', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
+            { id: 5, image: 'lab1.jpg', caption: 'Lokendra Chand and Ayub Senchury in Lab', location: 'Central Department of Zoology, TU, Kathmandu', date: '2023', category: 'lab' },
+            { id: 6, image: 'field1.jpg', caption: 'Lokendra Chand and other field workers', location: 'Nilbarahi Community Forest, Bhaktapur', date: '2022', category: 'fieldwork' },
+            { id: 7, image: 'gono_dead.jpg', caption: '<i>Gonoplectus malayus</i> after death on forest floor', location: 'Dang Valley, Western Nepal', date: '2023', category: 'specimen' },
+            { id: 8, image: 'bijan.jpg', caption: 'Mr. Bijan Basnet collecting centipede specimen', location: 'Ranibari Community Forest, Kathmandu', date: '2023', category: 'fieldwork' },
+            { id: 9, image: 'me_field.jpg', caption: 'Collecting millipedes in the field', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork' },
+            { id: 10, image: 'siphono2.jpg', caption: '<i>Siphonorhinus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2024', category: 'specimen' },
+            { id: 11, image: 'students2.jpg', caption: 'Students searching for soil invertebrates', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork' },
+            { id: 12, image: 'chon2.jpg', caption: '<i>Chondromorpha</i> sp. under the soil, exposed after digging', location: 'Dang Valley, Western Nepal', date: '2024', category: 'specimen' },
+            { id: 13, image: 'chondro1.jpg', caption: '<i>Chondromorpha</i> sp. in maize growing land', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
+            { id: 14, image: 'cmating3.jpg', caption: '<i>Chondromorpha</i> sp. mating', location: 'Surrounding Hill, Dang Valley', date: '2025', category: 'specimen' },
+            { id: 15, image: 'crypto1.jpg', caption: '<i>Cryptocorypha</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
+            { id: 16, image: 'delarthrum.jpg', caption: '<i>Delarthrum elegans</i> (Golovatch, 1992)', location: 'Kathmandu Valley, Nepal', date: '2023', category: 'specimen' },
+            { id: 17, image: 'gono2.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
+            { id: 18, image: 'gono3.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Salyan district, Western Nepal', date: '2024', category: 'specimen' },
+            { id: 19, image: 'gono4.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Kathmandu Valley, Nepal', date: '2022', category: 'specimen' },
+            { id: 20, image: 'gono5.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Kathmandu Valley, Nepal', date: '2022', category: 'specimen' },
+            { id: 21, image: 'gonopod_.jpg', caption: 'Gonopod of <i>Gonoplectus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
+            { id: 22, image: 'malayus.jpg', caption: '<i>Gonoplectus lindbergi</i> Demange 1961', location: 'Jhapa district, Eastern Nepal', date: '2023', category: 'specimen' },
+            { id: 23, image: 'milli1.jpg', caption: 'Millipedes under leaf litter', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
+            { id: 24, image: 'sphae2.jpg', caption: 'Giant pill millipede', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
+            { id: 25, image: 'orthomorpha1.jpg', caption: '<i>Orthomorpha coarctata</i> (Saussure, 1860)', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' }
+        ];
+
+        // Get the gallery container
+        const galleryGrid = document.getElementById('gallery-grid');
+
+        // Modal elements
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const closeModal = document.querySelector('.close-modal');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        let currentImageIndex = 0;
+        let currentFilter = 'all';
+        let currentFilteredData = [];
+
+        // Function to render the gallery
+        function renderGallery(filter = 'all') {
+            currentFilter = filter;
+            currentFilteredData = filter === 'all' 
+                ? galleryData 
+                : galleryData.filter(item => item.category === filter);
             
-            <div class="clock-container">
-                <div class="analog-clock">
-                    <div class="clock-face">
-                        <div class="clock-ring"></div>
-                        <div class="hand hour-hand" id="hourHand"></div>
-                        <div class="hand minute-hand" id="minuteHand"></div>
-                        <div class="hand second-hand" id="secondHand"></div>
-                        <div class="clock-center"></div>
-                        <div class="clock-numbers">
-                            <div class="number number-12">12</div>
-                            <div class="number number-1">1</div>
-                            <div class="number number-2">2</div>
-                            <div class="number number-3">3</div>
-                            <div class="number number-4">4</div>
-                            <div class="number number-5">5</div>
-                            <div class="number number-6">6</div>
-                            <div class="number number-7">7</div>
-                            <div class="number number-8">8</div>
-                            <div class="number number-9">9</div>
-                            <div class="number number-10">10</div>
-                            <div class="number number-11">11</div>
+            galleryGrid.innerHTML = currentFilteredData.map((item, index) => {
+                return `
+                <div class="gallery-item" data-index="${index}" data-filter="${filter}">
+                    <img src="${item.image}" alt="${item.caption}" class="gallery-image" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Not+Found'">
+                    <div class="gallery-caption-static">
+                        <p>${item.caption}</p>
+                        <div class="gallery-location">
+                            <span>Location:</span> ${item.location} | ${item.date}
                         </div>
                     </div>
                 </div>
-                <!-- Digital clock removed -->
-                <div class="clock-date" id="englishDate">--</div>
-            </div>
-        </div>
-    </div>
-</header>
+            `}).join('');
+            
+            // Add click event to each gallery item
+            document.querySelectorAll('.gallery-item').forEach((item, idx) => {
+                item.addEventListener('click', function() {
+                    currentImageIndex = parseInt(this.dataset.index);
+                    const imageData = currentFilteredData[currentImageIndex];
+                    openModal(imageData);
+                });
+            });
+        }
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="history.html">History</a>
-    <a href="checklist.html">Checklist</a>
-    <a href="distribution.html">Distribution</a>
-    <a href="introkey.html">Introduction and Identification</a>
-    <a href="articles.html">Articles</a>
-    <a href="gallery.html" class="active">Gallery</a> 
-    <a href="upload.html">Upload</a>
-    <a href="team.html">Team</a>
-    <a href="faq.html">FAQ</a>
-</nav>
+        // Function to open modal
+        function openModal(imageData) {
+            modal.style.display = 'block';
+            modalImg.src = imageData.image;
+            modalCaption.innerHTML = `
+                ${imageData.caption}<br>
+                <span class="modal-location">Location: ${imageData.location} | ${imageData.date}</span>
+            `;
+            
+            // Handle broken images in modal
+            modalImg.onerror = function() {
+                this.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
+            };
+        }
 
-<main>
-    <div class="page-header">
-        <h2>Fieldwork and Specimen Gallery</h2>
-        <p>Explore our collection of millipede photographs from field expeditions and laboratory work</p>
-    </div>
+        // Navigate to previous image
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + currentFilteredData.length) % currentFilteredData.length;
+            openModal(currentFilteredData[currentImageIndex]);
+        }
 
-    <!-- Filter Buttons -->
-    <div class="gallery-filters">
-        <button class="filter-btn active" data-filter="all">All Photos</button>
-        <button class="filter-btn" data-filter="habitat">Habitat</button>
-        <button class="filter-btn" data-filter="specimen">Specimens</button>
-        <button class="filter-btn" data-filter="fieldwork">Fieldwork</button>
-        <button class="filter-btn" data-filter="lab">Lab Work</button>
-    </div>
-    
-    <!-- Gallery Grid -->
-    <div class="gallery-container" id="gallery-grid"></div>
-    
-    <!-- Lightbox Modal -->
-    <div id="imageModal" class="modal">
-        <span class="close-modal">&times;</span>
-        <button class="nav-btn prev-btn" id="prevBtn">❮</button>
-        <button class="nav-btn next-btn" id="nextBtn">❯</button>
-        <img class="modal-content" id="modalImage">
-        <div id="modalCaption" class="modal-caption"></div>
-    </div>
-</main>
+        // Navigate to next image
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % currentFilteredData.length;
+            openModal(currentFilteredData[currentImageIndex]);
+        }
 
-<footer>
-    <p>Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>Copyright <script>document.write(new Date().getFullYear());</script> Lokendra Chand | +977-9809733313 / +817090238470</p>
-</footer>
-
-<script>
-// ============================================
-// CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
-// ============================================
-
-// Get Nepal time (UTC+5:45)
-function getNepalTime() {
-    const now = new Date();
-    const nepalOffset = 5.75 * 60 * 60 * 1000;
-    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-    return new Date(utcTime + nepalOffset);
-}
-
-// Update clock display
-function updateClock() {
-    const now = getNepalTime();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    
-    const hourHand = document.getElementById('hourHand');
-    const minuteHand = document.getElementById('minuteHand');
-    const secondHand = document.getElementById('secondHand');
-    
-    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
-    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
-    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
-    
-    // Update English date
-    const englishDate = document.getElementById('englishDate');
-    if (englishDate) {
-        englishDate.innerHTML = now.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderGallery(this.dataset.filter);
+            });
         });
-    }
-}
 
-// Initialize clock on page load and update every second
-window.addEventListener('DOMContentLoaded', function() {
-    updateClock();
-    setInterval(updateClock, 1000);
-});
-
-// ============================================
-// GALLERY SPECIFIC FUNCTIONS
-// ============================================
-
-// Gallery Data - All photos with categories (all text normal)
-const galleryData = [
-    { id: 1, image: 'forest_dang.jpg', caption: 'Forest of <i>Shorea robusta</i> in Dang Valley', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
-    { id: 2, image: 'habitat2.jpg', caption: 'Habitat of <i>Chondromorpha</i> sp. and Streptogonopus phipsoni', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
-    { id: 3, image: 'habitat3.jpg', caption: 'Mixed Forest Leaf litter, perfect habitat for Millipede and other Invertebrates', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
-    { id: 4, image: 'habitat4.jpg', caption: '<i>Shorea robusta</i> Forest', location: 'Dang Valley, Western Nepal', date: '2024', category: 'habitat' },
-    { id: 5, image: 'lab1.jpg', caption: 'Lokendra Chand and Ayub Senchury in Lab', location: 'Central Department of Zoology, TU, Kathmandu', date: '2023', category: 'lab' },
-    { id: 6, image: 'field1.jpg', caption: 'Lokendra Chand and other field workers', location: 'Nilbarahi Community Forest, Bhaktapur', date: '2022', category: 'fieldwork' },
-    { id: 7, image: 'gono_dead.jpg', caption: '<i>Gonoplectus malayus</i> after death on forest floor', location: 'Dang Valley, Western Nepal', date: '2023', category: 'specimen' },
-    { id: 8, image: 'bijan.jpg', caption: 'Mr. Bijan Basnet collecting centipede specimen', location: 'Ranibari Community Forest, Kathmandu', date: '2023', category: 'fieldwork' },
-    { id: 9, image: 'me_field.jpg', caption: 'Collecting millipedes in the field', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork' },
-    { id: 10, image: 'siphono2.jpg', caption: '<i>Siphonorhinus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2024', category: 'specimen' },
-    { id: 11, image: 'students2.jpg', caption: 'Students searching for soil invertebrates', location: 'Dang Valley, Western Nepal', date: '2024', category: 'fieldwork' },
-    { id: 12, image: 'chon2.jpg', caption: '<i>Chondromorpha</i> sp. under the soil, exposed after digging', location: 'Dang Valley, Western Nepal', date: '2024', category: 'specimen' },
-    { id: 13, image: 'chondro1.jpg', caption: '<i>Chondromorpha</i> sp. in maize growing land', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 14, image: 'cmating3.jpg', caption: '<i>Chondromorpha</i> sp. mating', location: 'Surrounding Hill, Dang Valley', date: '2025', category: 'specimen' },
-    { id: 15, image: 'crypto1.jpg', caption: '<i>Cryptocorypha</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 16, image: 'delarthrum.jpg', caption: '<i>Delarthrum elegans</i> (Golovatch, 1992)', location: 'Kathmandu Valley, Nepal', date: '2023', category: 'specimen' },
-    { id: 17, image: 'gono2.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 18, image: 'gono3.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Salyan district, Western Nepal', date: '2024', category: 'specimen' },
-    { id: 19, image: 'gono4.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Kathmandu Valley, Nepal', date: '2022', category: 'specimen' },
-    { id: 20, image: 'gono5.jpg', caption: '<i>Gonoplectus</i> sp.', location: 'Kathmandu Valley, Nepal', date: '2022', category: 'specimen' },
-    { id: 21, image: 'gonopod_.jpg', caption: 'Gonopod of <i>Gonoplectus</i> sp.', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 22, image: 'malayus.jpg', caption: '<i>Gonoplectus lindbergi</i> Demange 1961', location: 'Jhapa district, Eastern Nepal', date: '2023', category: 'specimen' },
-    { id: 23, image: 'milli1.jpg', caption: 'Millipedes under leaf litter', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 24, image: 'sphae2.jpg', caption: 'Giant pill millipede', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' },
-    { id: 25, image: 'orthomorpha1.jpg', caption: '<i>Orthomorpha coarctata</i> (Saussure, 1860)', location: 'Dang Valley, Western Nepal', date: '2025', category: 'specimen' }
-];
-
-// Get the gallery container
-const galleryGrid = document.getElementById('gallery-grid');
-
-// Modal elements
-const modal = document.getElementById('imageModal');
-const modalImg = document.getElementById('modalImage');
-const modalCaption = document.getElementById('modalCaption');
-const closeModal = document.querySelector('.close-modal');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-
-let currentImageIndex = 0;
-let currentFilter = 'all';
-let currentFilteredData = [];
-
-// Function to render the gallery
-function renderGallery(filter = 'all') {
-    currentFilter = filter;
-    currentFilteredData = filter === 'all' 
-        ? galleryData 
-        : galleryData.filter(item => item.category === filter);
-    
-    galleryGrid.innerHTML = currentFilteredData.map((item, index) => {
-        return `
-        <div class="gallery-item" data-index="${index}" data-filter="${filter}">
-            <img src="${item.image}" alt="${item.caption}" class="gallery-image" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Not+Found'">
-            <div class="gallery-caption-static">
-                <p>${item.caption}</p>
-                <div class="gallery-location">
-                    <span>Location:</span> ${item.location} | ${item.date}
-                </div>
-            </div>
-        </div>
-    `}).join('');
-    
-    // Add click event to each gallery item
-    document.querySelectorAll('.gallery-item').forEach((item, idx) => {
-        item.addEventListener('click', function() {
-            currentImageIndex = parseInt(this.dataset.index);
-            const imageData = currentFilteredData[currentImageIndex];
-            openModal(imageData);
+        // Close modal when clicking X
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
         });
-    });
-}
 
-// Function to open modal
-function openModal(imageData) {
-    modal.style.display = 'block';
-    modalImg.src = imageData.image;
-    modalCaption.innerHTML = `
-        ${imageData.caption}<br>
-        <span class="modal-location">Location: ${imageData.location} | ${imageData.date}</span>
-    `;
-    
-    // Handle broken images in modal
-    modalImg.onerror = function() {
-        this.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
-    };
-}
+        // Close modal when clicking outside the image
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
 
-// Navigate to previous image
-function prevImage() {
-    currentImageIndex = (currentImageIndex - 1 + currentFilteredData.length) % currentFilteredData.length;
-    openModal(currentFilteredData[currentImageIndex]);
-}
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+            }
+            if (e.key === 'ArrowLeft' && modal.style.display === 'block') {
+                prevImage();
+            }
+            if (e.key === 'ArrowRight' && modal.style.display === 'block') {
+                nextImage();
+            }
+        });
 
-// Navigate to next image
-function nextImage() {
-    currentImageIndex = (currentImageIndex + 1) % currentFilteredData.length;
-    openModal(currentFilteredData[currentImageIndex]);
-}
+        // Navigation buttons
+        prevBtn.addEventListener('click', prevImage);
+        nextBtn.addEventListener('click', nextImage);
 
-// Filter functionality
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        renderGallery(this.dataset.filter);
-    });
-});
+        // Initialize gallery
+        renderGallery('all');
 
-// Close modal when clicking X
-closeModal.addEventListener('click', function() {
-    modal.style.display = 'none';
-});
-
-// Close modal when clicking outside the image
-window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.style.display === 'block') {
-        modal.style.display = 'none';
-    }
-    if (e.key === 'ArrowLeft' && modal.style.display === 'block') {
-        prevImage();
-    }
-    if (e.key === 'ArrowRight' && modal.style.display === 'block') {
-        nextImage();
-    }
-});
-
-// Navigation buttons
-prevBtn.addEventListener('click', prevImage);
-nextBtn.addEventListener('click', nextImage);
-
-// Initialize gallery
-renderGallery('all');
-</script>
+        // ============================================
+        // IMAGE ERROR HANDLING
+        // ============================================
+        document.querySelectorAll('img').forEach(function(img) {
+            img.addEventListener('error', function() {
+                console.log('Image failed to load:', this.src);
+            });
+        });
+    </script>
 
 </body>
 </html>
