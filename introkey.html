@@ -1,96 +1,637 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ne">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introduction & Identification - Millipedes of Nepal</title>
     <meta name="description" content="Learn about millipede identification with illustrated keys, video introduction, and PDF resources for Nepalese millipedes.">
     <meta name="keywords" content="millipedes, Nepal, identification, introduction, taxonomy, Diplopoda, key">
-    
+    <link rel="canonical" href="https://www.chandlokendra.com.np/introkey.html">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
     <!-- PDF.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="style.css">
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js">
+    </script>
+
+    <!-- Shared Styles - Embedded (SAME AS INDEX.HTML) -->
     <style>
+        /* ============================================
+           Millipedes of Nepal - Unified Style Sheet
+           Version: 3.1 - Common styles for all pages
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        html,
         body {
-            background: #f0f4f8;
-            overflow-x: hidden;
-        }
-        
-        header {
-            width: 100%;
-            border-radius: 0;
-        }
-        
-        .header-container {
-            width: 100%;
-            padding: 20px 5%;
-        }
-        
-        nav {
-            width: 100%;
-            border-radius: 0;
-        }
-        
-        main {
             width: 100%;
             max-width: 100%;
-            padding: 40px 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
             margin: 0;
+            padding: 0;
+            width: 100%;
         }
-        
-        .page-header {
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --green: #28a745;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --whatsapp: #25D366;
+            --gmail: #D44638;
+        }
+
+        /* ============ SKIP TO CONTENT ============ */
+        .skip-link {
+            position: absolute;
+            top: -1000px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #000;
+            padding: 10px 20px;
+            z-index: 10000;
+            font-weight: bold;
+            border-radius: 0 0 8px 8px;
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ============ UTILITY CLASSES ============ */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .text-center {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 0 20px;
         }
-        
-        .page-header h2 {
+        .text-left {
+            text-align: left;
+        }
+        .text-right {
+            text-align: right;
+        }
+
+        .mt-1 {
+            margin-top: 10px;
+        }
+        .mt-2 {
+            margin-top: 20px;
+        }
+        .mt-3 {
+            margin-top: 30px;
+        }
+        .mb-1 {
+            margin-bottom: 10px;
+        }
+        .mb-2 {
+            margin-bottom: 20px;
+        }
+        .mb-3 {
+            margin-bottom: 30px;
+        }
+
+        .hide {
+            display: none;
+        }
+        .show {
+            display: block;
+        }
+
+        /* ============ REDUCED MOTION ============ */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============ PRINT STYLES ============ */
+        @media print {
+            header,
+            nav,
+            footer,
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .content-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        /* ============ HEADER ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0, 0, 0, 0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            80% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .header-text p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+            animation: slideInRight 1s ease-out;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        .millipede-icon {
+            height: 200px;
+            width: auto;
+            max-width: 350px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(4px 6px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        /* ============ CLOCK STYLES ============ */
+        .clock-container {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            min-width: 200px;
+            text-align: center;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
+            position: relative;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: none;
+        }
+
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+        }
+
+        .clock-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 6px rgba(255, 107, 107, 0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 4px rgba(255, 107, 107, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 12px rgba(255, 107, 107, 1);
+            }
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
+        }
+
+        .hour-hand {
+            width: 4.5px;
+            height: 28px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(243, 156, 18, 0.6);
+            border-radius: 4px 4px 2px 2px;
+        }
+
+        .minute-hand {
+            width: 3.5px;
+            height: 38px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.6);
+            border-radius: 3px 3px 2px 2px;
+        }
+
+        .second-hand {
+            width: 1.8px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 6px rgba(255, 107, 107, 0.7);
+            border-radius: 2px;
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .number-12 {
+            color: #ff6b6b;
+            top: 8%;
+            left: 50%;
+        }
+        .number-1 {
+            color: #f39c12;
+            top: 14%;
+            left: 67%;
+        }
+        .number-2 {
+            color: #f1c40f;
+            top: 27%;
+            left: 81%;
+        }
+        .number-3 {
+            color: #2ecc71;
+            top: 50%;
+            left: 92%;
+        }
+        .number-4 {
+            color: #1abc9c;
+            top: 73%;
+            left: 81%;
+        }
+        .number-5 {
+            color: #3498db;
+            top: 86%;
+            left: 67%;
+        }
+        .number-6 {
+            color: #9b59b6;
+            top: 92%;
+            left: 50%;
+        }
+        .number-7 {
+            color: #e74c3c;
+            top: 86%;
+            left: 33%;
+        }
+        .number-8 {
+            color: #e67e22;
+            top: 73%;
+            left: 19%;
+        }
+        .number-9 {
+            color: #f39c12;
+            top: 50%;
+            left: 8%;
+        }
+        .number-10 {
+            color: #2ecc71;
+            top: 27%;
+            left: 19%;
+        }
+        .number-11 {
+            color: #3498db;
+            top: 14%;
+            left: 33%;
+        }
+
+        .clock-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 6px;
+            text-shadow: 0 0 4px rgba(243, 156, 18, 0.4);
+            font-family: 'Times New Roman', Times, serif;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* ============ NAVIGATION BAR ============ */
+        nav {
+            background-color: var(--primary-blue);
+            padding: 15px 5%;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid white;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ============ UNIFIED CONTENT CARDS ============ */
+        .content-card {
+            background: var(--bg-white);
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            width: 100%;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-card h2 {
             color: var(--primary-blue);
             border-bottom: 3px solid var(--primary-blue);
-            display: inline-block;
-            padding-bottom: 10px;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .content-card p {
+            font-size: 1.2rem;
             margin-bottom: 15px;
+            color: #333;
+            font-family: 'Times New Roman', Times, serif;
         }
-        
-        .page-header p {
-            font-size: 1rem;
-            color: #555;
+
+        .content-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--primary-blue);
+            font-family: 'Times New Roman', Times, serif;
         }
-        
-        /* Full Video Section - Max 1200px, Centered */
+
+        /* ============ INTROKEY-SPECIFIC STYLES ============ */
+
+        /* Full Video Section */
         .full-video-section {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto 50px auto;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             background: #1a1a2e;
         }
-        
+
         .video-wrapper {
             width: 100%;
             background: #000;
             position: relative;
             aspect-ratio: 16 / 9;
         }
-        
+
         .video-wrapper iframe {
             width: 100%;
             height: 100%;
             border: none;
             display: block;
         }
-        
+
         .video-caption-full {
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
             padding: 20px 30px;
@@ -98,29 +639,29 @@
             width: 100%;
             text-align: center;
         }
-        
+
         .video-caption-full p {
             font-size: 1rem;
             color: #e0e0e0;
             margin-bottom: 0;
             line-height: 1.6;
         }
-        
-        /* PDF Book Section - No white area, matches background */
+
+        /* PDF Book Section */
         .pdf-book-section {
             width: 100%;
             max-width: 100%;
             border-radius: 0;
-            padding: 15px 5%;
+            padding: 15px 0;
             margin-bottom: 0;
-            background: #f0f4f8; /* Matches body background */
+            background: transparent;
         }
-        
+
         .pdf-book-header {
             text-align: center;
             margin-bottom: 12px;
         }
-        
+
         .pdf-book-header h2 {
             color: var(--primary-blue);
             border-bottom: 3px solid var(--primary-blue);
@@ -128,20 +669,22 @@
             padding-bottom: 8px;
             margin-bottom: 8px;
             font-size: 1.6rem;
+            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .pdf-book-header p {
             color: #666;
             font-size: 0.85rem;
+            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .book-container {
             background: transparent;
             border-radius: 0;
             padding: 0;
             position: relative;
         }
-        
+
         .pdf-canvas-container {
             background: transparent;
             border-radius: 0;
@@ -155,17 +698,17 @@
             align-items: center;
             text-align: center;
         }
-        
+
         .pdf-canvas-container canvas {
             display: block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             background: white;
             cursor: pointer;
             max-width: 100%;
             height: auto;
             margin: 0 auto;
         }
-        
+
         .book-controls {
             display: flex;
             justify-content: center;
@@ -174,7 +717,7 @@
             margin-top: 12px;
             flex-wrap: wrap;
         }
-        
+
         .book-btn {
             background: var(--primary-blue);
             color: white;
@@ -186,19 +729,20 @@
             font-weight: bold;
             transition: all 0.3s ease;
             min-width: 100px;
+            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .book-btn:hover {
             background: var(--gold);
             transform: scale(1.02);
         }
-        
+
         .book-btn:disabled {
             background: #aaa;
             cursor: not-allowed;
             transform: none;
         }
-        
+
         .page-indicator {
             background: var(--primary-blue);
             color: white;
@@ -210,47 +754,54 @@
             min-width: 110px;
             text-align: center;
         }
-        
+
         .pdf-loading {
             text-align: center;
             padding: 50px;
             color: #666;
             font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .pdf-loading::after {
             content: "📖 Loading PDF...";
             animation: pulse 1.5s infinite;
         }
-        
+
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
         }
-        
+
         .book-notice {
             text-align: center;
             margin-top: 10px;
             font-size: 0.75rem;
             color: #888;
+            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .book-notice a {
             color: #888;
             text-decoration: none;
         }
-        
+
         .book-notice a:hover {
             color: var(--primary-blue);
             text-decoration: underline;
         }
-        
+
         /* Fullscreen Mode */
         .book-container:fullscreen {
             background: #1a1a1a;
             padding: 15px;
         }
-        
+
         .book-container:fullscreen .pdf-canvas-container {
             min-height: calc(100vh - 160px);
             background: #1a1a1a;
@@ -258,13 +809,13 @@
             justify-content: center;
             align-items: center;
         }
-        
+
         .book-container:fullscreen canvas {
             max-height: calc(100vh - 180px);
             width: auto;
             cursor: pointer;
         }
-        
+
         .fullscreen-controls {
             position: fixed;
             bottom: 20px;
@@ -274,14 +825,14 @@
             justify-content: center;
             gap: 15px;
             z-index: 1000;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             padding: 10px 20px;
             border-radius: 50px;
             width: fit-content;
             margin: 0 auto;
             backdrop-filter: blur(10px);
         }
-        
+
         .fullscreen-controls button {
             background: var(--primary-blue);
             color: white;
@@ -292,45 +843,95 @@
             font-size: 0.85rem;
             font-weight: bold;
             transition: all 0.2s ease;
+            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .fullscreen-controls button:hover {
             background: var(--gold);
         }
-        
+
         .exit-fullscreen-btn {
             background: #e74c3c;
         }
-        
+
+        /* Steps Image Section */
+        .steps-image-section {
+            width: 100%;
+            max-width: 100%;
+            padding: 10px 0 30px 0;
+            background: transparent;
+            text-align: center;
+        }
+
+        .steps-image-section .steps-header {
+            margin-bottom: 15px;
+        }
+
+        .steps-image-section .steps-header h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--gold);
+            display: inline-block;
+            padding-bottom: 6px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .steps-image-wrapper {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 12px;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .steps-image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .steps-caption {
+            margin-top: 12px;
+            color: #555;
+            font-size: 0.95rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* Source Box */
         .source-box {
             background: linear-gradient(135deg, var(--blue-bg) 0%, #d6eaf8 100%);
-            border-radius: 0;
+            border-radius: 10px;
             padding: 45px 5%;
             text-align: center;
             width: 100%;
             margin-top: 30px;
         }
-        
+
         .milli-peet-logo {
             font-weight: bold;
             font-size: 2.5rem;
             color: var(--primary-blue);
             margin-bottom: 20px;
             letter-spacing: 3px;
+            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .source-box p {
             margin-bottom: 15px;
             font-size: 1.2rem;
             color: #333;
             line-height: 1.6;
+            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .source-box strong {
             font-size: 1.3rem;
             color: var(--primary-blue);
+            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .source-box a {
             color: var(--primary-blue);
             text-decoration: none;
@@ -339,116 +940,436 @@
             transition: all 0.3s ease;
             display: inline-block;
             margin-top: 10px;
+            font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .source-box a:hover {
             color: var(--gold);
             text-decoration: underline;
             transform: translateX(5px);
         }
-        
-        footer {
-            width: 100%;
-            border-radius: 0;
-        }
-        
-        /* Date display - LARGER FONT */
-        .clock-date {
-            font-size: 18px;
-            font-weight: bold;
-            color: #f39c12;
-            text-align: center;
-            margin-top: 6px;
-            text-shadow: 0 0 4px rgba(243,156,18,0.4);
+
+        /* ============ BUTTONS ============ */
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
             font-family: 'Times New Roman', Times, serif;
-            background: rgba(0,0,0,0.25);
-            padding: 4px 14px;
-            border-radius: 20px;
-            display: inline-block;
         }
-        
-        /* Steps image section */
-        .steps-image-section {
+
+        .btn:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            background-color: #e67e22;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 5%;
             width: 100%;
             max-width: 100%;
-            padding: 10px 5% 30px 5%;
-            background: #f0f4f8;
-            text-align: center;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
         }
-        
-        .steps-image-section .steps-header {
-            margin-bottom: 15px;
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
         }
-        
-        .steps-image-section .steps-header h3 {
-            color: var(--primary-blue);
-            font-size: 1.5rem;
-            border-bottom: 2px solid var(--gold);
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
             display: inline-block;
-            padding-bottom: 6px;
         }
-        
-        .steps-image-wrapper {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            padding: 12px;
-            display: inline-block;
-            max-width: 100%;
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
-        
-        .steps-image-wrapper img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 8px;
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        .steps-caption {
-            margin-top: 12px;
-            color: #555;
-            font-size: 0.95rem;
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ============ RESPONSIVE DESIGN ============ */
         @media (max-width: 1200px) {
-            .pdf-canvas-container { min-height: 550px; }
+            .header-logo {
+                height: 95px;
+            }
+            .header-text h1 {
+                font-size: 3rem;
+            }
+            .header-text p {
+                font-size: 1.5rem;
+            }
+            .millipede-icon {
+                height: 160px;
+                max-width: 280px;
+            }
+            .pdf-canvas-container {
+                min-height: 550px;
+            }
         }
-        
+
+        @media (max-width: 1024px) {
+            nav {
+                padding: 15px 5%;
+            }
+            main {
+                padding: 30px 5%;
+            }
+            footer {
+                padding: 30px 5%;
+            }
+            .content-card {
+                padding: 30px;
+            }
+        }
+
         @media (max-width: 992px) {
-            .pdf-book-header h2 { font-size: 1.4rem; }
-            .pdf-canvas-container { min-height: 500px; }
+            .header-logo {
+                height: 80px;
+            }
+            .header-text h1 {
+                font-size: 2.5rem;
+            }
+            .header-text p {
+                font-size: 1.3rem;
+            }
+            .header-container {
+                padding: 15px 5%;
+                gap: 20px;
+            }
+            .millipede-icon {
+                height: 130px;
+                max-width: 220px;
+            }
+            .analog-clock {
+                width: 80px;
+                height: 80px;
+            }
+            .clock-container {
+                min-width: 170px;
+            }
+            .right-group {
+                gap: 1px;
+            }
+            .pdf-book-header h2 {
+                font-size: 1.4rem;
+            }
+            .pdf-canvas-container {
+                min-height: 500px;
+            }
         }
-        
+
         @media (max-width: 768px) {
-            .full-video-section { max-width: 100%; margin-bottom: 30px; border-radius: 0; }
-            .video-caption-full { padding: 15px 20px; }
-            .video-caption-full p { font-size: 0.85rem; }
-            .pdf-book-section { padding: 12px 3%; }
-            .pdf-book-header h2 { font-size: 1.1rem; }
-            .pdf-canvas-container { min-height: 420px; }
-            .book-btn { padding: 8px 14px; font-size: 0.8rem; min-width: 75px; }
-            .page-indicator { padding: 6px 12px; font-size: 0.8rem; min-width: 90px; }
-            .fullscreen-controls button { padding: 5px 12px; font-size: 0.7rem; }
-            .source-box { padding: 30px 5%; }
-            .milli-peet-logo { font-size: 1.8rem; }
-            .source-box p { font-size: 1rem; }
-            .clock-date { font-size: 16px; }
-            .steps-image-section .steps-header h3 { font-size: 1.2rem; }
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 2px;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            nav a {
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                margin: 0;
+            }
+
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-logo {
+                height: 70px;
+                margin-bottom: 5px;
+            }
+            .header-text h1 {
+                font-size: 2rem;
+            }
+            .header-text p {
+                font-size: 1.1rem;
+            }
+            main {
+                padding: 20px 4%;
+            }
+            .content-card {
+                padding: 25px;
+            }
+            .content-card h2 {
+                font-size: 1.7rem;
+            }
+            .content-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .right-group {
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .millipede-icon {
+                height: 110px;
+                max-width: 190px;
+            }
+            .analog-clock {
+                width: 70px;
+                height: 70px;
+            }
+            .clock-date {
+                font-size: 16px;
+            }
+
+            footer p {
+                font-size: 1rem;
+            }
+
+            .full-video-section {
+                max-width: 100%;
+                margin-bottom: 30px;
+                border-radius: 0;
+            }
+            .video-caption-full {
+                padding: 15px 20px;
+            }
+            .video-caption-full p {
+                font-size: 0.85rem;
+            }
+            .pdf-book-section {
+                padding: 12px 0;
+            }
+            .pdf-book-header h2 {
+                font-size: 1.1rem;
+            }
+            .pdf-canvas-container {
+                min-height: 420px;
+            }
+            .book-btn {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+                min-width: 75px;
+            }
+            .page-indicator {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+                min-width: 90px;
+            }
+            .fullscreen-controls button {
+                padding: 5px 12px;
+                font-size: 0.7rem;
+            }
+            .source-box {
+                padding: 30px 5%;
+            }
+            .milli-peet-logo {
+                font-size: 1.8rem;
+            }
+            .source-box p {
+                font-size: 1rem;
+            }
+            .steps-image-section .steps-header h3 {
+                font-size: 1.2rem;
+            }
         }
-        
+
         @media (max-width: 480px) {
-            .pdf-canvas-container { min-height: 350px; }
-            .book-controls { gap: 8px; }
-            .book-btn { padding: 5px 10px; font-size: 0.7rem; min-width: 60px; }
-            .page-indicator { padding: 5px 8px; font-size: 0.7rem; min-width: 75px; }
-            .video-caption-full p { font-size: 0.75rem; }
-            .clock-date { font-size: 14px; padding: 2px 10px; }
+            .header-text h1 {
+                font-size: 1.5rem;
+            }
+            .header-text p {
+                font-size: 0.9rem;
+            }
+            .header-logo {
+                height: 50px;
+            }
+            .millipede-icon {
+                height: 80px;
+                max-width: 130px;
+            }
+            .analog-clock {
+                width: 55px;
+                height: 55px;
+            }
+            .clock-container {
+                min-width: 130px;
+            }
+            .right-group {
+                gap: 0px;
+            }
+            .clock-date {
+                font-size: 13px;
+                padding: 2px 8px;
+            }
+            .content-card {
+                padding: 18px;
+            }
+            .content-card h2 {
+                font-size: 1.4rem;
+            }
+            .content-card p {
+                font-size: 1rem;
+            }
+            .content-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .pdf-canvas-container {
+                min-height: 350px;
+            }
+            .book-controls {
+                gap: 8px;
+            }
+            .book-btn {
+                padding: 5px 10px;
+                font-size: 0.7rem;
+                min-width: 60px;
+            }
+            .page-indicator {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+                min-width: 75px;
+            }
+            .video-caption-full p {
+                font-size: 0.75rem;
+            }
         }
-        
+
         @media (min-width: 1600px) {
-            .clock-date { font-size: 22px; }
+            .header-container {
+                min-height: 260px;
+            }
+            .header-logo {
+                height: 130px;
+                max-width: 240px;
+            }
+            .millipede-icon {
+                height: 220px;
+                max-width: 380px;
+            }
+            .header-text h1 {
+                font-size: 4rem;
+            }
+            .header-text p {
+                font-size: 2rem;
+            }
+            .analog-clock {
+                width: 120px;
+                height: 120px;
+            }
+            .clock-container {
+                min-width: 240px;
+            }
+            .right-group {
+                gap: 3px;
+            }
+            .clock-date {
+                font-size: 22px;
+            }
         }
-        
+
         canvas {
             user-select: none;
             -webkit-user-select: none;
@@ -457,82 +1378,94 @@
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
-             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
-        
-        <div class="header-text">
-            <h1>Millipedes of Nepal</h1>
-            <p>Introduction and Identification</p>
-        </div>
-        
-        <div class="right-group">
-            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
-                 onerror="this.style.display='none'">
-            
-            <div class="clock-container">
-                <div class="analog-clock">
-                    <div class="clock-face">
-                        <div class="clock-ring"></div>
-                        <div class="hand hour-hand" id="hourHand"></div>
-                        <div class="hand minute-hand" id="minuteHand"></div>
-                        <div class="hand second-hand" id="secondHand"></div>
-                        <div class="clock-center"></div>
-                        <div class="clock-numbers">
-                            <div class="number number-12">12</div>
-                            <div class="number number-1">1</div>
-                            <div class="number number-2">2</div>
-                            <div class="number number-3">3</div>
-                            <div class="number number-4">4</div>
-                            <div class="number number-5">5</div>
-                            <div class="number number-6">6</div>
-                            <div class="number number-7">7</div>
-                            <div class="number number-8">8</div>
-                            <div class="number number-9">9</div>
-                            <div class="number number-10">10</div>
-                            <div class="number number-11">11</div>
+    <!-- ============ SKIP TO CONTENT ============ -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <div class="header-container">
+            <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo"
+            onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
+
+            <div class="header-text">
+                <h1>Millipedes of Nepal</h1>
+                <p>Introduction and Identification</p>
+            </div>
+
+            <div class="right-group">
+                <img src="milli.png" alt="Millipede Icon" class="millipede-icon"
+                onerror="this.style.display='none'">
+
+                <div class="clock-container">
+                    <div class="analog-clock">
+                        <div class="clock-face">
+                            <div class="clock-ring"></div>
+                            <div class="hand hour-hand" id="hourHand"></div>
+                            <div class="hand minute-hand" id="minuteHand"></div>
+                            <div class="hand second-hand" id="secondHand"></div>
+                            <div class="clock-center"></div>
+                            <div class="clock-numbers">
+                                <div class="number number-12">12</div>
+                                <div class="number number-1">1</div>
+                                <div class="number number-2">2</div>
+                                <div class="number number-3">3</div>
+                                <div class="number number-4">4</div>
+                                <div class="number number-5">5</div>
+                                <div class="number number-6">6</div>
+                                <div class="number number-7">7</div>
+                                <div class="number number-8">8</div>
+                                <div class="number number-9">9</div>
+                                <div class="number number-10">10</div>
+                                <div class="number number-11">11</div>
+                            </div>
                         </div>
                     </div>
+                    <div class="clock-date" id="englishDate">--</div>
                 </div>
-                <div class="clock-date" id="englishDate">--</div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="history.html">History</a>
-    <a href="checklist.html">Checklist</a>
-    <a href="distribution.html">Distribution</a>
-    <a href="introkey.html" class="active">Introduction and Identification</a>
-    <a href="articles.html">Articles</a>
-    <a href="gallery.html">Gallery</a> 
-    <a href="upload.html">Upload</a>
-    <a href="team.html">Team</a>
-    <a href="faq.html">FAQ</a>
-</nav>
+    <!-- ============ NAVIGATION ============ -->
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">☰ Menu</button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="history.html">History</a>
+            <a href="checklist.html">Checklist</a>
+            <a href="distribution.html">Distribution</a>
+            <a href="introkey.html" class="active">Introduction and Identification</a>
+            <a href="articles.html">Articles</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="upload.html">Upload</a>
+            <a href="team.html">Team</a>
+            <a href="faq.html">FAQ</a>
+        </div>
+    </nav>
 
-<main>
-    <div class="page-header">
-        <h2>Introduction and Identification Keys</h2>
-    </div>
-    
-    <!-- VIDEO SECTION - Max 1200px, Centered -->
-    <div class="full-video-section">
-        <div class="video-wrapper">
-            <iframe 
-                src="https://www.youtube.com/embed/V4ZJr_grRIU?rel=0&modestbranding=1" 
+    <!-- ============ MAIN CONTENT ============ -->
+    <main id="main-content">
+
+        <!-- Page Header -->
+        <div class="content-card">
+            <h2>Introduction and Identification Keys</h2>
+            <p>Learn about millipede identification with illustrated keys, video introduction, and PDF resources for Nepalese millipedes.</p>
+        </div>
+
+        <!-- VIDEO SECTION -->
+        <div class="full-video-section">
+            <div class="video-wrapper">
+                <iframe
+                src="https://www.youtube.com/embed/V4ZJr_grRIU?rel=0&modestbranding=1"
                 title="About Millipedes in Nepali"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen>
             </iframe>
         </div>
     </div>
 
     <!-- PDF BOOK 1: Introduction to Millipedes -->
-    <div class="pdf-book-section">
+    <div class="content-card">
         <div class="pdf-book-header">
             <h2>Introduction to Millipedes</h2>
             <p>मिलिपिडहरूको परिचय</p>
@@ -550,20 +1483,22 @@
             <div class="book-notice">Adapted from MILLI-PEET Project by Petra Sierwald, <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
         </div>
     </div>
-    
-    <!-- STEPS IMAGE SECTION - Added after Introduction PDF -->
-    <div class="steps-image-section">
-        <div class="steps-header">
-            <h3>Steps of Specimen Collection, Preservation and Further Works </h3>
-        </div>
-        <div class="steps-image-wrapper">
-            <img src="steps.JPG" alt="Identification steps for Nepalese millipedes" loading="lazy" 
-                 onerror="this.style.display='none'; this.parentElement.innerHTML='<p style=\'padding:20px;color:#888;\'>⚠️ steps.JPG not found. Please add the image file.</p>';">
+
+    <!-- STEPS IMAGE SECTION -->
+    <div class="content-card">
+        <div class="steps-image-section">
+            <div class="steps-header">
+                <h3>Steps of Specimen Collection, Preservation and Further Works</h3>
+            </div>
+            <div class="steps-image-wrapper">
+                <img src="steps.JPG" alt="Identification steps for Nepalese millipedes" loading="lazy"
+                onerror="this.style.display='none'; this.parentElement.innerHTML='<p style=\'padding:20px;color:#888;\'>⚠️ steps.JPG not found. Please add the image file.</p>';">
+            </div>
         </div>
     </div>
-    
+
     <!-- PDF BOOK 2: Illustrated Key to Order -->
-    <div class="pdf-book-section">
+    <div class="content-card">
         <div class="pdf-book-header">
             <h2>Illustrated Key to Order</h2>
             <p>चित्र सहितको पहिचान कुञ्जी</p>
@@ -581,9 +1516,9 @@
             <div class="book-notice">Adapted from MILLI-PEET Project by Petra Sierwald, <a href="https://www.fieldmuseum.org/" target="_blank">🔗 www.fieldmuseum.org</a></div>
         </div>
     </div>
-    
+
     <!-- PDF BOOK 3: Illustrated Key to Genus -->
-    <div class="pdf-book-section">
+    <div class="content-card">
         <div class="pdf-book-header">
             <h2>Illustrated Key to Genus for Nepalese Millipedes</h2>
             <p>नेपाली मिलिपिडहरूको जातीय पहिचान कुञ्जी</p>
@@ -601,315 +1536,332 @@
             <div class="book-notice">This work is inspired by Shinohara (1999), and this is prepared for personal use. I have used many drawings and figures from many articles. As much as I tried to cite. If not cited, Sorry for this. I am working for it....</div>
         </div>
     </div>
+
 </main>
 
+<!-- ============ FOOTER ============ -->
 <footer>
     <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    <p>© <span id="footerYear">2026</span> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
 </footer>
 
+<!-- ============ SCRIPTS ============ -->
 <script>
-// ============================================
-// CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
-// ============================================
+    // ============================================
+    // NAVIGATION: MOBILE TOGGLE
+    // ============================================
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('show');
+    });
 
-// Get Nepal time (UTC+5:45)
-function getNepalTime() {
-    const now = new Date();
-    const nepalOffset = 5.75 * 60 * 60 * 1000;
-    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-    return new Date(utcTime + nepalOffset);
-}
-
-// Update clock display
-function updateClock() {
-    const now = getNepalTime();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    
-    const hourHand = document.getElementById('hourHand');
-    const minuteHand = document.getElementById('minuteHand');
-    const secondHand = document.getElementById('secondHand');
-    
-    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
-    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
-    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
-    
-    // Update English date
-    const englishDate = document.getElementById('englishDate');
-    if (englishDate) {
-        englishDate.innerHTML = now.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+        link.addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.remove('show');
         });
-    }
-}
+    });
 
-// Initialize clock on page load and update every second
-window.addEventListener('DOMContentLoaded', function() {
+    // ============================================
+    // CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
+    // ============================================
+
+    function getNepalTime() {
+        var now = new Date();
+        var nepalOffset = 5.75 * 60 * 60 * 1000;
+        var utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+        return new Date(utcTime + nepalOffset);
+    }
+
+    function updateClock() {
+        var now = getNepalTime();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+
+        var hourHand = document.getElementById('hourHand');
+        var minuteHand = document.getElementById('minuteHand');
+        var secondHand = document.getElementById('secondHand');
+
+        if (hourHand) {
+            hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
+        }
+        if (minuteHand) {
+            minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
+        }
+        if (secondHand) {
+            secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
+        }
+
+        var englishDate = document.getElementById('englishDate');
+        if (englishDate) {
+            englishDate.textContent = now.toLocaleDateString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+    }
+
+    // ============================================
+    // FOOTER YEAR
+    // ============================================
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    // ============================================
+    // INITIALIZE CLOCK
+    // ============================================
     updateClock();
     setInterval(updateClock, 1000);
-});
 
-// ============================================
-// PDF BOOK VIEWER - NO WHITE AREA
-// ============================================
+    // ============================================
+    // PDF BOOK VIEWER
+    // ============================================
 
-class PDFBookViewer {
-    constructor(pdfUrl, canvasId, loadingId, prevBtnId, nextBtnId, pageIndicatorId, containerId) {
-        this.pdfUrl = pdfUrl;
-        this.canvas = document.getElementById(canvasId);
-        this.canvasContainer = document.getElementById(containerId);
-        this.loadingDiv = document.getElementById(loadingId);
-        this.prevBtn = document.getElementById(prevBtnId);
-        this.nextBtn = document.getElementById(nextBtnId);
-        this.pageIndicator = document.getElementById(pageIndicatorId);
-        this.bookContainer = document.getElementById(containerId.replace('Container', 'Container')) || document.getElementById('book1Container');
-        
-        this.pdfDoc = null;
-        this.currentPage = 1;
-        this.totalPages = 0;
-        this.scale = 1.2;
-        
-        // Swipe detection
-        this.touchStartX = 0;
-        this.touchEndX = 0;
-        this.minSwipeDistance = 40;
-        
-        this.ctx = this.canvas.getContext('2d');
-        
-        this.init();
-    }
-    
-    async init() {
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
-        
-        this.showLoading();
-        
-        try {
-            this.pdfDoc = await pdfjsLib.getDocument(this.pdfUrl).promise;
-            this.totalPages = this.pdfDoc.numPages;
-            this.updatePageIndicator();
-            this.enableButtons();
-            await this.renderPage();
-            this.hideLoading();
-            this.setupEvents();
-        } catch (error) {
-            console.error('PDF load error:', error);
-            this.showError();
+    class PDFBookViewer {
+        constructor(pdfUrl, canvasId, loadingId, prevBtnId, nextBtnId, pageIndicatorId, containerId) {
+            this.pdfUrl = pdfUrl;
+            this.canvas = document.getElementById(canvasId);
+            this.canvasContainer = document.getElementById(containerId);
+            this.loadingDiv = document.getElementById(loadingId);
+            this.prevBtn = document.getElementById(prevBtnId);
+            this.nextBtn = document.getElementById(nextBtnId);
+            this.pageIndicator = document.getElementById(pageIndicatorId);
+            this.bookContainer = document.getElementById(containerId.replace('Container', 'Container')) || document.getElementById('book1Container');
+
+            this.pdfDoc = null;
+            this.currentPage = 1;
+            this.totalPages = 0;
+            this.scale = 1.2;
+
+            this.touchStartX = 0;
+            this.touchEndX = 0;
+            this.minSwipeDistance = 40;
+
+            this.ctx = this.canvas.getContext('2d');
+
+            this.init();
         }
-    }
-    
-    showLoading() {
-        if (this.loadingDiv) {
-            this.loadingDiv.style.display = 'flex';
-            this.canvas.style.display = 'none';
+
+        async init() {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+            this.showLoading();
+
+            try {
+                this.pdfDoc = await pdfjsLib.getDocument(this.pdfUrl).promise;
+                this.totalPages = this.pdfDoc.numPages;
+                this.updatePageIndicator();
+                this.enableButtons();
+                await this.renderPage();
+                this.hideLoading();
+                this.setupEvents();
+            } catch (error) {
+                console.error('PDF load error:', error);
+                this.showError();
+            }
         }
-    }
-    
-    hideLoading() {
-        if (this.loadingDiv) {
-            this.loadingDiv.style.display = 'none';
-            this.canvas.style.display = 'block';
+
+        showLoading() {
+            if (this.loadingDiv) {
+                this.loadingDiv.style.display = 'flex';
+                this.canvas.style.display = 'none';
+            }
         }
-    }
-    
-    showError() {
-        if (this.loadingDiv) {
-            this.loadingDiv.innerHTML = '❌ PDF file not found. Please check if the file exists.';
-            this.loadingDiv.style.color = '#e74c3c';
-            this.loadingDiv.style.display = 'flex';
+
+        hideLoading() {
+            if (this.loadingDiv) {
+                this.loadingDiv.style.display = 'none';
+                this.canvas.style.display = 'block';
+            }
         }
-    }
-    
-    async renderPage() {
-        if (!this.pdfDoc) return;
-        
-        try {
-            const page = await this.pdfDoc.getPage(this.currentPage);
-            const viewport = page.getViewport({ scale: this.scale });
-            
-            this.canvas.width = viewport.width;
-            this.canvas.height = viewport.height;
-            this.canvas.style.margin = '0 auto';
-            
-            const renderContext = {
-                canvasContext: this.ctx,
-                viewport: viewport
-            };
-            
-            await page.render(renderContext).promise;
-            this.updatePageIndicator();
-            
-        } catch (error) {
-            console.error('Render error:', error);
+
+        showError() {
+            if (this.loadingDiv) {
+                this.loadingDiv.innerHTML = '❌ PDF file not found. Please check if the file exists.';
+                this.loadingDiv.style.color = '#e74c3c';
+                this.loadingDiv.style.display = 'flex';
+            }
         }
-    }
-    
-    updatePageIndicator() {
-        if (this.pageIndicator) {
-            this.pageIndicator.textContent = `${this.currentPage} / ${this.totalPages}`;
+
+        async renderPage() {
+            if (!this.pdfDoc) return;
+
+            try {
+                var page = await this.pdfDoc.getPage(this.currentPage);
+                var viewport = page.getViewport({ scale: this.scale });
+
+                this.canvas.width = viewport.width;
+                this.canvas.height = viewport.height;
+                this.canvas.style.margin = '0 auto';
+
+                var renderContext = {
+                    canvasContext: this.ctx,
+                    viewport: viewport
+                };
+
+                await page.render(renderContext).promise;
+                this.updatePageIndicator();
+
+            } catch (error) {
+                console.error('Render error:', error);
+            }
         }
-    }
-    
-    enableButtons() {
-        if (this.prevBtn) {
-            this.prevBtn.onclick = () => this.prevPage();
-            this.prevBtn.disabled = false;
+
+        updatePageIndicator() {
+            if (this.pageIndicator) {
+                this.pageIndicator.textContent = this.currentPage + ' / ' + this.totalPages;
+            }
         }
-        if (this.nextBtn) {
-            this.nextBtn.onclick = () => this.nextPage();
-            this.nextBtn.disabled = false;
-        }
-        this.updateNavButtons();
-    }
-    
-    updateNavButtons() {
-        if (this.prevBtn) this.prevBtn.disabled = this.currentPage <= 1;
-        if (this.nextBtn) this.nextBtn.disabled = this.currentPage >= this.totalPages;
-    }
-    
-    prevPage() {
-        if (this.currentPage > 1) {
-            this.currentPage--;
-            this.renderPage();
+
+        enableButtons() {
+            if (this.prevBtn) {
+                this.prevBtn.onclick = function() { this.prevPage(); }.bind(this);
+                this.prevBtn.disabled = false;
+            }
+            if (this.nextBtn) {
+                this.nextBtn.onclick = function() { this.nextPage(); }.bind(this);
+                this.nextBtn.disabled = false;
+            }
             this.updateNavButtons();
         }
-    }
-    
-    nextPage() {
-        if (this.currentPage < this.totalPages) {
-            this.currentPage++;
-            this.renderPage();
-            this.updateNavButtons();
+
+        updateNavButtons() {
+            if (this.prevBtn) this.prevBtn.disabled = this.currentPage <= 1;
+            if (this.nextBtn) this.nextBtn.disabled = this.currentPage >= this.totalPages;
         }
-    }
-    
-    toggleFullscreen() {
-        const container = this.bookContainer;
-        if (!container) return;
-        
-        if (!document.fullscreenElement) {
-            container.requestFullscreen().catch(err => console.log(err));
-            setTimeout(() => this.addFullscreenControls(), 100);
-        } else {
-            document.exitFullscreen();
-            this.removeFullscreenControls();
+
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this.renderPage();
+                this.updateNavButtons();
+            }
         }
-    }
-    
-    addFullscreenControls() {
-        this.removeFullscreenControls();
-        
-        const controls = document.createElement('div');
-        controls.className = 'fullscreen-controls';
-        controls.id = 'fsControls';
-        controls.innerHTML = `
-            <button id="fsPrevBtn">◀ Previous</button>
-            <button id="fsNextBtn">Next ▶</button>
-            <button id="fsExitBtn" class="exit-fullscreen-btn">✖ Exit</button>
-        `;
-        document.body.appendChild(controls);
-        
-        document.getElementById('fsPrevBtn').onclick = () => this.prevPage();
-        document.getElementById('fsNextBtn').onclick = () => this.nextPage();
-        document.getElementById('fsExitBtn').onclick = () => {
-            document.exitFullscreen();
-            this.removeFullscreenControls();
-        };
-    }
-    
-    removeFullscreenControls() {
-        const controls = document.getElementById('fsControls');
-        if (controls) controls.remove();
-    }
-    
-    setupEvents() {
-        // Tap to fullscreen
-        this.canvas.addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.toggleFullscreen();
-        });
-        
-        // Swipe to turn pages
-        this.canvasContainer.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
-                this.touchStartX = e.touches[0].clientX;
+
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+                this.renderPage();
+                this.updateNavButtons();
             }
-        }, { passive: true });
-        
-        this.canvasContainer.addEventListener('touchend', (e) => {
-            if (e.changedTouches.length === 1) {
-                this.touchEndX = e.changedTouches[0].clientX;
-                this.handleSwipe();
-            }
-        }, { passive: true });
-        
-        // Keyboard navigation in fullscreen
-        document.addEventListener('keydown', (e) => {
-            if (document.fullscreenElement) {
-                if (e.key === 'ArrowLeft') {
-                    this.prevPage();
-                } else if (e.key === 'ArrowRight') {
-                    this.nextPage();
-                } else if (e.key === 'Escape') {
-                    this.removeFullscreenControls();
-                }
-            }
-        });
-        
-        // Fullscreen change event
-        document.addEventListener('fullscreenchange', () => {
+        }
+
+        toggleFullscreen() {
+            var container = this.bookContainer;
+            if (!container) return;
+
             if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(function(err) { console.log(err); });
+                setTimeout(function() { this.addFullscreenControls(); }.bind(this), 100);
+            } else {
+                document.exitFullscreen();
                 this.removeFullscreenControls();
             }
-        });
-        
-        // Disable right-click
-        this.canvas.addEventListener('contextmenu', (e) => e.preventDefault());
-    }
-    
-    handleSwipe() {
-        const deltaX = this.touchEndX - this.touchStartX;
-        
-        if (Math.abs(deltaX) > this.minSwipeDistance) {
-            if (deltaX > 0) {
-                this.prevPage();
-            } else {
-                this.nextPage();
-            }
         }
-        
-        this.touchStartX = 0;
-        this.touchEndX = 0;
-    }
-}
 
-// Initialize all PDF viewers
-document.addEventListener('DOMContentLoaded', function() {
-    new PDFBookViewer(
-        'intro.pdf', 'pdf1Canvas', 'pdf1Loading',
-        'prev1Btn', 'next1Btn', 'page1Indicator', 'pdf1Container'
-    );
-    
-    new PDFBookViewer(
-        'keys.pdf', 'pdf2Canvas', 'pdf2Loading',
-        'prev2Btn', 'next2Btn', 'page2Indicator', 'pdf2Container'
-    );
-    
-    new PDFBookViewer(
-        'keynepal.pdf', 'pdf3Canvas', 'pdf3Loading',
-        'prev3Btn', 'next3Btn', 'page3Indicator', 'pdf3Container'
-    );
-    
-    // Disable right-click on images
-    document.querySelectorAll('img').forEach(img => {
-        img.addEventListener('contextmenu', (e) => e.preventDefault());
+        addFullscreenControls() {
+            this.removeFullscreenControls();
+
+            var controls = document.createElement('div');
+            controls.className = 'fullscreen-controls';
+            controls.id = 'fsControls';
+            controls.innerHTML =
+                '<button id="fsPrevBtn">◀ Previous</button>' +
+                '<button id="fsNextBtn">Next ▶</button>' +
+                '<button id="fsExitBtn" class="exit-fullscreen-btn">✖ Exit</button>';
+            document.body.appendChild(controls);
+
+            document.getElementById('fsPrevBtn').onclick = function() { this.prevPage(); }.bind(this);
+            document.getElementById('fsNextBtn').onclick = function() { this.nextPage(); }.bind(this);
+            document.getElementById('fsExitBtn').onclick = function() {
+                document.exitFullscreen();
+                this.removeFullscreenControls();
+            }.bind(this);
+        }
+
+        removeFullscreenControls() {
+            var controls = document.getElementById('fsControls');
+            if (controls) controls.remove();
+        }
+
+        setupEvents() {
+            this.canvas.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.toggleFullscreen();
+            }.bind(this));
+
+            this.canvasContainer.addEventListener('touchstart', function(e) {
+                if (e.touches.length === 1) {
+                    this.touchStartX = e.touches[0].clientX;
+                }
+            }.bind(this), { passive: true });
+
+            this.canvasContainer.addEventListener('touchend', function(e) {
+                if (e.changedTouches.length === 1) {
+                    this.touchEndX = e.changedTouches[0].clientX;
+                    this.handleSwipe();
+                }
+            }.bind(this), { passive: true });
+
+            document.addEventListener('keydown', function(e) {
+                if (document.fullscreenElement) {
+                    if (e.key === 'ArrowLeft') {
+                        this.prevPage();
+                    } else if (e.key === 'ArrowRight') {
+                        this.nextPage();
+                    } else if (e.key === 'Escape') {
+                        this.removeFullscreenControls();
+                    }
+                }
+            }.bind(this));
+
+            document.addEventListener('fullscreenchange', function() {
+                if (!document.fullscreenElement) {
+                    this.removeFullscreenControls();
+                }
+            }.bind(this));
+
+            this.canvas.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        }
+
+        handleSwipe() {
+            var deltaX = this.touchEndX - this.touchStartX;
+
+            if (Math.abs(deltaX) > this.minSwipeDistance) {
+                if (deltaX > 0) {
+                    this.prevPage();
+                } else {
+                    this.nextPage();
+                }
+            }
+
+            this.touchStartX = 0;
+            this.touchEndX = 0;
+        }
+    }
+
+    // Initialize all PDF viewers
+    document.addEventListener('DOMContentLoaded', function() {
+        new PDFBookViewer(
+            'intro.pdf', 'pdf1Canvas', 'pdf1Loading',
+            'prev1Btn', 'next1Btn', 'page1Indicator', 'pdf1Container'
+        );
+
+        new PDFBookViewer(
+            'keys.pdf', 'pdf2Canvas', 'pdf2Loading',
+            'prev2Btn', 'next2Btn', 'page2Indicator', 'pdf2Container'
+        );
+
+        new PDFBookViewer(
+            'keynepal.pdf', 'pdf3Canvas', 'pdf3Loading',
+            'prev3Btn', 'next3Btn', 'page3Indicator', 'pdf3Container'
+        );
+
+        // Disable right-click on images
+        document.querySelectorAll('img').forEach(function(img) {
+            img.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        });
     });
-});
 </script>
 
 </body>
