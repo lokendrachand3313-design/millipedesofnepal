@@ -24,19 +24,20 @@
             margin-bottom: 20px;
             font-family: 'Times New Roman', Times, serif;
         }
+        
         .history-img {
-    max-width: 60%;
-    width: 100%;
-    height: auto;
-    max-height: 300px;
-    object-fit: contain;
-    border-radius: 15px;
-    margin: 30px auto;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    border: 4px solid #fff;
-    display: block;
-    transition: all 0.5s ease;
-}
+            max-width: 60%;
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 15px;
+            margin: 30px auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 4px solid #fff;
+            display: block;
+            transition: all 0.5s ease;
+        }
         
         .history-img:hover {
             transform: scale(1.03);
@@ -166,73 +167,75 @@
             border: 4px solid #f3e1b5;
         }
         
-        /* References Section */
-        .ref-scroll-container {
-            max-height: 320px;
-            overflow-y: auto;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            padding-right: 0.5rem;
-            border-radius: 20px;
-            background: #fefaf2;
-            scroll-behavior: smooth;
+        /* References Section - APA Format */
+        .ref-section {
+            background: #e8f0fe;
+            border-radius: 24px;
+            padding: 1.25rem 1.75rem 1rem 1.75rem;
+            margin: 2rem 0 1.5rem;
+            border: 1px solid #c5d6e8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
         }
         
-        .ref-scroll-container::-webkit-scrollbar {
-            width: 6px;
+        .ref-header {
+            border-left: 4px solid #c73e3e;
+            padding-left: 1rem;
+            margin: 0 0 1rem 0;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #2c5282;
+            letter-spacing: -0.2px;
         }
         
-        .ref-scroll-container::-webkit-scrollbar-track {
-            background: #e2d9cb;
-            border-radius: 10px;
-        }
-        
-        .ref-scroll-container::-webkit-scrollbar-thumb {
-            background: #7faa6b;
-            border-radius: 10px;
-        }
-        
-        .references-list-compact {
+        .ref-list {
             list-style: none;
-            padding-left: 0.8rem;
+            padding: 0;
             margin: 0;
         }
         
-        .references-list-compact li {
-            padding: 0.6rem 0.6rem 0.6rem 1.6rem;
-            margin-bottom: 6px;
-            border-bottom: 1px solid #e4d8c4;
+        .ref-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e8e0d4;
             font-size: 0.85rem;
-            line-height: 1.45;
-            position: relative;
+            line-height: 1.5;
             font-family: 'Times New Roman', Times, serif;
+            text-indent: -1.5rem;
+            padding-left: 1.5rem;
         }
         
-        .references-list-compact li:before {
-            content: "📄";
-            position: absolute;
-            left: -2px;
-            top: 0.55rem;
-            font-size: 0.8rem;
-            opacity: 0.7;
+        .ref-list li:last-child {
+            border-bottom: none;
         }
         
-        .references-list-compact li a {
+        .ref-list li i {
+            font-style: italic;
+        }
+        
+        .ref-list li strong {
+            font-weight: 600;
+            color: #1a5276;
+        }
+        
+        .ref-list li .doi {
             color: #2c6e2c;
             text-decoration: none;
             border-bottom: 1px dotted #bcab8a;
+            font-style: normal;
         }
         
-        .references-list-compact li a:hover {
+        .ref-list li .doi:hover {
             color: #1d451d;
+            border-bottom-color: #1d451d;
         }
         
-        .ref-header-compact {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-bottom: 0.5rem;
+        .ref-list li a {
+            color: #2c6e2c;
+            text-decoration: none;
+        }
+        
+        .ref-list li a:hover {
+            color: #1d451d;
+            text-decoration: underline;
         }
         
         /* Date display - LARGER FONT */
@@ -250,9 +253,169 @@
             display: inline-block;
         }
         
+        /* ============ RIGHT GROUP - Consistent with index.html ============ */
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            animation: fadeInRight 0.8s ease-out;
+        }
+        
+        .millipede-icon {
+            height: 200px;
+            width: auto;
+            max-width: 350px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+        }
+        
+        .clock-container {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            min-width: 200px;
+            text-align: center;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+        
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
+            position: relative;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: none;
+        }
+        
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+        }
+        
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        
+        .clock-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 6px rgba(255,107,107,0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
+            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
+        }
+        
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
+        }
+        
+        .hour-hand {
+            width: 4.5px;
+            height: 28px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(243,156,18,0.6);
+            border-radius: 4px 4px 2px 2px;
+        }
+        
+        .minute-hand {
+            width: 3.5px;
+            height: 38px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(52,152,219,0.6);
+            border-radius: 3px 3px 2px 2px;
+        }
+        
+        .second-hand {
+            width: 1.8px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 6px rgba(255,107,107,0.7);
+            border-radius: 2px;
+        }
+        
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .number {
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 3px rgba(0,0,0,0.4);
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
+        .number-1 { color: #f39c12; top: 14%; left: 67%; }
+        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
+        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
+        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
+        .number-5 { color: #3498db; top: 86%; left: 67%; }
+        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
+        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
+        .number-8 { color: #e67e22; top: 73%; left: 19%; }
+        .number-9 { color: #f39c12; top: 50%; left: 8%; }
+        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
+        .number-11 { color: #3498db; top: 14%; left: 33%; }
+        
         /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .millipede-icon { height: 160px; max-width: 280px; }
+        }
+        
         @media (max-width: 992px) {
             .taxonomist-grid { grid-template-columns: repeat(3, 1fr); }
+            .millipede-icon { height: 130px; max-width: 220px; }
+            .analog-clock { width: 80px; height: 80px; }
+            .clock-container { min-width: 170px; }
+            .right-group { gap: 1px; }
         }
         
         @media (max-width: 768px) {
@@ -260,6 +423,14 @@
             .taxonomist-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
             .brief-history { padding: 25px; }
             .clock-date { font-size: 16px; }
+            .millipede-icon { height: 110px; max-width: 190px; }
+            .analog-clock { width: 70px; height: 70px; }
+            .clock-container { min-width: 150px; }
+            .right-group { gap: 0px; }
+            .history-img { max-width: 80%; max-height: 200px; }
+            .ref-section { padding: 1rem; }
+            .ref-header { font-size: 1.1rem; }
+            .ref-list li { font-size: 0.75rem; }
         }
         
         @media (max-width: 480px) {
@@ -268,10 +439,20 @@
             .fallback-icon { width: 120px; height: 120px; font-size: 2.5rem; }
             .taxonomist-gallery h2 { font-size: 1.4rem; }
             .clock-date { font-size: 14px; padding: 2px 10px; }
+            .millipede-icon { height: 90px; max-width: 150px; }
+            .analog-clock { width: 60px; height: 60px; }
+            .clock-container { min-width: 130px; }
+            .right-group { gap: 0px; }
+            .history-img { max-width: 90%; max-height: 150px; }
+            .ref-list li { font-size: 0.7rem; padding: 0.4rem 0; text-indent: -1.2rem; padding-left: 1.2rem; }
         }
         
         @media (min-width: 1600px) {
             .clock-date { font-size: 22px; }
+            .millipede-icon { height: 220px; max-width: 380px; }
+            .analog-clock { width: 120px; height: 120px; }
+            .clock-container { min-width: 240px; }
+            .right-group { gap: 3px; }
         }
     </style>
 </head>
@@ -315,7 +496,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Digital clock removed -->
                 <div class="clock-date" id="englishDate">--</div>
             </div>
         </div>
@@ -501,68 +681,81 @@
                 <div class="taxonomist-country">🇷🇺 Russia</div>
                 <p><i>Nepalmatoiulus</i> (2025)</p>
             </div>
+            
             <div class="taxonomist-card">
                 <img class="taxonomist-photo-img" src="jochen.jpg" alt="Jochen Martens" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇷🇺</div>
+                <div class="fallback-icon" style="display: none;">🇩🇪</div>
                 <h3>Jochen Martens</h3>
                 <div class="taxonomist-country">🇩🇪 Germany</div>
-                <p><i>He and his colleagues collected most of the millipede specimens along trekking routes in the hilly and mountainous regions of Nepal.</p>
+                <p>Collected most specimens along trekking routes in Nepal</p>
             </div>
         </div>
     </div>
     
-    <!-- REFERENCES SECTION -->
-    <div class="ref-section" style="background: #e8f0fe; border-radius: 24px; padding: 1.25rem 1.75rem 1rem 1.75rem; margin: 2rem 0 1.5rem; border: 1px solid #c5d6e8; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);">
-        <div class="ref-header-compact">
-            <h2 style="border-left: 4px solid #c73e3e; padding-left: 1rem; margin: 0; font-size: 1.35rem; font-weight: 600; color: #2c5282; letter-spacing: -0.2px;">References</h2>
-        </div>
- <div class="ref-section">
+    <!-- REFERENCES SECTION - APA FORMAT -->
+    <div class="ref-section">
+        <h2 class="ref-header">References</h2>
         <ul class="ref-list">
-            <li><i>Attems, C. (1936). Diplopoda of India. <strong>Memoirs of the Indian Museum</strong>, XI(4), 133-323.</i></li>
-            <li><i>Carl, J. (1935). Polydesmiden gesammelt von Major R.W. Hingston auf der III. Everest Expedition 1924. <strong>Revue Suisse de Zoologie</strong>, 42(10), 325-340.</i></li>
-            <li><i>Demange, J.-M. (1961). Matériaux pour servir a une révision des Harpagophoridae (Myriapodes-Diplopodes). <strong>Mémoires du Muséum national d'histoire naturelle</strong>, N. S., série A, 24: 1-274.</i></li>
-            <li><i>Enghoff, H. (1987). Revision of Nepalmatoiulus Mauries 1983 - a Southeast Asiatic genus of millipedes (Diplopoda: Julida: Julidae). <strong>Courier Forschungsinstitut Senckenberg</strong>, 93, 241-331.</i></li>
-            <li><i>Golovatch, S.I. (1986). Diplopoda from the Nepal Himalayas: Polydesmidae, Fuhrmannodesmidae. <strong>Senckenbergiana biologica</strong>, 66(4/6), 345–369.</i></li>
-            <li><i>Golovatch, S.I. (1987a). Diplopoda from the Nepal Himalayas. Opisotretidae, additional Polydesmidae and Fuhrmannodesmidae. <strong>Courier Forschungsinstitut Senckenberg</strong>, 93, 203–217.</i></li>
-            <li><i>Golovatch, S.I. (1987b). Diplopoda from the Nepal Himalayas. Glomeridae, additional Opisotretidae. <strong>Courier Forschungsinstitut Senckenberg</strong>, 93, 219–228.</i></li>
-            <li><i>Golovatch, S.I. (1988). On the first Polydesmidae, Opisotretidae and Fuhrmannodesmidae from Bhutan (Diplopoda, Polydesmida). <strong>Entomologica Basiliensia</strong>, 12, 15–48.</i></li>
-            <li><i>Golovatch, S.I. (1990a). Diplopoda from the Nepal Himalayas. The first Paradoxosomatidae (Polydesmida). <strong>Spixiana</strong>, 13(1), 9–24.</i></li>
-            <li><i>Golovatch, S.I. (1990b). Diplopoda from the Nepal Himalayas. Several additional Polydesmidae, and Fuhrmannodesmidae (Polydesmida). <strong>Spixiana</strong>, 13(3), 237–252.</i></li>
-            <li><i>Golovatch, S.I. (1992). Diplopoda from the Nepal Himalayas. Some additional Paradoxosomatidae. <strong>Senckenbergiana biologica</strong>, 72(1–3), 183–203.</i></li>
-            <li><i>Golovatch, S.I. (1993). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda Polydesmida). <strong>Arthropoda Selecta</strong>, 2(1), 3–14.</i></li>
-            <li><i>Golovatch, S.I. (1994a). Diplopoda from the Nepal Himalayas. Further Paradoxosomatidae (Polydesmida). <strong>Senckenbergiana biologica</strong>, 73(1–2), 163–182.</i></li>
-            <li><i>Golovatch, S.I. (1994b). Diplopoda from the Himalayas. Two new Alogolykini (Polydesmida: Paradoxosomatidae). <strong>Senckenbergiana biologica</strong>, 73(1–2), 183–187.</i></li>
-            <li><i>Golovatch, S.I. (1996). Diplopoda from the Nepal Himalayas. Review of the genus Orophosoma Jeekel 1980 (Polydesmida: Paradoxosomatidae). <strong>Senckenbergiana biologica</strong>, 76(1–2), 163–184.</i></li>
-            <li><i>Golovatch, S.I. (2000). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), VII. <strong>Arthropoda Selecta</strong>, 8(4), 215-220.</i></li>
-            <li><i>Golovatch, S.I. (2014). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVI. <strong>Arthropoda Selecta</strong>, 23(3), 227–251.</i></li>
-            <li><i>Golovatch, S.I. (2015). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVII. <strong>Arthropoda Selecta</strong>, 24(2), 127–168.</i></li>
-            <li><i>Golovatch, S.I. (2016a). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVIII. <strong>Arthropoda Selecta</strong>, 25(1), 1–18.</i></li>
-            <li><i>Golovatch, S.I. (2016b). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XIX. <strong>Arthropoda Selecta</strong>, 25(2), 131–152.</i></li>
-            <li><i>Golovatch, S.I. (2016c). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XX. <strong>Arthropoda Selecta</strong>, 25(3), 219–240.</i></li>
-            <li><i>Golovatch, S.I. & Martens, J. (1996). On the distribution and faunogenesis of Himalayan millipedes (Diplopoda): Preliminary results. <strong>Mémoires du Muséum national d'Histoire naturelle</strong>, 169: 163–174.</i></li>
-            <li><i>Golovatch, S.I. & Martens, J. (2018). Distribution, diversity patterns and faunogenesis of the millipedes (Diplopoda) of the Himalayas. <strong>ZooKeys</strong>, 741: 3–34.</i> <a href="https://doi.org/10.3897/zookeys.741.20041" class="doi" target="_blank">doi:10.3897/zookeys.741.20041</a></li>
-            <li><i>Golovatch, S.I. & VandenSpiegel, D. (2014). Koponenius gen. nov., a new genus of the millipede family Haplodesmidae from the Himalayas of India and Nepal (Diplopoda: Polydesmida). <strong>Zootaxa</strong>, 3894(1), 141-151.</i> <a href="https://doi.org/10.11646/zootaxa.3894.1.11" class="doi" target="_blank">doi:10.11646/zootaxa.3894.1.11</a></li>
-            <li><i>Golovatch, S.I. & VandenSpiegel, D. (2016). A new species of the millipede genus Koponenius Golovatch et VandenSpiegel, 2014, from Nepal (Diplopoda: Polydesmida: Haplodesmidae). <strong>Russian Entomological Journal</strong>, 25(1), 219-223.</i> <a href="https://doi.org/10.15298/rusentj.25.2.10" class="doi" target="_blank">doi:10.15298/rusentj.25.2.10</a></li>
-            <li><i>Golovatch, S.I., VandenSpiegel, D. & Semenyuk, I.I. (2016). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XXI. <strong>Arthropoda Selecta</strong>, 25(4), 335–354.</i></li>
-            <li><i>Golovatch, S.I., Mikhaljova, E.V. & Chang, H.W. (2011). The millipede family Polydesmidae in Taiwan, with descriptions of five new species (Polydesmida, Diplopoda). <strong>ZooKeys</strong>, (93), 9.</i></li>
-            <li><i>Golovatch, S.I. & Kime, R.D. (2009). Millipede (Diplopoda) distributions: A review. <strong>Soil organisms</strong>, 81(3), 565-565.</i></li>
-            <li>Golovatch, S. I., Mikhaljova, E. V., & Chang, H. W. (2011). The millipede family Polydesmidae in Taiwan, with descriptions of five new species (Polydesmida, Diplopoda). <i>ZooKeys</i>, (93), 9–42. <a href="https://doi.org/10.3897/zookeys.93.1167" target="_blank" rel="noopener noreferrer">https://doi.org/10.3897/zookeys.93.1167</a></li>
-            <li><i>Korsós, Z. (2001). Diplopoda from the Nepal Himalaya: towards the clarification of the genus Anaulaciulus Pocock 1895 (Diplopoda, Julida, Julidae, Brachyiulini). <strong>Senckenbergiana Biologica</strong>, 81(1-2), 61-86.</i></li>
-            <li><i>Korsós, Z., Geoffroy, J.J. & Mauriès, J.P. (2009). The fifth element: reconnection of the disjunct distribution of the members of Siphonocryptida (Diplopoda) with the description of a new species from Nepal. <strong>Journal of Natural History</strong>, 43(7-8), 435-445.</i></li>
-            <li><i>Martens, J. & Waßmann, C. (1987). Remarks on my Himalayan expeditions. <strong>Courier Forschungsinstitut Senckenberg</strong>, 93, 7-31.</i></li>
-            <li><i>Mauriès, J.P. (1982). Une famille nouvelle et deux genres nouveaux de Cleidogonoidea, avec notes sur la classification de la superfamille (Diplopoda, Craspedosomida). <strong>Steenstrupia</strong>, 8(6), 165-187.</i></li>
-            <li><i>Mauriès, J.P. (1983). Myriapodes du Nepal (Mission I. Löbl et A. Smetana 1981) I. Diplopodes Iuliformes (Iulida, Cambalida et Spirostreptida - Nepalmatoiulus nov. subgen. <strong>Revue suisse de zoologie</strong>, 90(1), 127-138.</i></li>
-            <li><i>Mauriès, J.P. (1988). Myriapodes du Nepal II. Diplopodes Craspedosomides nouveaux de'l Himalaya et de la region indo-malaise (Craspedosomidea et Chordeumidea). <strong>Revue suisse de zoologie</strong>, 95(1), 179-258.</i></li>
-            <li><i>Mikhaljova, E.V. (2025). The millipede genus Nepalmatoiulus Mauriès, 1983 (Diplopoda, Julidae) in Nepal, with descriptions of two new species. <strong>Zootaxa</strong>, 5706(3):426-438.</i> <a href="https://doi.org/10.11646/zootaxa.5706.3.6" class="doi" target="_blank">doi:10.11646/zootaxa.5706.3.6</a></li>
-            <li><i>Shear, W.A. (1979). Diplopoda from the Nepal Himalayas. Chordeumida with comments on the Asian chordeumid fauna. <strong>Senckenbergiana biologica</strong>, 60(1-2), 115-130.</i></li>
-            <li><i>Shear, W.A. (1987). Chordeumatid Diplopoda from the Nepal Himalayas, II. <strong>Courier Forschungsinstitut Senckenberg</strong>, 93, 229-240.</i></li>
-            <li><i>Shelley, R.M. (1996). Nepalozonium trimaculatum, n. gen., n. sp. (Diplopoda: Polyzoniida: Hirudisomatidae): first record of the order and family from Central Asia. <strong>Proceedings of the Entomological Society of Washington</strong>, 98(4), 677–680.</i></li>
-            <li><i>Shelley, R.M. & Lehtinen, P.T. (1999). Diagnoses, synonymies and occurrences of the pantropical millipeds, Leptogoniulus sorornus (Butler) and Trigoniulus corallinus (Gervais) (Spirobolida: Pachybolidae: Trigoniulinae). <strong>Journal of Natural History</strong>, 33(9): 1379-1401.</i></li>
-            <li><i>Sierwald, P.; Decker, P.; Spelda, J. (2026). MilliBase. <a href="https://www.millibase.org" target="_blank">https://www.millibase.org</a></i> <a href="https://doi.org/10.14284/370" class="doi" target="_blank">doi:10.14284/370</a></li>
-            <li><i>Thapa, V.K. (2019). Invertebrate fauna of Nepal (excluding insects). Kathmandu, Nepal, 241-298 pp.</i></li>
-            <li><i>Wesener, T. (2015). The Giant Pill-Millipedes of Nepal (Diplopoda, Sphaerotheriida, Zephroniidae). <strong>Zootaxa</strong>, 3964(3), 301-320.</i> <a href="https://doi.org/10.11646/zootaxa.3964.3.1" class="doi" target="_blank">doi:10.11646/zootaxa.3964.3.1</a></li>
+            <li>Attems, C. (1936). Diplopoda of India. <i>Memoirs of the Indian Museum</i>, <i>11</i>(4), 133–323.</li>
+            
+            <li>Carl, J. (1935). Polydesmiden gesammelt von Major R.W. Hingston auf der III. Everest Expedition 1924. <i>Revue Suisse de Zoologie</i>, <i>42</i>(10), 325–340.</li>
+            
+            <li>Demange, J.-M. (1961). Matériaux pour servir a une révision des Harpagophoridae (Myriapodes-Diplopodes). <i>Mémoires du Muséum national d'histoire naturelle</i>, <i>24</i>, 1–274.</li>
+            
+            <li>Enghoff, H. (1987). Revision of Nepalmatoiulus Mauries 1983 - a Southeast Asiatic genus of millipedes (Diplopoda: Julida: Julidae). <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 241–331.</li>
+            
+            <li>Golovatch, S. I. (1986). Diplopoda from the Nepal Himalayas: Polydesmidae, Fuhrmannodesmidae. <i>Senckenbergiana Biologica</i>, <i>66</i>(4/6), 345–369.</li>
+            
+            <li>Golovatch, S. I. (1987a). Diplopoda from the Nepal Himalayas. Opisotretidae, additional Polydesmidae and Fuhrmannodesmidae. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 203–217.</li>
+            
+            <li>Golovatch, S. I. (1987b). Diplopoda from the Nepal Himalayas. Glomeridae, additional Opisotretidae. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 219–228.</li>
+            
+            <li>Golovatch, S. I. (1990a). Diplopoda from the Nepal Himalayas. The first Paradoxosomatidae (Polydesmida). <i>Spixiana</i>, <i>13</i>(1), 9–24.</li>
+            
+            <li>Golovatch, S. I. (1990b). Diplopoda from the Nepal Himalayas. Several additional Polydesmidae and Fuhrmannodesmidae (Polydesmida). <i>Spixiana</i>, <i>13</i>(3), 237–252.</li>
+            
+            <li>Golovatch, S. I. (1992). Diplopoda from the Nepal Himalayas. Some additional Paradoxosomatidae. <i>Senckenbergiana Biologica</i>, <i>72</i>(1–3), 183–203.</li>
+            
+            <li>Golovatch, S. I. (2014). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVI. <i>Arthropoda Selecta</i>, <i>23</i>(3), 227–251.</li>
+            
+            <li>Golovatch, S. I. (2015). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVII. <i>Arthropoda Selecta</i>, <i>24</i>(2), 127–168.</li>
+            
+            <li>Golovatch, S. I. (2016a). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVIII. <i>Arthropoda Selecta</i>, <i>25</i>(1), 1–18.</li>
+            
+            <li>Golovatch, S. I. (2016b). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XIX. <i>Arthropoda Selecta</i>, <i>25</i>(2), 131–152.</li>
+            
+            <li>Golovatch, S. I., & VandenSpiegel, D. (2014). <i>Koponenius</i> gen. nov., a new genus of the millipede family Haplodesmidae from the Himalayas of India and Nepal (Diplopoda: Polydesmida). <i>Zootaxa</i>, <i>3894</i>(1), 141–151. <a href="https://doi.org/10.11646/zootaxa.3894.1.11" target="_blank" rel="noopener noreferrer">https://doi.org/10.11646/zootaxa.3894.1.11</a></li>
+            
+            <li>Golovatch, S. I., & VandenSpiegel, D. (2016). A new species of the millipede genus <i>Koponenius</i> Golovatch et VandenSpiegel, 2014, from Nepal (Diplopoda: Polydesmida: Haplodesmidae). <i>Russian Entomological Journal</i>, <i>25</i>(1), 219–223.</li>
+            
+            <li>Golovatch, S. I., VandenSpiegel, D., & Semenyuk, I. I. (2016). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XXI. <i>Arthropoda Selecta</i>, <i>25</i>(4), 335–354.</li>
+            
+            <li>Korsós, Z. (2001). Diplopoda from the Nepal Himalaya: towards the clarification of the genus <i>Anaulaciulus</i> Pocock 1895 (Diplopoda, Julida, Julidae, Brachyiulini). <i>Senckenbergiana Biologica</i>, <i>81</i>(1-2), 61–86.</li>
+            
+            <li>Korsós, Z., Geoffroy, J. J., & Mauriès, J. P. (2009). The fifth element: reconnection of the disjunct distribution of the members of Siphonocryptida (Diplopoda) with the description of a new species from Nepal. <i>Journal of Natural History</i>, <i>43</i>(7-8), 435–445.</li>
+            
+            <li>Martens, J., & Waßmann, C. (1987). Remarks on my Himalayan expeditions. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 7–31.</li>
+            
+            <li>Mauriès, J. P. (1983a). Myriapodes du Nepal (Mission I. Löbl et A. Smetana 1981) I. Diplopodes Iuliformes (Iulida, Cambalida et Spirostreptida - <i>Nepalmatoiulus</i> nov. subgen. <i>Revue Suisse de Zoologie</i>, <i>90</i>(1), 127–138.</li>
+            
+            <li>Mauriès, J. P. (1983b). Une famille nouvelle et deux genres nouveaux de Cleidogonoidea, avec notes sur la classification de la superfamille (Diplopoda, Craspedosomida). <i>Steenstrupia</i>, <i>8</i>(6), 165–187.</li>
+            
+            <li>Mauriès, J. P. (1988). Myriapodes du Nepal II. Diplopodes Craspedosomides nouveaux de l'Himalaya et de la region indo-malaise (Craspedosomidea et Chordeumidea). <i>Revue Suisse de Zoologie</i>, <i>95</i>(1), 179–258.</li>
+            
+            <li>Mikhaljova, E. V. (2025). The millipede genus <i>Nepalmatoiulus</i> Mauriès, 1983 (Diplopoda, Julidae) in Nepal, with descriptions of two new species. <i>Zootaxa</i>, <i>5706</i>(3), 426–438. <a href="https://doi.org/10.11646/zootaxa.5706.3.6" target="_blank" rel="noopener noreferrer">https://doi.org/10.11646/zootaxa.5706.3.6</a></li>
+            
+            <li>Shear, W. A. (1979). Diplopoda from the Nepal Himalayas. Chordeumida with comments on the Asian chordeumid fauna. <i>Senckenbergiana Biologica</i>, <i>60</i>(1-2), 115–130.</li>
+            
+            <li>Shear, W. A. (1987). Chordeumatid Diplopoda from the Nepal Himalayas, II. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 229–240.</li>
+            
+            <li>Shelley, R. M. (1996). <i>Nepalozonium trimaculatum</i>, n. gen., n. sp. (Diplopoda: Polyzoniida: Hirudisomatidae): first record of the order and family from Central Asia. <i>Proceedings of the Entomological Society of Washington</i>, <i>98</i>(4), 677–680.</li>
+            
+            <li>Sierwald, P., & Spelda, J. (2026). MilliBase. <a href="https://www.millibase.org" target="_blank" rel="noopener noreferrer">https://www.millibase.org</a></li>
+            
+            <li>Thapa, V. K. (2019). <i>Invertebrate fauna of Nepal (excluding insects)</i> (pp. 241–298). Kathmandu, Nepal.</li>
+            
+            <li>Wesener, T. (2015). The Giant Pill-Millipedes of Nepal (Diplopoda, Sphaerotheriida, Zephroniidae). <i>Zootaxa</i>, <i>3964</i>(3), 301–320. <a href="https://doi.org/10.11646/zootaxa.3964.3.1" target="_blank" rel="noopener noreferrer">https://doi.org/10.11646/zootaxa.3964.3.1</a></li>
         </ul>
-    </div>
     </div>
 </main>
 
