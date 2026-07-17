@@ -1,30 +1,525 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ne">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History of Millipedes Species Description of Nepal</title>
+    <title>History - Millipedes of Nepal</title>
     <meta name="description" content="Explore the rich history of millipede taxonomy in Nepal from 1935 to present, featuring key taxonomists and their discoveries.">
     <meta name="keywords" content="millipedes, Nepal, taxonomy, history, Diplopoda, Golovatch, Carl, Attems">
-    
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="canonical" href="https://www.chandlokendra.com.np/history.html">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Shared Styles - Embedded (SAME AS INDEX.HTML) -->
     <style>
-        /* ============ HISTORY.HTML SPECIFIC STYLES ============ */
-        
+        /* ============================================
+           Millipedes of Nepal - Unified Style Sheet
+           Version: 3.1 - Common styles for all pages
+           ============================================ */
+
+        /* ============ RESET & BASE ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-dark: #0e3a54;
+            --blue-accent: #2980b9;
+            --blue-bg: #ebf5fb;
+            --gold: #f39c12;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-white: #ffffff;
+            --bg-light: #f5f7fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --green: #28a745;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --whatsapp: #25D366;
+            --gmail: #D44638;
+        }
+
+        /* ============ SKIP TO CONTENT ============ */
+        .skip-link {
+            position: absolute;
+            top: -1000px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #000;
+            padding: 10px 20px;
+            z-index: 10000;
+            font-weight: bold;
+            border-radius: 0 0 8px 8px;
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ============ UTILITY CLASSES ============ */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        .mt-1 { margin-top: 10px; }
+        .mt-2 { margin-top: 20px; }
+        .mt-3 { margin-top: 30px; }
+        .mb-1 { margin-bottom: 10px; }
+        .mb-2 { margin-bottom: 20px; }
+        .mb-3 { margin-bottom: 30px; }
+
+        .hide { display: none; }
+        .show { display: block; }
+
+        /* ============ REDUCED MOTION ============ */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============ PRINT STYLES ============ */
+        @media print {
+            header, nav, footer, .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .content-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        /* ============ HEADER ============ */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px 5%;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-logo {
+            height: 110px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+            display: block;
+            animation: logoGentlePop 0.6s ease-out;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+            opacity: 0.95;
+        }
+
+        @keyframes logoGentlePop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            animation: slideInLeft 1s ease-out;
+            letter-spacing: 1px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .header-text p {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            animation: slideInRight 1s ease-out;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        .millipede-icon {
+            height: 200px;
+            width: auto;
+            max-width: 350px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .millipede-icon:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+        }
+
+        /* ============ CLOCK STYLES ============ */
+        .clock-container {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            min-width: 200px;
+            text-align: center;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 8px;
+            position: relative;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: none;
+        }
+
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .clock-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .clock-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 6px rgba(255,107,107,0.9);
+            animation: centerGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
+            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
+        }
+
+        .hour-hand {
+            width: 4.5px;
+            height: 28px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(243,156,18,0.6);
+            border-radius: 4px 4px 2px 2px;
+        }
+
+        .minute-hand {
+            width: 3.5px;
+            height: 38px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 5px rgba(52,152,219,0.6);
+            border-radius: 3px 3px 2px 2px;
+        }
+
+        .second-hand {
+            width: 1.8px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: translateX(-50%) rotate(0deg);
+            box-shadow: 0 0 6px rgba(255,107,107,0.7);
+            border-radius: 2px;
+        }
+
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 3px rgba(0,0,0,0.4);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
+        .number-1 { color: #f39c12; top: 14%; left: 67%; }
+        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
+        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
+        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
+        .number-5 { color: #3498db; top: 86%; left: 67%; }
+        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
+        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
+        .number-8 { color: #e67e22; top: 73%; left: 19%; }
+        .number-9 { color: #f39c12; top: 50%; left: 8%; }
+        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
+        .number-11 { color: #3498db; top: 14%; left: 33%; }
+
+        .clock-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 6px;
+            text-shadow: 0 0 4px rgba(243,156,18,0.4);
+            font-family: 'Times New Roman', Times, serif;
+            background: rgba(0,0,0,0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* ============ NAVIGATION BAR ============ */
+        nav {
+            background-color: var(--primary-blue);
+            padding: 15px 5%;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid white;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        nav a.active {
+            background-color: var(--blue-accent);
+            font-weight: bold;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ============ UNIFIED CONTENT CARDS ============ */
+        .content-card {
+            background: var(--bg-white);
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            width: 100%;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .content-card h2 {
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .content-card p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #333;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .content-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--primary-blue);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* ============ HISTORY-SPECIFIC STYLES ============ */
         .full-history-text {
             text-align: justify;
             font-size: 1.2rem;
             line-height: 1.8;
             width: 100%;
         }
-        
+
         .full-history-text p {
             margin-bottom: 20px;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .history-img {
             max-width: 60%;
             width: 100%;
@@ -38,12 +533,12 @@
             display: block;
             transition: all 0.5s ease;
         }
-        
+
         .history-img:hover {
             transform: scale(1.03);
             border-color: var(--gold);
         }
-        
+
         .brief-history {
             background-color: var(--blue-bg);
             padding: 35px;
@@ -51,19 +546,23 @@
             border-left: 6px solid var(--primary-blue);
             width: 100%;
         }
-        
+
         .brief-history p {
             font-size: 1.1rem;
             line-height: 1.7;
             margin-bottom: 15px;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .brief-history h3 {
             font-family: 'Times New Roman', Times, serif;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-top: 25px;
+            margin-bottom: 10px;
         }
-        
-        /* Taxonomist Gallery */
+
+        /* ============ TAXONOMIST GALLERY ============ */
         .taxonomist-gallery {
             background: linear-gradient(135deg, #e8f0f7 0%, #d4e4f0 100%);
             padding: 2rem 1.5rem;
@@ -72,12 +571,12 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             width: 100%;
         }
-        
+
         .section-title-wrap {
             text-align: center;
             margin-bottom: 1.5rem;
         }
-        
+
         .taxonomist-gallery h2 {
             text-align: center;
             color: var(--primary-blue);
@@ -91,15 +590,16 @@
             letter-spacing: 1px;
             background: rgba(255,255,240,0.8);
             border-radius: 40px;
+            border-bottom: none;
         }
-        
+
         .taxonomist-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
             gap: 1.8rem;
             margin-top: 1.8rem;
         }
-        
+
         .taxonomist-card {
             background: white;
             border-radius: 28px;
@@ -109,12 +609,12 @@
             transition: all 0.25s ease;
             border: 1px solid #ece0cf;
         }
-        
+
         .taxonomist-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 18px 28px rgba(0,0,0,0.12);
         }
-        
+
         .taxonomist-photo-img {
             width: 140px;
             height: 140px;
@@ -126,7 +626,7 @@
             background: #e9e2d4;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        
+
         .taxonomist-card h3 {
             margin: 0.5rem 0 0.2rem;
             font-size: 1.25rem;
@@ -134,7 +634,7 @@
             border: none;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .taxonomist-country {
             font-size: 0.85rem;
             background: #f3efe4;
@@ -144,14 +644,14 @@
             margin: 0.4rem 0;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .taxonomist-card p {
             font-size: 0.8rem;
             color: #5e6e55;
             margin-top: 0.3rem;
             font-family: 'Times New Roman', Times, serif;
         }
-        
+
         .fallback-icon {
             width: 140px;
             height: 140px;
@@ -166,8 +666,8 @@
             color: #2c5e2a;
             border: 4px solid #f3e1b5;
         }
-        
-        /* References Section - APA Format */
+
+        /* ============ REFERENCES SECTION ============ */
         .ref-section {
             background: #e8f0fe;
             border-radius: 24px;
@@ -175,8 +675,9 @@
             margin: 2rem 0 1.5rem;
             border: 1px solid #c5d6e8;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            width: 100%;
         }
-        
+
         .ref-header {
             border-left: 4px solid #c73e3e;
             padding-left: 1rem;
@@ -186,13 +687,13 @@
             color: #2c5282;
             letter-spacing: -0.2px;
         }
-        
+
         .ref-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-        
+
         .ref-list li {
             padding: 0.5rem 0;
             border-bottom: 1px solid #e8e0d4;
@@ -202,622 +703,690 @@
             text-indent: -1.5rem;
             padding-left: 1.5rem;
         }
-        
+
         .ref-list li:last-child {
             border-bottom: none;
         }
-        
+
         .ref-list li i {
             font-style: italic;
         }
-        
+
         .ref-list li strong {
             font-weight: 600;
             color: #1a5276;
         }
-        
+
         .ref-list li .doi {
             color: #2c6e2c;
             text-decoration: none;
             border-bottom: 1px dotted #bcab8a;
             font-style: normal;
         }
-        
+
         .ref-list li .doi:hover {
             color: #1d451d;
             border-bottom-color: #1d451d;
         }
-        
+
         .ref-list li a {
             color: #2c6e2c;
             text-decoration: none;
         }
-        
+
         .ref-list li a:hover {
             color: #1d451d;
             text-decoration: underline;
         }
-        
-        /* Date display - LARGER FONT */
-        .clock-date {
-            font-size: 18px;
-            font-weight: bold;
-            color: #f39c12;
-            text-align: center;
-            margin-top: 6px;
-            text-shadow: 0 0 4px rgba(243,156,18,0.4);
+
+        /* ============ BUTTONS ============ */
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
             font-family: 'Times New Roman', Times, serif;
-            background: rgba(0,0,0,0.25);
-            padding: 4px 14px;
-            border-radius: 20px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            background-color: #e67e22;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 5%;
+            width: 100%;
+            max-width: 100%;
+            margin-top: auto;
+            animation: fadeIn 1s ease-out;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            transform: scale(1.05);
             display: inline-block;
         }
-        
-        /* ============ RIGHT GROUP - Consistent with index.html ============ */
-        .right-group {
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            animation: fadeInRight 0.8s ease-out;
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        
-        .millipede-icon {
-            height: 200px;
-            width: auto;
-            max-width: 350px;
-            object-fit: contain;
-            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        .millipede-icon:hover {
-            transform: scale(1.05) rotate(3deg);
-            filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.5));
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        .clock-container {
-            background: transparent;
-            border-radius: 0;
-            padding: 0;
-            min-width: 200px;
-            text-align: center;
-            border: none;
-            box-shadow: none;
-            transition: all 0.3s ease;
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
-        
-        .analog-clock {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 8px;
-            position: relative;
-            background: transparent;
-            border-radius: 50%;
-            box-shadow: none;
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
-        
-        .clock-face {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            border-radius: 50%;
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
-        
-        .clock-ring {
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 215, 0, 0.6);
-            pointer-events: none;
-            animation: ringPulse 2s ease-in-out infinite;
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-        
-        @keyframes ringPulse {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
-        }
-        
-        .clock-center {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #ff6b6b;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            box-shadow: 0 0 6px rgba(255,107,107,0.9);
-            animation: centerGlow 1.5s ease-in-out infinite;
-        }
-        
-        @keyframes centerGlow {
-            0%, 100% { box-shadow: 0 0 4px rgba(255,107,107,0.6); }
-            50% { box-shadow: 0 0 12px rgba(255,107,107,1); }
-        }
-        
-        .hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform-origin: bottom center;
-            border-radius: 4px;
-            transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.6, 1);
-        }
-        
-        .hour-hand {
-            width: 4.5px;
-            height: 28px;
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            transform: translateX(-50%) rotate(0deg);
-            box-shadow: 0 0 5px rgba(243,156,18,0.6);
-            border-radius: 4px 4px 2px 2px;
-        }
-        
-        .minute-hand {
-            width: 3.5px;
-            height: 38px;
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            transform: translateX(-50%) rotate(0deg);
-            box-shadow: 0 0 5px rgba(52,152,219,0.6);
-            border-radius: 3px 3px 2px 2px;
-        }
-        
-        .second-hand {
-            width: 1.8px;
-            height: 45px;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            transform: translateX(-50%) rotate(0deg);
-            box-shadow: 0 0 6px rgba(255,107,107,0.7);
-            border-radius: 2px;
-        }
-        
-        .clock-numbers {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-        
-        .number {
-            position: absolute;
-            font-size: 12px;
-            font-weight: bold;
-            transform: translate(-50%, -50%);
-            text-shadow: 0 0 3px rgba(0,0,0,0.4);
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        .number-12 { color: #ff6b6b; top: 8%; left: 50%; }
-        .number-1 { color: #f39c12; top: 14%; left: 67%; }
-        .number-2 { color: #f1c40f; top: 27%; left: 81%; }
-        .number-3 { color: #2ecc71; top: 50%; left: 92%; }
-        .number-4 { color: #1abc9c; top: 73%; left: 81%; }
-        .number-5 { color: #3498db; top: 86%; left: 67%; }
-        .number-6 { color: #9b59b6; top: 92%; left: 50%; }
-        .number-7 { color: #e74c3c; top: 86%; left: 33%; }
-        .number-8 { color: #e67e22; top: 73%; left: 19%; }
-        .number-9 { color: #f39c12; top: 50%; left: 8%; }
-        .number-10 { color: #2ecc71; top: 27%; left: 19%; }
-        .number-11 { color: #3498db; top: 14%; left: 33%; }
-        
-        /* Responsive adjustments */
+
+        /* ============ RESPONSIVE DESIGN ============ */
         @media (max-width: 1200px) {
+            .header-logo { height: 95px; }
+            .header-text h1 { font-size: 3rem; }
+            .header-text p { font-size: 1.5rem; }
             .millipede-icon { height: 160px; max-width: 280px; }
         }
-        
+
+        @media (max-width: 1024px) {
+            nav { padding: 15px 5%; }
+            main { padding: 30px 5%; }
+            footer { padding: 30px 5%; }
+            .content-card { padding: 30px; }
+        }
+
         @media (max-width: 992px) {
-            .taxonomist-grid { grid-template-columns: repeat(3, 1fr); }
+            .header-logo { height: 80px; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text p { font-size: 1.3rem; }
+            .header-container { padding: 15px 5%; gap: 20px; }
             .millipede-icon { height: 130px; max-width: 220px; }
             .analog-clock { width: 80px; height: 80px; }
             .clock-container { min-width: 170px; }
             .right-group { gap: 1px; }
+            .taxonomist-grid { grid-template-columns: repeat(3, 1fr); }
+            .history-img { max-width: 70%; }
         }
-        
+
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 2px;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            nav a {
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                margin: 0;
+            }
+
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-logo { height: 70px; margin-bottom: 5px; }
+            .header-text h1 { font-size: 2rem; }
+            .header-text p { font-size: 1.1rem; }
+            main { padding: 20px 4%; }
+            .content-card { padding: 25px; }
+            .content-card h2 { font-size: 1.7rem; }
+            .content-card h3 { font-size: 1.5rem; }
+
+            .right-group {
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .millipede-icon { height: 110px; max-width: 190px; }
+            .analog-clock { width: 70px; height: 70px; }
+            .clock-date { font-size: 16px; }
+
+            footer p { font-size: 1rem; }
             .full-history-text { font-size: 1rem; }
             .taxonomist-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
             .brief-history { padding: 25px; }
-            .clock-date { font-size: 16px; }
-            .millipede-icon { height: 110px; max-width: 190px; }
-            .analog-clock { width: 70px; height: 70px; }
-            .clock-container { min-width: 150px; }
-            .right-group { gap: 0px; }
             .history-img { max-width: 80%; max-height: 200px; }
             .ref-section { padding: 1rem; }
             .ref-header { font-size: 1.1rem; }
             .ref-list li { font-size: 0.75rem; }
+            .taxonomist-gallery h2 { font-size: 1.5rem; }
         }
-        
+
         @media (max-width: 480px) {
+            .header-text h1 { font-size: 1.5rem; }
+            .header-text p { font-size: 0.9rem; }
+            .header-logo { height: 50px; }
+            .millipede-icon { height: 80px; max-width: 130px; }
+            .analog-clock { width: 55px; height: 55px; }
+            .clock-container { min-width: 130px; }
+            .right-group { gap: 0px; }
+            .clock-date { font-size: 13px; padding: 2px 8px; }
+            .content-card { padding: 18px; }
+            .content-card h2 { font-size: 1.4rem; }
+            .content-card p { font-size: 1rem; }
+            .content-card h3 { font-size: 1.3rem; }
             .taxonomist-grid { grid-template-columns: 1fr; }
             .taxonomist-photo-img { width: 120px; height: 120px; }
             .fallback-icon { width: 120px; height: 120px; font-size: 2.5rem; }
-            .taxonomist-gallery h2 { font-size: 1.4rem; }
-            .clock-date { font-size: 14px; padding: 2px 10px; }
-            .millipede-icon { height: 90px; max-width: 150px; }
-            .analog-clock { width: 60px; height: 60px; }
-            .clock-container { min-width: 130px; }
-            .right-group { gap: 0px; }
+            .taxonomist-gallery h2 { font-size: 1.4rem; padding: 0.3rem 1rem; }
             .history-img { max-width: 90%; max-height: 150px; }
             .ref-list li { font-size: 0.7rem; padding: 0.4rem 0; text-indent: -1.2rem; padding-left: 1.2rem; }
+            .brief-history { padding: 15px; }
+            .brief-history p { font-size: 1rem; }
+            .brief-history h3 { font-size: 1.2rem; }
         }
-        
+
         @media (min-width: 1600px) {
-            .clock-date { font-size: 22px; }
+            .header-container { min-height: 260px; }
+            .header-logo { height: 130px; max-width: 240px; }
             .millipede-icon { height: 220px; max-width: 380px; }
+            .header-text h1 { font-size: 4rem; }
+            .header-text p { font-size: 2rem; }
             .analog-clock { width: 120px; height: 120px; }
             .clock-container { min-width: 240px; }
             .right-group { gap: 3px; }
+            .clock-date { font-size: 22px; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
-             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\' font-family=\'Times New Roman\'%3EMillipede%3C/text%3E%3Ctext x=\'100\' y=\'140\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f39c12\'%3ELogo%3C/text%3E%3C/svg%3E'">
-        
-        <div class="header-text">
-            <h1>Millipedes of Nepal</h1>
-            <p>Scientific Exploration from 1935 to Present</p>
-        </div>
-        
-        <div class="right-group">
-            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
-                 onerror="this.style.display='none'">
-            
-            <div class="clock-container">
-                <div class="analog-clock">
-                    <div class="clock-face">
-                        <div class="clock-ring"></div>
-                        <div class="hand hour-hand" id="hourHand"></div>
-                        <div class="hand minute-hand" id="minuteHand"></div>
-                        <div class="hand second-hand" id="secondHand"></div>
-                        <div class="clock-center"></div>
-                        <div class="clock-numbers">
-                            <div class="number number-12">12</div>
-                            <div class="number number-1">1</div>
-                            <div class="number number-2">2</div>
-                            <div class="number number-3">3</div>
-                            <div class="number number-4">4</div>
-                            <div class="number number-5">5</div>
-                            <div class="number number-6">6</div>
-                            <div class="number number-7">7</div>
-                            <div class="number number-8">8</div>
-                            <div class="number number-9">9</div>
-                            <div class="number number-10">10</div>
-                            <div class="number number-11">11</div>
+    <!-- ============ SKIP TO CONTENT ============ -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <div class="header-container">
+            <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo"
+                 onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
+
+            <div class="header-text">
+                <h1>Millipedes of Nepal</h1>
+                <p>Scientific Exploration from 1935 to Present</p>
+            </div>
+
+            <div class="right-group">
+                <img src="milli.png" alt="Millipede Icon" class="millipede-icon"
+                     onerror="this.style.display='none'">
+
+                <div class="clock-container">
+                    <div class="analog-clock">
+                        <div class="clock-face">
+                            <div class="clock-ring"></div>
+                            <div class="hand hour-hand" id="hourHand"></div>
+                            <div class="hand minute-hand" id="minuteHand"></div>
+                            <div class="hand second-hand" id="secondHand"></div>
+                            <div class="clock-center"></div>
+                            <div class="clock-numbers">
+                                <div class="number number-12">12</div>
+                                <div class="number number-1">1</div>
+                                <div class="number number-2">2</div>
+                                <div class="number number-3">3</div>
+                                <div class="number number-4">4</div>
+                                <div class="number number-5">5</div>
+                                <div class="number number-6">6</div>
+                                <div class="number number-7">7</div>
+                                <div class="number number-8">8</div>
+                                <div class="number number-9">9</div>
+                                <div class="number number-10">10</div>
+                                <div class="number number-11">11</div>
+                            </div>
                         </div>
                     </div>
+                    <div class="clock-date" id="englishDate">--</div>
                 </div>
-                <div class="clock-date" id="englishDate">--</div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="history.html" class="active">History</a>
-    <a href="checklist.html">Checklist</a>
-    <a href="distribution.html">Distribution</a>
-    <a href="introkey.html">Introduction and Identification</a>
-    <a href="articles.html">Articles</a>
-    <a href="gallery.html">Gallery</a> 
-    <a href="upload.html">Upload</a>
-    <a href="team.html">Team</a>
-    <a href="faq.html">FAQ</a>
-</nav>
-
-<main>
-    <section class="scientific-text">
-        <h2>History of Nepalese Millipede Description</h2>
-        <div class="full-history-text">
-            <p>The history of millipede taxonomy in Nepal is rich and extensive, beginning with Carl's 1935 description of <i>Orthomorpha (Orthomorpha) simulans</i> and <i>Hingstonia eremita</i>, the latter of which established the genus <i>Hingstonia</i>. In 1936, Attems introduced the new genus <i>Kophosphaera</i> based on <i>Kophosphaera excavata</i> (Butler, 1874) and referenced Carl's previously mentioned species. After a long gap, Demange (1961) described two species of <i>Gonoplectus</i> from Nepal, namely <i>G. hyatti</i> and <i>G. brolemanni</i>, collected by K. H. Hyatt in 1954.</p>
-
-            <p>The 1970s and 1980s represented a period of accelerated discovery, heavily fueled by specimens from Himalayan expeditions by Prof. Dr. Jochen Martens and his colleagues. Shear (1979) erected the new subfamily Nepalellinae with the genus <i>Nepalella</i>, describing two species within this genus, and also described three species of <i>Tianella</i>. Mauriès (1983a) documented the family Cambalopsidae in Nepal with <i>Trachyjulus wilsonae</i> and <i>Podoglyphiulus elegans nepalensis</i>. Mauriès (1983b) introduced the julid subgenus <i>Nepalmatoiulus</i> with description of three new species and reported <i>Gonoplectus malayus</i> from Nepal. Golovatch (1986) started extensive research, describing the new genus <i>Himalodesmus</i> with two new species and described species under genera <i>Usbekodesmus</i> (4), <i>Hingstonia</i> (2) and <i>Sholaphilus</i> (4), which reported family Polydesmidae first time in Nepal. Again in Golovatch (1987a) he documented the family Opisotretidae, introducing <i>Martensodesmus</i> with description of three new species, also described more six species of <i>Himalodesmus</i> and two new species of genus <i>Hingstonia</i>. Successively Golovatch (1987b) reported Glomeridae for Nepal with description of five species of <i>Hyleoglomeris</i> and also described <i>Nepalotretus</i> genus with the description of <i>N. martensi</i>. Shear (1987) described more species under genus <i>Tianella</i> (4), <i>Nepalella</i> (2) and <i>Kashmireuma</i> (1). Enghoff (1987) elevated <i>Nepalmatoiulus</i> to genus rank with description of ten new species. Mauriès (1988) expanded the known diversity of Chordeumatida, describing new species of <i>Tianella</i> (4), <i>Nepalella</i> (1), and <i>Kashmireuma</i> (6).</p>
-
-            <p>The 1990s were characterized by further in-depth study of the order Polydesmida, particularly the family Paradoxosomatidae. Golovatch (1990a) first reported the cosmopolitan species <i>Orthomorpha coarctata</i> and <i>Oxidus gracilis</i>, as well as <i>Paranedyopus cylindricus</i> from Nepal with description of several new taxa under genus <i>Paranedyopus</i> (4) and <i>Orophosoma</i> (1). Golovatch (1990b) involved the description of numerous species of Polydesmidae under genera <i>Himalodesmus</i> (1), <i>Usbekodesmus</i> (1), <i>Hingstonia</i> (4) and <i>Sholaphilus</i> (2). His subsequent works (1992, 1993, 1994a, 1994b, 1996) also reported many species and described many new species of Paradoxosomatidae under known genera as well as new genera <i>Martensosoma</i>, <i>Nepalomorpha</i>, <i>Parorthomorpha</i>, and <i>Hirtodrepanum</i>. This period also saw Shelley's (1996) description of the monotypic genus <i>Nepalozonium</i>, representing the first record of its order from Central Asia. Korsós (1996) mentioned three species of <i>Anaulaciulus</i>, which were later described in Korsós (2001). Golovatch (2000) synonymized <i>Paranedyopus</i> Carl, 1932 to <i>Anoplodesmus</i> Pocock, 1895 which synonymized Nepalese species also.</p>
-
-            <p>The new millennium brought further discoveries and significant taxonomic revisions. Korsós et al. (2009) described the rare <i>Hirudicryptus quintumelementum</i>, the only species of order Siphonocryptida. Golovatch (2011) synonymized <i>Usbekodesmus</i> with <i>Epanerchodus</i>, and later (2014) synonymized several paradoxosomatid genera (<i>Nepalomorpha</i>, <i>Parorthomorpha</i>, <i>Martensosoma</i>, <i>Armolites</i>, <i>Orophosoma</i>) under the resurrected genus <i>Delarthrum</i> with description of some new species, also established <i>Beronodesmus</i> new genus. Golovatch & VandenSpiegel (2014) described a species of <i>Koponenius</i>. Golovatch (2015) reported <i>Streptogonopus phipsoni</i>, described species under genera <i>Anoplodesmus</i> (1), <i>Kronopolites</i> (1), <i>Beronodesmus</i> (7), <i>Delarthrum</i> (4) and described new genus <i>Beronodesmoides</i> with description of three new species. Golovatch (2016a, 2016b, 2016c) and Golovatch et al. (2016) described many species under genus <i>Substrongylosoma</i>, <i>Pocockina</i>, <i>Beronodesmoides</i>, <i>Anoplodesmus</i>, <i>Delarthrum</i>, <i>Touranella</i> and <i>Beronodesmus</i>. Golovatch & VandenSpiegel (2016) described another species under <i>Koponenius</i>. After that Golovatch (2022) described <i>Epanerchodus telnovi</i> and in 2023, he described two species, <i>Chondromorpha greke</i> and <i>Delarthrum telnovi</i>, from Nepal. Recently Mikhaljova (2025) described two new species of <i>Nepalmatoiulus</i> from Nepal.</p>
+    <!-- ============ NAVIGATION ============ -->
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">☰ Menu</button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="history.html" class="active">History</a>
+            <a href="checklist.html">Checklist</a>
+            <a href="distribution.html">Distribution</a>
+            <a href="introkey.html">Introduction and Identification</a>
+            <a href="articles.html">Articles</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="upload.html">Upload</a>
+            <a href="team.html">Team</a>
+            <a href="faq.html">FAQ</a>
         </div>
-    </section>
-    
-    <section class="brief-history">
-        <h2>History of Nepalese Millipede Descriptions</h2>
+    </nav>
 
-        <img src="history.png" alt="Trend of Millipede Species Descriptions in Nepal" 
-             class="history-img" 
-             loading="lazy"
-             onerror="this.src='https://via.placeholder.com/1000x600?text=History+of+Millipede+Research'">
+    <!-- ============ MAIN CONTENT ============ -->
+    <main id="main-content">
 
-        <h3>Why is the trend of species descriptions declining?</h3>
-        <p>
-            The recent decline in the number of newly described millipede species from Nepal 
-            does not necessarily reflect reduced biodiversity. Instead, it is largely influenced 
-            by stricter national regulations and customs policies that restrict the export of 
-            biological specimens for taxonomic study. As a result, fewer specimens reach 
-            international specialists, slowing the pace of formal species descriptions.
-        </p>
-        <p>
-            This situation highlights the urgent need to strengthen taxonomic research capacity 
-            within Nepal. Developing local expertise, research infrastructure, and laboratory 
-            facilities is essential. We are planning to collaborate with national and 
-            international taxonomists, universities, and funding agencies to promote 
-            integrative taxonomy and phylogeographic research conducted inside Nepal. 
-            Such efforts will help revitalize systematic studies and accelerate the 
-            documentation of Nepal's millipede diversity.
-        </p>
+        <!-- ====== HISTORY TEXT ====== -->
+        <section class="content-card">
+            <h2>History of Nepalese Millipede Descriptions</h2>
+            <div class="full-history-text">
+                <p>The history of millipede taxonomy in Nepal is rich and extensive, beginning with Carl's 1935 description of <i>Orthomorpha (Orthomorpha) simulans</i> and <i>Hingstonia eremita</i>, the latter of which established the genus <i>Hingstonia</i>. In 1936, Attems introduced the new genus <i>Kophosphaera</i> based on <i>Kophosphaera excavata</i> (Butler, 1874) and referenced Carl's previously mentioned species. After a long gap, Demange (1961) described two species of <i>Gonoplectus</i> from Nepal, namely <i>G. hyatti</i> and <i>G. brolemanni</i>, collected by K. H. Hyatt in 1954.</p>
 
-        <h3>Why are we interested in millipedes?</h3>
-        <p>
-            During M.Sc., we aimed to explore a relatively understudied 
-            biological group within the context of Nepal. Under the guidance of my 
-            professor as well as  supervisor, we focused on the class Diplopoda (millipedes). 
-            Lokendra Chand conducted a comprehensive taxonomic study of millipedes from urban forest 
-            patches in the Kathmandu Valley, emphasizing species identification based 
-            on <b>gonopod morphology</b>. After this,  we compiled the checklist of millipedes,we found that the whole western and southern parts are unexplored and possibility of founding new species in explored area is also high(experience during thesis). All the species identified and described on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts.
-        </p>
-        <p>
-            The discovery of high levels of endemism and previously undocumented diversity 
-            significantly deepened our interest in Nepalese millipedes. This experience 
-            reinforced the importance of continued taxonomic exploration and conservation 
-            of Nepal's unique and largely unexplored millipede fauna.
-        </p>
-    </section>
-    
-    <!-- TAXONOMIST GALLERY -->
-    <div class="taxonomist-gallery">
-        <div class="section-title-wrap">
-            <h2>Taxonomists of Nepalese Millipedes</h2>
-        </div>
-        <div class="taxonomist-grid">
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="carlj.jpg" alt="J. Carl" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇨🇭</div>
-                <h3>J. Carl</h3>
-                <div class="taxonomist-country">🇨🇭 Switzerland</div>
-                <p>First descriptions (1935)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="attems.jpg" alt="Carl Attems" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇦🇹</div>
-                <h3>Carl Attems</h3>
-                <div class="taxonomist-country">🇦🇹 Austria</div>
-                <p>Genus <i>Kophosphaera</i> (1936)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="demange.jpg" alt="J. M. Demange" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇫🇷</div>
-                <h3>J.M. Demange</h3>
-                <div class="taxonomist-country">🇫🇷 France</div>
-                <p><i>Gonoplectus</i> spp. (1961)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="shear.jpg" alt="William A. Shear" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇺🇸</div>
-                <h3>William A. Shear</h3>
-                <div class="taxonomist-country">🇺🇸 USA</div>
-                <p>Nepalellinae, <i>Tianella</i> (1979,1987)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="mauries.jpg" alt="Jean-Paul Mauriès" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇫🇷</div>
-                <h3>Jean-Paul Mauriès</h3>
-                <div class="taxonomist-country">🇫🇷 France</div>
-                <p>Cambalopsidae, Julidae (1983,1988)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="golovatch.jpg" alt="Sergei Ilyich Golovatch" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇷🇺</div>
-                <h3>Sergei Ilyich Golovatch</h3>
-                <div class="taxonomist-country">🇷🇺 Russia</div>
-                <p>Most prolific describer (1986–2023)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="enghoff.jpg" alt="Henrik Enghoff" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇩🇰</div>
-                <h3>Henrik Enghoff</h3>
-                <div class="taxonomist-country">🇩🇰 Denmark</div>
-                <p><i>Nepalmatoiulus</i> revision (1987)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="korsos.jpg" alt="Zoltán Korsós" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇭🇺</div>
-                <h3>Zoltán Korsós</h3>
-                <div class="taxonomist-country">🇭🇺 Hungary</div>
-                <p><i>Anaulaciulus</i>, Siphonocryptida</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="geoffroy.png" alt="Jean-Jacques Geoffroy" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇫🇷</div>
-                <h3>Jean-Jacques Geoffroy</h3>
-                <div class="taxonomist-country">🇫🇷 France</div>
-                <p><i>Hirudicryptus</i> (2009)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="shelley.jpg" alt="Rowland M. Shelley" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇺🇸</div>
-                <h3>Rowland M. Shelley</h3>
-                <div class="taxonomist-country">🇺🇸 USA</div>
-                <p><i>Nepalozonium</i> (1996)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="vanden.jpg" alt="Didier VandenSpiegel" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇧🇪</div>
-                <h3>Didier VandenSpiegel</h3>
-                <div class="taxonomist-country">🇧🇪 Belgium</div>
-                <p><i>Koponenius</i> (2014,2016)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="wesner.jpg" alt="Thomas Wesener" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇩🇪</div>
-                <h3>Thomas Wesener</h3>
-                <div class="taxonomist-country">🇩🇪 Germany</div>
-                <p>Giant Pill-Millipedes (2015)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="mikhaljova.jpg" alt="Elena V. Mikhaljova" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇷🇺</div>
-                <h3>Elena V. Mikhaljova</h3>
-                <div class="taxonomist-country">🇷🇺 Russia</div>
-                <p><i>Nepalmatoiulus</i> (2025)</p>
-            </div>
-            
-            <div class="taxonomist-card">
-                <img class="taxonomist-photo-img" src="jochen.jpg" alt="Jochen Martens" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-icon" style="display: none;">🇩🇪</div>
-                <h3>Jochen Martens</h3>
-                <div class="taxonomist-country">🇩🇪 Germany</div>
-                <p>Collected most specimens along trekking routes in Nepal</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- REFERENCES SECTION - APA FORMAT -->
-    <div class="ref-section">
-        <h2 class="ref-header">References</h2>
-        <ul class="ref-list">
-            <li>Attems, C. (1936). Diplopoda of India. <i>Memoirs of the Indian Museum</i>, <i>11</i>(4), 133–323.</li>
-            
-            <li>Carl, J. (1935). Polydesmiden gesammelt von Major R.W. Hingston auf der III. Everest Expedition 1924. <i>Revue Suisse de Zoologie</i>, <i>42</i>(10), 325–340.</li>
-            
-            <li>Demange, J.-M. (1961). Matériaux pour servir a une révision des Harpagophoridae (Myriapodes-Diplopodes). <i>Mémoires du Muséum national d'histoire naturelle</i>, <i>24</i>, 1–274.</li>
-            
-            <li>Enghoff, H. (1987). Revision of Nepalmatoiulus Mauries 1983 - a Southeast Asiatic genus of millipedes (Diplopoda: Julida: Julidae). <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 241–331.</li>
-            
-            <li>Golovatch, S. I. (1986). Diplopoda from the Nepal Himalayas: Polydesmidae, Fuhrmannodesmidae. <i>Senckenbergiana Biologica</i>, <i>66</i>(4/6), 345–369.</li>
-            
-            <li>Golovatch, S. I. (1987a). Diplopoda from the Nepal Himalayas. Opisotretidae, additional Polydesmidae and Fuhrmannodesmidae. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 203–217.</li>
-            
-            <li>Golovatch, S. I. (1987b). Diplopoda from the Nepal Himalayas. Glomeridae, additional Opisotretidae. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 219–228.</li>
-            
-            <li>Golovatch, S. I. (1990a). Diplopoda from the Nepal Himalayas. The first Paradoxosomatidae (Polydesmida). <i>Spixiana</i>, <i>13</i>(1), 9–24.</li>
-            
-            <li>Golovatch, S. I. (1990b). Diplopoda from the Nepal Himalayas. Several additional Polydesmidae and Fuhrmannodesmidae (Polydesmida). <i>Spixiana</i>, <i>13</i>(3), 237–252.</li>
-            
-            <li>Golovatch, S. I. (1992). Diplopoda from the Nepal Himalayas. Some additional Paradoxosomatidae. <i>Senckenbergiana Biologica</i>, <i>72</i>(1–3), 183–203.</li>
-            
-            <li>Golovatch, S. I. (2014). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVI. <i>Arthropoda Selecta</i>, <i>23</i>(3), 227–251.</li>
-            
-            <li>Golovatch, S. I. (2015). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVII. <i>Arthropoda Selecta</i>, <i>24</i>(2), 127–168.</li>
-            
-            <li>Golovatch, S. I. (2016a). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVIII. <i>Arthropoda Selecta</i>, <i>25</i>(1), 1–18.</li>
-            
-            <li>Golovatch, S. I. (2016b). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XIX. <i>Arthropoda Selecta</i>, <i>25</i>(2), 131–152.</li>
-            
-            <li>Golovatch, S. I., & VandenSpiegel, D. (2014). <i>Koponenius</i> gen. nov., a new genus of the millipede family Haplodesmidae from the Himalayas of India and Nepal (Diplopoda: Polydesmida). <i>Zootaxa</i>, <i>3894</i>(1), 141–151. <a href="https://doi.org/10.11646/zootaxa.3894.1.11" target="_blank" rel="noopener noreferrer">https://doi.org/10.11646/zootaxa.3894.1.11</a></li>
-            
-            <li>Golovatch, S. I., & VandenSpiegel, D. (2016). A new species of the millipede genus <i>Koponenius</i> Golovatch et VandenSpiegel, 2014, from Nepal (Diplopoda: Polydesmida: Haplodesmidae). <i>Russian Entomological Journal</i>, <i>25</i>(1), 219–223.</li>
-            
-            <li>Golovatch, S. I., VandenSpiegel, D., & Semenyuk, I. I. (2016). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XXI. <i>Arthropoda Selecta</i>, <i>25</i>(4), 335–354.</li>
-            
-            <li>Korsós, Z. (2001). Diplopoda from the Nepal Himalaya: towards the clarification of the genus <i>Anaulaciulus</i> Pocock 1895 (Diplopoda, Julida, Julidae, Brachyiulini). <i>Senckenbergiana Biologica</i>, <i>81</i>(1-2), 61–86.</li>
-            
-            <li>Korsós, Z., Geoffroy, J. J., & Mauriès, J. P. (2009). The fifth element: reconnection of the disjunct distribution of the members of Siphonocryptida (Diplopoda) with the description of a new species from Nepal. <i>Journal of Natural History</i>, <i>43</i>(7-8), 435–445.</li>
-            
-            <li>Martens, J., & Waßmann, C. (1987). Remarks on my Himalayan expeditions. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 7–31.</li>
-            
-            <li>Mauriès, J. P. (1983a). Myriapodes du Nepal (Mission I. Löbl et A. Smetana 1981) I. Diplopodes Iuliformes (Iulida, Cambalida et Spirostreptida - <i>Nepalmatoiulus</i> nov. subgen. <i>Revue Suisse de Zoologie</i>, <i>90</i>(1), 127–138.</li>
-            
-            <li>Mauriès, J. P. (1983b). Une famille nouvelle et deux genres nouveaux de Cleidogonoidea, avec notes sur la classification de la superfamille (Diplopoda, Craspedosomida). <i>Steenstrupia</i>, <i>8</i>(6), 165–187.</li>
-            
-            <li>Mauriès, J. P. (1988). Myriapodes du Nepal II. Diplopodes Craspedosomides nouveaux de l'Himalaya et de la region indo-malaise (Craspedosomidea et Chordeumidea). <i>Revue Suisse de Zoologie</i>, <i>95</i>(1), 179–258.</li>
-            
-            <li>Mikhaljova, E. V. (2025). The millipede genus <i>Nepalmatoiulus</i> Mauriès, 1983 (Diplopoda, Julidae) in Nepal, with descriptions of two new species. <i>Zootaxa</i>, <i>5706</i>(3), 426–438. <a href="https://doi.org/10.11646/zootaxa.5706.3.6" target="_blank" rel="noopener noreferrer">https://doi.org/10.11646/zootaxa.5706.3.6</a></li>
-            
-            <li>Shear, W. A. (1979). Diplopoda from the Nepal Himalayas. Chordeumida with comments on the Asian chordeumid fauna. <i>Senckenbergiana Biologica</i>, <i>60</i>(1-2), 115–130.</li>
-            
-            <li>Shear, W. A. (1987). Chordeumatid Diplopoda from the Nepal Himalayas, II. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 229–240.</li>
-            
-            <li>Shelley, R. M. (1996). <i>Nepalozonium trimaculatum</i>, n. gen., n. sp. (Diplopoda: Polyzoniida: Hirudisomatidae): first record of the order and family from Central Asia. <i>Proceedings of the Entomological Society of Washington</i>, <i>98</i>(4), 677–680.</li>
-            
-            <li>Sierwald, P., & Spelda, J. (2026). MilliBase. <a href="https://www.millibase.org" target="_blank" rel="noopener noreferrer">https://www.millibase.org</a></li>
-            
-            <li>Thapa, V. K. (2019). <i>Invertebrate fauna of Nepal (excluding insects)</i> (pp. 241–298). Kathmandu, Nepal.</li>
-            
-            <li>Wesener, T. (2015). The Giant Pill-Millipedes of Nepal (Diplopoda, Sphaerotheriida, Zephroniidae). <i>Zootaxa</i>, <i>3964</i>(3), 301–320. <a href="https://doi.org/10.11646/zootaxa.3964.3.1" target="_blank" rel="noopener noreferrer">https://doi.org/10.11646/zootaxa.3964.3.1</a></li>
-        </ul>
-    </div>
-</main>
+                <p>The 1970s and 1980s represented a period of accelerated discovery, heavily fueled by specimens from Himalayan expeditions by Prof. Dr. Jochen Martens and his colleagues. Shear (1979) erected the new subfamily Nepalellinae with the genus <i>Nepalella</i>, describing two species within this genus, and also described three species of <i>Tianella</i>. Mauriès (1983a) documented the family Cambalopsidae in Nepal with <i>Trachyjulus wilsonae</i> and <i>Podoglyphiulus elegans nepalensis</i>. Mauriès (1983b) introduced the julid subgenus <i>Nepalmatoiulus</i> with description of three new species and reported <i>Gonoplectus malayus</i> from Nepal. Golovatch (1986) started extensive research, describing the new genus <i>Himalodesmus</i> with two new species and described species under genera <i>Usbekodesmus</i> (4), <i>Hingstonia</i> (2) and <i>Sholaphilus</i> (4), which reported family Polydesmidae first time in Nepal. Again in Golovatch (1987a) he documented the family Opisotretidae, introducing <i>Martensodesmus</i> with description of three new species, also described more six species of <i>Himalodesmus</i> and two new species of genus <i>Hingstonia</i>. Successively Golovatch (1987b) reported Glomeridae for Nepal with description of five species of <i>Hyleoglomeris</i> and also described <i>Nepalotretus</i> genus with the description of <i>N. martensi</i>. Shear (1987) described more species under genus <i>Tianella</i> (4), <i>Nepalella</i> (2) and <i>Kashmireuma</i> (1). Enghoff (1987) elevated <i>Nepalmatoiulus</i> to genus rank with description of ten new species. Mauriès (1988) expanded the known diversity of Chordeumatida, describing new species of <i>Tianella</i> (4), <i>Nepalella</i> (1), and <i>Kashmireuma</i> (6).</p>
 
-<footer>
-    <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
-</footer>
+                <p>The 1990s were characterized by further in-depth study of the order Polydesmida, particularly the family Paradoxosomatidae. Golovatch (1990a) first reported the cosmopolitan species <i>Orthomorpha coarctata</i> and <i>Oxidus gracilis</i>, as well as <i>Paranedyopus cylindricus</i> from Nepal with description of several new taxa under genus <i>Paranedyopus</i> (4) and <i>Orophosoma</i> (1). Golovatch (1990b) involved the description of numerous species of Polydesmidae under genera <i>Himalodesmus</i> (1), <i>Usbekodesmus</i> (1), <i>Hingstonia</i> (4) and <i>Sholaphilus</i> (2). His subsequent works (1992, 1993, 1994a, 1994b, 1996) also reported many species and described many new species of Paradoxosomatidae under known genera as well as new genera <i>Martensosoma</i>, <i>Nepalomorpha</i>, <i>Parorthomorpha</i>, and <i>Hirtodrepanum</i>. This period also saw Shelley's (1996) description of the monotypic genus <i>Nepalozonium</i>, representing the first record of its order from Central Asia. Korsós (1996) mentioned three species of <i>Anaulaciulus</i>, which were later described in Korsós (2001). Golovatch (2000) synonymized <i>Paranedyopus</i> Carl, 1932 to <i>Anoplodesmus</i> Pocock, 1895 which synonymized Nepalese species also.</p>
 
-<script>
-// ============================================
-// CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
-// ============================================
+                <p>The new millennium brought further discoveries and significant taxonomic revisions. Korsós et al. (2009) described the rare <i>Hirudicryptus quintumelementum</i>, the only species of order Siphonocryptida. Golovatch (2011) synonymized <i>Usbekodesmus</i> with <i>Epanerchodus</i>, and later (2014) synonymized several paradoxosomatid genera (<i>Nepalomorpha</i>, <i>Parorthomorpha</i>, <i>Martensosoma</i>, <i>Armolites</i>, <i>Orophosoma</i>) under the resurrected genus <i>Delarthrum</i> with description of some new species, also established <i>Beronodesmus</i> new genus. Golovatch &amp; VandenSpiegel (2014) described a species of <i>Koponenius</i>. Golovatch (2015) reported <i>Streptogonopus phipsoni</i>, described species under genera <i>Anoplodesmus</i> (1), <i>Kronopolites</i> (1), <i>Beronodesmus</i> (7), <i>Delarthrum</i> (4) and described new genus <i>Beronodesmoides</i> with description of three new species. Golovatch (2016a, 2016b, 2016c) and Golovatch et al. (2016) described many species under genus <i>Substrongylosoma</i>, <i>Pocockina</i>, <i>Beronodesmoides</i>, <i>Anoplodesmus</i>, <i>Delarthrum</i>, <i>Touranella</i> and <i>Beronodesmus</i>. Golovatch &amp; VandenSpiegel (2016) described another species under <i>Koponenius</i>. After that Golovatch (2022) described <i>Epanerchodus telnovi</i> and in 2023, he described two species, <i>Chondromorpha greke</i> and <i>Delarthrum telnovi</i>, from Nepal. Recently Mikhaljova (2025) described two new species of <i>Nepalmatoiulus</i> from Nepal.</p>
+            </div>
+        </section>
 
-// Get Nepal time (UTC+5:45)
-function getNepalTime() {
-    const now = new Date();
-    const nepalOffset = 5.75 * 60 * 60 * 1000;
-    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-    return new Date(utcTime + nepalOffset);
-}
+        <!-- ====== BRIEF HISTORY ====== -->
+        <section class="content-card">
+            <h2>History of Nepalese Millipede Descriptions</h2>
 
-// Update clock display
-function updateClock() {
-    const now = getNepalTime();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    
-    const hourHand = document.getElementById('hourHand');
-    const minuteHand = document.getElementById('minuteHand');
-    const secondHand = document.getElementById('secondHand');
-    
-    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
-    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
-    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
-    
-    // Update English date
-    const englishDate = document.getElementById('englishDate');
-    if (englishDate) {
-        englishDate.innerHTML = now.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
+            <img src="history.png" alt="Trend of Millipede Species Descriptions in Nepal"
+                 class="history-img"
+                 loading="lazy"
+                 onerror="this.src='https://via.placeholder.com/1000x600?text=History+of+Millipede+Research'">
+
+            <div class="brief-history">
+                <h3>Why is the trend of species descriptions declining?</h3>
+                <p>
+                    The recent decline in the number of newly described millipede species from Nepal
+                    does not necessarily reflect reduced biodiversity. Instead, it is largely influenced
+                    by stricter national regulations and customs policies that restrict the export of
+                    biological specimens for taxonomic study. As a result, fewer specimens reach
+                    international specialists, slowing the pace of formal species descriptions.
+                </p>
+                <p>
+                    This situation highlights the urgent need to strengthen taxonomic research capacity
+                    within Nepal. Developing local expertise, research infrastructure, and laboratory
+                    facilities is essential. We are planning to collaborate with national and
+                    international taxonomists, universities, and funding agencies to promote
+                    integrative taxonomy and phylogeographic research conducted inside Nepal.
+                    Such efforts will help revitalize systematic studies and accelerate the
+                    documentation of Nepal's millipede diversity.
+                </p>
+
+                <h3>Why are we interested in millipedes?</h3>
+                <p>
+                    During M.Sc., we aimed to explore a relatively understudied
+                    biological group within the context of Nepal. Under the guidance of my
+                    professor as well as supervisor, we focused on the class Diplopoda (millipedes).
+                    Lokendra Chand conducted a comprehensive taxonomic study of millipedes from urban forest
+                    patches in the Kathmandu Valley, emphasizing species identification based
+                    on <b>gonopod morphology</b>. After this, we compiled the checklist of millipedes, we found that the whole western and southern parts are unexplored and possibility of founding new species in explored area is also high (experience during thesis). All the species identified and described on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts.
+                </p>
+                <p>
+                    The discovery of high levels of endemism and previously undocumented diversity
+                    significantly deepened our interest in Nepalese millipedes. This experience
+                    reinforced the importance of continued taxonomic exploration and conservation
+                    of Nepal's unique and largely unexplored millipede fauna.
+                </p>
+            </div>
+        </section>
+
+        <!-- ====== TAXONOMIST GALLERY ====== -->
+        <section class="content-card">
+            <div class="taxonomist-gallery">
+                <div class="section-title-wrap">
+                    <h2>Taxonomists of Nepalese Millipedes</h2>
+                </div>
+                <div class="taxonomist-grid">
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="carlj.jpg" alt="J. Carl" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇨🇭</div>
+                        <h3>J. Carl</h3>
+                        <div class="taxonomist-country">🇨🇭 Switzerland</div>
+                        <p>First descriptions (1935)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="attems.jpg" alt="Carl Attems" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇦🇹</div>
+                        <h3>Carl Attems</h3>
+                        <div class="taxonomist-country">🇦🇹 Austria</div>
+                        <p>Genus <i>Kophosphaera</i> (1936)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="demange.jpg" alt="J. M. Demange" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇫🇷</div>
+                        <h3>J.M. Demange</h3>
+                        <div class="taxonomist-country">🇫🇷 France</div>
+                        <p><i>Gonoplectus</i> spp. (1961)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="shear.jpg" alt="William A. Shear" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇺🇸</div>
+                        <h3>William A. Shear</h3>
+                        <div class="taxonomist-country">🇺🇸 USA</div>
+                        <p>Nepalellinae, <i>Tianella</i> (1979,1987)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="mauries.jpg" alt="Jean-Paul Mauriès" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇫🇷</div>
+                        <h3>Jean-Paul Mauriès</h3>
+                        <div class="taxonomist-country">🇫🇷 France</div>
+                        <p>Cambalopsidae, Julidae (1983,1988)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="golovatch.jpg" alt="Sergei Ilyich Golovatch" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇷🇺</div>
+                        <h3>Sergei Ilyich Golovatch</h3>
+                        <div class="taxonomist-country">🇷🇺 Russia</div>
+                        <p>Most prolific describer (1986–2023)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="enghoff.jpg" alt="Henrik Enghoff" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇩🇰</div>
+                        <h3>Henrik Enghoff</h3>
+                        <div class="taxonomist-country">🇩🇰 Denmark</div>
+                        <p><i>Nepalmatoiulus</i> revision (1987)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="korsos.jpg" alt="Zoltán Korsós" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇭🇺</div>
+                        <h3>Zoltán Korsós</h3>
+                        <div class="taxonomist-country">🇭🇺 Hungary</div>
+                        <p><i>Anaulaciulus</i>, Siphonocryptida</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="geoffroy.png" alt="Jean-Jacques Geoffroy" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇫🇷</div>
+                        <h3>Jean-Jacques Geoffroy</h3>
+                        <div class="taxonomist-country">🇫🇷 France</div>
+                        <p><i>Hirudicryptus</i> (2009)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="shelley.jpg" alt="Rowland M. Shelley" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇺🇸</div>
+                        <h3>Rowland M. Shelley</h3>
+                        <div class="taxonomist-country">🇺🇸 USA</div>
+                        <p><i>Nepalozonium</i> (1996)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="vanden.jpg" alt="Didier VandenSpiegel" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇧🇪</div>
+                        <h3>Didier VandenSpiegel</h3>
+                        <div class="taxonomist-country">🇧🇪 Belgium</div>
+                        <p><i>Koponenius</i> (2014,2016)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="wesner.jpg" alt="Thomas Wesener" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇩🇪</div>
+                        <h3>Thomas Wesener</h3>
+                        <div class="taxonomist-country">🇩🇪 Germany</div>
+                        <p>Giant Pill-Millipedes (2015)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="mikhaljova.jpg" alt="Elena V. Mikhaljova" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇷🇺</div>
+                        <h3>Elena V. Mikhaljova</h3>
+                        <div class="taxonomist-country">🇷🇺 Russia</div>
+                        <p><i>Nepalmatoiulus</i> (2025)</p>
+                    </div>
+
+                    <div class="taxonomist-card">
+                        <img class="taxonomist-photo-img" src="jochen.jpg" alt="Jochen Martens" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-icon" style="display: none;">🇩🇪</div>
+                        <h3>Jochen Martens</h3>
+                        <div class="taxonomist-country">🇩🇪 Germany</div>
+                        <p>Collected most specimens along trekking routes in Nepal</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== REFERENCES ====== -->
+        <section class="content-card">
+            <div class="ref-section">
+                <h2 class="ref-header">References</h2>
+                <ul class="ref-list">
+                    <li>Attems, C. (1936). Diplopoda of India. <i>Memoirs of the Indian Museum</i>, <i>11</i>(4), 133–323.</li>
+
+                    <li>Carl, J. (1935). Polydesmiden gesammelt von Major R.W. Hingston auf der III. Everest Expedition 1924. <i>Revue Suisse de Zoologie</i>, <i>42</i>(10), 325–340.</li>
+
+                    <li>Demange, J.-M. (1961). Matériaux pour servir a une révision des Harpagophoridae (Myriapodes-Diplopodes). <i>Mémoires du Muséum national d'histoire naturelle</i>, <i>24</i>, 1–274.</li>
+
+                    <li>Enghoff, H. (1987). Revision of Nepalmatoiulus Mauries 1983 - a Southeast Asiatic genus of millipedes (Diplopoda: Julida: Julidae). <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 241–331.</li>
+
+                    <li>Golovatch, S. I. (1986). Diplopoda from the Nepal Himalayas: Polydesmidae, Fuhrmannodesmidae. <i>Senckenbergiana Biologica</i>, <i>66</i>(4/6), 345–369.</li>
+
+                    <li>Golovatch, S. I. (1987a). Diplopoda from the Nepal Himalayas. Opisotretidae, additional Polydesmidae and Fuhrmannodesmidae. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 203–217.</li>
+
+                    <li>Golovatch, S. I. (1987b). Diplopoda from the Nepal Himalayas. Glomeridae, additional Opisotretidae. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 219–228.</li>
+
+                    <li>Golovatch, S. I. (1990a). Diplopoda from the Nepal Himalayas. The first Paradoxosomatidae (Polydesmida). <i>Spixiana</i>, <i>13</i>(1), 9–24.</li>
+
+                    <li>Golovatch, S. I. (1990b). Diplopoda from the Nepal Himalayas. Several additional Polydesmidae and Fuhrmannodesmidae (Polydesmida). <i>Spixiana</i>, <i>13</i>(3), 237–252.</li>
+
+                    <li>Golovatch, S. I. (1992). Diplopoda from the Nepal Himalayas. Some additional Paradoxosomatidae. <i>Senckenbergiana Biologica</i>, <i>72</i>(1–3), 183–203.</li>
+
+                    <li>Golovatch, S. I. (2014). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVI. <i>Arthropoda Selecta</i>, <i>23</i>(3), 227–251.</li>
+
+                    <li>Golovatch, S. I. (2015). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVII. <i>Arthropoda Selecta</i>, <i>24</i>(2), 127–168.</li>
+
+                    <li>Golovatch, S. I. (2016a). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XVIII. <i>Arthropoda Selecta</i>, <i>25</i>(1), 1–18.</li>
+
+                    <li>Golovatch, S. I. (2016b). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XIX. <i>Arthropoda Selecta</i>, <i>25</i>(2), 131–152.</li>
+
+                    <li>Golovatch, S. I., &amp; VandenSpiegel, D. (2014). <i>Koponenius</i> gen. nov., a new genus of the millipede family Haplodesmidae from the Himalayas of India and Nepal (Diplopoda: Polydesmida). <i>Zootaxa</i>, <i>3894</i>(1), 141–151. <a href="https://doi.org/10.11646/zootaxa.3894.1.11" target="_blank" rel="noopener noreferrer">https://doi.org/10.11646/zootaxa.3894.1.11</a></li>
+
+                    <li>Golovatch, S. I., &amp; VandenSpiegel, D. (2016). A new species of the millipede genus <i>Koponenius</i> Golovatch et VandenSpiegel, 2014, from Nepal (Diplopoda: Polydesmida: Haplodesmidae). <i>Russian Entomological Journal</i>, <i>25</i>(1), 219–223.</li>
+
+                    <li>Golovatch, S. I., VandenSpiegel, D., &amp; Semenyuk, I. I. (2016). On several new or poorly-known Oriental Paradoxosomatidae (Diplopoda: Polydesmida), XXI. <i>Arthropoda Selecta</i>, <i>25</i>(4), 335–354.</li>
+
+                    <li>Korsós, Z. (2001). Diplopoda from the Nepal Himalaya: towards the clarification of the genus <i>Anaulaciulus</i> Pocock 1895 (Diplopoda, Julida, Julidae, Brachyiulini). <i>Senckenbergiana Biologica</i>, <i>81</i>(1-2), 61–86.</li>
+
+                    <li>Korsós, Z., Geoffroy, J. J., &amp; Mauriès, J. P. (2009). The fifth element: reconnection of the disjunct distribution of the members of Siphonocryptida (Diplopoda) with the description of a new species from Nepal. <i>Journal of Natural History</i>, <i>43</i>(7-8), 435–445.</li>
+
+                    <li>Martens, J., &amp; Waßmann, C. (1987). Remarks on my Himalayan expeditions. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 7–31.</li>
+
+                    <li>Mauriès, J. P. (1983a). Myriapodes du Nepal (Mission I. Löbl et A. Smetana 1981) I. Diplopodes Iuliformes (Iulida, Cambalida et Spirostreptida - <i>Nepalmatoiulus</i> nov. subgen. <i>Revue Suisse de Zoologie</i>, <i>90</i>(1), 127–138.</li>
+
+                    <li>Mauriès, J. P. (1983b). Une famille nouvelle et deux genres nouveaux de Cleidogonoidea, avec notes sur la classification de la superfamille (Diplopoda, Craspedosomida). <i>Steenstrupia</i>, <i>8</i>(6), 165–187.</li>
+
+                    <li>Mauriès, J. P. (1988). Myriapodes du Nepal II. Diplopodes Craspedosomides nouveaux de l'Himalaya et de la region indo-malaise (Craspedosomidea et Chordeumidea). <i>Revue Suisse de Zoologie</i>, <i>95</i>(1), 179–258.</li>
+
+                    <li>Mikhaljova, E. V. (2025). The millipede genus <i>Nepalmatoiulus</i> Mauriès, 1983 (Diplopoda, Julidae) in Nepal, with descriptions of two new species. <i>Zootaxa</i>, <i>5706</i>(3), 426–438. <a href="https://doi.org/10.11646/zootaxa.5706.3.6" target="_blank" rel="noopener noreferrer">https://doi.org/10.11646/zootaxa.5706.3.6</a></li>
+
+                    <li>Shear, W. A. (1979). Diplopoda from the Nepal Himalayas. Chordeumida with comments on the Asian chordeumid fauna. <i>Senckenbergiana Biologica</i>, <i>60</i>(1-2), 115–130.</li>
+
+                    <li>Shear, W. A. (1987). Chordeumatid Diplopoda from the Nepal Himalayas, II. <i>Courier Forschungsinstitut Senckenberg</i>, <i>93</i>, 229–240.</li>
+
+                    <li>Shelley, R. M. (1996). <i>Nepalozonium trimaculatum</i>, n. gen., n. sp. (Diplopoda: Polyzoniida: Hirudisomatidae): first record of the order and family from Central Asia. <i>Proceedings of the Entomological Society of Washington</i>, <i>98</i>(4), 677–680.</li>
+
+                    <li>Sierwald, P., &amp; Spelda, J. (2026). MilliBase. <a href="https://www.millibase.org" target="_blank" rel="noopener noreferrer">https://www.millibase.org</a></li>
+
+                    <li>Thapa, V. K. (2019). <i>Invertebrate fauna of Nepal (excluding insects)</i> (pp. 241–298). Kathmandu, Nepal.</li>
+
+                    <li>Wesener, T. (2015). The Giant Pill-Millipedes of Nepal (Diplopoda, Sphaerotheriida, Zephroniidae). <i>Zootaxa</i>, <i>3964</i>(3), 301–320. <a href="https://doi.org/10.11646/zootaxa.3964.3.1" target="_blank" rel="noopener noreferrer">https://doi.org/10.11646/zootaxa.3964.3.1</a></li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+        <p>© <span id="footerYear">2026</span> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    </footer>
+
+    <!-- ============ SCRIPTS ============ -->
+    <script>
+        // ============================================
+        // NAVIGATION: MOBILE TOGGLE
+        // ============================================
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
         });
-    }
-}
 
-// Initialize clock on page load and update every second
-window.addEventListener('DOMContentLoaded', function() {
-    updateClock();
-    setInterval(updateClock, 1000);
-});
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('show');
+            });
+        });
 
-// Handle image loading errors
-const images = document.querySelectorAll('img');
-images.forEach(img => {
-    img.addEventListener('error', function() {
-        console.log('Image failed to load:', this.src);
-    });
-});
-</script>
+        // ============================================
+        // CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
+        // ============================================
+
+        function getNepalTime() {
+            var now = new Date();
+            var nepalOffset = 5.75 * 60 * 60 * 1000;
+            var utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+            return new Date(utcTime + nepalOffset);
+        }
+
+        function updateClock() {
+            var now = getNepalTime();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            var hourHand = document.getElementById('hourHand');
+            var minuteHand = document.getElementById('minuteHand');
+            var secondHand = document.getElementById('secondHand');
+
+            if (hourHand) {
+                hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
+            }
+            if (minuteHand) {
+                minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
+            }
+            if (secondHand) {
+                secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
+            }
+
+            var englishDate = document.getElementById('englishDate');
+            if (englishDate) {
+                englishDate.textContent = now.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            }
+        }
+
+        // ============================================
+        // FOOTER YEAR
+        // ============================================
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+        // ============================================
+        // INITIALIZE CLOCK
+        // ============================================
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
 
 </body>
 </html>
