@@ -6,16 +6,16 @@
     <title>Millipedes of Nepal</title>
     <meta name="description" content="Discover the diverse millipede fauna of Nepal. Complete checklist, distribution maps, identification guides, and research articles on Nepalese Diplopoda.">
     <meta name="keywords" content="millipedes, Nepal, Diplopoda, biodiversity, taxonomy, checklist">
-    <link rel="canonical" href="[https://www.chandlokendra.com.np/](https://www.chandlokendra.com.np/)">
+    <link rel="canonical" href="https://www.chandlokendra.com.np/">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     
     <!-- Leaflet CSS for Map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
-    <!-- Shared Styles - Embedded -->
     <style>
         /* ============================================
            Millipedes of Nepal - Unified Style Sheet
-           Version: 3.0 - Common styles for all pages
+           Version: 3.1 - Common styles for all pages
            ============================================ */
 
         /* ============ RESET & BASE ============ */
@@ -61,6 +61,24 @@
             --orange: #fd7e14;
             --whatsapp: #25D366;
             --gmail: #D44638;
+        }
+
+        /* ============ SKIP TO CONTENT ============ */
+        .skip-link {
+            position: absolute;
+            top: -1000px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #000;
+            padding: 10px 20px;
+            z-index: 10000;
+            font-weight: bold;
+            border-radius: 0 0 8px 8px;
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 0;
         }
 
         /* ============ UTILITY CLASSES ============ */
@@ -344,7 +362,6 @@
         .number-10 { color: #2ecc71; top: 27%; left: 19%; }
         .number-11 { color: #3498db; top: 14%; left: 33%; }
 
-        /* Date display - FONT SIZE DOUBLED */
         .clock-date {
             font-size: 18px;
             font-weight: bold;
@@ -374,7 +391,31 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
             gap: 5px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid white;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3px;
         }
 
         nav a {
@@ -422,16 +463,6 @@
             font-weight: bold;
         }
 
-        /* Mobile Menu Toggle */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.8rem;
-            cursor: pointer;
-        }
-
         /* ============ MAIN CONTENT ============ */
         main {
             flex: 1;
@@ -441,9 +472,9 @@
             margin: 0 auto;
         }
 
-        /* Section Cards */
-        .featured {
-            background-color: var(--bg-white);
+        /* ============ UNIFIED CONTENT CARDS ============ */
+        .content-card {
+            background: var(--bg-white);
             border-radius: 10px;
             padding: 35px;
             margin-bottom: 40px;
@@ -454,27 +485,12 @@
             width: 100%;
         }
 
-        .featured:hover {
+        .content-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .content-block {
-            margin-bottom: 35px;
-            padding: 0;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            animation: fadeInUp 0.8s ease-out;
-            width: 100%;
-        }
-
-        .content-block:hover {
-            transform: none;
-            box-shadow: none;
-        }
-
-        .content-block h2 {
+        .content-card h2 {
             color: var(--primary-blue);
             border-bottom: 3px solid var(--primary-blue);
             padding-bottom: 12px;
@@ -483,22 +499,63 @@
             font-family: 'Times New Roman', Times, serif;
         }
 
-        .content-block p {
+        .content-card p {
             font-size: 1.2rem;
             margin-bottom: 15px;
             color: #333;
             font-family: 'Times New Roman', Times, serif;
         }
 
-        .featured h3 {
-            font-size: 2rem;
+        .content-card h3 {
+            font-size: 1.8rem;
             margin-bottom: 20px;
             text-align: center;
             color: var(--primary-blue);
             font-family: 'Times New Roman', Times, serif;
         }
 
-        /* Image Row */
+        /* ============ NEPALI NAMES ============ */
+        .nepali-names {
+            font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
+            background: var(--blue-bg);
+            padding: 25px 30px;
+            border-radius: 8px;
+            line-height: 2.2;
+            border-left: 6px solid var(--primary-blue);
+            font-size: 1.4rem;
+            word-spacing: 8px;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .nepali-names:hover {
+            background: #d4e6f1;
+            border-left-width: 8px;
+        }
+
+        /* ============ ALTITUDE SECTION ============ */
+        .altitude-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .altitude-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .altitude-caption {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* ============ IMAGE ROW ============ */
         .image-row {
             display: flex;
             gap: 20px;
@@ -544,61 +601,7 @@
             font-family: 'Times New Roman', Times, serif;
         }
 
-        /* Nepali text styling */
-        .nepali-names {
-            font-family: 'Noto Sans Devanagari', 'Preeti', 'Times New Roman', serif;
-            background: var(--blue-bg);
-            padding: 25px 30px;
-            border-radius: 8px;
-            line-height: 2.2;
-            border-left: 6px solid var(--primary-blue);
-            font-size: 1.4rem;
-            word-spacing: 8px;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-            width: 100%;
-        }
-
-        .nepali-names:hover {
-            background: #d4e6f1;
-            border-left-width: 8px;
-        }
-
-        /* Attribution Note */
-        .attribution-note {
-            background: #fef9e6;
-            border-left: 5px solid var(--gold);
-            padding: 20px 25px;
-            margin: 25px 0 20px 0;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            color: #555;
-            line-height: 1.7;
-            font-family: 'Times New Roman', Times, serif;
-        }
-
-        /* Altitude section */
-        .altitude-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .altitude-img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .altitude-caption {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 10px;
-            font-style: italic;
-            font-family: 'Times New Roman', Times, serif;
-        }
-
-        /* Video section */
+        /* ============ VIDEO SECTION ============ */
         .video-section {
             margin-top: 30px;
             padding-top: 20px;
@@ -615,17 +618,13 @@
         }
 
         .video-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
             width: 100%;
         }
 
         .video-col {
-            flex: 1;
-            min-width: 280px;
-            max-width: clamp(280px, 20% - 16px, 100%);
             background: #f5f5f5;
             border-radius: 15px;
             overflow: hidden;
@@ -672,23 +671,18 @@
             margin-top: 5px;
         }
 
-        /* World Map Section */
+        /* ============ WORLD MAP SECTION ============ */
         .world-map-section {
             margin-top: 20px;
-            margin-bottom: 40px;
-            background: white;
-            border-radius: 10px;
-            padding: 35px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 1px solid #e0e0e0;
-            width: 100%;
+            margin-bottom: 0;
         }
 
-        .world-map-section h4 {
-            font-size: 1.5rem;
+        .world-map-section h2 {
             color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+            padding-bottom: 12px;
             margin-bottom: 20px;
-            text-align: center;
+            font-size: 2rem;
             font-family: 'Times New Roman', Times, serif;
         }
 
@@ -862,6 +856,7 @@
             nav { padding: 15px 5%; }
             main { padding: 30px 5%; }
             footer { padding: 30px 5%; }
+            .content-card { padding: 30px; }
         }
 
         @media (max-width: 992px) {
@@ -873,21 +868,18 @@
             .analog-clock { width: 80px; height: 80px; }
             .clock-container { min-width: 170px; }
             .right-group { gap: 1px; }
-            .video-col { min-width: 300px; max-width: calc(33.33% - 14px); }
+            .video-row { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
         }
 
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
             }
-            nav {
-                flex-direction: column;
-                align-items: center;
-            }
             .nav-links {
                 display: none;
                 flex-direction: column;
                 width: 100%;
+                gap: 2px;
             }
             .nav-links.show {
                 display: flex;
@@ -895,6 +887,8 @@
             nav a {
                 width: 100%;
                 text-align: center;
+                padding: 10px;
+                margin: 0;
             }
             
             .header-container {
@@ -905,9 +899,10 @@
             .header-logo { height: 70px; margin-bottom: 5px; }
             .header-text h1 { font-size: 2rem; }
             .header-text p { font-size: 1.1rem; }
-            nav a { padding: 6px 10px; font-size: 0.85rem; }
-            main { padding: 30px 5%; }
-            .content-block h2 { font-size: 1.7rem; }
+            main { padding: 20px 4%; }
+            .content-card { padding: 25px; }
+            .content-card h2 { font-size: 1.7rem; }
+            .content-card h3 { font-size: 1.5rem; }
             
             .right-group { 
                 justify-content: center;
@@ -915,27 +910,33 @@
             }
             .millipede-icon { height: 110px; max-width: 190px; }
             .analog-clock { width: 70px; height: 70px; }
-            /* Mobile date font - also doubled */
             .clock-date { font-size: 16px; }
             
-            .video-row .video-col { min-width: 100%; max-width: 100%; }
+            .video-row { grid-template-columns: 1fr; }
             .image-row { flex-direction: column; }
             .featured-img { aspect-ratio: 4/3; }
-            #worldMap { height: 400px; }
+            #worldMap { height: 350px; }
             
             footer p { font-size: 1rem; }
+            .nepali-names { font-size: 1.1rem; padding: 15px 20px; }
         }
 
         @media (max-width: 480px) {
-            .header-text h1 { font-size: 1.8rem; }
-            .header-text p { font-size: 1rem; }
-            .header-logo { height: 55px; }
-            .millipede-icon { height: 90px; max-width: 150px; }
-            .analog-clock { width: 60px; height: 60px; }
-            .clock-container { min-width: 150px; }
+            .header-text h1 { font-size: 1.5rem; }
+            .header-text p { font-size: 0.9rem; }
+            .header-logo { height: 50px; }
+            .millipede-icon { height: 80px; max-width: 130px; }
+            .analog-clock { width: 55px; height: 55px; }
+            .clock-container { min-width: 130px; }
             .right-group { gap: 0px; }
-            .clock-date { font-size: 14px; padding: 2px 10px; }
+            .clock-date { font-size: 13px; padding: 2px 8px; }
+            .content-card { padding: 18px; }
+            .content-card h2 { font-size: 1.4rem; }
+            .content-card p { font-size: 1rem; }
             .featured-img { aspect-ratio: 4/3; }
+            #worldMap { height: 280px; }
+            .nepali-names { font-size: 0.95rem; padding: 12px 15px; line-height: 1.8; }
+            .scientific-name { font-size: 1rem; }
         }
 
         @media (min-width: 1600px) {
@@ -950,243 +951,298 @@
             .clock-container { min-width: 240px; }
             .right-group { gap: 3px; }
             .clock-date { font-size: 22px; }
+            .video-row { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
-             onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
-        
-        <div class="header-text">
-            <h1>Millipedes of Nepal</h1>
-            <p>Discover · Document · Conserve</p>
-        </div>
-        
-        <div class="right-group">
-            <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
-                 onerror="this.style.display='none'">
+    <!-- ============ SKIP TO CONTENT ============ -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <div class="header-container">
+            <img src="logo.png" alt="Millipedes of Nepal Logo" class="header-logo" 
+                 onerror="this.style.opacity='0.7'; this.style.background='#1a5276'; this.style.padding='10px'; this.style.borderRadius='12px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%231a5276\'/%3E%3Ctext x=\'100\' y=\'110\' font-size=\'22\' text-anchor=\'middle\' fill=\'white\'%3EMillipede%3C/text%3E%3C/svg%3E'">
             
-            <div class="clock-container">
-                <div class="analog-clock">
-                    <div class="clock-face">
-                        <div class="clock-ring"></div>
-                        <div class="hand hour-hand" id="hourHand"></div>
-                        <div class="hand minute-hand" id="minuteHand"></div>
-                        <div class="hand second-hand" id="secondHand"></div>
-                        <div class="clock-center"></div>
-                        <div class="clock-numbers">
-                            <div class="number number-12">12</div>
-                            <div class="number number-1">1</div>
-                            <div class="number number-2">2</div>
-                            <div class="number number-3">3</div>
-                            <div class="number number-4">4</div>
-                            <div class="number number-5">5</div>
-                            <div class="number number-6">6</div>
-                            <div class="number number-7">7</div>
-                            <div class="number number-8">8</div>
-                            <div class="number number-9">9</div>
-                            <div class="number number-10">10</div>
-                            <div class="number number-11">11</div>
+            <div class="header-text">
+                <h1>Millipedes of Nepal</h1>
+                <p>Discover · Document · Conserve</p>
+            </div>
+            
+            <div class="right-group">
+                <img src="milli.png" alt="Millipede Icon" class="millipede-icon" 
+                     onerror="this.style.display='none'">
+                
+                <div class="clock-container">
+                    <div class="analog-clock">
+                        <div class="clock-face">
+                            <div class="clock-ring"></div>
+                            <div class="hand hour-hand" id="hourHand"></div>
+                            <div class="hand minute-hand" id="minuteHand"></div>
+                            <div class="hand second-hand" id="secondHand"></div>
+                            <div class="clock-center"></div>
+                            <div class="clock-numbers">
+                                <div class="number number-12">12</div>
+                                <div class="number number-1">1</div>
+                                <div class="number number-2">2</div>
+                                <div class="number number-3">3</div>
+                                <div class="number number-4">4</div>
+                                <div class="number number-5">5</div>
+                                <div class="number number-6">6</div>
+                                <div class="number number-7">7</div>
+                                <div class="number number-8">8</div>
+                                <div class="number number-9">9</div>
+                                <div class="number number-10">10</div>
+                                <div class="number number-11">11</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clock-date" id="englishDate">--</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============ NAVIGATION ============ -->
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">☰ Menu</button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="active">Home</a>
+            <a href="history.html">History</a>
+            <a href="checklist.html">Checklist</a>
+            <a href="distribution.html">Distribution</a>
+            <a href="introkey.html">Introduction and Identification</a>
+            <a href="articles.html">Articles</a>
+            <a href="gallery.html">Gallery</a> 
+            <a href="upload.html">Upload</a>
+            <a href="team.html">Team</a>
+            <a href="faq.html">FAQ</a>
+        </div>
+    </nav>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main id="main-content">
+
+        <!-- ====== MISSION SECTION ====== -->
+        <section class="content-card">
+            <h2>Our Mission</h2>
+            <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts. Our mission is to advance the understanding of millipede biodiversity in Nepal through comprehensive field collection from diverse geographical regions, followed by accurate species-level identification using integrated morphological and molecular analysis, detailed documentation, and long-term specimen preservation.</p>
+        </section>
+
+        <!-- ====== NEPALI NAMES SECTION ====== -->
+        <section class="content-card">
+            <h2>Common Nepali Names (नेपाली नामहरु)</h2>
+            <div class="nepali-names">
+                ओरिगाँठे, ग्याल्डुङ, अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल, अंगालबेद्दी, फाल्ले, बहुखुट्टे कीरा, हजारखुट्टे कीरा
+            </div>
+
+            <!-- ====== WORLD MAP SECTION ====== -->
+            <div class="world-map-section">
+                <h2>Nepal in the World Map</h2>
+                <div id="worldMap"></div>
+                <p class="map-caption">Nepal is located in South Asia, between China and India</p>
+            </div>
+        </section>
+
+        <!-- ====== ALTITUDE SECTION ====== -->
+        <section class="content-card">
+            <h2>Nepal's Elevation Gradient: From Terai to Everest</h2>
+            <div class="altitude-container">
+                <img src="altitude1.png" alt="Nepal altitude profile showing elevation gradient from Terai to Everest" class="altitude-img" loading="lazy">
+                <p class="altitude-caption">Nepal's diverse topography creates unique microhabitats for millipede species across different elevations.</p>
+            </div>
+        </section>
+
+        <!-- ====== FEATURED MILLIPEDES SECTION ====== -->
+        <section class="content-card">
+            <h3>Beautiful Millipedes from Nepal</h3>
+            
+            <div class="image-row">
+                <div class="image-col">
+                    <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img" loading="lazy">
+                    <p><span class="scientific-name">Gonoplectus malayus</span>, Spirostreptida, Harpagophoridae<br>
+                    <span class="location">Location: Dang Valley, Nepal</span></p>
+                </div>
+                <div class="image-col">
+                    <img src="gono7.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img" loading="lazy">
+                    <p><span class="scientific-name">Gonoplectus</span> sp., Spirostreptida, Harpagophoridae<br>
+                    <span class="location">Location: Dang Valley, Nepal</span></p>
+                </div>
+            </div>
+
+            <!-- ====== VIDEO SECTION ====== -->
+            <div class="video-section">
+                <h4>Watch Millipedes in Action</h4>
+                <div class="video-row">
+                    <div class="video-col">
+                        <video controls preload="metadata">
+                            <source src="vid1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">
+                            <p><span class="scientific-name">Chondromorpha greke</span> mating</p>
+                            <p class="location">Dang Valley, Nepal</p>
+                        </div>
+                    </div>
+                    <div class="video-col">
+                        <video controls preload="metadata">
+                            <source src="vid2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">
+                            <p><span class="scientific-name">Siphonorhinus</span> sp. in leaf litter</p>
+                            <p class="location">Forest floor, Dang Valley, Nepal</p>
+                        </div>
+                    </div>
+                    <div class="video-col">
+                        <video controls preload="metadata">
+                            <source src="vid3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">
+                            <p><span class="scientific-name">Gonoplectus</span> sp. walking</p>
+                            <p class="location">Salyan, Nepal</p>
+                        </div>
+                    </div>
+                    <div class="video-col">
+                        <video controls preload="metadata">
+                            <source src="vid4.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">
+                            <p><span class="scientific-name">Streptogonopus phipsoni</span> mating</p>
+                            <p class="location">Dang Valley, Nepal</p>
+                        </div>
+                    </div>
+                    <div class="video-col">
+                        <video controls preload="metadata">
+                            <source src="vid5.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">
+                            <p>Polydesmid on tree</p>
+                            <p class="location">Dang Valley, Nepal</p>
                         </div>
                     </div>
                 </div>
-                <!-- Digital clock removed -->
-                <div class="clock-date" id="englishDate">--</div>
             </div>
-        </div>
-    </div>
-</header>
+        </section>
 
-<nav>
-    <a href="index.html" class="active">Home</a>
-    <a href="history.html">History</a>
-    <a href="checklist.html">Checklist</a>
-    <a href="distribution.html">Distribution</a>
-    <a href="introkey.html">Introduction and Identification</a>
-    <a href="articles.html">Articles</a>
-    <a href="gallery.html">Gallery</a> 
-    <a href="upload.html">Upload</a>
-    <a href="team.html">Team</a>
-    <a href="faq.html">FAQ</a>
-</nav>
+    </main>
 
-<main>
-    <div class="content-block">
-        <h2>Our Mission</h2>
-        <p>Nepal is rich in Diplopod fauna. After compiling the checklist of millipedes, we found that the whole western and southern parts are unexplored. All the species identified on the basis of morphology. Integrative taxonomy may also discover new species from explored area as well as unexplored parts. Our mission is to advance the understanding of millipede biodiversity in Nepal through comprehensive field collection from diverse geographical regions, followed by accurate species-level identification using integrated morphological and molecular analysis, detailed documentation, and long-term specimen preservation.</p>
-    </div>
-        <div class="content-block">
-        <h2>Common Nepali Names (नेपाली नामहरु)</h2>
-        <div class="nepali-names">
-            ओरिगाँठे, ग्याल्डुङ, अरिमठ्ठे, डाॅगुल, ढेडो ओड्याल, ओलेङरा, आडिखोडे, आडिखुडे, आरिगोडे, आलुगिरे, अल्माणे, ध्योरल, ओर्याङ्ला, ढोरियाल, अंगालबेद्दी, फाल्ले, बहुखुट्टे कीरा, हजारखुट्टे कीरा
-        </div>
-        <div class="world-map-section">
-        <h4>Nepal in the World Map</h4>
-        <div id="worldMap"></div>
-        <p class="map-caption">Nepal is located in South Asia, between China and India</p>
-    </div>
-        
-            <div class="content-block">
-        <h2>Nepal's Elevation Gradient: From Terai to Everest</h2>
-        <div class="altitude-container">
-            <img src="altitude1.png" alt="Nepal altitude profile" class="altitude-img" loading="lazy">
-            <p class="altitude-caption">Nepal's diverse topography creates unique microhabitats for millipede species across different elevations.</p>
-        </div>
-    <section class="featured">
-        <h3>Beautiful Millipedes from Nepal</h3>
-        
-        <div class="image-row">
-            <div class="image-col">
-                <img src="gonoplectus.jpg" alt="Gonoplectus malayus from Dang Valley" class="featured-img" loading="lazy">
-                <p><span class="scientific-name">Gonoplectus malayus</span>, Spirostreptida, Harpagophoridae<br>
-                <span class="location">Location: Dang Valley, Nepal</span></p>
-            </div>
-            <div class="image-col">
-                <img src="gono7.jpg" alt="Gonoplectus sp. from Dang Valley" class="featured-img" loading="lazy">
-                <p><span class="scientific-name">Gonoplectus</span> sp., Spirostreptida, Harpagophoridae<br>
-                <span class="location">Location: Dang Valley, Nepal</span></p>
-            </div>
-        </div>
-        
-        <div class="video-section">
-            <h4>Watch Millipedes in Action</h4>
-            <div class="video-row">
-                <div class="video-col">
-                    <video controls preload="metadata">
-                        <source src="vid1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><span class="scientific-name">Chondromorpha greke</span> mating</p>
-                        <p class="location">Dang Valley, Nepal</p>
-                    </div>
-                </div>
-                <div class="video-col">
-                    <video controls preload="metadata">
-                        <source src="vid2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><span class="scientific-name">Siphonorhinus</span> sp. in leaf litter</p>
-                        <p class="location">Forest floor, Dang Valley, Nepal</p>
-                    </div>
-                </div>
-                <div class="video-col">
-                    <video controls preload="metadata">
-                        <source src="vid3.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><span class="scientific-name">Gonoplectus</span> sp. walking</p>
-                        <p class="location">Salyan, Nepal</p>
-                    </div>
-                </div>
-                <div class="video-col">
-                    <video controls preload="metadata">
-                        <source src="vid4.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><span class="scientific-name">Streptogonopus phipsoni</span> mating</p>
-                        <p class="location">Dang Valley, Nepal</p>
-                    </div>
-                </div>
-                <div class="video-col">
-                    <video controls preload="metadata">
-                        <source src="vid5.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p>Polydesmid on tree</p>
-                        <p class="location">Dang Valley, Nepal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    </div>
-    </div>
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
+        <p>© <span id="footerYear">2026</span> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
+    </footer>
 
+    <!-- ============ SCRIPTS ============ -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
 
-</main>
-
-<footer>
-    <p>📧 Questions? Contact <a href="mailto:lokendrachand56@gmail.com">lokendrachand56@gmail.com</a></p>
-    <p>© <script>document.write(new Date().getFullYear());</script> Lokendra Chand | 📞 +977-9809733313 / +817090238470</p>
-</footer>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script>
-// ============================================
-// CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
-// ============================================
-
-// Get Nepal time (UTC+5:45)
-function getNepalTime() {
-    const now = new Date();
-    const nepalOffset = 5.75 * 60 * 60 * 1000;
-    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-    return new Date(utcTime + nepalOffset);
-}
-
-// Update clock display
-function updateClock() {
-    const now = getNepalTime();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    
-    const hourHand = document.getElementById('hourHand');
-    const minuteHand = document.getElementById('minuteHand');
-    const secondHand = document.getElementById('secondHand');
-    
-    if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
-    if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6}deg)`;
-    if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
-    
-    // Update English date
-    const englishDate = document.getElementById('englishDate');
-    if (englishDate) {
-        englishDate.innerHTML = now.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
+    <script>
+        // ============================================
+        // NAVIGATION: MOBILE TOGGLE
+        // ============================================
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
         });
-    }
-}
 
-// Initialize clock on page load and update every second
-window.addEventListener('DOMContentLoaded', function() {
-    updateClock();
-    setInterval(updateClock, 1000);
-});
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('show');
+            });
+        });
 
-// Initialize world map
-document.addEventListener('DOMContentLoaded', function() {
-    var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: 'OpenStreetMap contributors',
-        subdomains: 'abcd',
-        maxZoom: 19
-    }).addTo(worldMap);
-    
-    L.marker([28.3949, 84.1240]).bindPopup('<b>🇳🇵 नेपाल (Nepal)</b><br>South Asia<br>Between China and India').openPopup().addTo(worldMap);
-    L.circle([28.3949, 84.1240], { color: '#1a5276', fillColor: '#2980b9', fillOpacity: 0.2, radius: 300000 }).addTo(worldMap);
-});
+        // ============================================
+        // CLOCK AND DATE FUNCTIONS - NEPAL TIME (UTC+5:45)
+        // ============================================
 
-// Handle image loading errors
-const images = document.querySelectorAll('img');
-images.forEach(img => {
-    img.addEventListener('error', function() {
-        console.log('Image failed to load:', this.src);
-    });
-});
-</script>
+        function getNepalTime() {
+            var now = new Date();
+            var nepalOffset = 5.75 * 60 * 60 * 1000;
+            var utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+            return new Date(utcTime + nepalOffset);
+        }
+
+        function updateClock() {
+            var now = getNepalTime();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            var hourHand = document.getElementById('hourHand');
+            var minuteHand = document.getElementById('minuteHand');
+            var secondHand = document.getElementById('secondHand');
+
+            if (hourHand) {
+                hourHand.style.transform = 'translateX(-50%) rotate(' + ((hours % 12) * 30 + minutes * 0.5) + 'deg)';
+            }
+            if (minuteHand) {
+                minuteHand.style.transform = 'translateX(-50%) rotate(' + (minutes * 6) + 'deg)';
+            }
+            if (secondHand) {
+                secondHand.style.transform = 'translateX(-50%) rotate(' + (seconds * 6) + 'deg)';
+            }
+
+            var englishDate = document.getElementById('englishDate');
+            if (englishDate) {
+                englishDate.textContent = now.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            }
+        }
+
+        // ============================================
+        // FOOTER YEAR
+        // ============================================
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+        // ============================================
+        // INITIALIZE CLOCK
+        // ============================================
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ============================================
+        // WORLD MAP
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(worldMap);
+
+            L.marker([28.3949, 84.1240])
+                .bindPopup('<b>🇳🇵 नेपाल (Nepal)</b><br>South Asia<br>Between China and India')
+                .openPopup()
+                .addTo(worldMap);
+
+            L.circle([28.3949, 84.1240], {
+                color: '#1a5276',
+                fillColor: '#2980b9',
+                fillOpacity: 0.2,
+                radius: 300000
+            }).addTo(worldMap);
+        });
+
+        // ============================================
+        // IMAGE ERROR HANDLING
+        // ============================================
+        document.querySelectorAll('img').forEach(function(img) {
+            img.addEventListener('error', function() {
+                console.log('Image failed to load:', this.src);
+            });
+        });
+    </script>
 
 </body>
 </html>
