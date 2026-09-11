@@ -1376,12 +1376,11 @@
         var map = L.map('map').setView([28.3949, 84.1240], 7);
         var markersLayer = L.layerGroup().addTo(map);
 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: 'OpenStreetMap contributors, CartoDB',
-            subdomains: 'abcd',
-            maxZoom: 19,
-            minZoom: 2
-        }).addTo(map);
+ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19,
+    minZoom: 2
+}).addTo(map);
 
         L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(map);
 
