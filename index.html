@@ -1249,11 +1249,10 @@
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             var worldMap = L.map('worldMap').setView([28.0, 84.0], 3);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                attribution: '© OpenStreetMap contributors',
-                subdomains: 'abcd',
-                maxZoom: 19
-            }).addTo(worldMap);
+           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 19
+}).addTo(worldMap);
 
             L.marker([28.3949, 84.1240])
                 .bindPopup('<b>🇳🇵 नेपाल (Nepal)</b><br>South Asia<br>Between China and India')
